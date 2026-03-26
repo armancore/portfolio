@@ -151,7 +151,7 @@ export const PROJECTS = [
     category: "API",
     liveUrl: "https://www.armankhan.com.np/#/projects",
     githubUrl: "https://github.com/Arman-techiee",
-    featured: true
+    featured: false
   },
   {
     id: 3,
@@ -165,9 +165,9 @@ export const PROJECTS = [
       { label: "Tailwind CSS", color: "purple" }
     ],
     category: "Tool",
-    liveUrl: "https://www.armankhan.com.np/#/projects",
-    githubUrl: "https://github.com/Arman-techiee",
-    featured: false
+    liveUrl: "https://vibe-typer.vercel.app/",
+    githubUrl: "https://github.com/Arman-techiee/VibeTyper.git",
+    featured: true
   },
   {
     id: 4,
@@ -201,7 +201,7 @@ export const PROJECTS = [
     category: "Tool",
     liveUrl: "https://github.com/Arman-techiee/expense-tracker",
     githubUrl: "https://github.com/Arman-techiee/expense-tracker",
-    featured: true
+    featured: false
   },
   {
     id: 6,
