@@ -1,12 +1,12 @@
 import React from 'react';
 import ProfilePhoto from '../ui/ProfilePhoto';
 import Badge from '../ui/Badge';
-import { PERSONAL_INFO, PHOTO_MODE } from '../../constants';
+import { PERSONAL_INFO, PHOTO_MODE, PROJECTS } from '../../constants';
 
 const skillChips = ['MERN Stack', 'React', 'Tailwind', 'C++', 'Java', 'Python', 'Git'];
 
 const stats = [
-  { value: '4', label: 'Projects' },
+  { value: `${PROJECTS.length}`, label: 'Projects' },
   { value: '3+', label: 'Languages' },
   { value: '↗', label: 'Available', accent: true },
 ];

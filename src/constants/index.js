@@ -185,6 +185,41 @@ export const PROJECTS = [
     liveUrl: "https://www.armankhan.com.np/#/projects",
     githubUrl: "https://github.com/Arman-techiee",
     featured: false
+  },
+  {
+    id: 5,
+    num: "05",
+    title: "Professional Expense Tracker",
+    description: "Full-stack expense tracking application for recording transactions, organizing spending, and monitoring personal finances with a clean professional workflow.",
+    longDescription: "A professional expense tracker built with React and Node.js for managing day-to-day finances in one place. It focuses on practical expense logging, category-based organization, and a streamlined dashboard experience that makes it easier to understand spending patterns over time.",
+    tags: [
+      { label: "React", color: "blue" },
+      { label: "Node.js", color: "teal" },
+      { label: "Express.js", color: "orange" },
+      { label: "MongoDB", color: "purple" }
+    ],
+    category: "Tool",
+    liveUrl: "https://github.com/Arman-techiee/expense-tracker",
+    githubUrl: "https://github.com/Arman-techiee/expense-tracker",
+    featured: true
+  },
+  {
+    id: 6,
+    num: "06",
+    title: "Online Student Learning & Management Platform",
+    description: "A full-stack platform in progress for students and educational institutes to manage learning materials, academic workflows, communication, and institutional operations in one place.",
+    longDescription: "An online student learning and management platform currently under development for students and educational institutes. The product is being designed to support learning resources, institute management workflows, and a streamlined digital experience for academic collaboration.",
+    tags: [
+      { label: "React", color: "blue" },
+      { label: "Node.js", color: "teal" },
+      { label: "Express.js", color: "orange" },
+      { label: "MongoDB", color: "purple" },
+      { label: "EdTech", color: "blue" }
+    ],
+    category: "Tool",
+    liveUrl: null,
+    githubUrl: null,
+    featured: false
   }
 ];
 
@@ -207,7 +242,7 @@ export const TIMELINE = [
     year: "2025–Present",
     title: "Full-Stack Developer",
     org: "Self-directed / Personal Projects",
-    description: "Built and deployed 4 production web applications. Mastered React, API integration, authentication systems, and CI/CD pipelines with GitHub Actions.",
+    description: "Built and deployed 6 production web applications. Mastered React, API integration, authentication systems, and CI/CD pipelines with GitHub Actions.",
     tags: [
       { label: "React", color: "blue" },
       { label: "MERN Stack", color: "purple" },

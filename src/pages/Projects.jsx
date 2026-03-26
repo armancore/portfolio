@@ -16,6 +16,7 @@ const portfolioTechs = ['React 19', 'Vite 7', 'Tailwind CSS v4', 'React Router v
 const Projects = () => {
   const [active, setActive] = useState('All');
   const filtered = active === 'All' ? PROJECTS : PROJECTS.filter(p => p.category === active);
+  const portfolioProjectNum = String(PROJECTS.length + 1).padStart(2, '0');
 
   return (
     <div style={{ background: '#080B14', minHeight: '100vh' }}>
@@ -101,18 +102,30 @@ const Projects = () => {
 
                       {/* Actions */}
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '16px', gap: '12px', flexWrap: 'wrap' }}>
-                        <a href={p.liveUrl} target="_blank" rel="noopener noreferrer"
-                          style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '7px 14px', background: 'rgba(79,142,247,0.1)', border: '1px solid rgba(79,142,247,0.2)', borderRadius: '8px', fontSize: '12px', color: '#4F8EF7', fontWeight: 500, textDecoration: 'none', transition: 'all 0.2s', minWidth: 'fit-content' }}
-                          onMouseEnter={e => { e.currentTarget.style.background = 'rgba(79,142,247,0.18)'; }}
-                          onMouseLeave={e => { e.currentTarget.style.background = 'rgba(79,142,247,0.1)'; }}>
-                          Live Demo <ExternalLink size={11} />
-                        </a>
-                        <a href={p.githubUrl} target="_blank" rel="noopener noreferrer"
-                          style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '12px', color: '#4A4A6A', textDecoration: 'none', transition: 'color 0.2s' }}
-                          onMouseEnter={e => e.currentTarget.style.color = '#8B8BAE'}
-                          onMouseLeave={e => e.currentTarget.style.color = '#4A4A6A'}>
-                          <Github size={13} /> Source
-                        </a>
+                        {p.liveUrl ? (
+                          <a href={p.liveUrl} target="_blank" rel="noopener noreferrer"
+                            style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '7px 14px', background: 'rgba(79,142,247,0.1)', border: '1px solid rgba(79,142,247,0.2)', borderRadius: '8px', fontSize: '12px', color: '#4F8EF7', fontWeight: 500, textDecoration: 'none', transition: 'all 0.2s', minWidth: 'fit-content' }}
+                            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(79,142,247,0.18)'; }}
+                            onMouseLeave={e => { e.currentTarget.style.background = 'rgba(79,142,247,0.1)'; }}>
+                            Live Demo <ExternalLink size={11} />
+                          </a>
+                        ) : (
+                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '7px 14px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '8px', fontSize: '12px', color: '#6B6B8E', fontWeight: 500, minWidth: 'fit-content' }}>
+                            Live Demo Soon
+                          </span>
+                        )}
+                        {p.githubUrl ? (
+                          <a href={p.githubUrl} target="_blank" rel="noopener noreferrer"
+                            style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '12px', color: '#4A4A6A', textDecoration: 'none', transition: 'color 0.2s' }}
+                            onMouseEnter={e => e.currentTarget.style.color = '#8B8BAE'}
+                            onMouseLeave={e => e.currentTarget.style.color = '#4A4A6A'}>
+                            <Github size={13} /> Source
+                          </a>
+                        ) : (
+                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '12px', color: '#6B6B8E' }}>
+                            <Github size={13} /> Source Soon
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -128,7 +141,7 @@ const Projects = () => {
               <div style={{ padding: 'clamp(18px, 4vw, 28px)', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '20px', justifyContent: 'space-between' }}>
                 <div style={{ flex: 1, minWidth: '240px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-                    <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4A4A6A' }}>05</span>
+                    <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4A4A6A' }}>{portfolioProjectNum}</span>
                     <span style={{ padding: '2px 9px', borderRadius: '5px', background: 'rgba(124,92,252,0.09)', border: '1px solid rgba(124,92,252,0.2)', fontSize: '10px', color: '#7C5CFC', fontFamily: "'JetBrains Mono', monospace" }}>Portfolio</span>
                   </div>
                   <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '17px', color: '#E8E8F2', marginBottom: '8px' }}>This Portfolio Website</h3>
@@ -139,7 +152,7 @@ const Projects = () => {
                     ))}
                   </div>
                 </div>
-                <a href="https://github.com/Arman-techiee" target="_blank" rel="noopener noreferrer"
+                <a href="https://github.com/Arman-techiee/portfolio" target="_blank" rel="noopener noreferrer"
                   style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '6px', padding: '10px 18px', background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '9px', fontSize: '13px', color: '#E8E8F2', textDecoration: 'none', transition: 'all 0.2s', flexShrink: 0, width: '100%', maxWidth: '220px' }}
                   onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(79,142,247,0.4)'; e.currentTarget.style.color = '#4F8EF7'; }}
                   onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = '#E8E8F2'; }}>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Mail, Phone, Calendar, BookOpen, ArrowRight, Briefcase, GraduationCap, Star, Clock } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
-import { PERSONAL_INFO, PHOTO_MODE, SKILLS, TIMELINE } from '../constants';
+import { PERSONAL_INFO, PHOTO_MODE, PROJECTS, SKILLS, TIMELINE } from '../constants';
 import profileImg from '../assets/profile.jpg';
 
 const accentMap = {
@@ -23,7 +23,7 @@ const details = [
 ];
 
 const quickFacts = [
-  { label: '4 Projects Deployed', color: '#4F8EF7' },
+  { label: `${PROJECTS.length} Projects Deployed`, color: '#4F8EF7' },
   { label: 'MERN Stack',          color: '#7C5CFC' },
   { label: 'Open to Hire',        color: '#00D9B5' },
   { label: 'Kathmandu, Nepal',    color: '#F97316' },
