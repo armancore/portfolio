@@ -114,7 +114,7 @@ const Footer = () => {
             © {year} {PERSONAL_INFO.name}. All rights reserved.
           </p>
           <p className="text-xs text-text-muted">
-            Designed and developed with React, Vite, and a focus on clean user experience.
+            Designed and developed by Arman Khan.
           </p>
         </div>
       </div>
