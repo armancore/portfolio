@@ -199,7 +199,7 @@ export const PROJECTS = [
       { label: "MongoDB", color: "purple" }
     ],
     category: "Tool",
-    liveUrl: "https://github.com/Arman-techiee/expense-tracker",
+    liveUrl: "https://expense-tracker-arman.vercel.app/",
     githubUrl: "https://github.com/Arman-techiee/expense-tracker",
     featured: false
   },
@@ -219,6 +219,24 @@ export const PROJECTS = [
     category: "Tool",
     liveUrl: null,
     githubUrl: null,
+    featured: false
+  },
+  {
+    id: 7,
+    num: "07",
+    title: "Ecommerce Store Template",
+    description: "A frontend ecommerce template for modern online stores, built with React and Vite with responsive layouts, storefront UI sections, and reusable shopping experience components.",
+    longDescription: "A basic frontend ecommerce store template built as a foundation for future online shop projects. It focuses on clean storefront presentation, responsive product browsing layouts, and reusable UI patterns for building modern ecommerce experiences with React and Vite.",
+    tags: [
+      { label: "React", color: "blue" },
+      { label: "Vite", color: "blue" },
+      { label: "JavaScript", color: "orange" },
+      { label: "Responsive UI", color: "blue" },
+      { label: "Ecommerce", color: "purple" }
+    ],
+    category: "Frontend",
+    liveUrl: "https://ecommerce-arman.vercel.app/",
+    githubUrl: "https://github.com/Arman-techiee/ecommerce.git",
     featured: false
   }
 ];
