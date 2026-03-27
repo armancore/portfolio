@@ -238,6 +238,24 @@ export const PROJECTS = [
     liveUrl: "https://ecommerce-arman.vercel.app/",
     githubUrl: "https://github.com/Arman-techiee/ecommerce.git",
     featured: false
+  },
+  {
+    id: 8,
+    num: "08",
+    title: "ArticleHub",
+    description: "A blog and article posting platform built with Flask, Jinja, HTML, CSS, and JavaScript for publishing and browsing written content through a clean web interface.",
+    longDescription: "ArticleHub is a content publishing web application built with Flask and server-rendered Jinja templates. It focuses on article and blog posting workflows, combining Python on the backend with HTML, CSS, and JavaScript on the frontend to deliver a straightforward reading and publishing experience.",
+    tags: [
+      { label: "Flask", color: "teal" },
+      { label: "Jinja", color: "orange" },
+      { label: "HTML/CSS", color: "blue" },
+      { label: "JavaScript", color: "orange" },
+      { label: "Python", color: "purple" }
+    ],
+    category: "Social",
+    liveUrl: "https://arman45678.pythonanywhere.com/",
+    githubUrl: "https://github.com/Arman-techiee/ArticleHub.git",
+    featured: false
   }
 ];
 

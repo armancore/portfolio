@@ -3,6 +3,14 @@ import { ExternalLink, Github } from 'lucide-react';
 import Badge from '../ui/Badge';
 
 const ProjectCard = ({ project }) => {
+  const badgeColor = project.category === 'API'
+    ? 'teal'
+    : project.category === 'Tool'
+      ? 'orange'
+      : project.category === 'Social'
+        ? 'pink'
+        : 'blue';
+
   return (
     <div className="group relative bg-bg-secondary border border-[var(--border)] rounded-xl p-6 hover:border-[var(--border-hover)] hover:bg-bg-tertiary transition-all duration-200 flex flex-col h-full overflow-hidden">
       {/* Top accent line on hover */}
@@ -11,7 +19,7 @@ const ProjectCard = ({ project }) => {
       {/* Header row */}
       <div className="flex items-start justify-between mb-4">
         <span className="font-mono text-xs text-text-muted">{project.num}</span>
-        <Badge label={project.category} color={project.category === 'API' ? 'teal' : project.category === 'Tool' ? 'orange' : 'blue'} />
+        <Badge label={project.category} color={badgeColor} />
       </div>
 
       {/* Title */}

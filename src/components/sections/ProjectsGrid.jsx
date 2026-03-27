@@ -3,7 +3,7 @@ import ProjectCard from './ProjectCard';
 import RevealWrapper from '../ui/RevealWrapper';
 import { PROJECTS } from '../../constants';
 
-const categories = ['All', 'API', 'Tool', 'Frontend'];
+const categories = ['All', 'API', 'Tool', 'Frontend', 'Social'];
 
 const ProjectsGrid = () => {
   const [activeFilter, setActiveFilter] = useState('All');

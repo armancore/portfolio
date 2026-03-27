@@ -3,12 +3,13 @@ import { ExternalLink, Github, ArrowRight } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
 import { PROJECTS } from '../constants';
 
-const categories = ['All', 'API', 'Tool', 'Frontend'];
+const categories = ['All', 'API', 'Tool', 'Frontend', 'Social'];
 
 const categoryAccent = {
   API: { bg: 'rgba(0,217,181,0.09)', border: 'rgba(0,217,181,0.2)', text: '#00D9B5' },
   Tool: { bg: 'rgba(249,115,22,0.09)', border: 'rgba(249,115,22,0.2)', text: '#F97316' },
   Frontend: { bg: 'rgba(79,142,247,0.09)', border: 'rgba(79,142,247,0.2)', text: '#4F8EF7' },
+  Social: { bg: 'rgba(236,72,153,0.09)', border: 'rgba(236,72,153,0.2)', text: '#EC4899' },
 };
 
 const portfolioTechs = ['React 19', 'Vite 7', 'Tailwind CSS v4', 'React Router v7', 'Lucide React'];
