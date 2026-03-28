@@ -133,8 +133,8 @@ export const PROJECTS = [
       { label: "Tailwind CSS", color: "purple" }
     ],
     category: "API",
-    liveUrl: "https://www.armankhan.com.np/#/projects",
-    githubUrl: "https://github.com/Arman-techiee",
+    liveUrl: "https://weather-app-arman.vercel.app/",
+    githubUrl: "https://github.com/Arman-techiee/Weather-App.git",
     featured: true
   },
   {
