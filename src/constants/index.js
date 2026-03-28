@@ -149,7 +149,7 @@ export const PROJECTS = [
       { label: "Tailwind CSS", color: "purple" }
     ],
     category: "API",
-    liveUrl: "https://www.armankhan.com.np/#/projects",
+    liveUrl: "https://nepal-patra.vercel.app/",
     githubUrl: "https://github.com/Arman-techiee",
     featured: false
   },
@@ -173,17 +173,17 @@ export const PROJECTS = [
     id: 4,
     num: "04",
     title: "Nepal News Aggregator",
-    description: "Nepal-focused news aggregator using NewsAPI.org with skeleton loading states and a fully responsive card layout.",
-    longDescription: "A Nepal-centric news aggregation platform powered by NewsAPI.org. Features real-time headline fetching with intelligent skeleton loading states, category-based filtering, and a responsive card grid layout. Built with React and Axios, styled with Tailwind CSS.",
+    description: "Nepal-focused news app powered by TheNewsAPI with category-based browsing, fresh headline discovery, and a responsive card layout for smooth reading across devices.",
+    longDescription: "Nepal Patra is a Nepal-centric news application built with React that uses TheNewsAPI to fetch and display current headlines in a clean, mobile-friendly interface. It focuses on easy category exploration, fast headline browsing, and a responsive card-based layout that keeps the reading experience simple and accessible.",
     tags: [
       { label: "React", color: "blue" },
-      { label: "NewsAPI", color: "teal" },
+      { label: "TheNewsAPI", color: "teal" },
       { label: "Axios", color: "blue" },
       { label: "Tailwind CSS", color: "purple" }
     ],
     category: "API",
     liveUrl: "https://www.armankhan.com.np/#/projects",
-    githubUrl: "https://github.com/Arman-techiee",
+    githubUrl: "https://github.com/Arman-techiee/Nepal-Patra.git",
     featured: false
   },
   {
