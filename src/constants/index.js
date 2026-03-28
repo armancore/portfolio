@@ -182,7 +182,7 @@ export const PROJECTS = [
       { label: "Tailwind CSS", color: "purple" }
     ],
     category: "API",
-    liveUrl: "https://www.armankhan.com.np/#/projects",
+    liveUrl: "https://nepal-patra.vercel.app/",
     githubUrl: "https://github.com/Arman-techiee/Nepal-Patra.git",
     featured: false
   },
