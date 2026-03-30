@@ -149,8 +149,8 @@ export const PROJECTS = [
       { label: "Tailwind CSS", color: "purple" }
     ],
     category: "API",
-    liveUrl: "https://nepal-patra.vercel.app/",
-    githubUrl: "https://github.com/Arman-techiee",
+    liveUrl: "https://cinevault-arman.vercel.app/",
+    githubUrl: "https://github.com/Arman-techiee/movie-app.git",
     featured: false
   },
   {
