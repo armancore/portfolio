@@ -2,7 +2,7 @@ export const PHOTO_MODE = "photo"; // Change to "photo" after adding profile.jpg
 
 export const PERSONAL_INFO = {
   name: "Arman Khan",
-  role: "IT Student & Full-Stack Developer",
+  role: "IT Student & Frontend Developer",
   tagline: "Building things that live on the internet.",
   email: "arman.techiee@gmail.com",
   phone: "+977 9826999632",
@@ -12,8 +12,8 @@ export const PERSONAL_INFO = {
   status: "Open to Opportunities",
   responseTime: "Within 24 hours",
   bio: [
-    "I am a Bachelor of Information Technology student at Texas College of Management and IT, Kathmandu. I specialize in full-stack web development with the MERN stack — building real, deployed applications from scratch.",
-    "My technical foundation spans multiple paradigms: object-oriented programming with Java and C++, data science workflows with Python, and modern web development with React, Node.js, and MongoDB. I believe in learning by building — every project I ship teaches me something a classroom cannot.",
+    "I am a Bachelor of Information Technology student at Texas College of Management and IT, Kathmandu. I currently focus on frontend web development with React, Vite, and Tailwind CSS, while actively learning backend development with Node.js, Express, Prisma, and PostgreSQL by building real projects from scratch.",
+    "My technical foundation spans multiple paradigms: object-oriented programming with Java and C++, data science workflows with Python, and modern web development with React. These days, I am expanding into backend development with Node.js, Express, Prisma, and PostgreSQL. I believe in learning by building — every project I ship teaches me something a classroom cannot.",
     "Beyond code, I study network architecture, cybersecurity fundamentals, and IT infrastructure as part of my degree. I am actively looking for internship and junior developer opportunities where I can contribute real value from day one."
   ]
 };
@@ -55,10 +55,11 @@ export const SKILLS = [
     tags: [
       { label: "Node.js", color: "purple" },
       { label: "Express.js", color: "purple" },
-      { label: "MongoDB", color: "purple" },
-      { label: "Mongoose", color: "purple" },
+      { label: "Prisma 7", color: "purple" },
+      { label: "PostgreSQL", color: "purple" },
       { label: "REST APIs", color: "purple" },
-      { label: "JWT Auth", color: "purple" }
+      { label: "JWT Auth", color: "purple" },
+      { label: "bcryptjs", color: "purple" }
     ],
     accentColor: "purple"
   },
@@ -196,7 +197,7 @@ export const PROJECTS = [
       { label: "React", color: "blue" },
       { label: "Node.js", color: "teal" },
       { label: "Express.js", color: "orange" },
-      { label: "MongoDB", color: "purple" }
+      { label: "API Design", color: "purple" }
     ],
     category: "Tool",
     liveUrl: "https://expense-tracker-arman.vercel.app/",
@@ -207,13 +208,14 @@ export const PROJECTS = [
     id: 6,
     num: "06",
     title: "Online Student Learning & Management Platform",
-    description: "A full-stack platform in progress for students and educational institutes to manage learning materials, academic workflows, communication, and institutional operations in one place.",
-    longDescription: "An online student learning and management platform currently under development for students and educational institutes. The product is being designed to support learning resources, institute management workflows, and a streamlined digital experience for academic collaboration.",
+    description: "A full-stack platform in progress for students and educational institutes to manage learning materials, academic workflows, communication, and institutional operations through a modern web experience.",
+    longDescription: "An online student learning and management platform currently under development for students and educational institutes. The backend is being built with Node.js, Express, Prisma 7, PostgreSQL, @prisma/adapter-pg, pg, jsonwebtoken, and bcryptjs for secure and scalable academic workflows. The web frontend uses React, Vite, and Tailwind CSS, with a React Native and Expo mobile app planned for future student access on the go.",
     tags: [
       { label: "React", color: "blue" },
       { label: "Node.js", color: "teal" },
       { label: "Express.js", color: "orange" },
-      { label: "MongoDB", color: "purple" },
+      { label: "Prisma 7", color: "purple" },
+      { label: "PostgreSQL", color: "purple" },
       { label: "EdTech", color: "blue" }
     ],
     category: "Tool",
@@ -256,6 +258,24 @@ export const PROJECTS = [
     liveUrl: "https://arman45678.pythonanywhere.com/",
     githubUrl: "https://github.com/Arman-techiee/ArticleHub.git",
     featured: false
+  },
+  {
+    id: 9,
+    num: "09",
+    title: "TaskFlow Kanban Manager",
+    description: "A simple Kanban-style task management app with drag-and-drop task movement across columns and priority-based organization for a smooth planning workflow.",
+    longDescription: "TaskFlow is a task management application built with React, Vite, and Tailwind CSS. It uses a Kanban-style board layout to organize tasks visually and supports drag-and-drop interactions so tasks can be moved between workflow stages while keeping priority-focused planning simple and intuitive.",
+    tags: [
+      { label: "React", color: "blue" },
+      { label: "Vite", color: "blue" },
+      { label: "Tailwind CSS", color: "purple" },
+      { label: "Kanban", color: "teal" },
+      { label: "Drag & Drop", color: "orange" }
+    ],
+    category: "Tool",
+    liveUrl: "https://taskflow-arman.vercel.app/",
+    githubUrl: "https://github.com/Arman-techiee/task-manager.git",
+    featured: false
   }
 ];
 
@@ -278,10 +298,11 @@ export const TIMELINE = [
     year: "2025–Present",
     title: "Full-Stack Developer",
     org: "Self-directed / Personal Projects",
-    description: "Built and deployed 6 production web applications. Mastered React, API integration, authentication systems, and CI/CD pipelines with GitHub Actions.",
+    description: "Built and deployed production web applications while strengthening frontend architecture, API integration, authentication systems, and modern deployment workflows.",
     tags: [
       { label: "React", color: "blue" },
-      { label: "MERN Stack", color: "purple" },
+      { label: "Prisma", color: "purple" },
+      { label: "PostgreSQL", color: "purple" },
       { label: "GitHub Actions", color: "teal" },
       { label: "API Integration", color: "orange" }
     ]
@@ -289,14 +310,15 @@ export const TIMELINE = [
   {
     id: 3,
     year: "2026–Present",
-    title: "MERN Stack Deep Dive",
+    title: "Modern Backend Systems",
     org: "Self-Study",
-    description: "Completed comprehensive MERN stack training covering MongoDB, Express, React, and Node.js with real project implementation and deployment.",
+    description: "Currently building a student learning and management platform using Node.js, Express, Prisma 7, PostgreSQL, JWT-based authentication, and a React frontend, with React Native and Expo planned for mobile.",
     tags: [
-      { label: "MongoDB", color: "teal" },
+      { label: "Prisma 7", color: "teal" },
       { label: "Express.js", color: "orange" },
       { label: "Node.js", color: "teal" },
-      { label: "React", color: "blue" }
+      { label: "PostgreSQL", color: "purple" },
+      { label: "React Native", color: "blue" }
     ]
   }
 ];

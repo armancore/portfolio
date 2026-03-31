@@ -3,7 +3,7 @@ import ProfilePhoto from '../ui/ProfilePhoto';
 import Badge from '../ui/Badge';
 import { PERSONAL_INFO, PHOTO_MODE, PROJECTS } from '../../constants';
 
-const skillChips = ['MERN Stack', 'React', 'Tailwind', 'C++', 'Java', 'Python', 'Git'];
+const skillChips = ['React', 'Prisma', 'PostgreSQL', 'Tailwind', 'Node.js', 'Python', 'Git'];
 
 const stats = [
   { value: `${PROJECTS.length}`, label: 'Projects' },

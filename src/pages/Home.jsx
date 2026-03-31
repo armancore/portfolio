@@ -8,13 +8,13 @@ let profileImg = null;
 try { profileImg = new URL('../assets/profile.jpg', import.meta.url).href; } catch {}
 
 const statsData = [
-  { value: '10+', label: 'Projects' },
+  { value: `${PROJECTS.length + 1}+`, label: 'Projects' },
   { value: '4+', label: 'Languages' },
   { value: '↗', label: 'Available' },
 ];
 const bentoSkills = [
   { icon: Layers, title: 'Frontend', desc: 'React, Tailwind, Vite — pixel-perfect UIs', color: '#4F8EF7', glow: 'rgba(79,142,247,0.15)' },
-  { icon: Cpu, title: 'Backend', desc: 'Node.js, Express, MongoDB, REST APIs', color: '#7C5CFC', glow: 'rgba(124,92,252,0.15)' },
+  { icon: Cpu, title: 'Learning Backend', desc: 'Node.js, Express, Prisma, PostgreSQL', color: '#7C5CFC', glow: 'rgba(124,92,252,0.15)' },
   { icon: Globe, title: 'Networking', desc: 'TCP/IP, DNS, Linux, Cybersecurity', color: '#00D9B5', glow: 'rgba(0,217,181,0.15)' },
   { icon: Code2, title: 'Languages', desc: 'C++, Java, Python, JavaScript', color: '#F97316', glow: 'rgba(249,115,22,0.15)' },
 ];
@@ -61,7 +61,7 @@ const Home = () => {
               <RevealWrapper delay={0}>
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '22px', padding: '5px 14px 5px 10px', background: 'rgba(79,142,247,0.08)', border: '1px solid rgba(79,142,247,0.2)', borderRadius: '100px', maxWidth: '100%' }}>
                   <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#4F8EF7', boxShadow: '0 0 0 3px rgba(79,142,247,0.16)', flexShrink: 0 }} />
-                  <span style={{ color: '#A9C6FF', fontSize: '11px', fontFamily: "'JetBrains Mono', monospace", letterSpacing: '0.06em' }}>building modern full-stack web experiences</span>
+                  <span style={{ color: '#A9C6FF', fontSize: '11px', fontFamily: "'JetBrains Mono', monospace", letterSpacing: '0.06em' }}>building polished frontend projects and learning backend systems</span>
                 </div>
               </RevealWrapper>
 
@@ -73,7 +73,7 @@ const Home = () => {
               </RevealWrapper>
 
               <RevealWrapper delay={150}>
-                <p style={{ fontSize: 'clamp(16px, 4vw, 18px)', color: '#8B8BAE', marginTop: '14px', marginBottom: '16px', fontWeight: 300 }}>IT Student &amp; Full-Stack Developer</p>
+                <p style={{ fontSize: 'clamp(16px, 4vw, 18px)', color: '#8B8BAE', marginTop: '14px', marginBottom: '16px', fontWeight: 300 }}>IT Student &amp; Frontend Developer</p>
               </RevealWrapper>
 
               <RevealWrapper delay={210}>

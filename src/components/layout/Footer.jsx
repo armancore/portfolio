@@ -43,7 +43,7 @@ const Footer = () => {
             </Link>
 
             <p className="text-text-secondary text-sm leading-7 mt-5 max-w-md">
-              {PERSONAL_INFO.tagline} Focused on building polished web interfaces and practical full-stack applications.
+              {PERSONAL_INFO.tagline} Focused on building polished web interfaces while steadily growing my backend development skills.
             </p>
 
             <div className="flex flex-wrap gap-3 mt-6">

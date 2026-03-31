@@ -13,7 +13,7 @@ const overviewCols = [
     icon: '⚙️',
     title: 'Backend & DB',
     color: 'purple',
-    items: ['Node.js', 'Express', 'MongoDB', 'REST APIs'],
+    items: ['Node.js', 'Express', 'Prisma 7', 'PostgreSQL'],
   },
   {
     icon: '🔤',

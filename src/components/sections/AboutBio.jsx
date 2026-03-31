@@ -30,8 +30,8 @@ const AboutBio = () => {
             {PERSONAL_INFO.bio.map((para, i) => (
               <RevealWrapper key={i} delay={i * 100}>
                 <p className="text-text-secondary leading-relaxed">
-                  {para.split(/\b(MERN stack|React|Node\.js|MongoDB|full-stack|Java|C\+\+|Python|JavaScript|internship|junior developer)\b/gi).map((part, j) => {
-                    const keywords = ['mern stack', 'react', 'node.js', 'mongodb', 'full-stack', 'java', 'c++', 'python', 'javascript', 'internship', 'junior developer'];
+                  {para.split(/\b(React|Node\.js|Express|Prisma|PostgreSQL|full-stack|Java|C\+\+|Python|JavaScript|internship|junior developer)\b/gi).map((part, j) => {
+                    const keywords = ['react', 'node.js', 'express', 'prisma', 'postgresql', 'full-stack', 'java', 'c++', 'python', 'javascript', 'internship', 'junior developer'];
                     if (keywords.includes(part.toLowerCase())) {
                       return <strong key={j} className="text-text-primary font-medium">{part}</strong>;
                     }

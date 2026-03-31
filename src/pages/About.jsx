@@ -24,7 +24,7 @@ const details = [
 
 const quickFacts = [
   { label: `${PROJECTS.length} Projects Deployed`, color: '#4F8EF7' },
-  { label: 'MERN Stack',          color: '#7C5CFC' },
+  { label: 'Prisma + PostgreSQL', color: '#7C5CFC' },
   { label: 'Open to Hire',        color: '#00D9B5' },
   { label: 'Kathmandu, Nepal',    color: '#F97316' },
 ];
@@ -47,7 +47,7 @@ const About = () => (
               <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4F8EF7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '14px' }}>── Who I am</p>
               <h1 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: 'clamp(48px, 7.6vw, 78px)', color: '#E8E8F2', letterSpacing: '-0.03em', lineHeight: 1.02, marginBottom: '20px' }}>About Me</h1>
               <p style={{ fontSize: 'clamp(15px, 3.8vw, 17px)', color: '#9AA8C7', maxWidth: '520px', lineHeight: 1.85, marginBottom: '28px' }}>
-                IT student, full-stack developer, and lifelong learner building meaningful software from Kathmandu, Nepal.
+                IT student, frontend-focused developer, and lifelong learner building meaningful software from Kathmandu, Nepal.
               </p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
                 {quickFacts.map(({ label, color }) => (
@@ -105,8 +105,8 @@ const About = () => (
             {PERSONAL_INFO.bio.map((para, i) => (
               <RevealWrapper key={i} delay={i * 80}>
                 <p style={{ fontSize: 'clamp(14px, 3.4vw, 15.5px)', color: i === 0 ? '#D7E0F0' : '#9AA8C7', lineHeight: 1.9, marginBottom: '18px' }}>
-                  {para.split(/\b(MERN stack|React|Node\.js|MongoDB|JavaScript|C\+\+|Java|Python|full-stack|internship|junior developer)\b/gi).map((part, j) => {
-                    const kw = ['mern stack','react','node.js','mongodb','javascript','c++','java','python','full-stack','internship','junior developer'];
+                  {para.split(/\b(React|Node\.js|Express|Prisma|PostgreSQL|JavaScript|C\+\+|Java|Python|full-stack|internship|junior developer)\b/gi).map((part, j) => {
+                    const kw = ['react','node.js','express','prisma','postgresql','javascript','c++','java','python','full-stack','internship','junior developer'];
                     return kw.includes(part.toLowerCase())
                       ? <strong key={j} style={{ color: '#E8E8F2', fontWeight: 500 }}>{part}</strong>
                       : part;
