@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Github, Facebook, Instagram, ArrowUpRight, Mail, MapPin } from 'lucide-react';
+import { Github, Linkedin, Facebook, Instagram, ArrowUpRight, Mail, MapPin } from 'lucide-react';
 import { NAV_LINKS, SOCIAL_LINKS, PERSONAL_INFO } from '../../constants';
 import GlowLine from '../ui/GlowLine';
 
 const iconMap = {
   Github,
+  Linkedin,
   Facebook,
   Instagram,
 };

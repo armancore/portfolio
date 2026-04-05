@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Github, Facebook, Instagram } from 'lucide-react';
+import { ArrowRight, Github, Linkedin, Facebook, Instagram } from 'lucide-react';
 import Button from '../ui/Button';
 import Badge from '../ui/Badge';
 import RevealWrapper from '../ui/RevealWrapper';
@@ -85,6 +85,15 @@ const HeroSection = () => {
                     aria-label="GitHub"
                   >
                     <Github size={16} />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/arman-khan-943b29400/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-9 h-9 rounded-lg bg-bg-tertiary/80 border border-[var(--border)] flex items-center justify-center text-text-secondary hover:text-accent2 hover:border-accent2/40 transition-all duration-200"
+                    aria-label="LinkedIn"
+                  >
+                    <Linkedin size={16} />
                   </a>
                   <a
                     href="https://www.facebook.com/techiee.arman"

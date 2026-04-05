@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Github, Facebook, Instagram, ExternalLink, Layers, Cpu, Globe, Code2, Terminal, Download } from 'lucide-react';
+import { ArrowRight, Github, Linkedin, Facebook, Instagram, ExternalLink, Layers, Cpu, Globe, Code2, Terminal, Download } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
 import { PERSONAL_INFO, PHOTO_MODE, PROJECTS } from '../constants';
 
@@ -99,6 +99,7 @@ const Home = () => {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
                   {[
                     { href: 'https://github.com/Arman-techiee', icon: Github, label: 'GitHub' },
+                    { href: 'https://www.linkedin.com/in/arman-khan-943b29400/', icon: Linkedin, label: 'LinkedIn' },
                     { href: 'https://www.facebook.com/techiee.arman', icon: Facebook, label: 'Facebook' },
                     { href: 'https://www.instagram.com/techiee.arman', icon: Instagram, label: 'Instagram' },
                   ].map(({ href, icon: Icon, label }) => (

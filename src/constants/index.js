@@ -27,6 +27,7 @@ export const NAV_LINKS = [
 
 export const SOCIAL_LINKS = [
   { label: "GitHub", url: "https://github.com/Arman-techiee", icon: "Github" },
+  { label: "LinkedIn", url: "https://www.linkedin.com/in/arman-khan-943b29400/", icon: "Linkedin" },
   { label: "Facebook", url: "https://www.facebook.com/techiee.arman", icon: "Facebook" },
   { label: "Instagram", url: "https://www.instagram.com/techiee.arman", icon: "Instagram" }
 ];
@@ -344,6 +345,13 @@ export const CONTACT_LINKS = [
     href: "https://github.com/Arman-techiee",
     iconName: "Github",
     bgColor: "bg-white/5 border-white/10 text-text-primary"
+  },
+  {
+    label: "linkedin.com/in/arman-khan-943b29400",
+    sublabel: "Professional profile",
+    href: "https://www.linkedin.com/in/arman-khan-943b29400/",
+    iconName: "Linkedin",
+    bgColor: "bg-sky-500/10 border-sky-500/20 text-sky-400"
   },
   {
     label: "facebook.com/techiee.arman",
