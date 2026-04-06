@@ -1,4 +1,4 @@
-export const PHOTO_MODE = "photo"; // Change to "photo" after adding profile.jpg
+export const PHOTO_MODE = "photo";
 
 export const PERSONAL_INFO = {
   name: "Arman Khan",
