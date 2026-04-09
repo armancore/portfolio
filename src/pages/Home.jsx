@@ -37,7 +37,7 @@ const Home = () => {
         {/* Mouse-follow glow */}
         <div className="pointer-events-none" style={{
           position: 'fixed', inset: 0, zIndex: 0,
-          background: `radial-gradient(600px circle at ${mouse.x}px ${mouse.y}px, rgba(79,142,247,0.05) 0%, transparent 60%)`,
+          background: `radial-gradient(720px circle at ${mouse.x}px ${mouse.y}px, rgba(79,142,247,0.11) 0%, rgba(124,92,252,0.06) 24%, transparent 62%)`,
           transition: 'background 0.1s',
         }} />
         {/* Grid background */}

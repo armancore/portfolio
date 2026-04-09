@@ -60,6 +60,8 @@ const ContactForm = () => {
     setSending(true);
 
     try {
+      const submittedFrom = `${window.location.origin}${window.location.pathname}`;
+
       const res = await fetch(FORMSPREE_ENDPOINT, {
         method: 'POST',
         headers: {
@@ -71,6 +73,7 @@ const ContactForm = () => {
           email: form.email,
           subject: form.subject,
           message: form.message,
+          submittedFrom,
         }),
       });
 
