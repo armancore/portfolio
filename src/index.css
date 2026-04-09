@@ -97,6 +97,28 @@ a {
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    transition: none !important;
+  }
+
+  .reveal,
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .pulse-dot,
+  .animate-spin {
+    animation: none !important;
+  }
+}
+
 /* Pulse animation for availability dot */
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; }

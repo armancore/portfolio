@@ -2,16 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Mail, Phone, Calendar, BookOpen, ArrowRight, Briefcase, GraduationCap, Star, Clock } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
-import { PERSONAL_INFO, PHOTO_MODE, PROJECTS, SKILLS, TIMELINE } from '../constants';
+import PageMeta from '../components/seo/PageMeta';
+import { ACCENT_MAP, PERSONAL_INFO, PHOTO_MODE, PROJECTS, SKILLS, THEME_COLORS, TIMELINE } from '../constants';
 import profileImg from '../assets/profile.jpg';
-
-const accentMap = {
-  blue:   { bg: 'rgba(79,142,247,0.1)',   border: 'rgba(79,142,247,0.22)',   text: '#4F8EF7',  glow: 'rgba(79,142,247,0.12)' },
-  purple: { bg: 'rgba(124,92,252,0.1)',   border: 'rgba(124,92,252,0.22)',   text: '#7C5CFC',  glow: 'rgba(124,92,252,0.12)' },
-  teal:   { bg: 'rgba(0,217,181,0.1)',    border: 'rgba(0,217,181,0.22)',    text: '#00D9B5',  glow: 'rgba(0,217,181,0.1)'  },
-  orange: { bg: 'rgba(249,115,22,0.1)',   border: 'rgba(249,115,22,0.22)',   text: '#F97316',  glow: 'rgba(249,115,22,0.1)' },
-  pink:   { bg: 'rgba(236,72,153,0.1)',   border: 'rgba(236,72,153,0.22)',   text: '#EC4899',  glow: 'rgba(236,72,153,0.1)' },
-};
 
 const details = [
   { icon: BookOpen,   label: 'Status',      value: PERSONAL_INFO.status,       accent: true  },
@@ -24,14 +17,18 @@ const details = [
 ];
 
 const quickFacts = [
-  { label: `${PROJECTS.length} Projects Deployed`, color: '#4F8EF7' },
-  { label: 'Prisma + PostgreSQL', color: '#7C5CFC' },
-  { label: 'Open to Hire',        color: '#00D9B5' },
-  { label: 'From Damak, Jhapa',   color: '#F97316' },
+  { label: `${PROJECTS.length} Projects Deployed`, accent: ACCENT_MAP.blue },
+  { label: 'Prisma + PostgreSQL', accent: ACCENT_MAP.purple },
+  { label: 'Open to Hire',        accent: ACCENT_MAP.teal },
+  { label: 'From Damak, Jhapa',   accent: ACCENT_MAP.orange },
 ];
 
 const About = () => (
   <div style={{ background: 'transparent', minHeight: '100vh' }}>
+    <PageMeta
+      title="About | Arman Khan"
+      description="Learn more about Arman Khan, an IT student from Damak, Jhapa with a frontend focus, growing backend foundations, and a project-driven approach to software development."
+    />
 
     {/* ─── PAGE HEADER ─── */}
     <section style={{ paddingTop: '110px', paddingBottom: '64px', position: 'relative', overflow: 'hidden' }}>
@@ -51,9 +48,9 @@ const About = () => (
                 IT student, frontend-focused developer, and lifelong learner from Damak, Jhapa, now building meaningful software in Kathmandu, Nepal.
               </p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-                {quickFacts.map(({ label, color }) => (
-                  <span key={label} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 12px', background: `${color}10`, border: `1px solid ${color}25`, borderRadius: '8px', fontSize: '11px', color, fontFamily: "'JetBrains Mono', monospace", maxWidth: '100%' }}>
-                    <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: color, flexShrink: 0 }} />
+                {quickFacts.map(({ label, accent }) => (
+                  <span key={label} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 12px', background: accent.bg, border: `1px solid ${accent.border}`, borderRadius: '8px', fontSize: '11px', color: accent.text, fontFamily: "'JetBrains Mono', monospace", maxWidth: '100%' }}>
+                    <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: accent.text, flexShrink: 0 }} />
                     {label}
                   </span>
                 ))}
@@ -124,9 +121,7 @@ const About = () => (
                   { icon: '📚', title: 'Always Learning', desc: 'CS fundamentals meet modern stacks.' },
                   { icon: '🤝', title: 'Team Player', desc: 'Communication is a core skill.' },
                 ].map(v => (
-                  <div key={v.title} style={{ background: '#0D1117', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '14px', padding: '18px', transition: 'all 0.2s' }}
-                    onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(79,142,247,0.25)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
-                    onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'; e.currentTarget.style.transform = 'none'; }}>
+                  <div key={v.title} className="rounded-[14px] border border-white/[0.06] bg-[#0D1117] p-[18px] transition-all duration-200 hover:-translate-y-0.5 hover:border-[rgba(79,142,247,0.25)]">
                     <span style={{ fontSize: '22px', display: 'block', marginBottom: '8px' }}>{v.icon}</span>
                     <p style={{ fontFamily: "'Syne', sans-serif", fontWeight: 600, fontSize: '13px', color: '#E8E8F2', marginBottom: '4px' }}>{v.title}</p>
                     <p style={{ fontSize: '12px', color: '#6B6B8E', lineHeight: 1.5 }}>{v.desc}</p>
@@ -149,7 +144,7 @@ const About = () => (
                   {PHOTO_MODE === 'photo' && profileImg ? (
                     <img
                       src={profileImg}
-                      alt="Arman Khan"
+                      alt="Portrait of Arman Khan for the About page profile section"
                       style={{ width: '100%', aspectRatio: '3/4', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
                     />
                   ) : (
@@ -181,9 +176,7 @@ const About = () => (
                   <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4A4A6A', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Personal Info</p>
                 </div>
                 {details.map(({ icon: Icon, label, value, accent, isEmail }, i) => (
-                  <div key={label} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '14px 18px', borderBottom: i < details.length - 1 ? '1px solid rgba(148,163,184,0.07)' : 'none', transition: 'background 0.15s' }}
-                    onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.02)'}
-                    onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
+                  <div key={label} className="flex items-start gap-3 px-[18px] py-[14px] transition-colors duration-150 hover:bg-white/[0.02]" style={{ borderBottom: i < details.length - 1 ? '1px solid rgba(148,163,184,0.07)' : 'none' }}>
                     <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(79,142,247,0.08)', border: '1px solid rgba(79,142,247,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                       <Icon size={13} style={{ color: '#4F8EF7' }} />
                     </div>
@@ -217,12 +210,11 @@ const About = () => (
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))', gap: '14px' }}>
           {SKILLS.map((skill, i) => {
-            const ac = accentMap[skill.accentColor] || accentMap.blue;
+            const ac = ACCENT_MAP[skill.accentColor] || ACCENT_MAP.blue;
             return (
               <RevealWrapper key={skill.id} delay={i * 70}>
-                <div style={{ background: '#0D1117', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '16px', padding: 'clamp(18px, 4vw, 24px)', transition: 'all 0.25s', height: '100%', position: 'relative', overflow: 'hidden' }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = ac.border; e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = `0 16px 36px ${ac.glow}`; }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'; e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}>
+                <div className="relative h-full overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0D1117] p-[clamp(18px,4vw,24px)] transition-all duration-200 hover:-translate-y-[3px] hover:border-[var(--skill-hover-border)] hover:[box-shadow:var(--skill-hover-shadow)]"
+                  style={{ '--skill-hover-border': ac.border, '--skill-hover-shadow': `0 16px 36px ${ac.glow}` }}>
 
                   {/* Glow corner */}
                   <div style={{ position: 'absolute', top: 0, right: 0, width: '80px', height: '80px', background: `radial-gradient(circle at top right, ${ac.bg}, transparent 70%)`, pointerEvents: 'none' }} />
@@ -271,9 +263,7 @@ const About = () => (
                   </div>
 
                   {/* Card */}
-                  <div style={{ flex: 1, background: '#0D1117', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '16px', padding: 'clamp(18px, 4vw, 24px)', transition: 'all 0.2s', position: 'relative', overflow: 'hidden' }}
-                    onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(79,142,247,0.25)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(79,142,247,0.08)'; }}
-                    onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'; e.currentTarget.style.boxShadow = 'none'; }}>
+                  <div className="relative flex-1 overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0D1117] p-[clamp(18px,4vw,24px)] transition-all duration-200 hover:border-[rgba(79,142,247,0.25)] hover:shadow-[0_12px_32px_rgba(79,142,247,0.08)]">
 
                     {/* Subtle corner glow */}
                     <div style={{ position: 'absolute', top: 0, right: 0, width: '120px', height: '80px', background: 'radial-gradient(circle at top right, rgba(79,142,247,0.05), transparent 70%)', pointerEvents: 'none' }} />
@@ -293,7 +283,7 @@ const About = () => (
                     <p style={{ fontSize: '13px', color: '#8B8BAE', lineHeight: 1.75, marginBottom: '16px' }}>{item.description}</p>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
                       {item.tags.map(t => {
-                        const ac = accentMap[t.color] || accentMap.blue;
+                        const ac = ACCENT_MAP[t.color] || ACCENT_MAP.blue;
                         return <span key={t.label} style={{ padding: '3px 9px', borderRadius: '6px', background: ac.bg, border: `1px solid ${ac.border}`, fontSize: '10px', color: ac.text, fontFamily: "'JetBrains Mono', monospace" }}>{t.label}</span>;
                       })}
                     </div>
@@ -307,14 +297,10 @@ const About = () => (
         {/* CTA */}
         <RevealWrapper delay={320}>
           <div style={{ marginTop: '56px', display: 'flex', justifyContent: 'center', gap: '14px', flexWrap: 'wrap' }}>
-            <Link to="/contact" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '13px 26px', background: '#4F8EF7', color: '#fff', borderRadius: '11px', fontSize: '14px', fontWeight: 500, textDecoration: 'none', transition: 'all 0.2s', width: '100%', maxWidth: '220px' }}
-              onMouseEnter={e => { e.currentTarget.style.background = '#3a7de0'; e.currentTarget.style.boxShadow = '0 10px 28px rgba(79,142,247,0.38)'; }}
-              onMouseLeave={e => { e.currentTarget.style.background = '#4F8EF7'; e.currentTarget.style.boxShadow = 'none'; }}>
+            <Link to="/contact" className="inline-flex w-full max-w-[220px] items-center justify-center gap-2 rounded-[11px] bg-[#4F8EF7] px-[26px] py-[13px] text-sm font-medium text-white no-underline transition-all duration-200 hover:bg-[#3a7de0] hover:shadow-[0_10px_28px_rgba(79,142,247,0.38)]">
               Let's Connect <ArrowRight size={14} />
             </Link>
-            <Link to="/projects" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '13px 26px', background: 'transparent', color: '#E8E8F2', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '11px', fontSize: '14px', fontWeight: 500, textDecoration: 'none', transition: 'all 0.2s', width: '100%', maxWidth: '220px' }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(79,142,247,0.4)'; e.currentTarget.style.color = '#4F8EF7'; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = '#E8E8F2'; }}>
+            <Link to="/projects" className="inline-flex w-full max-w-[220px] items-center justify-center gap-2 rounded-[11px] border border-white/10 bg-transparent px-[26px] py-[13px] text-sm font-medium text-[#E8E8F2] no-underline transition-all duration-200 hover:border-[rgba(79,142,247,0.4)] hover:text-[#4F8EF7]">
               View My Projects <ArrowRight size={14} />
             </Link>
           </div>

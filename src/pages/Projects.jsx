@@ -1,16 +1,10 @@
 import React, { useState } from 'react';
 import { ExternalLink, Github, ArrowRight } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
-import { PROJECTS } from '../constants';
+import PageMeta from '../components/seo/PageMeta';
+import { CATEGORY_ACCENTS, PROJECTS, THEME_COLORS } from '../constants';
 
 const categories = ['All', 'API', 'Tool', 'Frontend', 'Social'];
-
-const categoryAccent = {
-  API: { bg: 'rgba(0,217,181,0.09)', border: 'rgba(0,217,181,0.2)', text: '#00D9B5' },
-  Tool: { bg: 'rgba(249,115,22,0.09)', border: 'rgba(249,115,22,0.2)', text: '#F97316' },
-  Frontend: { bg: 'rgba(79,142,247,0.09)', border: 'rgba(79,142,247,0.2)', text: '#4F8EF7' },
-  Social: { bg: 'rgba(236,72,153,0.09)', border: 'rgba(236,72,153,0.2)', text: '#EC4899' },
-};
 
 const portfolioTechs = ['React 19', 'Vite 7', 'Tailwind CSS v4', 'React Router v7', 'Lucide React'];
 
@@ -21,6 +15,10 @@ const Projects = () => {
 
   return (
     <div style={{ background: 'transparent', minHeight: '100vh' }}>
+      <PageMeta
+        title="Projects | Arman Khan"
+        description="Explore deployed React projects by Arman Khan, including API apps, frontend builds, tools, and full-stack experiments focused on practical problem solving."
+      />
 
       {/* PAGE HEADER */}
       <section style={{ paddingTop: '110px', paddingBottom: '52px', position: 'relative', overflow: 'hidden' }}>
@@ -46,16 +44,14 @@ const Projects = () => {
             <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '8px', marginBottom: '10px', paddingTop: '32px' }}>
               {categories.map(cat => (
                 <button key={cat} onClick={() => setActive(cat)}
-                  style={{
-                    padding: '8px 18px', borderRadius: '9px', fontSize: '13px', fontWeight: 500,
-                    cursor: 'pointer', transition: 'all 0.2s', fontFamily: "'DM Sans', sans-serif",
-                    background: active === cat ? '#4F8EF7' : 'transparent',
-                    color: active === cat ? '#fff' : '#8B8BAE',
-                    border: active === cat ? '1px solid #4F8EF7' : '1px solid rgba(255,255,255,0.09)',
-                    boxShadow: active === cat ? '0 4px 14px rgba(79,142,247,0.3)' : 'none',
-                  }}
-                  onMouseEnter={e => { if (active !== cat) { e.currentTarget.style.color = '#E8E8F2'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.18)'; } }}
-                  onMouseLeave={e => { if (active !== cat) { e.currentTarget.style.color = '#8B8BAE'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.09)'; } }}
+                  type="button"
+                  aria-pressed={active === cat}
+                  className={`rounded-[9px] px-[18px] py-2 text-[13px] font-medium transition-all duration-200 ${
+                    active === cat
+                      ? 'border bg-[var(--color-accent)] text-white shadow-[0_4px_14px_color-mix(in_srgb,var(--color-accent)_30%,transparent)]'
+                      : 'border border-white/[0.09] bg-transparent text-[#8B8BAE] hover:border-white/[0.18] hover:text-[#E8E8F2]'
+                  }`}
+                  style={{ cursor: 'pointer', fontFamily: "'DM Sans', sans-serif", borderColor: active === cat ? THEME_COLORS.accent : undefined }}
                 >
                   {cat}
                 </button>
@@ -69,12 +65,10 @@ const Projects = () => {
           {/* Project Cards Grid */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))', gap: '18px' }}>
             {filtered.map((p, i) => {
-              const ca = categoryAccent[p.category] || categoryAccent.API;
+              const ca = CATEGORY_ACCENTS[p.category] || CATEGORY_ACCENTS.API;
               return (
                 <RevealWrapper key={p.id} delay={i * 90}>
-                  <div style={{ background: '#0D1117', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '18px', overflow: 'hidden', display: 'flex', flexDirection: 'column', height: '100%', transition: 'all 0.25s', position: 'relative' }}
-                    onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(79,142,247,0.28)'; e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 24px 48px rgba(0,0,0,0.3)'; }}
-                    onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'; e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}>
+                  <div className="relative flex h-full flex-col overflow-hidden rounded-[18px] border border-white/[0.07] bg-[#0D1117] transition-all duration-200 hover:-translate-y-1 hover:border-[rgba(79,142,247,0.28)] hover:shadow-[0_24px_48px_rgba(0,0,0,0.3)]">
 
                     {/* Top gradient accent */}
                     <div style={{ height: '3px', background: 'linear-gradient(90deg, #4F8EF7, #7C5CFC)', flexShrink: 0 }} />
@@ -104,10 +98,7 @@ const Projects = () => {
                       {/* Actions */}
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '16px', gap: '12px', flexWrap: 'wrap' }}>
                         {p.liveUrl ? (
-                          <a href={p.liveUrl} target="_blank" rel="noopener noreferrer"
-                            style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '7px 14px', background: 'rgba(79,142,247,0.1)', border: '1px solid rgba(79,142,247,0.2)', borderRadius: '8px', fontSize: '12px', color: '#4F8EF7', fontWeight: 500, textDecoration: 'none', transition: 'all 0.2s', minWidth: 'fit-content' }}
-                            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(79,142,247,0.18)'; }}
-                            onMouseLeave={e => { e.currentTarget.style.background = 'rgba(79,142,247,0.1)'; }}>
+                          <a href={p.liveUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-w-fit items-center gap-[5px] rounded-lg border border-[rgba(79,142,247,0.2)] bg-[rgba(79,142,247,0.1)] px-[14px] py-[7px] text-xs font-medium text-[#4F8EF7] no-underline transition-all duration-200 hover:bg-[rgba(79,142,247,0.18)]">
                             Live Demo <ExternalLink size={11} />
                           </a>
                         ) : (
@@ -116,10 +107,7 @@ const Projects = () => {
                           </span>
                         )}
                         {p.githubUrl ? (
-                          <a href={p.githubUrl} target="_blank" rel="noopener noreferrer"
-                            style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '12px', color: '#4A4A6A', textDecoration: 'none', transition: 'color 0.2s' }}
-                            onMouseEnter={e => e.currentTarget.style.color = '#8B8BAE'}
-                            onMouseLeave={e => e.currentTarget.style.color = '#4A4A6A'}>
+                          <a href={p.githubUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs text-[#4A4A6A] no-underline transition-colors duration-200 hover:text-[#8B8BAE]">
                             <Github size={13} /> Source
                           </a>
                         ) : (
@@ -153,10 +141,7 @@ const Projects = () => {
                     ))}
                   </div>
                 </div>
-                <a href="https://github.com/Arman-techiee/portfolio" target="_blank" rel="noopener noreferrer"
-                  style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '6px', padding: '10px 18px', background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '9px', fontSize: '13px', color: '#E8E8F2', textDecoration: 'none', transition: 'all 0.2s', flexShrink: 0, width: '100%', maxWidth: '220px' }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(79,142,247,0.4)'; e.currentTarget.style.color = '#4F8EF7'; }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = '#E8E8F2'; }}>
+                <a href="https://github.com/Arman-techiee/portfolio" target="_blank" rel="noopener noreferrer" className="inline-flex w-full max-w-[220px] shrink-0 items-center justify-center gap-1.5 rounded-[9px] border border-white/10 bg-transparent px-[18px] py-[10px] text-[13px] text-[#E8E8F2] no-underline transition-all duration-200 hover:border-[rgba(79,142,247,0.4)] hover:text-[#4F8EF7]">
                   <Github size={14} /> View on GitHub
                 </a>
               </div>

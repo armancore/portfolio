@@ -6,14 +6,23 @@ const useReveal = (delay = 0) => {
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion || typeof IntersectionObserver === 'undefined') {
+      element.classList.add('visible');
+      return;
+    }
+
+    const timeouts = new Set();
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setTimeout(() => {
+            const timeoutId = window.setTimeout(() => {
               entry.target.classList.add('visible');
             }, delay);
+            timeouts.add(timeoutId);
             observer.unobserve(entry.target);
           }
         });
@@ -24,7 +33,9 @@ const useReveal = (delay = 0) => {
     observer.observe(element);
 
     return () => {
+      timeouts.forEach((timeoutId) => window.clearTimeout(timeoutId));
       if (element) observer.unobserve(element);
+      observer.disconnect();
     };
   }, [delay]);
 

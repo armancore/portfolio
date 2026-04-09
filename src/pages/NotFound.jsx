@@ -2,10 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Compass } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
+import PageMeta from '../components/seo/PageMeta';
 
 const NotFound = () => {
   return (
     <div style={{ background: 'transparent', minHeight: '100vh' }}>
+      <PageMeta
+        title="Page Not Found | Arman Khan"
+        description="The page you tried to visit on Arman Khan's portfolio could not be found."
+      />
       <section style={{ paddingTop: '130px', paddingBottom: '90px', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)', backgroundSize: '80px 80px' }} />
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 50% 60% at 50% 35%, rgba(79,142,247,0.08) 0%, transparent 65%)' }} />
@@ -24,15 +29,7 @@ const NotFound = () => {
               </p>
               <Link
                 to="/"
-                style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '12px 22px', background: '#4F8EF7', color: '#fff', borderRadius: '10px', fontSize: '14px', fontWeight: 500, textDecoration: 'none', transition: 'all 0.2s' }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#3a7de0';
-                  e.currentTarget.style.boxShadow = '0 10px 28px rgba(79,142,247,0.38)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#4F8EF7';
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
+                className="inline-flex items-center justify-center gap-2 rounded-[10px] bg-[#4F8EF7] px-[22px] py-3 text-sm font-medium text-white no-underline transition-all duration-200 hover:bg-[#3a7de0] hover:shadow-[0_10px_28px_rgba(79,142,247,0.38)]"
               >
                 <ArrowLeft size={15} />
                 Back to home
