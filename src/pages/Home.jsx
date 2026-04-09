@@ -1,21 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Github, Linkedin, Facebook, Instagram, ExternalLink, Layers, Cpu, Globe, Code2, Terminal, Download } from 'lucide-react';
+import { ArrowRight, Github, Linkedin, Facebook, Instagram, ExternalLink, Layers, Cpu, Globe, Code2 } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
-import { PERSONAL_INFO, PHOTO_MODE, PROJECTS } from '../constants';
+import PageMeta from '../components/seo/PageMeta';
+import { PERSONAL_INFO, PROJECTS, THEME_COLORS } from '../constants';
 
 let profileImg = null;
 try { profileImg = new URL('../assets/profile.jpg', import.meta.url).href; } catch {}
 
 const statsData = [
   { value: `${PROJECTS.length + 1}+`, label: 'Projects' },
-  { value: '4+', label: 'Languages' },
+  { value: '3+', label: 'Languages' },
   { value: '↗', label: 'Available' },
 ];
 const bentoSkills = [
-  { icon: Layers, title: 'Frontend', desc: 'React, Tailwind, Vite — pixel-perfect UIs', color: '#4F8EF7', glow: 'rgba(79,142,247,0.15)' },
-  { icon: Cpu, title: 'Learning Backend', desc: 'Node.js, Express, Prisma, PostgreSQL', color: '#7C5CFC', glow: 'rgba(124,92,252,0.15)' },
-  { icon: Globe, title: 'Networking', desc: 'TCP/IP, DNS, Linux, Cybersecurity', color: '#00D9B5', glow: 'rgba(0,217,181,0.15)' },
+  { icon: Layers, title: 'Frontend', desc: 'React, Tailwind, Vite — pixel-perfect UIs', color: THEME_COLORS.accent, glow: 'color-mix(in srgb, var(--color-accent) 15%, transparent)' },
+  { icon: Cpu, title: 'Learning Backend', desc: 'Node.js, Express, Prisma, PostgreSQL', color: THEME_COLORS.accent3, glow: 'color-mix(in srgb, var(--color-accent3) 15%, transparent)' },
+  { icon: Globe, title: 'Networking', desc: 'TCP/IP, DNS, Linux, Cybersecurity', color: THEME_COLORS.accent2, glow: 'color-mix(in srgb, var(--color-accent2) 15%, transparent)' },
   { icon: Code2, title: 'Languages', desc: 'C++, Java, Python, JavaScript', color: '#F97316', glow: 'rgba(249,115,22,0.15)' },
 ];
 
@@ -24,6 +25,10 @@ const Home = () => {
 
   return (
     <div style={{ background: 'transparent', minHeight: '100vh' }}>
+      <PageMeta
+        title="Arman Khan | IT Student & Frontend Developer"
+        description="Frontend-focused IT student from Nepal building polished React interfaces while growing strong backend foundations with Node.js, Express, Prisma, and PostgreSQL."
+      />
 
       {/* HERO */}
       <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingTop: '64px', overflow: 'hidden' }}>
@@ -69,14 +74,12 @@ const Home = () => {
 
               <RevealWrapper delay={290}>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginBottom: '28px' }}>
-                  <Link to="/projects" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '7px', padding: '12px 22px', background: '#4F8EF7', color: '#fff', borderRadius: '10px', fontSize: '14px', fontWeight: 500, textDecoration: 'none', transition: 'all 0.2s', minWidth: '160px' }}
-                    onMouseEnter={e => { e.currentTarget.style.background = '#3a7de0'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 10px 28px rgba(79,142,247,0.38)'; }}
-                    onMouseLeave={e => { e.currentTarget.style.background = '#4F8EF7'; e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}>
+                  <Link to="/projects" className="inline-flex items-center justify-center gap-[7px] rounded-[10px] bg-[#4F8EF7] px-[22px] py-3 text-sm font-medium text-white no-underline transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#3a7de0] hover:shadow-[0_10px_28px_rgba(79,142,247,0.38)]"
+                    style={{ minWidth: '160px' }}>
                     View Projects <ArrowRight size={14} />
                   </Link>
-                  <Link to="/contact" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '7px', padding: '12px 22px', background: 'transparent', color: '#E8E8F2', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '10px', fontSize: '14px', fontWeight: 500, textDecoration: 'none', transition: 'all 0.2s', minWidth: '160px' }}
-                    onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(79,142,247,0.5)'; e.currentTarget.style.color = '#4F8EF7'; }}
-                    onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = '#E8E8F2'; }}>
+                  <Link to="/contact" className="inline-flex items-center justify-center gap-[7px] rounded-[10px] border border-white/10 bg-transparent px-[22px] py-3 text-sm font-medium text-[#E8E8F2] no-underline transition-all duration-200 hover:border-[rgba(79,142,247,0.5)] hover:text-[#4F8EF7]"
+                    style={{ minWidth: '160px' }}>
                     Contact Me
                   </Link>
                 </div>
@@ -91,9 +94,7 @@ const Home = () => {
                     { href: 'https://www.instagram.com/techiee.arman', icon: Instagram, label: 'Instagram' },
                   ].map(({ href, icon: Icon, label }) => (
                     <a key={href} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                      style={{ width: '36px', height: '36px', borderRadius: '9px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#8B8BAE', transition: 'all 0.2s', textDecoration: 'none' }}
-                      onMouseEnter={e => { e.currentTarget.style.color = '#E8E8F2'; e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)'; }}
-                      onMouseLeave={e => { e.currentTarget.style.color = '#8B8BAE'; e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'; }}
+                      className="flex h-9 w-9 items-center justify-center rounded-[9px] border border-white/[0.07] bg-white/[0.04] text-[#8B8BAE] no-underline transition-all duration-200 hover:border-white/[0.15] hover:bg-white/[0.08] hover:text-[#E8E8F2]"
                     ><Icon size={15} /></a>
                   ))}
                   <span style={{ color: '#3A3A5C', fontSize: '13px' }}>From Damak, Jhapa · Based in Kathmandu</span>
@@ -178,9 +179,8 @@ const Home = () => {
             {bentoSkills.map((s, i) => (
               <RevealWrapper key={s.title} delay={i * 80}>
                 <div
-                  style={{ background: '#0D1117', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '16px', padding: '26px', position: 'relative', overflow: 'hidden', transition: 'all 0.25s', cursor: 'default', height: '100%' }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = `${s.color}50`; e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = `0 20px 40px ${s.glow}`; }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'; e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}
+                  className="relative h-full cursor-default overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0D1117] p-[26px] transition-all duration-200 hover:-translate-y-1 hover:border-[var(--skill-hover-border)] hover:[box-shadow:var(--skill-hover-shadow)]"
+                  style={{ '--skill-hover-border': `${s.color}50`, '--skill-hover-shadow': `0 20px 40px ${s.glow}` }}
                 >
                   <div style={{ width: '42px', height: '42px', borderRadius: '11px', background: `${s.color}14`, border: `1px solid ${s.color}28`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '14px' }}>
                     <s.icon size={19} style={{ color: s.color }} />
@@ -193,9 +193,7 @@ const Home = () => {
           </div>
           <RevealWrapper delay={300}>
             <div style={{ textAlign: 'center', marginTop: '28px' }}>
-              <Link to="/about" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: '#8B8BAE', textDecoration: 'none', border: '1px solid rgba(255,255,255,0.08)', padding: '9px 18px', borderRadius: '8px', transition: 'all 0.2s' }}
-                onMouseEnter={e => { e.currentTarget.style.color = '#4F8EF7'; e.currentTarget.style.borderColor = 'rgba(79,142,247,0.3)'; }}
-                onMouseLeave={e => { e.currentTarget.style.color = '#8B8BAE'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; }}>
+              <Link to="/about" className="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.08] px-[18px] py-[9px] text-[13px] text-[#8B8BAE] no-underline transition-all duration-200 hover:border-[rgba(79,142,247,0.3)] hover:text-[#4F8EF7]">
                 Full skills breakdown <ArrowRight size={13} />
               </Link>
             </div>
@@ -212,8 +210,7 @@ const Home = () => {
                 <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4F8EF7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '10px' }}>── Featured work</p>
                 <h2 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 'clamp(26px, 4vw, 38px)', color: '#E8E8F2' }}>Things I've built</h2>
               </div>
-              <Link to="/projects" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '13px', color: '#4F8EF7', textDecoration: 'none', transition: 'opacity 0.2s' }}
-                onMouseEnter={e => e.currentTarget.style.opacity = '0.7'} onMouseLeave={e => e.currentTarget.style.opacity = '1'}>
+              <Link to="/projects" className="inline-flex items-center gap-[5px] text-[13px] text-[#4F8EF7] no-underline transition-opacity duration-200 hover:opacity-70">
                 All projects <ArrowRight size={13} />
               </Link>
             </div>
@@ -221,9 +218,7 @@ const Home = () => {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))', gap: '18px' }}>
             {featured.map((p, i) => (
               <RevealWrapper key={p.id} delay={i * 110}>
-                <div style={{ background: '#0D1117', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '16px', padding: '28px', height: '100%', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', transition: 'all 0.25s' }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(79,142,247,0.3)'; e.currentTarget.style.transform = 'translateY(-3px)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'; e.currentTarget.style.transform = 'none'; }}>
+                <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0D1117] p-7 transition-all duration-200 hover:-translate-y-[3px] hover:border-[rgba(79,142,247,0.3)]">
                   <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(79,142,247,0.5), rgba(124,92,252,0.5), transparent)' }} />
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '18px' }}>
                     <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', color: '#4A4A6A' }}>{p.num}</span>
@@ -238,8 +233,7 @@ const Home = () => {
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '14px' }}>
                     <a href={p.liveUrl} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '13px', color: '#4F8EF7', fontWeight: 500, textDecoration: 'none' }}>Live Demo <ExternalLink size={11} /></a>
-                    <a href={p.githubUrl} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '11px', color: '#4A4A6A', textDecoration: 'none', transition: 'color 0.2s' }}
-                      onMouseEnter={e => e.currentTarget.style.color = '#8B8BAE'} onMouseLeave={e => e.currentTarget.style.color = '#4A4A6A'}>
+                    <a href={p.githubUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-[11px] text-[#4A4A6A] no-underline transition-colors duration-200 hover:text-[#8B8BAE]">
                       <Github size={12} /> GitHub
                     </a>
                   </div>
@@ -260,9 +254,7 @@ const Home = () => {
               <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4F8EF7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '14px' }}>── Let's work together</p>
               <h2 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: 'clamp(30px, 5vw, 52px)', color: '#E8E8F2', letterSpacing: '-0.02em', lineHeight: 1.15, marginBottom: '14px' }}>Have a project in mind?</h2>
               <p style={{ fontSize: '15px', color: '#8B8BAE', maxWidth: '440px', margin: '0 auto 32px', lineHeight: 1.7 }}>Open to internship and junior developer roles. Let's build something great together.</p>
-              <a href="mailto:arman.techiee@gmail.com" style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '13px 28px', background: '#4F8EF7', color: '#fff', borderRadius: '11px', fontSize: '14px', fontWeight: 500, textDecoration: 'none', transition: 'all 0.2s' }}
-                onMouseEnter={e => { e.currentTarget.style.background = '#3a7de0'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(79,142,247,0.38)'; }}
-                onMouseLeave={e => { e.currentTarget.style.background = '#4F8EF7'; e.currentTarget.style.boxShadow = 'none'; }}>
+              <a href="mailto:arman.techiee@gmail.com" className="inline-flex items-center gap-[7px] rounded-[11px] bg-[#4F8EF7] px-7 py-[13px] text-sm font-medium text-white no-underline transition-all duration-200 hover:bg-[#3a7de0] hover:shadow-[0_12px_32px_rgba(79,142,247,0.38)]">
                 arman.techiee@gmail.com
               </a>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '7px', marginTop: '18px' }}>
