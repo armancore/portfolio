@@ -10,7 +10,7 @@ try { profileImg = new URL('../assets/profile.jpg', import.meta.url).href; } cat
 
 const statsData = [
   { value: `${PROJECTS.length + 1}+`, label: 'Projects' },
-  { value: '3+', label: 'Languages' },
+  { value: '4+', label: 'Languages' },
   { value: '↗', label: 'Available' },
 ];
 const bentoSkills = [
@@ -118,6 +118,9 @@ const Home = () => {
                         <img
                           src={profileImg}
                           alt="Arman Khan"
+                          fetchPriority="high"
+                          width={380}
+                          height={540}
                           style={{ width: '100%', height: 'min(540px, 82vw)', minHeight: '360px', objectFit: 'cover', objectPosition: 'center 12%', display: 'block' }}
                         />
                       ) : (

@@ -65,7 +65,7 @@ const About = () => (
                 <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(79,142,247,0.6), rgba(124,92,252,0.6), transparent)' }} />
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                   {PHOTO_MODE === 'photo' && profileImg ? (
-                    <img src={profileImg} alt="Arman Khan" style={{ width: '60px', height: '60px', borderRadius: '14px', objectFit: 'cover', border: '2px solid rgba(255,255,255,0.1)', flexShrink: 0 }} />
+                    <img src={profileImg} alt="Arman Khan" loading="lazy" width={60} height={60} style={{ width: '60px', height: '60px', borderRadius: '14px', objectFit: 'cover', border: '2px solid rgba(255,255,255,0.1)', flexShrink: 0 }} />
                   ) : (
                     <div style={{ width: '60px', height: '60px', borderRadius: '14px', background: 'linear-gradient(135deg, #4F8EF7, #7C5CFC)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                       <span style={{ fontFamily: "'Syne', sans-serif", fontSize: '18px', fontWeight: 800, color: '#fff' }}>AK</span>
@@ -145,6 +145,9 @@ const About = () => (
                     <img
                       src={profileImg}
                       alt="Portrait of Arman Khan for the About page profile section"
+                      loading="lazy"
+                      width={420}
+                      height={560}
                       style={{ width: '100%', aspectRatio: '3/4', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
                     />
                   ) : (
