@@ -1,5 +1,54 @@
 export const PHOTO_MODE = "photo";
 
+export const THEME_COLORS = {
+  accent: "var(--color-accent)",
+  accent2: "var(--color-accent2)",
+  accent3: "var(--color-accent3)",
+  textPrimary: "var(--color-text-primary)",
+  textSecondary: "var(--color-text-secondary)",
+  textMuted: "var(--color-text-muted)",
+};
+
+export const ACCENT_MAP = {
+  blue: {
+    bg: "color-mix(in srgb, var(--color-accent) 10%, transparent)",
+    border: "color-mix(in srgb, var(--color-accent) 22%, transparent)",
+    text: "var(--color-accent)",
+    glow: "color-mix(in srgb, var(--color-accent) 12%, transparent)",
+  },
+  purple: {
+    bg: "color-mix(in srgb, var(--color-accent3) 10%, transparent)",
+    border: "color-mix(in srgb, var(--color-accent3) 22%, transparent)",
+    text: "var(--color-accent3)",
+    glow: "color-mix(in srgb, var(--color-accent3) 12%, transparent)",
+  },
+  teal: {
+    bg: "color-mix(in srgb, var(--color-accent2) 10%, transparent)",
+    border: "color-mix(in srgb, var(--color-accent2) 22%, transparent)",
+    text: "var(--color-accent2)",
+    glow: "color-mix(in srgb, var(--color-accent2) 10%, transparent)",
+  },
+  orange: {
+    bg: "rgba(249,115,22,0.1)",
+    border: "rgba(249,115,22,0.22)",
+    text: "#F97316",
+    glow: "rgba(249,115,22,0.1)",
+  },
+  pink: {
+    bg: "rgba(236,72,153,0.1)",
+    border: "rgba(236,72,153,0.22)",
+    text: "#EC4899",
+    glow: "rgba(236,72,153,0.1)",
+  },
+};
+
+export const CATEGORY_ACCENTS = {
+  API: { bg: "color-mix(in srgb, var(--color-accent2) 9%, transparent)", border: "color-mix(in srgb, var(--color-accent2) 20%, transparent)", text: "var(--color-accent2)" },
+  Tool: { bg: "rgba(249,115,22,0.09)", border: "rgba(249,115,22,0.2)", text: "#F97316" },
+  Frontend: { bg: "color-mix(in srgb, var(--color-accent) 9%, transparent)", border: "color-mix(in srgb, var(--color-accent) 20%, transparent)", text: "var(--color-accent)" },
+  Social: { bg: "rgba(236,72,153,0.09)", border: "rgba(236,72,153,0.2)", text: "#EC4899" },
+};
+
 export const PERSONAL_INFO = {
   name: "Arman Khan",
   role: "IT Student & Frontend Developer",
@@ -51,17 +100,16 @@ export const SKILLS = [
   },
   {
     id: 2,
-    title: "Backend Development",
+    title: "Backend Foundations",
     icon: "⚙️",
-    description: "Designing and building scalable server-side applications and APIs.",
+    description: "Learning to build secure backend systems and APIs through hands-on projects.",
     tags: [
       { label: "Node.js", color: "purple" },
       { label: "Express.js", color: "purple" },
       { label: "Prisma 7", color: "purple" },
       { label: "PostgreSQL", color: "purple" },
       { label: "REST APIs", color: "purple" },
-      { label: "JWT Auth", color: "purple" },
-      { label: "bcryptjs", color: "purple" }
+      { label: "JWT Auth", color: "purple" }
     ],
     accentColor: "purple"
   },
