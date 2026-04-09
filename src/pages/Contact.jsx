@@ -2,6 +2,7 @@ import React from 'react';
 import { Mail, Phone, Github, Linkedin, Facebook, Instagram, ArrowRight, ExternalLink } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
 import ContactForm from '../components/sections/ContactForm';
+import PageMeta from '../components/seo/PageMeta';
 import { PERSONAL_INFO, CONTACT_LINKS } from '../constants';
 
 const iconMap = { Mail, Phone, Github, Linkedin, Facebook, Instagram };
@@ -23,6 +24,10 @@ const RECIPIENT_EMAIL = 'arman.techiee@gmail.com';
 const Contact = () => {
   return (
     <div style={{ background: 'transparent', minHeight: '100vh' }}>
+      <PageMeta
+        title="Contact | Arman Khan"
+        description="Get in touch with Arman Khan for internship opportunities, junior developer roles, collaborations, or project discussions through the live contact form."
+      />
 
       {/* ─── PAGE HEADER ─── */}
       <section style={{ paddingTop: '110px', paddingBottom: '52px', position: 'relative', overflow: 'hidden' }}>
@@ -72,9 +77,7 @@ const Contact = () => {
                         href={link.href}
                         target={link.href.startsWith('http') ? '_blank' : undefined}
                         rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                        style={{ display: 'flex', alignItems: 'center', gap: '14px', padding: '14px 16px', background: '#0D1117', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '13px', textDecoration: 'none', transition: 'all 0.2s', flexWrap: 'wrap' }}
-                        onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.14)'; e.currentTarget.style.background = '#161B27'; e.currentTarget.style.transform = 'translateX(4px)'; }}
-                        onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'; e.currentTarget.style.background = '#0D1117'; e.currentTarget.style.transform = 'none'; }}
+                        className="flex flex-wrap items-center gap-[14px] rounded-[13px] border border-white/[0.07] bg-[#0D1117] px-4 py-[14px] no-underline transition-all duration-200 hover:translate-x-1 hover:border-white/[0.14] hover:bg-[#161B27]"
                       >
                         <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: ac.bg, border: `1px solid ${ac.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                           {Icon && <Icon size={16} style={{ color: ac.icon }} />}
@@ -111,9 +114,8 @@ const Contact = () => {
                     href={`https://mail.google.com/mail/?view=cm&to=${RECIPIENT_EMAIL}&su=Hello%20Arman`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '10px 18px', background: 'rgba(79,142,247,0.06)', border: '1px solid rgba(79,142,247,0.2)', borderRadius: '10px', fontSize: '12px', color: '#4F8EF7', textDecoration: 'none', fontFamily: "'JetBrains Mono', monospace", transition: 'all 0.2s' }}
-                    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(79,142,247,0.12)'; e.currentTarget.style.borderColor = 'rgba(79,142,247,0.4)'; }}
-                    onMouseLeave={e => { e.currentTarget.style.background = 'rgba(79,142,247,0.06)'; e.currentTarget.style.borderColor = 'rgba(79,142,247,0.2)'; }}
+                    className="inline-flex items-center gap-[7px] rounded-[10px] border border-[rgba(79,142,247,0.2)] bg-[rgba(79,142,247,0.06)] px-[18px] py-[10px] text-xs text-[#4F8EF7] no-underline transition-all duration-200 hover:border-[rgba(79,142,247,0.4)] hover:bg-[rgba(79,142,247,0.12)]"
+                    style={{ fontFamily: "'JetBrains Mono', monospace" }}
                   >
                     <Mail size={12} />
                     Open Gmail directly

@@ -131,65 +131,77 @@ const ContactForm = () => {
           {/* Name + Email row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             <div>
-              <label className="block text-xs text-text-muted font-mono uppercase tracking-wider mb-1.5">
+              <label htmlFor="contact-name" className="block text-xs text-text-muted font-mono uppercase tracking-wider mb-1.5">
                 Full Name
               </label>
               <input
+                id="contact-name"
                 type="text"
                 name="name"
                 value={form.name}
                 onChange={handleChange}
                 placeholder="Arman Khan"
                 className={inputClass('name')}
+                aria-invalid={Boolean(errors.name)}
+                aria-describedby={errors.name ? 'contact-name-error' : undefined}
               />
-              {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
+              {errors.name && <p id="contact-name-error" className="text-red-400 text-xs mt-1">{errors.name}</p>}
             </div>
             <div>
-              <label className="block text-xs text-text-muted font-mono uppercase tracking-wider mb-1.5">
+              <label htmlFor="contact-email" className="block text-xs text-text-muted font-mono uppercase tracking-wider mb-1.5">
                 Email Address
               </label>
               <input
+                id="contact-email"
                 type="email"
                 name="email"
                 value={form.email}
                 onChange={handleChange}
                 placeholder="you@example.com"
                 className={inputClass('email')}
+                aria-invalid={Boolean(errors.email)}
+                aria-describedby={errors.email ? 'contact-email-error' : undefined}
               />
-              {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
+              {errors.email && <p id="contact-email-error" className="text-red-400 text-xs mt-1">{errors.email}</p>}
             </div>
           </div>
 
           {/* Subject */}
           <div className="mb-4">
-            <label className="block text-xs text-text-muted font-mono uppercase tracking-wider mb-1.5">
+            <label htmlFor="contact-subject" className="block text-xs text-text-muted font-mono uppercase tracking-wider mb-1.5">
               Subject
             </label>
             <input
+              id="contact-subject"
               type="text"
               name="subject"
               value={form.subject}
               onChange={handleChange}
               placeholder="Internship opportunity / Project collaboration"
               className={inputClass('subject')}
+              aria-invalid={Boolean(errors.subject)}
+              aria-describedby={errors.subject ? 'contact-subject-error' : undefined}
             />
-            {errors.subject && <p className="text-red-400 text-xs mt-1">{errors.subject}</p>}
+            {errors.subject && <p id="contact-subject-error" className="text-red-400 text-xs mt-1">{errors.subject}</p>}
           </div>
 
           {/* Message */}
           <div className="mb-6">
-            <label className="block text-xs text-text-muted font-mono uppercase tracking-wider mb-1.5">
+            <label htmlFor="contact-message" className="block text-xs text-text-muted font-mono uppercase tracking-wider mb-1.5">
               Message
             </label>
             <textarea
+              id="contact-message"
               name="message"
               value={form.message}
               onChange={handleChange}
               rows={5}
               placeholder="Tell me about the opportunity, project, or just say hello..."
               className={`${inputClass('message')} resize-none`}
+              aria-invalid={Boolean(errors.message)}
+              aria-describedby={errors.message ? 'contact-message-error' : undefined}
             />
-            {errors.message && <p className="text-red-400 text-xs mt-1">{errors.message}</p>}
+            {errors.message && <p id="contact-message-error" className="text-red-400 text-xs mt-1">{errors.message}</p>}
           </div>
 
           {/* Submit */}
