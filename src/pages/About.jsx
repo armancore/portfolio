@@ -18,6 +18,7 @@ const details = [
   { icon: GraduationCap, label: 'Degree',   value: PERSONAL_INFO.degree                      },
   { icon: Briefcase,  label: 'Institution', value: PERSONAL_INFO.institution                  },
   { icon: MapPin,     label: 'Location',    value: PERSONAL_INFO.location                     },
+  { icon: MapPin,     label: 'Hometown',    value: PERSONAL_INFO.hometown                     },
   { icon: Mail,       label: 'Email',       value: PERSONAL_INFO.email,        isEmail: true  },
   { icon: Clock,      label: 'Response',    value: PERSONAL_INFO.responseTime                 },
 ];
@@ -26,7 +27,7 @@ const quickFacts = [
   { label: `${PROJECTS.length} Projects Deployed`, color: '#4F8EF7' },
   { label: 'Prisma + PostgreSQL', color: '#7C5CFC' },
   { label: 'Open to Hire',        color: '#00D9B5' },
-  { label: 'Kathmandu, Nepal',    color: '#F97316' },
+  { label: 'From Damak, Jhapa',   color: '#F97316' },
 ];
 
 const About = () => (
@@ -47,7 +48,7 @@ const About = () => (
               <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4F8EF7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '14px' }}>── Who I am</p>
               <h1 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: 'clamp(48px, 7.6vw, 78px)', color: '#E8E8F2', letterSpacing: '-0.03em', lineHeight: 1.02, marginBottom: '20px' }}>About Me</h1>
               <p style={{ fontSize: 'clamp(15px, 3.8vw, 17px)', color: '#9AA8C7', maxWidth: '520px', lineHeight: 1.85, marginBottom: '28px' }}>
-                IT student, frontend-focused developer, and lifelong learner building meaningful software from Kathmandu, Nepal.
+                IT student, frontend-focused developer, and lifelong learner from Damak, Jhapa, now building meaningful software in Kathmandu, Nepal.
               </p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
                 {quickFacts.map(({ label, color }) => (

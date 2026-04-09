@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
+import NotFound from './pages/NotFound';
 
 // Scroll to top on every route change
 const ScrollToTop = () => {
@@ -27,6 +28,7 @@ const AppContent = () => {
           <Route path="/about" element={<About />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       <Footer />

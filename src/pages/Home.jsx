@@ -109,7 +109,7 @@ const Home = () => {
                       onMouseLeave={e => { e.currentTarget.style.color = '#8B8BAE'; e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'; }}
                     ><Icon size={15} /></a>
                   ))}
-                  <span style={{ color: '#3A3A5C', fontSize: '13px' }}>Kathmandu, Nepal</span>
+                  <span style={{ color: '#3A3A5C', fontSize: '13px' }}>From Damak, Jhapa · Based in Kathmandu</span>
                 </div>
               </RevealWrapper>
             </div>

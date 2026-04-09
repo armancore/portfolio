@@ -7,14 +7,15 @@ export const PERSONAL_INFO = {
   email: "arman.techiee@gmail.com",
   phone: "+977 9826999632",
   location: "Tinkune, Kathmandu, Nepal",
+  hometown: "Damak, Jhapa, Nepal",
   institution: "Texas College of Management and IT",
   degree: "Bachelor of Information Technology",
   status: "Open to Opportunities",
   responseTime: "Within 24 hours",
   bio: [
-    "I am a Bachelor of Information Technology student at Texas College of Management and IT, Kathmandu. I currently focus on frontend web development with React, Vite, and Tailwind CSS, while actively learning backend development with Node.js, Express, Prisma, and PostgreSQL by building real projects from scratch.",
-    "My technical foundation spans multiple paradigms: object-oriented programming with Java and C++, data science workflows with Python, and modern web development with React. These days, I am expanding into backend development with Node.js, Express, Prisma, and PostgreSQL. I believe in learning by building — every project I ship teaches me something a classroom cannot.",
-    "Beyond code, I study network architecture, cybersecurity fundamentals, and IT infrastructure as part of my degree. I am actively looking for internship and junior developer opportunities where I can contribute real value from day one."
+    "I am a Bachelor of Information Technology student at Texas College of Management and IT in Kathmandu, originally from Damak, Jhapa. My academic path started with SEE at Brighter Star Secondary School and a +2 Science background from Damak Multiple Campus before I moved deeper into software and IT.",
+    "I currently focus on frontend web development with React, Vite, and Tailwind CSS while actively learning backend development with Node.js, Express, Prisma, and PostgreSQL by building real projects from scratch. My technical foundation also includes Java, C++, Python, and a strong curiosity for how systems work under the hood.",
+    "Beyond code, I study networking, cybersecurity fundamentals, and IT infrastructure as part of my degree. I am actively looking for internship and junior developer opportunities where I can contribute real value from day one and keep growing through real-world collaboration."
   ]
 };
 
@@ -296,6 +297,30 @@ export const TIMELINE = [
   },
   {
     id: 2,
+    year: "2022–2024",
+    title: "+2 Science",
+    org: "Damak Multiple Campus",
+    description: "Completed my higher secondary science background with a focus on analytical thinking, academic discipline, and a stronger foundation for future IT studies.",
+    tags: [
+      { label: "Science", color: "orange" },
+      { label: "Higher Secondary", color: "blue" },
+      { label: "Academic Foundation", color: "teal" }
+    ]
+  },
+  {
+    id: 3,
+    year: "Up to SEE",
+    title: "Secondary Education Examination",
+    org: "Brighter Star Secondary School",
+    description: "Completed my SEE and built the study habits, curiosity, and confidence that later pushed me toward technology and software development.",
+    tags: [
+      { label: "SEE", color: "purple" },
+      { label: "School Education", color: "blue" },
+      { label: "Early Foundation", color: "pink" }
+    ]
+  },
+  {
+    id: 4,
     year: "2025–Present",
     title: "Full-Stack Developer",
     org: "Self-directed / Personal Projects",
@@ -309,7 +334,7 @@ export const TIMELINE = [
     ]
   },
   {
-    id: 3,
+    id: 5,
     year: "2026–Present",
     title: "Modern Backend Systems",
     org: "Self-Study",

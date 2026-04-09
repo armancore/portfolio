@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Mail, Phone, Github, Linkedin, Facebook, Instagram, Send, CheckCircle, ArrowRight, ExternalLink } from 'lucide-react';
+import React from 'react';
+import { Mail, Phone, Github, Linkedin, Facebook, Instagram, ArrowRight, ExternalLink } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
+import ContactForm from '../components/sections/ContactForm';
 import { PERSONAL_INFO, CONTACT_LINKS } from '../constants';
 
 const iconMap = { Mail, Phone, Github, Linkedin, Facebook, Instagram };
@@ -17,87 +18,9 @@ const accentForLink = (iconName) => {
   return map[iconName] || map.Mail;
 };
 
-const inputStyle = (hasError) => ({
-  width: '100%',
-  padding: '11px 14px',
-  background: 'rgba(255,255,255,0.04)',
-  border: `1px solid ${hasError ? 'rgba(239,68,68,0.5)' : 'rgba(255,255,255,0.08)'}`,
-  borderRadius: '10px',
-  color: '#E8E8F2',
-  fontSize: '14px',
-  fontFamily: "'DM Sans', sans-serif",
-  outline: 'none',
-  transition: 'border-color 0.2s, background 0.2s',
-  boxSizing: 'border-box',
-});
-
-const labelStyle = {
-  display: 'block',
-  fontFamily: "'JetBrains Mono', monospace",
-  fontSize: '10px',
-  color: '#4A4A6A',
-  textTransform: 'uppercase',
-  letterSpacing: '0.1em',
-  marginBottom: '7px',
-};
-
 const RECIPIENT_EMAIL = 'arman.techiee@gmail.com';
 
 const Contact = () => {
-  const [form, setForm]     = useState({ name: '', email: '', subject: '', message: '' });
-  const [errors, setErrors] = useState({});
-  const [sending, setSending] = useState(false);
-  const [sent, setSent]     = useState(false);
-
-  const validate = () => {
-    const e = {};
-    if (!form.name.trim())    e.name    = 'Name required';
-    if (!form.email.trim())   e.email   = 'Email required';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Invalid email';
-    if (!form.subject.trim()) e.subject = 'Subject required';
-    if (!form.message.trim()) e.message = 'Message required';
-    return e;
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm(p => ({ ...p, [name]: value }));
-    if (errors[name]) setErrors(p => ({ ...p, [name]: '' }));
-  };
-
-  /**
-   * Build a mailto: URL and open it — this launches the user's default email
-   * client (including Gmail if set as default) with To, Subject and Body
-   * pre-filled, so the sender can review and hit Send themselves.
-   */
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const errs = validate();
-    if (Object.keys(errs).length > 0) { setErrors(errs); return; }
-
-    setSending(true);
-
-    const body = [
-      `Name: ${form.name}`,
-      `From: ${form.email}`,
-      '',
-      form.message,
-    ].join('\n');
-
-    const mailto =
-      `mailto:${RECIPIENT_EMAIL}` +
-      `?subject=${encodeURIComponent(form.subject)}` +
-      `&body=${encodeURIComponent(body)}`;
-
-    // Small delay so the "Sending…" state is visible, then open mail client
-    setTimeout(() => {
-      window.location.href = mailto;
-      setSending(false);
-      setSent(true);
-      setForm({ name: '', email: '', subject: '', message: '' });
-    }, 600);
-  };
-
   return (
     <div style={{ background: '#080B14', minHeight: '100vh' }}>
 
@@ -201,136 +124,11 @@ const Contact = () => {
             </div>
 
             {/* ── RIGHT — Message form ── */}
-            <RevealWrapper delay={100}>
-              {sent ? (
-                /* Success state */
-                <div style={{ background: '#0D1117', border: '1px solid rgba(0,217,181,0.2)', borderRadius: '20px', padding: '56px 32px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
-                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(0,217,181,0.6), transparent)' }} />
-                  <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 60% 40% at 50% 0%, rgba(0,217,181,0.05) 0%, transparent 60%)', pointerEvents: 'none' }} />
-                  <div style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'rgba(0,217,181,0.1)', border: '1px solid rgba(0,217,181,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
-                    <CheckCircle size={26} style={{ color: '#00D9B5' }} />
-                  </div>
-                  <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '22px', color: '#E8E8F2', marginBottom: '10px' }}>Your email client is open!</h3>
-                  <p style={{ fontSize: '14px', color: '#8B8BAE', marginBottom: '8px', lineHeight: 1.75 }}>
-                    Your default email app (or Gmail) should have opened with your message pre-filled.
-                  </p>
-                  <p style={{ fontSize: '13px', color: '#4A4A6A', marginBottom: '28px', fontFamily: "'JetBrains Mono', monospace" }}>
-                    Just press Send to reach Arman.
-                  </p>
-                  <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                    <button
-                      onClick={() => setSent(false)}
-                      style={{ padding: '10px 22px', background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '9px', fontSize: '13px', color: '#E8E8F2', cursor: 'pointer', transition: 'all 0.2s', fontFamily: "'DM Sans', sans-serif" }}
-                      onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(79,142,247,0.4)'; e.currentTarget.style.color = '#4F8EF7'; }}
-                      onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = '#E8E8F2'; }}
-                    >
-                      Send another
-                    </button>
-                    <a
-                      href={`https://mail.google.com/mail/?view=cm&to=${RECIPIENT_EMAIL}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 22px', background: '#4F8EF7', color: '#fff', borderRadius: '9px', fontSize: '13px', fontWeight: 500, textDecoration: 'none', transition: 'all 0.2s' }}
-                      onMouseEnter={e => { e.currentTarget.style.background = '#3a7de0'; }}
-                      onMouseLeave={e => { e.currentTarget.style.background = '#4F8EF7'; }}
-                    >
-                      <Mail size={13} /> Open Gmail
-                    </a>
-                  </div>
-                </div>
-              ) : (
-                /* Form */
-                <div style={{ background: '#0D1117', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '20px', overflow: 'hidden', position: 'relative' }}>
-                  {/* Top accent bar */}
-                  <div style={{ height: '2px', background: 'linear-gradient(90deg, #4F8EF7, #7C5CFC, #00D9B5)' }} />
-
-                  <div style={{ padding: 'clamp(22px, 5vw, 32px)' }}>
-                    <div style={{ marginBottom: '24px' }}>
-                      <h2 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '18px', color: '#E8E8F2', marginBottom: '6px' }}>Send a message</h2>
-                      <p style={{ fontSize: '12px', color: '#4A4A6A', fontFamily: "'JetBrains Mono', monospace", display: 'flex', alignItems: 'center', gap: '5px' }}>
-                        <Mail size={10} />
-                        Opens your email client with the message pre-filled
-                      </p>
-                    </div>
-
-                    <form onSubmit={handleSubmit} noValidate>
-
-                      {/* Name + Email */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-[14px]">
-                        {[
-                          { name: 'name',  label: 'Full Name',      placeholder: 'Your Name',       type: 'text'  },
-                          { name: 'email', label: 'Email Address',   placeholder: 'you@example.com', type: 'email' },
-                        ].map(f => (
-                          <div key={f.name}>
-                            <label style={labelStyle}>{f.label}</label>
-                            <input
-                              type={f.type} name={f.name} value={form[f.name]} onChange={handleChange}
-                              placeholder={f.placeholder} style={inputStyle(!!errors[f.name])}
-                              onFocus={e => { e.target.style.borderColor = errors[f.name] ? 'rgba(239,68,68,0.6)' : 'rgba(79,142,247,0.5)'; e.target.style.background = 'rgba(255,255,255,0.06)'; }}
-                              onBlur={e =>  { e.target.style.borderColor = errors[f.name] ? 'rgba(239,68,68,0.5)' : 'rgba(255,255,255,0.08)'; e.target.style.background = 'rgba(255,255,255,0.04)'; }}
-                            />
-                            {errors[f.name] && <p style={{ fontSize: '11px', color: '#F87171', marginTop: '4px' }}>{errors[f.name]}</p>}
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Subject */}
-                      <div style={{ marginBottom: '14px' }}>
-                        <label style={labelStyle}>Subject</label>
-                        <input
-                          type="text" name="subject" value={form.subject} onChange={handleChange}
-                          placeholder="Internship opportunity / Project collaboration"
-                          style={{ ...inputStyle(!!errors.subject), width: '100%' }}
-                          onFocus={e => { e.target.style.borderColor = errors.subject ? 'rgba(239,68,68,0.6)' : 'rgba(79,142,247,0.5)'; e.target.style.background = 'rgba(255,255,255,0.06)'; }}
-                          onBlur={e =>  { e.target.style.borderColor = errors.subject ? 'rgba(239,68,68,0.5)' : 'rgba(255,255,255,0.08)'; e.target.style.background = 'rgba(255,255,255,0.04)'; }}
-                        />
-                        {errors.subject && <p style={{ fontSize: '11px', color: '#F87171', marginTop: '4px' }}>{errors.subject}</p>}
-                      </div>
-
-                      {/* Message */}
-                      <div style={{ marginBottom: '20px' }}>
-                        <label style={labelStyle}>Message</label>
-                        <textarea
-                          name="message" value={form.message} onChange={handleChange} rows={5}
-                          placeholder="Tell me about the opportunity or project..."
-                          style={{ ...inputStyle(!!errors.message), width: '100%', resize: 'vertical', minHeight: '120px', lineHeight: 1.6 }}
-                          onFocus={e => { e.target.style.borderColor = errors.message ? 'rgba(239,68,68,0.6)' : 'rgba(79,142,247,0.5)'; e.target.style.background = 'rgba(255,255,255,0.06)'; }}
-                          onBlur={e =>  { e.target.style.borderColor = errors.message ? 'rgba(239,68,68,0.5)' : 'rgba(255,255,255,0.08)'; e.target.style.background = 'rgba(255,255,255,0.04)'; }}
-                        />
-                        {errors.message && <p style={{ fontSize: '11px', color: '#F87171', marginTop: '4px' }}>{errors.message}</p>}
-                      </div>
-
-                      {/* Submit */}
-                      <button
-                        type="submit" disabled={sending}
-                        style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '13px', background: sending ? 'rgba(79,142,247,0.6)' : '#4F8EF7', color: '#fff', borderRadius: '11px', fontSize: '14px', fontWeight: 500, cursor: sending ? 'not-allowed' : 'pointer', border: 'none', transition: 'all 0.2s', fontFamily: "'DM Sans', sans-serif" }}
-                        onMouseEnter={e => { if (!sending) { e.currentTarget.style.background = '#3a7de0'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(79,142,247,0.35)'; } }}
-                        onMouseLeave={e => { e.currentTarget.style.background = sending ? 'rgba(79,142,247,0.6)' : '#4F8EF7'; e.currentTarget.style.boxShadow = 'none'; }}
-                      >
-                        {sending ? (
-                          <>
-                            <span style={{ width: '15px', height: '15px', border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff', borderRadius: '50%', animation: 'spin 0.7s linear infinite', display: 'inline-block' }} />
-                            Opening email client…
-                          </>
-                        ) : (
-                          <><Send size={14} /> Send via Email Client</>
-                        )}
-                      </button>
-
-                      <p style={{ textAlign: 'center', fontSize: '11px', color: '#4A4A6A', marginTop: '12px', fontFamily: "'JetBrains Mono', monospace", lineHeight: 1.6 }}>
-                        Opens Gmail or your default mail app · Reply within 24 hours
-                      </p>
-                    </form>
-                  </div>
-                </div>
-              )}
-            </RevealWrapper>
+            <ContactForm />
 
           </div>
         </div>
       </section>
-
-      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>
   );
 };

@@ -9,11 +9,15 @@ const initialForm = {
   message: '',
 };
 
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mdapvrel';
+const HAS_REAL_FORMSPREE_ID = !FORMSPREE_ENDPOINT.includes('YOUR_FORM_ID_HERE');
+
 const ContactForm = () => {
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   const validate = () => {
     const errs = {};
@@ -34,21 +38,56 @@ const ContactForm = () => {
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: '' }));
     }
+    if (submitError) {
+      setSubmitError('');
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length > 0) {
       setErrors(errs);
       return;
     }
+
+    if (!HAS_REAL_FORMSPREE_ID) {
+      setSubmitError('Replace YOUR_FORM_ID_HERE in the Formspree URL before using the contact form.');
+      return;
+    }
+
+    setSubmitError('');
     setSending(true);
-    setTimeout(() => {
+
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          subject: form.subject,
+          message: form.message,
+        }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        const message = data?.errors?.[0]?.message || 'Something went wrong while sending your message.';
+        throw new Error(message);
+      }
+
       setSending(false);
       setSent(true);
       setForm(initialForm);
-    }, 1000);
+    } catch (error) {
+      setSending(false);
+      setSubmitError(error.message || 'Something went wrong while sending your message.');
+    }
   };
 
   const inputClass = (field) =>
@@ -172,6 +211,12 @@ const ContactForm = () => {
           <p className="text-text-muted text-xs text-center mt-4">
             Typical response time: within 24 hours
           </p>
+
+          {submitError && (
+            <p className="text-red-400 text-xs text-center mt-3">
+              {submitError}
+            </p>
+          )}
         </form>
       </div>
     </RevealWrapper>
