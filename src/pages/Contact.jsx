@@ -22,7 +22,7 @@ const RECIPIENT_EMAIL = 'arman.techiee@gmail.com';
 
 const Contact = () => {
   return (
-    <div style={{ background: '#080B14', minHeight: '100vh' }}>
+    <div style={{ background: 'transparent', minHeight: '100vh' }}>
 
       {/* ─── PAGE HEADER ─── */}
       <section style={{ paddingTop: '110px', paddingBottom: '52px', position: 'relative', overflow: 'hidden' }}>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Github, Linkedin, Facebook, Instagram, ExternalLink, Layers, Cpu, Globe, Code2, Terminal, Download } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
@@ -20,26 +20,13 @@ const bentoSkills = [
 ];
 
 const Home = () => {
-  const [mouse, setMouse] = useState({ x: 0, y: 0 });
-  useEffect(() => {
-    const h = (e) => setMouse({ x: e.clientX, y: e.clientY });
-    window.addEventListener('mousemove', h, { passive: true });
-    return () => window.removeEventListener('mousemove', h);
-  }, []);
-
   const featured = PROJECTS.filter(p => p.featured).slice(0, 2);
 
   return (
-    <div style={{ background: '#080B14', minHeight: '100vh' }}>
+    <div style={{ background: 'transparent', minHeight: '100vh' }}>
 
       {/* HERO */}
       <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingTop: '64px', overflow: 'hidden' }}>
-        {/* Mouse-follow glow */}
-        <div className="pointer-events-none" style={{
-          position: 'fixed', inset: 0, zIndex: 0,
-          background: `radial-gradient(720px circle at ${mouse.x}px ${mouse.y}px, rgba(79,142,247,0.11) 0%, rgba(124,92,252,0.06) 24%, transparent 62%)`,
-          transition: 'background 0.1s',
-        }} />
         {/* Grid background */}
         <div style={{
           position: 'absolute', inset: 0, zIndex: 0,

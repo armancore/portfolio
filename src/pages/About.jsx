@@ -31,7 +31,7 @@ const quickFacts = [
 ];
 
 const About = () => (
-  <div style={{ background: '#080B14', minHeight: '100vh' }}>
+  <div style={{ background: 'transparent', minHeight: '100vh' }}>
 
     {/* ─── PAGE HEADER ─── */}
     <section style={{ paddingTop: '110px', paddingBottom: '64px', position: 'relative', overflow: 'hidden' }}>

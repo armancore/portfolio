@@ -5,7 +5,7 @@ import RevealWrapper from '../components/ui/RevealWrapper';
 
 const NotFound = () => {
   return (
-    <div style={{ background: '#080B14', minHeight: '100vh' }}>
+    <div style={{ background: 'transparent', minHeight: '100vh' }}>
       <section style={{ paddingTop: '130px', paddingBottom: '90px', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)', backgroundSize: '80px 80px' }} />
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 50% 60% at 50% 35%, rgba(79,142,247,0.08) 0%, transparent 65%)' }} />

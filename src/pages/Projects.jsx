@@ -20,7 +20,7 @@ const Projects = () => {
   const portfolioProjectNum = String(PROJECTS.length + 1).padStart(2, '0');
 
   return (
-    <div style={{ background: '#080B14', minHeight: '100vh' }}>
+    <div style={{ background: 'transparent', minHeight: '100vh' }}>
 
       {/* PAGE HEADER */}
       <section style={{ paddingTop: '110px', paddingBottom: '52px', position: 'relative', overflow: 'hidden' }}>
