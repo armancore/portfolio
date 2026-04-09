@@ -26,7 +26,7 @@ const Home = () => {
   return (
     <div style={{ background: 'transparent', minHeight: '100vh' }}>
       <PageMeta
-        title="Arman Khan | IT Student & Frontend Developer"
+        title="Arman Khan"
         description="Frontend-focused IT student from Nepal building polished React interfaces while growing strong backend foundations with Node.js, Express, Prisma, and PostgreSQL."
       />
 
