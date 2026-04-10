@@ -51,7 +51,7 @@ export const CATEGORY_ACCENTS = {
 
 export const PERSONAL_INFO = {
   name: "Arman Khan",
-  role: "IT Student Learning Frontend and Backend Development",
+  role: "IT Student · Learning Frontend & Backend",
   tagline: "Building things that live on the internet.",
   email: "arman.techiee@gmail.com",
   phone: "+977 9826999632",
