@@ -27,7 +27,7 @@ const About = () => (
   <div style={{ background: 'transparent', minHeight: '100vh' }}>
     <PageMeta
       title="About | Arman Khan"
-      description="Learn more about Arman Khan, an IT student from Damak, Jhapa with a frontend focus, growing backend foundations, and a project-driven approach to software development."
+      description="Learn more about Arman Khan, an IT student from Damak, Jhapa currently learning frontend and backend development through project-based practice."
     />
 
     {/* ─── PAGE HEADER ─── */}
@@ -45,7 +45,7 @@ const About = () => (
               <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4F8EF7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '14px' }}>── Who I am</p>
               <h1 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: 'clamp(48px, 7.6vw, 78px)', color: '#E8E8F2', letterSpacing: '-0.03em', lineHeight: 1.02, marginBottom: '20px' }}>About Me</h1>
               <p style={{ fontSize: 'clamp(15px, 3.8vw, 17px)', color: '#9AA8C7', maxWidth: '520px', lineHeight: 1.85, marginBottom: '28px' }}>
-                IT student, frontend-focused developer, and lifelong learner from Damak, Jhapa, now building meaningful software in Kathmandu, Nepal.
+                IT student and lifelong learner from Damak, Jhapa, currently learning frontend and backend development while building meaningful software in Kathmandu, Nepal.
               </p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
                 {quickFacts.map(({ label, accent }) => (
@@ -73,7 +73,7 @@ const About = () => (
                   )}
                   <div>
                     <p style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '16px', color: '#E8E8F2', marginBottom: '3px' }}>Arman Khan</p>
-                    <p style={{ fontSize: '12px', color: '#8B8BAE' }}>IT Student · Full-Stack Developer</p>
+                    <p style={{ fontSize: '12px', color: '#8B8BAE' }}>IT Student · Learning Frontend &amp; Backend</p>
                     <div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', marginTop: '6px', padding: '3px 9px', background: 'rgba(0,217,181,0.08)', border: '1px solid rgba(0,217,181,0.2)', borderRadius: '20px' }}>
                       <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#00D9B5', animation: 'pulse-dot 2s ease-in-out infinite' }} />
                       <span style={{ color: '#00D9B5', fontSize: '10px', fontFamily: "'JetBrains Mono', monospace" }}>Available</span>
@@ -162,7 +162,7 @@ const About = () => (
                   {/* Name overlay */}
                   <div style={{ position: 'absolute', bottom: '20px', left: '20px', right: '20px', zIndex: 2 }}>
                     <p style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '18px', color: '#E8E8F2', marginBottom: '3px' }}>Arman Khan</p>
-                    <p style={{ fontSize: '12px', color: '#8B8BAE' }}>IT Student · Full-Stack Developer · Kathmandu</p>
+                    <p style={{ fontSize: '12px', color: '#8B8BAE' }}>IT Student · Learning Frontend &amp; Backend · Kathmandu</p>
                   </div>
 
                   {/* Available badge */}

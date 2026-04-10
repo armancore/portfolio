@@ -27,7 +27,7 @@ const Home = () => {
     <div style={{ background: 'transparent', minHeight: '100vh' }}>
       <PageMeta
         title="Arman Khan"
-        description="Frontend-focused IT student from Nepal building polished React interfaces while growing strong backend foundations with Node.js, Express, Prisma, and PostgreSQL."
+        description="IT student from Nepal currently learning frontend and backend development through hands-on projects with React, Node.js, Express, Prisma, and PostgreSQL."
       />
 
       {/* HERO */}
@@ -65,7 +65,7 @@ const Home = () => {
               </RevealWrapper>
 
               <RevealWrapper delay={150}>
-                <p style={{ fontSize: 'clamp(16px, 4vw, 18px)', color: '#8B8BAE', marginTop: '14px', marginBottom: '16px', fontWeight: 300 }}>IT Student &amp; Frontend Developer</p>
+                <p style={{ fontSize: 'clamp(16px, 4vw, 18px)', color: '#8B8BAE', marginTop: '14px', marginBottom: '16px', fontWeight: 300 }}>IT Student Learning Frontend &amp; Backend Development</p>
               </RevealWrapper>
 
               <RevealWrapper delay={210}>
@@ -136,7 +136,7 @@ const Home = () => {
                     {/* Name + title overlay */}
                     <div className="hidden md:block" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: 'clamp(18px, 4vw, 28px)', zIndex: 3 }}>
                       <p style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 'clamp(18px, 4vw, 20px)', color: '#E8E8F2', marginBottom: '4px' }}>Arman Khan</p>
-                      <p style={{ fontSize: '12px', color: '#8B8BAE', marginBottom: '12px' }}>IT Student · Full-Stack Developer</p>
+                      <p style={{ fontSize: '12px', color: '#8B8BAE', marginBottom: '12px' }}>IT Student · Learning Frontend &amp; Backend</p>
                       {/* Stats row */}
                       <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
                         {statsData.map(s => (
@@ -152,7 +152,7 @@ const Home = () => {
 
                   <div className="block md:hidden" style={{ marginTop: '18px', textAlign: 'center', padding: '0 10px' }}>
                     <p style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '20px', color: '#E8E8F2', marginBottom: '4px' }}>Arman Khan</p>
-                    <p style={{ fontSize: '12px', color: '#8B8BAE', marginBottom: '14px' }}>IT Student · Full-Stack Developer</p>
+                    <p style={{ fontSize: '12px', color: '#8B8BAE', marginBottom: '14px' }}>IT Student · Learning Frontend &amp; Backend</p>
                     <div style={{ display: 'flex', justifyContent: 'center', gap: '14px', flexWrap: 'wrap' }}>
                       {statsData.map(s => (
                         <div key={`mobile-${s.label}`} style={{ textAlign: 'center' }}>
