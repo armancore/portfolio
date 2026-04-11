@@ -229,7 +229,14 @@ const Home = () => {
                   <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(79,142,247,0.5), rgba(124,92,252,0.5), transparent)' }} />
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '18px' }}>
                     <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', color: '#4A4A6A' }}>{p.num}</span>
-                    <span style={{ padding: '3px 10px', borderRadius: '6px', background: 'rgba(0,217,181,0.09)', border: '1px solid rgba(0,217,181,0.2)', fontSize: '10px', color: '#00D9B5', fontFamily: "'JetBrains Mono', monospace" }}>{p.category}</span>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-end', gap: '6px' }}>
+                      <span style={{ padding: '3px 10px', borderRadius: '6px', background: 'rgba(0,217,181,0.09)', border: '1px solid rgba(0,217,181,0.2)', fontSize: '10px', color: '#00D9B5', fontFamily: "'JetBrains Mono', monospace" }}>{p.category}</span>
+                      {p.status ? (
+                        <span style={{ padding: '3px 10px', borderRadius: '6px', background: 'rgba(249,115,22,0.1)', border: '1px solid rgba(249,115,22,0.22)', fontSize: '10px', color: '#F97316', fontFamily: "'JetBrains Mono', monospace" }}>
+                          {p.status}
+                        </span>
+                      ) : null}
+                    </div>
                   </div>
                   <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '17px', color: '#E8E8F2', marginBottom: '10px', lineHeight: 1.3 }}>{p.title}</h3>
                   <p style={{ fontSize: '13px', color: '#8B8BAE', lineHeight: 1.7, marginBottom: '18px', flex: 1 }}>{p.description}</p>
@@ -239,7 +246,13 @@ const Home = () => {
                     ))}
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '14px' }}>
-                    <a href={p.liveUrl} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '13px', color: '#4F8EF7', fontWeight: 500, textDecoration: 'none' }}>Live Demo <ExternalLink size={11} /></a>
+                    {p.liveUrl ? (
+                      <a href={p.liveUrl} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '13px', color: '#4F8EF7', fontWeight: 500, textDecoration: 'none' }}>Live Demo <ExternalLink size={11} /></a>
+                    ) : (
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', padding: '4px 10px', borderRadius: '6px', background: 'rgba(249,115,22,0.1)', border: '1px solid rgba(249,115,22,0.22)', fontSize: '11px', color: '#F97316', fontWeight: 600, fontFamily: "'JetBrains Mono', monospace" }}>
+                        {p.status || 'In Progress'}
+                      </span>
+                    )}
                     <a href={p.githubUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-[11px] text-[#4A4A6A] no-underline transition-colors duration-200 hover:text-[#8B8BAE]">
                       <Github size={12} /> GitHub
                     </a>

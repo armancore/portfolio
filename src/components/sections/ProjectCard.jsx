@@ -19,7 +19,10 @@ const ProjectCard = ({ project }) => {
       {/* Header row */}
       <div className="flex items-start justify-between mb-4">
         <span className="font-mono text-xs text-text-muted">{project.num}</span>
-        <Badge label={project.category} color={badgeColor} />
+        <div className="flex flex-wrap justify-end gap-1.5">
+          <Badge label={project.category} color={badgeColor} />
+          {project.status ? <Badge label={project.status} color="orange" /> : null}
+        </div>
       </div>
 
       {/* Title */}
@@ -41,15 +44,21 @@ const ProjectCard = ({ project }) => {
 
       {/* Bottom bar */}
       <div className="flex items-center justify-between pt-4 border-t border-[var(--border)]">
-        <a
-          href={project.liveUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-1.5 text-accent text-sm font-medium hover:text-accent/80 transition-colors"
-        >
-          Live Demo
-          <ExternalLink size={13} />
-        </a>
+        {project.liveUrl ? (
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-accent text-sm font-medium hover:text-accent/80 transition-colors"
+          >
+            Live Demo
+            <ExternalLink size={13} />
+          </a>
+        ) : (
+          <span className="inline-flex items-center rounded-md border border-orange-500/20 bg-orange-500/10 px-2.5 py-1 text-xs font-medium font-mono text-orange-400">
+            {project.status || 'In Progress'}
+          </span>
+        )}
         <a
           href={project.githubUrl}
           target="_blank"

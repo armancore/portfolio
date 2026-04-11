@@ -269,6 +269,7 @@ export const PROJECTS = [
       { label: "EdTech", color: "blue" }
     ],
     category: "Tool",
+    status: "In Progress",
     liveUrl: null,
     githubUrl: "https://github.com/Arman-techiee/TriLearn.git",
     featured: false
