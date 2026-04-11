@@ -54,7 +54,6 @@ export const PERSONAL_INFO = {
   role: "IT Student · Learning Frontend & Backend",
   tagline: "Building things that live on the internet.",
   email: "arman.techiee@gmail.com",
-  phone: "+977 9826999632",
   location: "Tinkune, Kathmandu, Nepal",
   hometown: "Damak, Jhapa, Nepal",
   institution: "Texas College of Management and IT",
@@ -62,7 +61,7 @@ export const PERSONAL_INFO = {
   status: "Open to Opportunities",
   responseTime: "Within 24 hours",
   bio: [
-    "I'm a Bachelor of Information Technology student at Texas College of Management and IT, Kathmandu originally from Damak, Jhapa. Before diving into software and IT, I completed my SEE at Brighter Star Secondary School and my +2 in Science at Damak Multiple Campus.",
+    "I'm a Bachelor of Information Technology student at Texas College of Management and IT, Kathmandu originally from Damak, Jhapa. Before diving into software and IT, I completed my SEE at Brighter Star English School and my +2 in Science at Damak Multiple Campus.",
     "I currently focus on frontend web development with React, Vite, and Tailwind CSS while actively learning backend development with Node.js, Express, Prisma, and PostgreSQL by building real projects from scratch. My technical foundation also includes Java, C++, Python, and a strong curiosity for how systems work under the hood.",
     "Beyond code, I study networking, cybersecurity fundamentals, and IT infrastructure as part of my degree. I am actively looking for internship and junior developer opportunities where I can contribute real value from day one and keep growing through real-world collaboration."
   ]
@@ -257,20 +256,21 @@ export const PROJECTS = [
   {
     id: 6,
     num: "06",
-    title: "Online Student Learning & Management Platform",
-    description: "A full-stack platform in progress for students and educational institutes to manage learning materials, academic workflows, communication, and institutional operations through a modern web experience.",
-    longDescription: "An online student learning and management platform currently under development for students and educational institutes. The backend is being built with Node.js, Express, Prisma 7, PostgreSQL, @prisma/adapter-pg, pg, jsonwebtoken, and bcryptjs for secure and scalable academic workflows. The web frontend uses React, Vite, and Tailwind CSS, with a React Native and Expo mobile app planned for future student access on the go.",
+    title: "TriLearn",
+    description: "A full-stack student learning and management platform with three access levels for administrators, instructors, and students.",
+    longDescription: "TriLearn is a student learning and management platform I am currently building for schools and colleges. It supports three core roles, administrators, instructors, and students, with a modern full-stack architecture using React, Vite, Node.js, Express, PostgreSQL, Prisma, JWT auth, Zod validation, and GitHub Actions for CI.",
     tags: [
       { label: "React", color: "blue" },
       { label: "Node.js", color: "teal" },
-      { label: "Express.js", color: "orange" },
-      { label: "Prisma 7", color: "purple" },
+      { label: "Express", color: "orange" },
       { label: "PostgreSQL", color: "purple" },
+      { label: "Prisma", color: "purple" },
+      { label: "JWT Auth", color: "teal" },
       { label: "EdTech", color: "blue" }
     ],
     category: "Tool",
     liveUrl: null,
-    githubUrl: null,
+    githubUrl: "https://github.com/Arman-techiee/TriLearn.git",
     featured: false
   },
   {
@@ -359,7 +359,7 @@ export const TIMELINE = [
     id: 3,
     year: "Up to SEE",
     title: "Secondary Education Examination",
-    org: "Brighter Star Secondary School",
+    org: "Brighter Star English School",
     description: "Completed my SEE and built the study habits, curiosity, and confidence that later pushed me toward technology and software development.",
     tags: [
       { label: "SEE", color: "purple" },
@@ -386,13 +386,13 @@ export const TIMELINE = [
     year: "2026–Present",
     title: "Modern Backend Systems",
     org: "Self-Study",
-    description: "Currently building a student learning and management platform using Node.js, Express, Prisma 7, PostgreSQL, JWT-based authentication, and a React frontend, with React Native and Expo planned for mobile.",
+    description: "Currently building TriLearn, a student learning and management platform with separate administration, instructor, and student roles using React, Node.js, Express, PostgreSQL, Prisma, and JWT-based authentication.",
     tags: [
-      { label: "Prisma 7", color: "teal" },
-      { label: "Express.js", color: "orange" },
+      { label: "Prisma", color: "teal" },
+      { label: "Express", color: "orange" },
       { label: "Node.js", color: "teal" },
       { label: "PostgreSQL", color: "purple" },
-      { label: "React Native", color: "blue" }
+      { label: "React", color: "blue" }
     ]
   }
 ];
@@ -404,13 +404,6 @@ export const CONTACT_LINKS = [
     href: "mailto:arman.techiee@gmail.com",
     iconName: "Mail",
     bgColor: "bg-[var(--accent-glow)] border-accent/20 text-accent"
-  },
-  {
-    label: "+977 9826999632",
-    sublabel: "Calls & WhatsApp",
-    href: "tel:+9779826999632",
-    iconName: "Phone",
-    bgColor: "bg-[var(--accent3-glow)] border-accent3/20 text-accent3"
   },
   {
     label: "github.com/Arman-techiee",

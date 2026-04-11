@@ -1,11 +1,10 @@
 import React from 'react';
-import { Mail, Phone, Github, Linkedin, Facebook, Instagram } from 'lucide-react';
+import { Mail, Github, Linkedin, Facebook, Instagram } from 'lucide-react';
 import RevealWrapper from '../ui/RevealWrapper';
 import { PERSONAL_INFO, CONTACT_LINKS } from '../../constants';
 
 const iconMap = {
   Mail,
-  Phone,
   Github,
   Linkedin,
   Facebook,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, Mail, Phone, Calendar, BookOpen, ArrowRight, Briefcase, GraduationCap, Star, Clock } from 'lucide-react';
+import { MapPin, Mail, Calendar, BookOpen, ArrowRight, Briefcase, GraduationCap, Star, Clock } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
 import PageMeta from '../components/seo/PageMeta';
 import { ACCENT_MAP, PERSONAL_INFO, PHOTO_MODE, PROJECTS, SKILLS, THEME_COLORS, TIMELINE } from '../constants';

@@ -1,16 +1,15 @@
 import React from 'react';
-import { Mail, Phone, Github, Linkedin, Facebook, Instagram, ArrowRight, ExternalLink } from 'lucide-react';
+import { Mail, Github, Linkedin, Facebook, Instagram, ArrowRight, ExternalLink } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
 import ContactForm from '../components/sections/ContactForm';
 import PageMeta from '../components/seo/PageMeta';
 import { PERSONAL_INFO, CONTACT_LINKS } from '../constants';
 
-const iconMap = { Mail, Phone, Github, Linkedin, Facebook, Instagram };
+const iconMap = { Mail, Github, Linkedin, Facebook, Instagram };
 
 const accentForLink = (iconName) => {
   const map = {
     Mail:      { icon: '#4F8EF7', bg: 'rgba(79,142,247,0.1)',   border: 'rgba(79,142,247,0.2)'   },
-    Phone:     { icon: '#00D9B5', bg: 'rgba(0,217,181,0.1)',    border: 'rgba(0,217,181,0.2)'    },
     Github:    { icon: '#E8E8F2', bg: 'rgba(255,255,255,0.06)', border: 'rgba(255,255,255,0.1)'  },
     Linkedin:  { icon: '#38BDF8', bg: 'rgba(56,189,248,0.1)',   border: 'rgba(56,189,248,0.2)'   },
     Facebook:  { icon: '#7C5CFC', bg: 'rgba(124,92,252,0.1)',   border: 'rgba(124,92,252,0.2)'   },
