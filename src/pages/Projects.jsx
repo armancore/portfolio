@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ExternalLink, Github, ArrowRight } from 'lucide-react';
+import { ExternalLink, Github } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
 import PageMeta from '../components/seo/PageMeta';
 import { CATEGORY_ACCENTS, PROJECTS, THEME_COLORS } from '../constants';

@@ -35,7 +35,7 @@ const useActiveSection = (sectionIds = []) => {
         observer.unobserve(element);
       });
     };
-  }, [sectionIds.join(',')]);
+  }, [sectionIds]);
 
   return activeSection;
 };

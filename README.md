@@ -1,132 +1,61 @@
-# Arman Khan Portfolio
+# Arman Khan
 
-Personal portfolio website for Arman Khan, an IT student and full-stack developer based in Kathmandu, Nepal. The site highlights featured projects, technical skills, education, and contact options in a polished single-page-style experience across multiple routes.
+IT student from Nepal, currently learning frontend and backend development by building real-world projects and improving every day through hands-on practice.
 
-Live site: [www.armankhan.com.np](https://www.armankhan.com.np)
+## About Me
 
-## Overview
+I am a Bachelor of Information Technology student at Texas College of Management and IT in Kathmandu, originally from Damak, Jhapa. I am focused on growing as a developer through practical work, consistent learning, and building projects that sharpen both my technical and problem-solving skills.
 
-This project is built with React and Vite and deployed through GitHub Pages. It uses a custom dark visual system, animated reveal effects, hash-based routing, and centralized content configuration so portfolio details can be updated from one place.
+Right now, I am mainly working with React, Vite, and Tailwind CSS on the frontend while also learning backend development with Node.js, Express, Prisma, and PostgreSQL. I enjoy turning ideas into clean, usable web experiences and understanding how systems work behind the scenes.
 
-## Features
+## What I’m Learning
 
-- Landing page with hero section, featured work, skill highlights, and CTA blocks
-- Dedicated About, Projects, and Contact pages
-- Responsive layout for desktop and mobile
-- Hash routing for static hosting compatibility
-- Scroll-reveal interactions and animated UI accents
-- Centralized portfolio data in `src/constants/index.js`
-- Contact form that validates input and opens the user's email client with a prefilled message
-- GitHub Pages deployment workflow with custom domain support
+- Frontend development with React and modern UI practices
+- Backend development with Node.js and Express
+- Database design with PostgreSQL and Prisma
+- API development and integration
+- Git, GitHub, and deployment workflows
+- Networking, cybersecurity, and core IT concepts
 
-## Tech Stack
+## Goals
 
-- React 19
-- Vite 7
-- React Router 7
-- Tailwind CSS v4
-- Lucide React
-- GitHub Actions
-- GitHub Pages
+- Keep building projects that solve practical problems
+- Grow into a strong full-stack developer
+- Contribute to real teams and real products
+- Find internship and junior developer opportunities
+- Improve both technical depth and communication skills
 
-## Getting Started
+## Tech I Work With
 
-### Prerequisites
+- React
+- Vite
+- Tailwind CSS
+- JavaScript
+- Node.js
+- Express.js
+- Prisma
+- PostgreSQL
+- Java
+- C++
+- Python
+- Git and GitHub
 
-- Node.js 20+
-- npm
+## A Few Things About Me
 
-### Installation
+- Based in Kathmandu, Nepal
+- Originally from Damak, Jhapa
+- Studying BIT
+- Interested in software engineering, backend systems, and modern web development
+- Open to learning, collaboration, and new opportunities
 
-```bash
-npm install
-```
-
-### Development
-
-```bash
-npm run dev
-```
-
-The app will be available at `http://localhost:5173`.
-
-### Production Build
-
-```bash
-npm run build
-```
-
-### Preview Production Build
-
-```bash
-npm run preview
-```
-
-## Available Scripts
-
-| Command | Description |
-|---|---|
-| `npm run dev` | Start the Vite development server |
-| `npm run build` | Create a production build in `dist/` |
-| `npm run preview` | Preview the production build locally |
-| `npm run lint` | Run ESLint |
-
-## Project Structure
-
-```text
-.
-|-- public/
-|-- src/
-|   |-- assets/
-|   |-- components/
-|   |   |-- layout/
-|   |   |-- sections/
-|   |   `-- ui/
-|   |-- constants/
-|   |-- hooks/
-|   |-- pages/
-|   |-- App.jsx
-|   |-- index.css
-|   `-- main.jsx
-|-- .github/workflows/
-|-- index.html
-|-- package.json
-`-- vite.config.js
-```
-
-## Customization
-
-Most portfolio content lives in `src/constants/index.js`. Update this file to change:
-
-- personal information
-- social links
-- skills
-- projects
-- timeline entries
-- contact links
-
-Profile image:
-
-- Place your image at `src/assets/profile.jpg`
-- `PHOTO_MODE` is already set to `"photo"`, so the real image is used when that file exists
-
-## Routing and Hosting Notes
-
-- The app uses `HashRouter`, which keeps routing compatible with static hosting.
-- The repository includes a GitHub Actions workflow at `.github/workflows/deploy.yml`.
-- The custom domain is configured through `public/CNAME`.
-
-## Deployment
-
-Pushes to `main` trigger the GitHub Pages deployment workflow automatically. The site is built with `npm ci` and `npm run build`, then deployed from the generated `dist/` output.
-
-## Contact
+## Connect With Me
 
 - Email: [arman.techiee@gmail.com](mailto:arman.techiee@gmail.com)
 - GitHub: [Arman-techiee](https://github.com/Arman-techiee)
+- LinkedIn: [arman-khan-943b29400](https://www.linkedin.com/in/arman-khan-943b29400/)
 - Facebook: [techiee.arman](https://www.facebook.com/techiee.arman)
 - Instagram: [techiee.arman](https://www.instagram.com/techiee.arman)
 
-## License
+## Personal Note
 
-This project is for personal portfolio use unless a separate license is added.
+I am still early in my journey, but I care a lot about improving, building meaningful things, and becoming the kind of developer who creates real value. Every project is part of that growth.

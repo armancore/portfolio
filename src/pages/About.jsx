@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, Mail, Calendar, BookOpen, ArrowRight, Briefcase, GraduationCap, Star, Clock } from 'lucide-react';
+import { MapPin, Mail, BookOpen, ArrowRight, Briefcase, GraduationCap, Clock } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
 import PageMeta from '../components/seo/PageMeta';
-import { ACCENT_MAP, PERSONAL_INFO, PHOTO_MODE, PROJECTS, SKILLS, THEME_COLORS, TIMELINE } from '../constants';
+import { ACCENT_MAP, PERSONAL_INFO, PHOTO_MODE, PROJECTS, SKILLS, TIMELINE } from '../constants';
 import profileImg from '../assets/profile.jpg';
 
 const details = [

@@ -6,7 +6,11 @@ import PageMeta from '../components/seo/PageMeta';
 import { PERSONAL_INFO, PROJECTS, THEME_COLORS } from '../constants';
 
 let profileImg = null;
-try { profileImg = new URL('../assets/profile.jpg', import.meta.url).href; } catch {}
+try {
+  profileImg = new URL('../assets/profile.jpg', import.meta.url).href;
+} catch {
+  // The profile image is optional during development.
+}
 
 const statsData = [
   { value: `${PROJECTS.length + 1}+`, label: 'Projects' },
