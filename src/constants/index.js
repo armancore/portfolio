@@ -333,43 +333,20 @@ export const PROJECTS = [
 export const TIMELINE = [
   {
     id: 1,
-    year: "2024–Present",
-    title: "Bachelor of Information Technology",
-    org: "Texas College of Management and IT",
-    description: "Studying software engineering, networking, cybersecurity, databases, and research methodology. Building a strong theoretical foundation alongside hands-on project work.",
+    year: "2026–Present",
+    title: "Modern Backend Systems",
+    org: "Self-Study",
+    description: "Currently building TriLearn, a student learning and management platform with separate administration, instructor, and student roles using React, Node.js, Express, PostgreSQL, Prisma, and JWT-based authentication.",
     tags: [
-      { label: "Software Engineering", color: "blue" },
-      { label: "Networking", color: "teal" },
-      { label: "Cybersecurity", color: "pink" },
-      { label: "Databases", color: "purple" }
+      { label: "Prisma", color: "teal" },
+      { label: "Express", color: "orange" },
+      { label: "Node.js", color: "teal" },
+      { label: "PostgreSQL", color: "purple" },
+      { label: "React", color: "blue" }
     ]
   },
   {
     id: 2,
-    year: "2022–2024",
-    title: "+2 Science",
-    org: "Damak Multiple Campus",
-    description: "Completed my higher secondary science background with a focus on analytical thinking, academic discipline, and a stronger foundation for future IT studies.",
-    tags: [
-      { label: "Science", color: "orange" },
-      { label: "Higher Secondary", color: "blue" },
-      { label: "Academic Foundation", color: "teal" }
-    ]
-  },
-  {
-    id: 3,
-    year: "Up to SEE",
-    title: "Secondary Education Examination",
-    org: "Brighter Star English School",
-    description: "Completed my SEE and built the study habits, curiosity, and confidence that later pushed me toward technology and software development.",
-    tags: [
-      { label: "SEE", color: "purple" },
-      { label: "School Education", color: "blue" },
-      { label: "Early Foundation", color: "pink" }
-    ]
-  },
-  {
-    id: 4,
     year: "2025–Present",
     title: "Frontend and Backend Learner",
     org: "Self-directed / Personal Projects",
@@ -383,19 +360,42 @@ export const TIMELINE = [
     ]
   },
   {
-    id: 5,
-    year: "2026–Present",
-    title: "Modern Backend Systems",
-    org: "Self-Study",
-    description: "Currently building TriLearn, a student learning and management platform with separate administration, instructor, and student roles using React, Node.js, Express, PostgreSQL, Prisma, and JWT-based authentication.",
+    id: 3,
+    year: "2024–Present",
+    title: "Bachelor of Information Technology",
+    org: "Texas College of Management and IT",
+    description: "Studying software engineering, networking, cybersecurity, databases, and research methodology. Building a strong theoretical foundation alongside hands-on project work.",
     tags: [
-      { label: "Prisma", color: "teal" },
-      { label: "Express", color: "orange" },
-      { label: "Node.js", color: "teal" },
-      { label: "PostgreSQL", color: "purple" },
-      { label: "React", color: "blue" }
+      { label: "Software Engineering", color: "blue" },
+      { label: "Networking", color: "teal" },
+      { label: "Cybersecurity", color: "pink" },
+      { label: "Databases", color: "purple" }
     ]
-  }
+  },
+  {
+    id: 4,
+    year: "2022–2024",
+    title: "+2 Science",
+    org: "Damak Multiple Campus",
+    description: "Completed my higher secondary science background with a focus on analytical thinking, academic discipline, and a stronger foundation for future IT studies.",
+    tags: [
+      { label: "Science", color: "orange" },
+      { label: "Higher Secondary", color: "blue" },
+      { label: "Academic Foundation", color: "teal" }
+    ]
+  },
+  {
+    id: 5,
+    year: "Up to SEE",
+    title: "Secondary Education Examination",
+    org: "Brighter Star English School",
+    description: "Completed my SEE and built the study habits, curiosity, and confidence that later pushed me toward technology and software development.",
+    tags: [
+      { label: "SEE", color: "purple" },
+      { label: "School Education", color: "blue" },
+      { label: "Early Foundation", color: "pink" }
+    ]
+  },
 ];
 
 export const CONTACT_LINKS = [
