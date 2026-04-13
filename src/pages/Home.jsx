@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Github, Linkedin, Facebook, Instagram, ExternalLink, Layers, Cpu, Globe, Code2 } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
@@ -7,7 +7,7 @@ import { PERSONAL_INFO, PROJECTS, THEME_COLORS } from '../constants';
 
 let profileImg = null;
 try {
-  profileImg = new URL('../assets/profile.jpg', import.meta.url).href;
+  profileImg = new URL('../assets/profile.webp', import.meta.url).href;
 } catch {
   // The profile image is optional during development.
 }
@@ -26,6 +26,21 @@ const bentoSkills = [
 
 const Home = () => {
   const featured = PROJECTS.filter(p => p.featured).slice(0, 2);
+
+  useEffect(() => {
+    if (!profileImg) return undefined;
+
+    const preload = document.createElement('link');
+    preload.rel = 'preload';
+    preload.as = 'image';
+    preload.href = profileImg;
+    preload.fetchPriority = 'high';
+    document.head.appendChild(preload);
+
+    return () => {
+      document.head.removeChild(preload);
+    };
+  }, []);
 
   return (
     <div style={{ background: 'transparent', minHeight: '100vh' }}>
@@ -54,29 +69,29 @@ const Home = () => {
 
             {/* Left col — text */}
             <div className="order-1 lg:order-1 lg:col-start-1 lg:col-span-1">
-              <RevealWrapper delay={0}>
+              <RevealWrapper disabled>
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '22px', padding: '5px 14px 5px 10px', background: 'rgba(79,142,247,0.08)', border: '1px solid rgba(79,142,247,0.2)', borderRadius: '100px', maxWidth: '100%' }}>
                   <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#4F8EF7', boxShadow: '0 0 0 3px rgba(79,142,247,0.16)', flexShrink: 0 }} />
                   <span style={{ color: '#A9C6FF', fontSize: '11px', fontFamily: "'JetBrains Mono', monospace", letterSpacing: '0.06em' }}>building polished frontend projects and learning backend systems</span>
                 </div>
               </RevealWrapper>
 
-              <RevealWrapper delay={70}>
+              <RevealWrapper disabled>
                 <h1 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, lineHeight: 0.98, letterSpacing: '-0.03em', marginBottom: '2px' }}>
                   <span style={{ fontSize: 'clamp(40px, 12vw, 84px)', color: '#E8E8F2', display: 'block' }}>Arman</span>
                   <span style={{ fontSize: 'clamp(40px, 12vw, 84px)', display: 'block', background: 'linear-gradient(125deg, #4F8EF7 20%, #7C5CFC 80%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Khan.</span>
                 </h1>
               </RevealWrapper>
 
-              <RevealWrapper delay={150}>
+              <RevealWrapper disabled>
                 <p style={{ fontSize: 'clamp(16px, 4vw, 18px)', color: '#8B8BAE', marginTop: '14px', marginBottom: '16px', fontWeight: 300 }}>IT Student Learning Frontend &amp; Backend Development</p>
               </RevealWrapper>
 
-              <RevealWrapper delay={210}>
+              <RevealWrapper disabled>
                 <p style={{ fontSize: '14px', color: '#6B6B8E', lineHeight: 1.8, maxWidth: '480px', marginBottom: '28px' }}>{PERSONAL_INFO.bio[0]}</p>
               </RevealWrapper>
 
-              <RevealWrapper delay={290}>
+              <RevealWrapper disabled>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginBottom: '28px' }}>
                   <Link to="/projects" className="inline-flex items-center justify-center gap-[7px] rounded-[10px] bg-[#4F8EF7] px-[22px] py-3 text-sm font-medium text-white no-underline transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#3a7de0] hover:shadow-[0_10px_28px_rgba(79,142,247,0.38)]"
                     style={{ minWidth: '160px' }}>
@@ -89,7 +104,7 @@ const Home = () => {
                 </div>
               </RevealWrapper>
 
-              <RevealWrapper delay={360}>
+              <RevealWrapper disabled>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
                   {[
                     { href: 'https://github.com/Arman-techiee', icon: Github, label: 'GitHub' },
@@ -108,7 +123,7 @@ const Home = () => {
 
             {/* Right col — FEATURED PROFILE IMAGE */}
             <div className="order-2 lg:order-2 lg:col-start-2 lg:col-span-1 lg:justify-self-end">
-              <RevealWrapper delay={180}>
+              <RevealWrapper disabled>
                 <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
 
                   {/* Main image card */}
@@ -123,6 +138,9 @@ const Home = () => {
                           src={profileImg}
                           alt="Arman Khan"
                           fetchPriority="high"
+                          loading="eager"
+                          decoding="async"
+                          sizes="(max-width: 1024px) 100vw, 380px"
                           width={380}
                           height={540}
                           style={{ width: '100%', height: 'min(540px, 82vw)', minHeight: '360px', objectFit: 'cover', objectPosition: 'center 12%', display: 'block' }}

@@ -1,11 +1,15 @@
 import { useEffect, useRef } from 'react';
 
-const useReveal = (delay = 0) => {
+const useReveal = (delay = 0, disabled = false) => {
   const ref = useRef(null);
 
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
+    if (disabled) {
+      element.classList.add('visible');
+      return;
+    }
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (prefersReducedMotion || typeof IntersectionObserver === 'undefined') {
@@ -37,7 +41,7 @@ const useReveal = (delay = 0) => {
       if (element) observer.unobserve(element);
       observer.disconnect();
     };
-  }, [delay]);
+  }, [delay, disabled]);
 
   return ref;
 };

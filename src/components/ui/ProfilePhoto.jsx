@@ -1,5 +1,5 @@
 import React from 'react';
-import profileImg from '../../assets/profile.jpg';
+import profileImg from '../../assets/profile.webp';
 
 const sizeMap = {
   sm: 'w-32 h-32',

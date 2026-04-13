@@ -4,7 +4,7 @@ import { MapPin, Mail, BookOpen, ArrowRight, Briefcase, GraduationCap, Clock } f
 import RevealWrapper from '../components/ui/RevealWrapper';
 import PageMeta from '../components/seo/PageMeta';
 import { ACCENT_MAP, PERSONAL_INFO, PHOTO_MODE, PROJECTS, SKILLS, TIMELINE } from '../constants';
-import profileImg from '../assets/profile.jpg';
+import profileImg from '../assets/profile.webp';
 
 const details = [
   { icon: BookOpen,   label: 'Status',      value: PERSONAL_INFO.status,       accent: true  },
