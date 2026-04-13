@@ -1,12 +1,12 @@
-import React, { Suspense, lazy, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Home from './pages/Home';
-const About = lazy(() => import('./pages/About'));
-const Projects = lazy(() => import('./pages/Projects'));
-const Contact = lazy(() => import('./pages/Contact'));
-const NotFound = lazy(() => import('./pages/NotFound'));
+import About from './pages/About';
+import Projects from './pages/Projects';
+import Contact from './pages/Contact';
+import NotFound from './pages/NotFound';
 
 const MouseGlow = () => {
   const glowRef = useRef(null);
@@ -46,15 +46,6 @@ const MouseGlow = () => {
   );
 };
 
-const RouteFallback = () => (
-  <div className="min-h-[40vh] flex items-center justify-center px-6">
-    <div className="text-center">
-      <div className="w-10 h-10 border-2 border-white/20 border-t-accent rounded-full animate-spin mx-auto mb-4" />
-      <p className="text-sm text-text-secondary">Loading page...</p>
-    </div>
-  </div>
-);
-
 // Scroll to top on every route change
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -72,15 +63,13 @@ const AppContent = () => {
       <div style={{ position: 'relative', zIndex: 2 }}>
         <Navbar />
         <main>
-          <Suspense fallback={<RouteFallback />}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </main>
         <Footer />
       </div>
