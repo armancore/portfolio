@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'motion/react';
 import { Github, Linkedin, Facebook, Instagram, ArrowUpRight, Mail, MapPin } from 'lucide-react';
 import { NAV_LINKS, SOCIAL_LINKS, PERSONAL_INFO } from '../../constants';
 import GlowLine from '../ui/GlowLine';
@@ -14,8 +15,39 @@ const iconMap = {
 const Footer = () => {
   const year = new Date().getFullYear();
 
+  const socialStyle = {
+    GitHub: {
+      color: '#E8E8F2',
+      border: 'rgba(255,255,255,0.16)',
+      bg: 'rgba(255,255,255,0.05)',
+      glow: '0 10px 24px rgba(255,255,255,0.12)',
+    },
+    LinkedIn: {
+      color: '#38BDF8',
+      border: 'rgba(56,189,248,0.3)',
+      bg: 'rgba(56,189,248,0.12)',
+      glow: '0 10px 24px rgba(56,189,248,0.24)',
+    },
+    Facebook: {
+      color: '#7C5CFC',
+      border: 'rgba(124,92,252,0.32)',
+      bg: 'rgba(124,92,252,0.12)',
+      glow: '0 10px 24px rgba(124,92,252,0.24)',
+    },
+    Instagram: {
+      color: '#EC4899',
+      border: 'rgba(236,72,153,0.34)',
+      bg: 'rgba(236,72,153,0.12)',
+      glow: '0 10px 24px rgba(236,72,153,0.22)',
+    },
+  };
+
   return (
-    <footer
+    <motion.footer
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className="relative border-t border-[var(--border)] overflow-hidden"
       style={{
         background:
@@ -24,8 +56,10 @@ const Footer = () => {
     >
       <GlowLine />
 
-      <div
+      <motion.div
         className="absolute inset-0 pointer-events-none"
+        animate={{ opacity: [0.75, 1, 0.75] }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
         style={{
           background:
             'radial-gradient(circle at 15% 0%, rgba(88,166,255,0.08), transparent 28%), radial-gradient(circle at 85% 20%, rgba(34,211,238,0.06), transparent 24%)',
@@ -34,7 +68,12 @@ const Footer = () => {
 
       <div className="relative max-w-6xl mx-auto px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_0.8fr_1fr] gap-10 lg:gap-14">
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5 }}
+          >
             <Link
               to="/"
               className="inline-flex items-center gap-2 font-display text-2xl font-bold tracking-[-0.03em] text-text-primary"
@@ -48,26 +87,33 @@ const Footer = () => {
             </p>
 
             <div className="flex flex-wrap gap-3 mt-6">
-              <a
+              <motion.a
                 href={`mailto:${PERSONAL_INFO.email}`}
+                whileHover={{ y: -2, borderColor: 'var(--border-hover)' }}
                 className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white/[0.03] px-4 py-2 text-sm text-text-secondary hover:text-text-primary hover:border-[var(--border-hover)] transition-all duration-200"
               >
                 <Mail size={14} />
                 <span>{PERSONAL_INFO.email}</span>
-              </a>
+              </motion.a>
               <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white/[0.03] px-4 py-2 text-sm text-text-secondary">
                 <MapPin size={14} />
                 <span>{PERSONAL_INFO.location}</span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.06 }}
+          >
             <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-text-muted mb-5">
               Navigation
             </p>
             <nav className="flex flex-col gap-3">
               {NAV_LINKS.map((link) => (
+                <motion.div key={link.path} whileHover={{ x: 3 }}>
                 <Link
                   key={link.path}
                   to={link.path}
@@ -76,11 +122,17 @@ const Footer = () => {
                   <span>{link.label}</span>
                   <ArrowUpRight size={13} />
                 </Link>
+                </motion.div>
               ))}
             </nav>
-          </div>
+          </motion.div>
 
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.12 }}
+          >
             <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-text-muted mb-5">
               Connect
             </p>
@@ -91,23 +143,31 @@ const Footer = () => {
             <div className="flex items-center gap-3">
               {SOCIAL_LINKS.map((social) => {
                 const Icon = iconMap[social.icon];
+                const style = socialStyle[social.label] || socialStyle.GitHub;
                 if (!Icon) return null;
 
                 return (
-                  <a
+                  <motion.a
                     key={social.label}
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="w-11 h-11 rounded-xl border border-[var(--border)] bg-white/[0.03] flex items-center justify-center text-text-secondary hover:text-text-primary hover:border-[var(--border-hover)] hover:bg-white/[0.06] transition-all duration-200"
+                    whileHover={{ y: -3, scale: 1.06, boxShadow: style.glow }}
+                    whileTap={{ scale: 0.94 }}
+                    className="w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-200"
+                    style={{
+                      color: style.color,
+                      border: `1px solid ${style.border}`,
+                      background: style.bg,
+                    }}
                   >
                     <Icon size={17} />
-                  </a>
+                  </motion.a>
                 );
               })}
             </div>
-          </div>
+          </motion.div>
         </div>
 
         <div className="mt-12 pt-6 border-t border-[var(--border)] flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
@@ -119,7 +179,7 @@ const Footer = () => {
           </p>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   );
 };
 
