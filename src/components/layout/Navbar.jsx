@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import useScrolled from '../../hooks/useScrolled';
 import { NAV_LINKS } from '../../constants';
@@ -9,7 +10,6 @@ const Navbar = () => {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Close menu on route change
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location.pathname]);
@@ -20,108 +20,216 @@ const Navbar = () => {
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-bg-primary/80 backdrop-blur-2xl border-b border-[var(--border)] shadow-[0_10px_40px_rgba(2,6,23,0.45)]'
-          : 'bg-bg-primary/55 backdrop-blur-xl border-b border-transparent'
-      }`}
-      style={{ height: '64px' }}
+    <motion.header
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 50,
+        height: '64px',
+        background: scrolled ? 'rgba(6,9,18,0.88)' : 'rgba(6,9,18,0.55)',
+        backdropFilter: 'blur(20px)',
+        borderBottom: scrolled ? '1px solid rgba(148,163,184,0.1)' : '1px solid transparent',
+        boxShadow: scrolled ? '0 10px 40px rgba(2,6,23,0.4)' : 'none',
+        transition: 'background 0.3s, border-color 0.3s, box-shadow 0.3s',
+      }}
     >
       <div className="max-w-6xl mx-auto px-6 lg:px-8 h-full flex items-center justify-between">
-        {/* Logo */}
-        <Link
-          to="/"
-          className="font-display text-xl font-bold tracking-[0.08em] uppercase hover:opacity-80 transition-opacity"
-        >
-          <span className="text-text-primary">Arman</span>
-          <span className="text-accent">.</span>
+        <Link to="/" style={{ textDecoration: 'none' }}>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+            <span
+              style={{
+                fontFamily: "'Syne', sans-serif",
+                fontSize: '20px',
+                fontWeight: 800,
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                color: '#E8E8F2',
+              }}
+            >
+              Arman
+            </span>
+            <motion.span
+              animate={{ opacity: [1, 0.5, 1] }}
+              transition={{ duration: 3, repeat: Infinity }}
+              style={{
+                fontFamily: "'Syne', sans-serif",
+                fontSize: '20px',
+                fontWeight: 800,
+                color: '#4F8EF7',
+              }}
+            >
+              .
+            </motion.span>
+          </motion.div>
         </Link>
 
-        {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-1">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.path}
               to={link.path}
-              className={`relative px-4 py-2 text-sm font-medium tracking-[0.08em] uppercase transition-all duration-200 rounded-lg ${
-                isActive(link.path)
-                  ? 'text-accent'
-                  : 'text-text-secondary hover:text-text-primary hover:bg-white/[0.02]'
-              }`}
+              style={{
+                position: 'relative',
+                padding: '8px 16px',
+                fontSize: '13px',
+                fontWeight: 500,
+                letterSpacing: '0.07em',
+                textTransform: 'uppercase',
+                textDecoration: 'none',
+                borderRadius: '8px',
+                color: isActive(link.path) ? '#E8E8F2' : '#8B8BAE',
+                transition: 'color 0.2s, background 0.2s',
+                background: isActive(link.path) ? 'rgba(79,142,247,0.08)' : 'transparent',
+              }}
+              className="hover:text-[#E8E8F2] hover:bg-white/[0.03]"
             >
               {link.label}
               {isActive(link.path) && (
-                <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-gradient-to-r from-accent to-accent2 rounded-full" />
+                <motion.span
+                  layoutId="nav-underline"
+                  style={{
+                    position: 'absolute',
+                    bottom: '4px',
+                    left: '16px',
+                    right: '16px',
+                    height: '1.5px',
+                    background: 'linear-gradient(90deg, #4F8EF7, #7C5CFC)',
+                    borderRadius: '999px',
+                  }}
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                />
               )}
             </Link>
           ))}
         </nav>
 
-        {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-3">
-          <Link
-            to="/contact"
-            className="px-4 py-2 text-sm font-medium tracking-[0.08em] uppercase border border-[var(--border-hover)] text-text-primary rounded-lg bg-white/[0.02] hover:border-accent hover:text-accent transition-all duration-200"
-          >
-            Hire Me
-          </Link>
+          <motion.div whileHover={{ scale: 1.04, y: -1 }} whileTap={{ scale: 0.97 }}>
+            <Link
+              to="/contact"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '8px 16px',
+                fontSize: '12px',
+                fontWeight: 600,
+                letterSpacing: '0.07em',
+                textTransform: 'uppercase',
+                textDecoration: 'none',
+                borderRadius: '9px',
+                background: 'linear-gradient(135deg, rgba(79,142,247,0.18), rgba(124,92,252,0.12))',
+                border: '1px solid rgba(79,142,247,0.3)',
+                color: '#E8E8F2',
+              }}
+            >
+              Hire Me
+            </Link>
+          </motion.div>
         </div>
 
-        {/* Mobile hamburger */}
-        <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="md:hidden p-2 text-text-secondary hover:text-text-primary transition-colors rounded-lg"
+        <motion.button
+          onClick={() => setIsMenuOpen((v) => !v)}
+          whileTap={{ scale: 0.9 }}
+          style={{
+            padding: '8px',
+            color: '#8B8BAE',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            borderRadius: '8px',
+          }}
+          className="md:hidden"
           aria-label="Toggle menu"
         >
-          {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
+          <AnimatePresence mode="wait">
+            {isMenuOpen ? (
+              <motion.div key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.2 }}>
+                <X size={20} />
+              </motion.div>
+            ) : (
+              <motion.div key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.2 }}>
+                <Menu size={20} />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.button>
       </div>
 
-      {/* Mobile dropdown menu */}
-      {isMenuOpen && (
-        <div className="md:hidden absolute top-16 right-0 w-full max-w-sm bg-bg-primary/95 backdrop-blur-xl border-l border-b border-[var(--border)] shadow-xl animate-[slideInRight_220ms_ease-out]">
-          <nav className="px-6 py-4 flex flex-col gap-1">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                onClick={() => setIsMenuOpen(false)}
-                className={`px-4 py-3 text-sm font-medium tracking-[0.08em] uppercase rounded-lg transition-all duration-200 ${
-                  isActive(link.path)
-                    ? 'text-accent bg-[var(--accent-glow)]'
-                    : 'text-text-secondary hover:text-text-primary hover:bg-bg-tertiary'
-                }`}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -12, height: 0 }}
+            animate={{ opacity: 1, y: 0, height: 'auto' }}
+            exit={{ opacity: 0, y: -8, height: 0 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            style={{ overflow: 'hidden', background: 'rgba(6,9,18,0.97)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(148,163,184,0.1)' }}
+            className="md:hidden"
+          >
+            <motion.nav
+              style={{ padding: '12px 24px 16px' }}
+              initial="hidden"
+              animate="show"
+              variants={{ hidden: {}, show: { transition: { staggerChildren: 0.06 } } }}
+            >
+              {NAV_LINKS.map((link) => (
+                <motion.div
+                  key={link.path}
+                  variants={{ hidden: { opacity: 0, x: -16 }, show: { opacity: 1, x: 0, transition: { duration: 0.3 } } }}
+                >
+                  <Link
+                    to={link.path}
+                    onClick={() => setIsMenuOpen(false)}
+                    style={{
+                      display: 'block',
+                      padding: '12px 16px',
+                      fontSize: '14px',
+                      fontWeight: 500,
+                      letterSpacing: '0.07em',
+                      textTransform: 'uppercase',
+                      textDecoration: 'none',
+                      borderRadius: '10px',
+                      color: isActive(link.path) ? '#4F8EF7' : '#8B8BAE',
+                      background: isActive(link.path) ? 'rgba(79,142,247,0.08)' : 'transparent',
+                      marginBottom: '4px',
+                    }}
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
+              ))}
+              <motion.div
+                variants={{ hidden: { opacity: 0, x: -16 }, show: { opacity: 1, x: 0, transition: { duration: 0.3 } } }}
+                style={{ borderTop: '1px solid rgba(255,255,255,0.06)', marginTop: '8px', paddingTop: '12px' }}
               >
-                {link.label}
-              </Link>
-            ))}
-            <div className="border-t border-[var(--border)] mt-2 pt-2">
-              <Link
-                to="/contact"
-                onClick={() => setIsMenuOpen(false)}
-                className="block px-4 py-3 text-sm font-medium tracking-[0.08em] uppercase text-center bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors"
-              >
-                Hire Me
-              </Link>
-            </div>
-          </nav>
-        </div>
-      )}
-
-      <style>{`
-        @keyframes slideInRight {
-          from {
-            opacity: 0;
-            transform: translateX(24px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-      `}</style>
-    </header>
+                <Link
+                  to="/contact"
+                  onClick={() => setIsMenuOpen(false)}
+                  style={{
+                    display: 'block',
+                    padding: '12px 16px',
+                    fontSize: '14px',
+                    fontWeight: 600,
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    borderRadius: '10px',
+                    background: 'linear-gradient(135deg, #4F8EF7, #7C5CFC)',
+                    color: 'white',
+                  }}
+                >
+                  Hire Me
+                </Link>
+              </motion.div>
+            </motion.nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 };
 
