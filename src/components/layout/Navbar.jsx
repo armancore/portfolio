@@ -9,6 +9,8 @@ const Navbar = () => {
   const scrolled = useScrolled(20);
   const location = useLocation();
   const prefersReducedMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
+  const [isLowPowerDevice, setIsLowPowerDevice] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hoveredPath, setHoveredPath] = useState(null);
 
@@ -16,16 +18,33 @@ const Navbar = () => {
     setIsMenuOpen(false);
   }, [location.pathname]);
 
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', onResize, { passive: true });
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  useEffect(() => {
+    const memory = navigator.deviceMemory;
+    const cores = navigator.hardwareConcurrency;
+    const saveData = navigator.connection?.saveData;
+    const lowMemory = typeof memory === 'number' && memory <= 4;
+    const lowCores = typeof cores === 'number' && cores <= 4;
+    setIsLowPowerDevice(Boolean(saveData || lowMemory || lowCores));
+  }, []);
+
   const isActive = (path) => {
     if (path === '/') return location.pathname === '/';
     return location.pathname.startsWith(path);
   };
+  const lowPerfMode = prefersReducedMotion || isMobile;
+  const ultraMobileMode = isMobile && (prefersReducedMotion || isLowPowerDevice);
 
   return (
     <motion.header
       initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      animate={ultraMobileMode ? { y: 0, opacity: 1 } : { y: 0, opacity: 1 }}
+      transition={ultraMobileMode ? { duration: 0.16 } : { duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       style={{
         position: 'fixed',
         top: '12px',
@@ -39,29 +58,33 @@ const Navbar = () => {
         background: scrolled
           ? 'linear-gradient(140deg, rgba(6,9,18,0.95), rgba(8,14,25,0.9) 42%, rgba(11,18,32,0.95))'
           : 'linear-gradient(140deg, rgba(6,9,18,0.8), rgba(8,14,25,0.75) 42%, rgba(11,18,32,0.84))',
-        backdropFilter: 'blur(20px)',
+        backdropFilter: lowPerfMode ? 'none' : 'blur(20px)',
         boxShadow: scrolled
-          ? '0 30px 80px rgba(2,6,23,0.55), 0 0 0 1px rgba(79,142,247,0.16) inset'
-          : '0 22px 60px rgba(2,6,23,0.45), 0 0 0 1px rgba(79,142,247,0.1) inset',
-        transition: 'border-color 0.35s, box-shadow 0.35s, background 0.35s',
+          ? lowPerfMode
+            ? '0 12px 24px rgba(2,6,23,0.42), 0 0 0 1px rgba(79,142,247,0.12) inset'
+            : '0 30px 80px rgba(2,6,23,0.55), 0 0 0 1px rgba(79,142,247,0.16) inset'
+          : lowPerfMode
+            ? '0 10px 20px rgba(2,6,23,0.34), 0 0 0 1px rgba(79,142,247,0.08) inset'
+            : '0 22px 60px rgba(2,6,23,0.45), 0 0 0 1px rgba(79,142,247,0.1) inset',
+        transition: ultraMobileMode ? 'none' : 'border-color 0.35s, box-shadow 0.35s, background 0.35s',
       }}
     >
-      <motion.div
-        className="navbar-scanline"
-        aria-hidden
-        animate={prefersReducedMotion ? undefined : { x: ['-120%', '120%'], opacity: [0, 0.45, 0] }}
-        transition={
-          prefersReducedMotion ? undefined : { duration: 6.2, repeat: Infinity, ease: 'linear', repeatDelay: 0.9 }
-        }
-      />
+      {!lowPerfMode && (
+        <motion.div
+          className="navbar-scanline"
+          aria-hidden
+          animate={{ x: ['-120%', '120%'], opacity: [0, 0.45, 0] }}
+          transition={{ duration: 6.2, repeat: Infinity, ease: 'linear', repeatDelay: 0.9 }}
+        />
+      )}
 
       <div className="px-3 md:px-4 lg:px-6 h-[66px] md:h-[72px] flex items-center justify-between gap-3 md:gap-4 relative">
         <Link to="/" style={{ textDecoration: 'none', flexShrink: 0 }}>
           <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="flex items-center gap-2.5">
             <motion.span
               className="navbar-brand-glyph"
-              animate={prefersReducedMotion ? undefined : { rotate: [0, 180, 360] }}
-              transition={prefersReducedMotion ? undefined : { duration: 14, repeat: Infinity, ease: 'linear' }}
+              animate={lowPerfMode ? undefined : { rotate: [0, 180, 360] }}
+              transition={lowPerfMode ? undefined : { duration: 14, repeat: Infinity, ease: 'linear' }}
             />
             <span
               style={{
@@ -161,7 +184,9 @@ const Navbar = () => {
                 background: 'linear-gradient(130deg, rgba(79,142,247,0.24), rgba(34,211,238,0.22), rgba(124,92,252,0.23))',
                 border: '1px solid rgba(79,142,247,0.42)',
                 color: '#E8E8F2',
-                boxShadow: '0 10px 24px rgba(79,142,247,0.2), 0 0 0 1px rgba(255,255,255,0.08) inset',
+                boxShadow: lowPerfMode
+                  ? '0 0 0 1px rgba(255,255,255,0.08) inset'
+                  : '0 10px 24px rgba(79,142,247,0.2), 0 0 0 1px rgba(255,255,255,0.08) inset',
               }}
             >
               <span className="navbar-hire-dot" />
@@ -172,7 +197,7 @@ const Navbar = () => {
 
         <motion.button
           onClick={() => setIsMenuOpen((v) => !v)}
-          whileTap={{ scale: 0.9 }}
+          whileTap={ultraMobileMode ? undefined : { scale: 0.9 }}
           style={{
             padding: '8px',
             color: '#BFD1FF',
@@ -189,20 +214,20 @@ const Navbar = () => {
             {isMenuOpen ? (
               <motion.div
                 key="x"
-                initial={{ rotate: -90, opacity: 0 }}
+                initial={ultraMobileMode ? { opacity: 0 } : { rotate: -90, opacity: 0 }}
                 animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: 90, opacity: 0 }}
-                transition={{ duration: 0.2 }}
+                exit={ultraMobileMode ? { opacity: 0 } : { rotate: 90, opacity: 0 }}
+                transition={{ duration: ultraMobileMode ? 0.1 : 0.2 }}
               >
                 <X size={20} />
               </motion.div>
             ) : (
               <motion.div
                 key="menu"
-                initial={{ rotate: 90, opacity: 0 }}
+                initial={ultraMobileMode ? { opacity: 0 } : { rotate: 90, opacity: 0 }}
                 animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: -90, opacity: 0 }}
-                transition={{ duration: 0.2 }}
+                exit={ultraMobileMode ? { opacity: 0 } : { rotate: -90, opacity: 0 }}
+                transition={{ duration: ultraMobileMode ? 0.1 : 0.2 }}
               >
                 <Menu size={20} />
               </motion.div>
@@ -215,13 +240,13 @@ const Navbar = () => {
         {isMenuOpen && (
           <motion.div
             initial={{ opacity: 0, y: -8, height: 0 }}
-            animate={{ opacity: 1, y: 0, height: 'auto' }}
-            exit={{ opacity: 0, y: -10, height: 0 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            animate={ultraMobileMode ? { opacity: 1, y: 0, height: 'auto' } : { opacity: 1, y: 0, height: 'auto' }}
+            exit={ultraMobileMode ? { opacity: 0, y: 0, height: 0 } : { opacity: 0, y: -10, height: 0 }}
+            transition={ultraMobileMode ? { duration: 0.14 } : { duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             style={{
               overflow: 'hidden',
               background: 'linear-gradient(165deg, rgba(6,9,18,0.98), rgba(8,14,25,0.96) 50%, rgba(11,18,32,0.98))',
-              backdropFilter: 'blur(20px)',
+              backdropFilter: lowPerfMode ? 'none' : 'blur(20px)',
               borderTop: '1px solid rgba(148,163,184,0.14)',
             }}
             className="md:hidden"
@@ -230,12 +255,18 @@ const Navbar = () => {
               style={{ padding: '10px 12px 14px' }}
               initial="hidden"
               animate="show"
-              variants={{ hidden: {}, show: { transition: { staggerChildren: 0.06 } } }}
+              variants={{
+                hidden: {},
+                show: { transition: { staggerChildren: ultraMobileMode ? 0 : lowPerfMode ? 0 : 0.05 } },
+              }}
             >
               {NAV_LINKS.map((link) => (
                 <motion.div
                   key={link.path}
-                  variants={{ hidden: { opacity: 0, x: -16 }, show: { opacity: 1, x: 0, transition: { duration: 0.3 } } }}
+                  variants={{
+                    hidden: ultraMobileMode ? { opacity: 1 } : lowPerfMode ? { opacity: 0 } : { opacity: 0, x: -16 },
+                    show: { opacity: 1, x: 0, transition: { duration: ultraMobileMode ? 0.01 : lowPerfMode ? 0.15 : 0.3 } },
+                  }}
                 >
                   <Link
                     to={link.path}
@@ -262,7 +293,10 @@ const Navbar = () => {
                 </motion.div>
               ))}
               <motion.div
-                variants={{ hidden: { opacity: 0, x: -16 }, show: { opacity: 1, x: 0, transition: { duration: 0.3 } } }}
+                variants={{
+                  hidden: ultraMobileMode ? { opacity: 1 } : lowPerfMode ? { opacity: 0 } : { opacity: 0, x: -16 },
+                  show: { opacity: 1, x: 0, transition: { duration: ultraMobileMode ? 0.01 : lowPerfMode ? 0.15 : 0.3 } },
+                }}
                 style={{ borderTop: '1px solid rgba(255,255,255,0.08)', marginTop: '4px', paddingTop: '12px' }}
               >
                 <Link

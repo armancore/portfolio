@@ -162,6 +162,9 @@ a { color: inherit; }
 }
 
 @media (max-width: 767px) {
+  .navbar-scanline { display: none; }
+  .navbar-brand-glyph { box-shadow: none; }
+
   .hero-profile-image {
     object-position: center 20%;
     height: auto !important;
