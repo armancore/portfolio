@@ -106,6 +106,56 @@ a { color: inherit; }
 }
 .float { animation: float 4s ease-in-out infinite; }
 
+/* Navbar FX */
+.navbar-scanline {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 34%;
+  pointer-events: none;
+  z-index: 0;
+  background: linear-gradient(
+    95deg,
+    rgba(34, 211, 238, 0) 0%,
+    rgba(34, 211, 238, 0.12) 40%,
+    rgba(79, 142, 247, 0.25) 55%,
+    rgba(124, 92, 252, 0.18) 68%,
+    rgba(124, 92, 252, 0) 100%
+  );
+  filter: blur(12px);
+}
+
+.navbar-brand-glyph {
+  width: 16px;
+  height: 16px;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #22d3ee, #4f8ef7 45%, #7c5cfc);
+  box-shadow: 0 0 14px rgba(79, 142, 247, 0.45);
+  position: relative;
+}
+
+.navbar-brand-glyph::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+@keyframes navbar-dot {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(0.72); opacity: 0.45; }
+}
+
+.navbar-hire-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #22d3ee;
+  box-shadow: 0 0 12px rgba(34, 211, 238, 0.75);
+  animation: navbar-dot 1.9s ease-in-out infinite;
+}
+
 /* Hero profile image crop control */
 .hero-profile-image {
   object-position: center 12%;
@@ -131,7 +181,7 @@ a { color: inherit; }
   html { scroll-behavior: auto; }
   .reveal { transition: none !important; }
   .reveal, .reveal.visible { opacity: 1; transform: none; transition: none; }
-  .pulse-dot, .animate-spin { animation: none !important; }
+  .pulse-dot, .animate-spin, .navbar-hire-dot { animation: none !important; }
   * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
 

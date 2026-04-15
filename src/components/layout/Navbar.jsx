@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import useScrolled from '../../hooks/useScrolled';
 import { NAV_LINKS } from '../../constants';
@@ -8,7 +8,9 @@ import { NAV_LINKS } from '../../constants';
 const Navbar = () => {
   const scrolled = useScrolled(20);
   const location = useLocation();
+  const prefersReducedMotion = useReducedMotion();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [hoveredPath, setHoveredPath] = useState(null);
 
   useEffect(() => {
     setIsMenuOpen(false);
@@ -26,80 +28,113 @@ const Navbar = () => {
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       style={{
         position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
+        top: '12px',
+        left: '50%',
+        x: '-50%',
+        width: 'min(1040px, calc(100% - 20px))',
         zIndex: 50,
-        height: '64px',
-        background: scrolled ? 'rgba(6,9,18,0.88)' : 'rgba(6,9,18,0.55)',
+        borderRadius: '22px',
+        overflow: 'hidden',
+        border: scrolled ? '1px solid rgba(148,163,184,0.25)' : '1px solid rgba(148,163,184,0.14)',
+        background: scrolled
+          ? 'linear-gradient(140deg, rgba(6,9,18,0.95), rgba(8,14,25,0.9) 42%, rgba(11,18,32,0.95))'
+          : 'linear-gradient(140deg, rgba(6,9,18,0.8), rgba(8,14,25,0.75) 42%, rgba(11,18,32,0.84))',
         backdropFilter: 'blur(20px)',
-        borderBottom: scrolled ? '1px solid rgba(148,163,184,0.1)' : '1px solid transparent',
-        boxShadow: scrolled ? '0 10px 40px rgba(2,6,23,0.4)' : 'none',
-        transition: 'background 0.3s, border-color 0.3s, box-shadow 0.3s',
+        boxShadow: scrolled
+          ? '0 30px 80px rgba(2,6,23,0.55), 0 0 0 1px rgba(79,142,247,0.16) inset'
+          : '0 22px 60px rgba(2,6,23,0.45), 0 0 0 1px rgba(79,142,247,0.1) inset',
+        transition: 'border-color 0.35s, box-shadow 0.35s, background 0.35s',
       }}
     >
-      <div className="max-w-6xl mx-auto px-6 lg:px-8 h-full flex items-center justify-between">
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+      <motion.div
+        className="navbar-scanline"
+        aria-hidden
+        animate={prefersReducedMotion ? undefined : { x: ['-120%', '120%'], opacity: [0, 0.45, 0] }}
+        transition={
+          prefersReducedMotion ? undefined : { duration: 6.2, repeat: Infinity, ease: 'linear', repeatDelay: 0.9 }
+        }
+      />
+
+      <div className="px-3 md:px-4 lg:px-6 h-[66px] md:h-[72px] flex items-center justify-between gap-3 md:gap-4 relative">
+        <Link to="/" style={{ textDecoration: 'none', flexShrink: 0 }}>
+          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="flex items-center gap-2.5">
+            <motion.span
+              className="navbar-brand-glyph"
+              animate={prefersReducedMotion ? undefined : { rotate: [0, 180, 360] }}
+              transition={prefersReducedMotion ? undefined : { duration: 14, repeat: Infinity, ease: 'linear' }}
+            />
             <span
               style={{
                 fontFamily: "'Syne', sans-serif",
-                fontSize: '20px',
+                fontSize: '19px',
                 fontWeight: 800,
-                letterSpacing: '0.08em',
+                letterSpacing: '0.1em',
                 textTransform: 'uppercase',
                 color: '#E8E8F2',
               }}
             >
               Arman
             </span>
-            <motion.span
-              animate={{ opacity: [1, 0.5, 1] }}
-              transition={{ duration: 3, repeat: Infinity }}
-              style={{
-                fontFamily: "'Syne', sans-serif",
-                fontSize: '20px',
-                fontWeight: 800,
-                color: '#4F8EF7',
-              }}
-            >
-              .
-            </motion.span>
           </motion.div>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-1">
+        <nav
+          className="hidden md:flex items-center gap-1 p-1 rounded-2xl"
+          style={{
+            background: 'linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015))',
+            border: '1px solid rgba(148,163,184,0.14)',
+            boxShadow: '0 12px 28px rgba(2,6,23,0.24)',
+          }}
+        >
           {NAV_LINKS.map((link) => (
             <Link
               key={link.path}
               to={link.path}
+              onMouseEnter={() => setHoveredPath(link.path)}
+              onMouseLeave={() => setHoveredPath(null)}
               style={{
                 position: 'relative',
-                padding: '8px 16px',
-                fontSize: '13px',
-                fontWeight: 500,
+                padding: '10px 16px',
+                minWidth: '104px',
+                textAlign: 'center',
+                fontSize: '12px',
+                fontWeight: 600,
                 letterSpacing: '0.07em',
                 textTransform: 'uppercase',
                 textDecoration: 'none',
-                borderRadius: '8px',
-                color: isActive(link.path) ? '#E8E8F2' : '#8B8BAE',
-                transition: 'color 0.2s, background 0.2s',
-                background: isActive(link.path) ? 'rgba(79,142,247,0.08)' : 'transparent',
+                borderRadius: '12px',
+                color: isActive(link.path) ? '#E8E8F2' : '#9AA8C7',
+                transition: 'color 0.22s',
+                overflow: 'hidden',
               }}
-              className="hover:text-[#E8E8F2] hover:bg-white/[0.03]"
             >
-              {link.label}
+              {(isActive(link.path) || hoveredPath === link.path) && (
+                <motion.span
+                  layoutId="nav-pill"
+                  className="absolute inset-0"
+                  style={{
+                    borderRadius: '12px',
+                    border: `1px solid ${isActive(link.path) ? 'rgba(124,92,252,0.55)' : 'rgba(79,142,247,0.34)'}`,
+                    background: isActive(link.path)
+                      ? 'linear-gradient(120deg, rgba(79,142,247,0.24), rgba(124,92,252,0.2))'
+                      : 'linear-gradient(120deg, rgba(79,142,247,0.11), rgba(34,211,238,0.08))',
+                  }}
+                  transition={{ type: 'spring', stiffness: 350, damping: 30, mass: 0.5 }}
+                />
+              )}
+              <span style={{ position: 'relative', zIndex: 2 }}>{link.label}</span>
               {isActive(link.path) && (
                 <motion.span
                   layoutId="nav-underline"
                   style={{
                     position: 'absolute',
-                    bottom: '4px',
-                    left: '16px',
-                    right: '16px',
-                    height: '1.5px',
-                    background: 'linear-gradient(90deg, #4F8EF7, #7C5CFC)',
+                    bottom: '3px',
+                    left: '24px',
+                    right: '24px',
+                    height: '2px',
+                    background: 'linear-gradient(90deg, #22D3EE, #4F8EF7 45%, #7C5CFC)',
                     borderRadius: '999px',
+                    zIndex: 2,
                   }}
                   transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                 />
@@ -109,25 +144,27 @@ const Navbar = () => {
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
-          <motion.div whileHover={{ scale: 1.04, y: -1 }} whileTap={{ scale: 0.97 }}>
+          <motion.div whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}>
             <Link
               to="/contact"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '6px',
-                padding: '8px 16px',
+                gap: '8px',
+                padding: '10px 16px',
                 fontSize: '12px',
-                fontWeight: 600,
+                fontWeight: 700,
                 letterSpacing: '0.07em',
                 textTransform: 'uppercase',
                 textDecoration: 'none',
-                borderRadius: '9px',
-                background: 'linear-gradient(135deg, rgba(79,142,247,0.18), rgba(124,92,252,0.12))',
-                border: '1px solid rgba(79,142,247,0.3)',
+                borderRadius: '12px',
+                background: 'linear-gradient(130deg, rgba(79,142,247,0.24), rgba(34,211,238,0.22), rgba(124,92,252,0.23))',
+                border: '1px solid rgba(79,142,247,0.42)',
                 color: '#E8E8F2',
+                boxShadow: '0 10px 24px rgba(79,142,247,0.2), 0 0 0 1px rgba(255,255,255,0.08) inset',
               }}
             >
+              <span className="navbar-hire-dot" />
               Hire Me
             </Link>
           </motion.div>
@@ -138,22 +175,35 @@ const Navbar = () => {
           whileTap={{ scale: 0.9 }}
           style={{
             padding: '8px',
-            color: '#8B8BAE',
-            background: 'none',
-            border: 'none',
+            color: '#BFD1FF',
+            background: 'rgba(79,142,247,0.08)',
+            border: '1px solid rgba(79,142,247,0.24)',
             cursor: 'pointer',
-            borderRadius: '8px',
+            borderRadius: '12px',
+            flexShrink: 0,
           }}
           className="md:hidden"
           aria-label="Toggle menu"
         >
           <AnimatePresence mode="wait">
             {isMenuOpen ? (
-              <motion.div key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.2 }}>
+              <motion.div
+                key="x"
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
                 <X size={20} />
               </motion.div>
             ) : (
-              <motion.div key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.2 }}>
+              <motion.div
+                key="menu"
+                initial={{ rotate: 90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: -90, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
                 <Menu size={20} />
               </motion.div>
             )}
@@ -164,15 +214,20 @@ const Navbar = () => {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -12, height: 0 }}
+            initial={{ opacity: 0, y: -8, height: 0 }}
             animate={{ opacity: 1, y: 0, height: 'auto' }}
-            exit={{ opacity: 0, y: -8, height: 0 }}
+            exit={{ opacity: 0, y: -10, height: 0 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            style={{ overflow: 'hidden', background: 'rgba(6,9,18,0.97)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(148,163,184,0.1)' }}
+            style={{
+              overflow: 'hidden',
+              background: 'linear-gradient(165deg, rgba(6,9,18,0.98), rgba(8,14,25,0.96) 50%, rgba(11,18,32,0.98))',
+              backdropFilter: 'blur(20px)',
+              borderTop: '1px solid rgba(148,163,184,0.14)',
+            }}
             className="md:hidden"
           >
             <motion.nav
-              style={{ padding: '12px 24px 16px' }}
+              style={{ padding: '10px 12px 14px' }}
               initial="hidden"
               animate="show"
               variants={{ hidden: {}, show: { transition: { staggerChildren: 0.06 } } }}
@@ -187,16 +242,19 @@ const Navbar = () => {
                     onClick={() => setIsMenuOpen(false)}
                     style={{
                       display: 'block',
-                      padding: '12px 16px',
+                      padding: '13px 14px',
                       fontSize: '14px',
-                      fontWeight: 500,
+                      fontWeight: 600,
                       letterSpacing: '0.07em',
                       textTransform: 'uppercase',
                       textDecoration: 'none',
-                      borderRadius: '10px',
-                      color: isActive(link.path) ? '#4F8EF7' : '#8B8BAE',
-                      background: isActive(link.path) ? 'rgba(79,142,247,0.08)' : 'transparent',
-                      marginBottom: '4px',
+                      borderRadius: '12px',
+                      color: isActive(link.path) ? '#E8E8F2' : '#A8B8DA',
+                      border: isActive(link.path) ? '1px solid rgba(124,92,252,0.5)' : '1px solid rgba(148,163,184,0.16)',
+                      background: isActive(link.path)
+                        ? 'linear-gradient(120deg, rgba(79,142,247,0.2), rgba(124,92,252,0.18))'
+                        : 'linear-gradient(120deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015))',
+                      marginBottom: '8px',
                     }}
                   >
                     {link.label}
@@ -205,21 +263,22 @@ const Navbar = () => {
               ))}
               <motion.div
                 variants={{ hidden: { opacity: 0, x: -16 }, show: { opacity: 1, x: 0, transition: { duration: 0.3 } } }}
-                style={{ borderTop: '1px solid rgba(255,255,255,0.06)', marginTop: '8px', paddingTop: '12px' }}
+                style={{ borderTop: '1px solid rgba(255,255,255,0.08)', marginTop: '4px', paddingTop: '12px' }}
               >
                 <Link
                   to="/contact"
                   onClick={() => setIsMenuOpen(false)}
                   style={{
                     display: 'block',
-                    padding: '12px 16px',
+                    padding: '13px 16px',
                     fontSize: '14px',
-                    fontWeight: 600,
+                    fontWeight: 700,
                     textAlign: 'center',
                     textDecoration: 'none',
-                    borderRadius: '10px',
-                    background: 'linear-gradient(135deg, #4F8EF7, #7C5CFC)',
+                    borderRadius: '12px',
+                    background: 'linear-gradient(135deg, #4F8EF7, #22D3EE 45%, #7C5CFC)',
                     color: 'white',
+                    letterSpacing: '0.06em',
                   }}
                 >
                   Hire Me
