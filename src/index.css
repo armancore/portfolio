@@ -106,6 +106,26 @@ a { color: inherit; }
 }
 .float { animation: float 4s ease-in-out infinite; }
 
+/* Hero profile image crop control */
+.hero-profile-image {
+  object-position: center 12%;
+}
+
+@media (max-width: 767px) {
+  .hero-profile-image {
+    object-position: center 20%;
+    height: auto !important;
+    min-height: 0 !important;
+    aspect-ratio: 3 / 4;
+  }
+}
+
+@media (min-width: 400px) and (max-width: 500px) {
+  .hero-profile-image {
+    object-position: center 22%;
+  }
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

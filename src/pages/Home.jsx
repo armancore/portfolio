@@ -269,7 +269,7 @@ const Home = () => {
               transition={{ delay: 0.4, duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
               className="order-2 lg:order-2 lg:justify-self-end"
             >
-              <div style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
+              <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                 <motion.div
                   animate={{ opacity: [0.3, 0.7, 0.3], scale: [0.96, 1.03, 0.96] }}
                   transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
@@ -286,13 +286,14 @@ const Home = () => {
 
                   {profileImg ? (
                     <motion.img
+                      className="hero-profile-image"
                       src={profileImg}
                       alt="Arman Khan"
                       fetchPriority="high"
                       loading="eager"
                       whileHover={{ scale: 1.03 }}
                       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                      style={{ width: '100%', height: 'min(560px, 82vw)', minHeight: '360px', objectFit: 'cover', objectPosition: 'center 12%', display: 'block' }}
+                      style={{ width: '100%', height: 'min(560px, 82vw)', minHeight: '360px', objectFit: 'cover', display: 'block' }}
                     />
                   ) : (
                     <div style={{ width: '100%', height: 'min(560px, 82vw)', minHeight: '360px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(160deg, #141b2c 0%, #0d1117 50%, #161b27 100%)' }}>
