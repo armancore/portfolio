@@ -214,7 +214,7 @@ const Home = () => {
                     glow: '0 8px 20px rgba(255,255,255,0.12)',
                   },
                   {
-                    href: 'https://www.linkedin.com/in/arman-khan-943b29400/',
+                    href: 'https://www.linkedin.com/in/techiee-arman/',
                     icon: Linkedin,
                     label: 'LinkedIn',
                     color: '#38BDF8',

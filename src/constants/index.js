@@ -414,9 +414,9 @@ export const CONTACT_LINKS = [
     bgColor: "bg-white/5 border-white/10 text-text-primary"
   },
   {
-    label: "linkedin.com/in/arman-khan-943b29400",
+    label: "linkedin.com/in/techiee-arman",
     sublabel: "Professional profile",
-    href: "https://www.linkedin.com/in/arman-khan-943b29400/",
+    href: "https://www.linkedin.com/in/techiee-arman/",
     iconName: "Linkedin",
     bgColor: "bg-sky-500/10 border-sky-500/20 text-sky-400"
   },
