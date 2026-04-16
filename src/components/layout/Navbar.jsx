@@ -44,7 +44,11 @@ const Navbar = () => {
     <motion.header
       initial={{ y: -80, opacity: 0 }}
       animate={ultraMobileMode ? { y: 0, opacity: 1 } : { y: 0, opacity: 1 }}
-      transition={ultraMobileMode ? { duration: 0.16 } : { duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      transition={
+        ultraMobileMode
+          ? { duration: 0.22, ease: [0.22, 1, 0.36, 1] }
+          : { duration: 0.7, ease: [0.16, 1, 0.3, 1] }
+      }
       style={{
         position: 'fixed',
         top: '12px',
@@ -61,10 +65,10 @@ const Navbar = () => {
         backdropFilter: lowPerfMode ? 'none' : 'blur(20px)',
         boxShadow: scrolled
           ? lowPerfMode
-            ? '0 12px 24px rgba(2,6,23,0.42), 0 0 0 1px rgba(79,142,247,0.12) inset'
+            ? '0 12px 24px rgba(2,6,23,0.42), 0 0 18px rgba(79,142,247,0.18), 0 0 0 1px rgba(79,142,247,0.12) inset'
             : '0 30px 80px rgba(2,6,23,0.55), 0 0 0 1px rgba(79,142,247,0.16) inset'
           : lowPerfMode
-            ? '0 10px 20px rgba(2,6,23,0.34), 0 0 0 1px rgba(79,142,247,0.08) inset'
+            ? '0 10px 20px rgba(2,6,23,0.34), 0 0 14px rgba(79,142,247,0.15), 0 0 0 1px rgba(79,142,247,0.08) inset'
             : '0 22px 60px rgba(2,6,23,0.45), 0 0 0 1px rgba(79,142,247,0.1) inset',
         transition: ultraMobileMode ? 'none' : 'border-color 0.35s, box-shadow 0.35s, background 0.35s',
       }}
@@ -77,10 +81,20 @@ const Navbar = () => {
           transition={{ duration: 6.2, repeat: Infinity, ease: 'linear', repeatDelay: 0.9 }}
         />
       )}
+      {lowPerfMode && <div className="navbar-mobile-aura" aria-hidden />}
 
-      <div className="px-3 md:px-4 lg:px-6 h-[66px] md:h-[72px] flex items-center justify-between gap-3 md:gap-4 relative">
+      <motion.div
+        className="px-3 md:px-4 lg:px-6 h-[66px] md:h-[72px] flex items-center justify-between gap-3 md:gap-4 relative"
+        initial={false}
+        animate={ultraMobileMode ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+        transition={ultraMobileMode ? { duration: 0.18, ease: 'easeOut' } : { duration: 0.2 }}
+      >
         <Link to="/" style={{ textDecoration: 'none', flexShrink: 0 }}>
-          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="flex items-center gap-2.5">
+          <motion.div
+            whileHover={{ scale: 1.03 }}
+            whileTap={ultraMobileMode ? { scale: 0.98 } : { scale: 0.97 }}
+            className="flex items-center gap-2.5"
+          >
             <motion.span
               className="navbar-brand-glyph"
               animate={lowPerfMode ? undefined : { rotate: [0, 180, 360] }}
@@ -234,7 +248,7 @@ const Navbar = () => {
             )}
           </AnimatePresence>
         </motion.button>
-      </div>
+      </motion.div>
 
       <AnimatePresence>
         {isMenuOpen && (
@@ -242,7 +256,7 @@ const Navbar = () => {
             initial={{ opacity: 0, y: -8, height: 0 }}
             animate={ultraMobileMode ? { opacity: 1, y: 0, height: 'auto' } : { opacity: 1, y: 0, height: 'auto' }}
             exit={ultraMobileMode ? { opacity: 0, y: 0, height: 0 } : { opacity: 0, y: -10, height: 0 }}
-            transition={ultraMobileMode ? { duration: 0.14 } : { duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            transition={ultraMobileMode ? { duration: 0.2, ease: [0.22, 1, 0.36, 1] } : { duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             style={{
               overflow: 'hidden',
               background: 'linear-gradient(165deg, rgba(6,9,18,0.98), rgba(8,14,25,0.96) 50%, rgba(11,18,32,0.98))',
@@ -264,8 +278,13 @@ const Navbar = () => {
                 <motion.div
                   key={link.path}
                   variants={{
-                    hidden: ultraMobileMode ? { opacity: 1 } : lowPerfMode ? { opacity: 0 } : { opacity: 0, x: -16 },
-                    show: { opacity: 1, x: 0, transition: { duration: ultraMobileMode ? 0.01 : lowPerfMode ? 0.15 : 0.3 } },
+                    hidden: ultraMobileMode ? { opacity: 0, y: 4 } : lowPerfMode ? { opacity: 0 } : { opacity: 0, x: -16 },
+                    show: {
+                      opacity: 1,
+                      y: 0,
+                      x: 0,
+                      transition: { duration: ultraMobileMode ? 0.18 : lowPerfMode ? 0.15 : 0.3, ease: 'easeOut' },
+                    },
                   }}
                 >
                   <Link
@@ -294,8 +313,13 @@ const Navbar = () => {
               ))}
               <motion.div
                 variants={{
-                  hidden: ultraMobileMode ? { opacity: 1 } : lowPerfMode ? { opacity: 0 } : { opacity: 0, x: -16 },
-                  show: { opacity: 1, x: 0, transition: { duration: ultraMobileMode ? 0.01 : lowPerfMode ? 0.15 : 0.3 } },
+                  hidden: ultraMobileMode ? { opacity: 0, y: 4 } : lowPerfMode ? { opacity: 0 } : { opacity: 0, x: -16 },
+                  show: {
+                    opacity: 1,
+                    y: 0,
+                    x: 0,
+                    transition: { duration: ultraMobileMode ? 0.18 : lowPerfMode ? 0.15 : 0.3, ease: 'easeOut' },
+                  },
                 }}
                 style={{ borderTop: '1px solid rgba(255,255,255,0.08)', marginTop: '4px', paddingTop: '12px' }}
               >

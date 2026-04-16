@@ -156,6 +156,16 @@ a { color: inherit; }
   animation: navbar-dot 1.9s ease-in-out infinite;
 }
 
+.navbar-mobile-aura {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(280px 120px at 15% 0%, rgba(34, 211, 238, 0.11), transparent 70%),
+    radial-gradient(240px 130px at 85% 0%, rgba(124, 92, 252, 0.1), transparent 72%);
+}
+
 /* Hero profile image crop control */
 .hero-profile-image {
   object-position: center 12%;
@@ -163,7 +173,7 @@ a { color: inherit; }
 
 @media (max-width: 767px) {
   .navbar-scanline { display: none; }
-  .navbar-brand-glyph { box-shadow: none; }
+  .navbar-brand-glyph { box-shadow: 0 0 10px rgba(79, 142, 247, 0.35); }
 
   .hero-profile-image {
     object-position: center 20%;
