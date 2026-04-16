@@ -76,7 +76,7 @@ export const NAV_LINKS = [
 
 export const SOCIAL_LINKS = [
   { label: "GitHub", url: "https://github.com/Arman-techiee", icon: "Github" },
-  { label: "LinkedIn", url: "https://www.linkedin.com/in/arman-khan-943b29400/", icon: "Linkedin" },
+  { label: "LinkedIn", url: "https://www.linkedin.com/in/techiee-arman/", icon: "Linkedin" },
   { label: "Facebook", url: "https://www.facebook.com/techiee.arman", icon: "Facebook" },
   { label: "Instagram", url: "https://www.instagram.com/techiee.arman", icon: "Instagram" }
 ];
