@@ -61,7 +61,7 @@ export const PERSONAL_INFO = {
   status: "Open to Opportunities",
   responseTime: "Within 24 hours",
   bio: [
-    "I'm a Bachelor of Information Technology student at Texas College of Management and IT, Kathmandu originally from Damak, Jhapa. Before diving into software and IT, I completed my SEE at Brighter Star English School and my +2 in Science at Damak Multiple Campus.",
+    "I'm a Bachelor of Information Technology student at Texas College of Management and IT, Kathmandu, originally from Damak, Jhapa. Before stepping into the world of software and technology, I completed my Secondary education at Brighter Star English School and my Intermediate level at Damak Multiple Campus.",
     "I currently focus on frontend web development with React, Vite, and Tailwind CSS while actively learning backend development with Node.js, Express, Prisma, and PostgreSQL by building real projects from scratch. My technical foundation also includes Java, C++, Python, and a strong curiosity for how systems work under the hood.",
     "Beyond code, I study networking, cybersecurity fundamentals, and IT infrastructure as part of my degree. I am actively looking for internship and junior developer opportunities where I can contribute real value from day one and keep growing through real-world collaboration."
   ]
