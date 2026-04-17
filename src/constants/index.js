@@ -75,7 +75,7 @@ export const NAV_LINKS = [
 ];
 
 export const SOCIAL_LINKS = [
-  { label: "GitHub", url: "https://github.com/armanroot", icon: "Github" },
+  { label: "GitHub", url: "https://github.com/armancore", icon: "Github" },
   { label: "LinkedIn", url: "https://www.linkedin.com/in/techiee-arman/", icon: "Linkedin" },
   { label: "Facebook", url: "https://www.facebook.com/techiee.arman", icon: "Facebook" },
   { label: "Instagram", url: "https://www.instagram.com/techiee.arman", icon: "Instagram" }
@@ -184,7 +184,7 @@ export const PROJECTS = [
     ],
     category: "API",
     liveUrl: "https://weather-app-arman.vercel.app/",
-    githubUrl: "https://github.com/armanroot/Weather-App.git",
+    githubUrl: "https://github.com/armancore/Weather-App.git",
     featured: true
   },
   {
@@ -200,7 +200,7 @@ export const PROJECTS = [
     ],
     category: "API",
     liveUrl: "https://cinevault-arman.vercel.app/",
-    githubUrl: "https://github.com/armanroot/movie-app.git",
+    githubUrl: "https://github.com/armancore/movie-app.git",
     featured: false
   },
   {
@@ -216,7 +216,7 @@ export const PROJECTS = [
     ],
     category: "Tool",
     liveUrl: "https://vibe-typer.vercel.app/",
-    githubUrl: "https://github.com/armanroot/VibeTyper.git",
+    githubUrl: "https://github.com/armancore/VibeTyper.git",
     featured: true
   },
   {
@@ -233,7 +233,7 @@ export const PROJECTS = [
     ],
     category: "API",
     liveUrl: "https://nepal-patra.vercel.app/",
-    githubUrl: "https://github.com/armanroot/Nepal-Patra.git",
+    githubUrl: "https://github.com/armancore/Nepal-Patra.git",
     featured: false
   },
   {
@@ -250,7 +250,7 @@ export const PROJECTS = [
     ],
     category: "Tool",
     liveUrl: "https://expense-tracker-arman.vercel.app/",
-    githubUrl: "https://github.com/armanroot/expense-tracker",
+    githubUrl: "https://github.com/armancore/expense-tracker",
     featured: false
   },
   {
@@ -271,7 +271,7 @@ export const PROJECTS = [
     category: "Tool",
     status: "In Progress",
     liveUrl: null,
-    githubUrl: "https://github.com/armanroot/TriLearn.git",
+    githubUrl: "https://github.com/armancore/TriLearn.git",
     featured: false
   },
   {
@@ -289,7 +289,7 @@ export const PROJECTS = [
     ],
     category: "Frontend",
     liveUrl: "https://ecommerce-arman.vercel.app/",
-    githubUrl: "https://github.com/armanroot/ecommerce.git",
+    githubUrl: "https://github.com/armancore/ecommerce.git",
     featured: false
   },
   {
@@ -307,7 +307,7 @@ export const PROJECTS = [
     ],
     category: "Social",
     liveUrl: "https://arman45678.pythonanywhere.com/",
-    githubUrl: "https://github.com/armanroot/ArticleHub.git",
+    githubUrl: "https://github.com/armancore/ArticleHub.git",
     featured: false
   },
   {
@@ -325,7 +325,7 @@ export const PROJECTS = [
     ],
     category: "Tool",
     liveUrl: "https://taskflow-arman.vercel.app/",
-    githubUrl: "https://github.com/armanroot/task-manager.git",
+    githubUrl: "https://github.com/armancore/task-manager.git",
     featured: false
   }
 ];
@@ -407,9 +407,9 @@ export const CONTACT_LINKS = [
     bgColor: "bg-[var(--accent-glow)] border-accent/20 text-accent"
   },
   {
-    label: "github.com/armanroot",
+    label: "github.com/armancore",
     sublabel: "Code & projects",
-    href: "https://github.com/armanroot",
+    href: "https://github.com/armancore",
     iconName: "Github",
     bgColor: "bg-white/5 border-white/10 text-text-primary"
   },
