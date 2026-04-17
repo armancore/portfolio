@@ -205,7 +205,7 @@ const Home = () => {
               <motion.div variants={heroVariants} style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
                 {[
                   {
-                    href: 'https://github.com/Arman-techiee',
+                    href: 'https://github.com/armanroot',
                     icon: Github,
                     label: 'GitHub',
                     color: '#E8E8F2',

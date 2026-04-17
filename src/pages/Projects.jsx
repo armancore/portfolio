@@ -173,7 +173,7 @@ const Projects = () => {
                   </div>
                 </div>
                 <motion.a
-                  href="https://github.com/Arman-techiee/portfolio"
+                  href="https://github.com/armanroot/portfolio"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.04, y: -2 }}

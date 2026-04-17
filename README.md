@@ -51,7 +51,7 @@ Right now, I am mainly working with React, Vite, and Tailwind CSS on the fronten
 ## Connect With Me
 
 - Email: [arman.techiee@gmail.com](mailto:arman.techiee@gmail.com)
-- GitHub: [Arman-techiee](https://github.com/Arman-techiee)
+- GitHub: [armanroot](https://github.com/armanroot)
 - LinkedIn: [techiee-arman](https://www.linkedin.com/in/techiee-arman/)
 - Facebook: [techiee.arman](https://www.facebook.com/techiee.arman)
 - Instagram: [techiee.arman](https://www.instagram.com/techiee.arman)
