@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import {
   ArrowRight,
   Github,
@@ -48,34 +48,38 @@ const bentoSkills = [
   { icon: Code2, title: 'Languages', desc: 'C++, Java, Python, JavaScript', color: '#F97316', glow: 'rgba(249,115,22,0.22)' },
 ];
 
-const Particle = ({ style, index }) => (
+const Particle = ({ style, index, active }) => (
   <motion.div
     style={style}
-    animate={{ y: [0, -18, 0], opacity: [0.25, 0.65, 0.25] }}
-    transition={{ duration: 3.2 + index * 0.18, repeat: Infinity, ease: 'easeInOut', delay: index * 0.14 }}
+    animate={active ? { y: [0, -18, 0], opacity: [0.25, 0.65, 0.25] } : undefined}
+    transition={
+      active
+        ? { duration: 3.2 + index * 0.18, repeat: Infinity, ease: 'easeInOut', delay: index * 0.14 }
+        : undefined
+    }
   />
 );
 
 const Home = () => {
   const featured = PROJECTS.filter((p) => p.featured).slice(0, 2);
   const heroRef = useRef(null);
+  const prefersReducedMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== 'undefined' && window.innerWidth < 768
+  );
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 500], [0, 120]);
   const heroOpacity = useTransform(scrollY, [0, 400], [1, 0]);
+  const lowPerfMode = prefersReducedMotion || isMobile;
 
   useEffect(() => {
-    if (!profileImg) return undefined;
-    const preload = document.createElement('link');
-    preload.rel = 'preload';
-    preload.as = 'image';
-    preload.href = profileImg;
-    preload.fetchPriority = 'high';
-    document.head.appendChild(preload);
-    return () => document.head.removeChild(preload);
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', onResize, { passive: true });
+    return () => window.removeEventListener('resize', onResize);
   }, []);
 
   const particles = useMemo(
-    () =>
+    () => (lowPerfMode ? [] :
       Array.from({ length: 12 }, (_, i) => ({
         style: {
           position: 'absolute',
@@ -87,8 +91,8 @@ const Home = () => {
           top: `${15 + ((i * 5.3) % 70)}%`,
           pointerEvents: 'none',
         },
-      })),
-    []
+      }))),
+    [lowPerfMode]
   );
 
   return (
@@ -118,31 +122,35 @@ const Home = () => {
             backgroundImage:
               'linear-gradient(rgba(79,142,247,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(79,142,247,0.04) 1px, transparent 1px)',
             backgroundSize: '60px 60px',
-            y: heroY,
+            y: lowPerfMode ? 0 : heroY,
           }}
         />
 
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '200px', zIndex: 1, background: 'linear-gradient(to bottom, #080B14, transparent)' }} />
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '200px', zIndex: 1, background: 'linear-gradient(to top, #080B14, transparent)' }} />
 
-        <motion.div
-          animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.9, 0.5] }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          style={{ position: 'absolute', top: '15%', right: '8%', width: '520px', height: '520px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(79,142,247,0.12) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }}
-        />
-        <motion.div
-          animate={{ scale: [1, 1.1, 1], opacity: [0.4, 0.8, 0.4] }}
-          transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut', delay: 2.5 }}
-          style={{ position: 'absolute', bottom: '15%', left: '3%', width: '380px', height: '380px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(124,92,252,0.10) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }}
-        />
-        <motion.div
-          animate={{ scale: [1, 1.08, 1], opacity: [0.3, 0.6, 0.3] }}
-          transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
-          style={{ position: 'absolute', top: '50%', left: '40%', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,211,238,0.06) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }}
-        />
+        {!lowPerfMode && (
+          <>
+            <motion.div
+              animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.9, 0.5] }}
+              transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+              style={{ position: 'absolute', top: '15%', right: '8%', width: '520px', height: '520px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(79,142,247,0.12) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }}
+            />
+            <motion.div
+              animate={{ scale: [1, 1.1, 1], opacity: [0.4, 0.8, 0.4] }}
+              transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut', delay: 2.5 }}
+              style={{ position: 'absolute', bottom: '15%', left: '3%', width: '380px', height: '380px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(124,92,252,0.10) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }}
+            />
+            <motion.div
+              animate={{ scale: [1, 1.08, 1], opacity: [0.3, 0.6, 0.3] }}
+              transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
+              style={{ position: 'absolute', top: '50%', left: '40%', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,211,238,0.06) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }}
+            />
+          </>
+        )}
 
         {particles.map((p, i) => (
-          <Particle key={i} style={p.style} index={i} />
+          <Particle key={i} style={p.style} index={i} active={!lowPerfMode} />
         ))}
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full" style={{ position: 'relative', zIndex: 2, paddingTop: '40px', paddingBottom: '96px' }}>
@@ -289,10 +297,14 @@ const Home = () => {
                       className="hero-profile-image"
                       src={profileImg}
                       alt="Arman Khan"
-                      fetchPriority="high"
-                      loading="eager"
-                      whileHover={{ scale: 1.03 }}
-                      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                      fetchPriority={lowPerfMode ? 'auto' : 'high'}
+                      loading={lowPerfMode ? 'lazy' : 'eager'}
+                      decoding="async"
+                      width="662"
+                      height="882"
+                      sizes="(max-width: 768px) 92vw, 385px"
+                      whileHover={lowPerfMode ? undefined : { scale: 1.03 }}
+                      transition={lowPerfMode ? undefined : { duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                       style={{ width: '100%', height: 'min(560px, 82vw)', minHeight: '360px', objectFit: 'cover', display: 'block' }}
                     />
                   ) : (
@@ -350,12 +362,15 @@ const Home = () => {
         </div>
 
         <motion.div
-          style={{ position: 'absolute', bottom: '28px', left: '50%', transform: 'translateX(-50%)', zIndex: 5, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', opacity: heroOpacity }}
+          style={{ position: 'absolute', bottom: '28px', left: '50%', transform: 'translateX(-50%)', zIndex: 5, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', opacity: lowPerfMode ? 1 : heroOpacity }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.8 }}
         >
-          <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}>
+          <motion.div
+            animate={lowPerfMode ? undefined : { y: [0, 6, 0] }}
+            transition={lowPerfMode ? undefined : { duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+          >
             <ChevronDown size={18} style={{ color: '#3A3A5C' }} />
           </motion.div>
         </motion.div>

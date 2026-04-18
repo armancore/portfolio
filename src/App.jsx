@@ -1,19 +1,23 @@
-import React, { useEffect, useRef } from 'react';
+import React, { Suspense, lazy, useEffect, useRef } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Home from './pages/Home';
-import About from './pages/About';
-import Projects from './pages/Projects';
-import Contact from './pages/Contact';
-import NotFound from './pages/NotFound';
+const About = lazy(() => import('./pages/About'));
+const Projects = lazy(() => import('./pages/Projects'));
+const Contact = lazy(() => import('./pages/Contact'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 const MouseGlow = () => {
   const glowRef = useRef(null);
   const frameRef = useRef(null);
+  const isPointerFine =
+    typeof window !== 'undefined' && window.matchMedia('(pointer: fine)').matches;
 
   useEffect(() => {
+    if (!isPointerFine) return undefined;
+
     const handleMouseMove = (event) => {
       if (!glowRef.current) return;
       if (frameRef.current) cancelAnimationFrame(frameRef.current);
@@ -29,7 +33,9 @@ const MouseGlow = () => {
       window.removeEventListener('mousemove', handleMouseMove);
       if (frameRef.current) cancelAnimationFrame(frameRef.current);
     };
-  }, []);
+  }, [isPointerFine]);
+
+  if (!isPointerFine) return null;
 
   return (
     <div
@@ -68,21 +74,23 @@ const AppContent = () => {
         <Navbar />
         <main>
           <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={location.pathname}
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: -10 }}
-              transition={{ duration: 0.28, ease: 'easeOut' }}
-            >
-              <Routes location={location}>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/projects" element={<Projects />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </motion.div>
+            <Suspense fallback={null}>
+              <motion.div
+                key={location.pathname}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: -10 }}
+                transition={{ duration: 0.28, ease: 'easeOut' }}
+              >
+                <Routes location={location}>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/projects" element={<Projects />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </motion.div>
+            </Suspense>
           </AnimatePresence>
         </main>
         <Footer />

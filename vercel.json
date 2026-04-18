@@ -1,11 +1,3 @@
 {
-  "redirects": [
-    {
-      "source": "/(.*)",
-      "has": [{ "type": "host", "value": "armankhan.com.np" }],
-      "destination": "https://www.armankhan.com.np/$1",
-      "permanent": true
-    }
-  ],
   "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }
