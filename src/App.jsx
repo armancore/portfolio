@@ -73,14 +73,18 @@ const AppContent = () => {
       <div style={{ position: 'relative', zIndex: 2 }}>
         <Navbar />
         <main>
-          <AnimatePresence mode="wait" initial={false}>
+          <AnimatePresence mode="wait" initial={!prefersReducedMotion}>
             <Suspense fallback={null}>
               <motion.div
                 key={location.pathname}
-                initial={prefersReducedMotion ? false : { opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: -10 }}
-                transition={{ duration: 0.28, ease: 'easeOut' }}
+                initial={
+                  prefersReducedMotion ? false : { opacity: 0, y: 28, filter: 'blur(4px)' }
+                }
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                exit={
+                  prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: -16, filter: 'blur(2px)' }
+                }
+                transition={{ duration: 0.36, ease: [0.16, 1, 0.3, 1] }}
               >
                 <Routes location={location}>
                   <Route path="/" element={<Home />} />

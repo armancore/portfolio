@@ -74,7 +74,8 @@ const Home = () => {
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 500], [0, 120]);
   const heroOpacity = useTransform(scrollY, [0, 400], [1, 0]);
-  const lowPerfMode = prefersReducedMotion || isMobile;
+  const reduceAnimations = prefersReducedMotion;
+  const mobileDataMode = isMobile;
 
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth < 768);
@@ -83,7 +84,7 @@ const Home = () => {
   }, []);
 
   const particles = useMemo(
-    () => (lowPerfMode ? [] :
+    () => (reduceAnimations ? [] :
       Array.from({ length: 12 }, (_, i) => ({
         style: {
           position: 'absolute',
@@ -96,7 +97,7 @@ const Home = () => {
           pointerEvents: 'none',
         },
       }))),
-    [lowPerfMode]
+    [reduceAnimations]
   );
 
   return (
@@ -126,14 +127,14 @@ const Home = () => {
             backgroundImage:
               'linear-gradient(rgba(79,142,247,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(79,142,247,0.04) 1px, transparent 1px)',
             backgroundSize: '60px 60px',
-            y: lowPerfMode ? 0 : heroY,
+            y: reduceAnimations ? 0 : heroY,
           }}
         />
 
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '200px', zIndex: 1, background: 'linear-gradient(to bottom, #080B14, transparent)' }} />
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '200px', zIndex: 1, background: 'linear-gradient(to top, #080B14, transparent)' }} />
 
-        {!lowPerfMode && (
+        {!reduceAnimations && (
           <>
             <motion.div
               animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.9, 0.5] }}
@@ -154,7 +155,7 @@ const Home = () => {
         )}
 
         {particles.map((p, i) => (
-          <Particle key={i} style={p.style} index={i} active={!lowPerfMode} />
+          <Particle key={i} style={p.style} index={i} active={!reduceAnimations} />
         ))}
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full" style={{ position: 'relative', zIndex: 2, paddingTop: '40px', paddingBottom: '96px' }}>
@@ -306,14 +307,14 @@ const Home = () => {
                           : undefined
                       }
                       alt="Arman Khan"
-                      fetchPriority={lowPerfMode ? 'auto' : 'high'}
-                      loading={lowPerfMode ? 'lazy' : 'eager'}
+                      fetchPriority={mobileDataMode ? 'auto' : 'high'}
+                      loading={mobileDataMode ? 'lazy' : 'eager'}
                       decoding="async"
                       width="662"
                       height="882"
                       sizes="(max-width: 480px) 92vw, (max-width: 768px) 88vw, 385px"
-                      whileHover={lowPerfMode ? undefined : { scale: 1.03 }}
-                      transition={lowPerfMode ? undefined : { duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                      whileHover={reduceAnimations || isMobile ? undefined : { scale: 1.03 }}
+                      transition={reduceAnimations ? undefined : { duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                       style={{ width: '100%', height: 'min(560px, 82vw)', minHeight: '360px', objectFit: 'cover', display: 'block' }}
                     />
                   ) : (
@@ -371,14 +372,14 @@ const Home = () => {
         </div>
 
         <motion.div
-          style={{ position: 'absolute', bottom: '28px', left: '50%', transform: 'translateX(-50%)', zIndex: 5, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', opacity: lowPerfMode ? 1 : heroOpacity }}
+          style={{ position: 'absolute', bottom: '28px', left: '50%', transform: 'translateX(-50%)', zIndex: 5, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', opacity: reduceAnimations ? 1 : heroOpacity }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.8 }}
         >
           <motion.div
-            animate={lowPerfMode ? undefined : { y: [0, 6, 0] }}
-            transition={lowPerfMode ? undefined : { duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+            animate={reduceAnimations ? undefined : { y: [0, 6, 0] }}
+            transition={reduceAnimations ? undefined : { duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
           >
             <ChevronDown size={18} style={{ color: '#3A3A5C' }} />
           </motion.div>
