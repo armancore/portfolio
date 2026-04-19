@@ -1,5 +1,13 @@
 import React from 'react';
 
+type ButtonProps = {
+  as?: React.ElementType;
+  variant?: 'primary' | 'outline' | 'ghost' | 'secondary';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  children?: React.ReactNode;
+  className?: string;
+} & Record<string, unknown>;
+
 const Button = ({
   as: Component = 'button',
   variant = 'primary',
@@ -7,7 +15,7 @@ const Button = ({
   children,
   className = '',
   ...props
-}) => {
+}: ButtonProps) => {
   const base = 'inline-flex items-center justify-center gap-2 rounded-lg font-semibold tracking-[0.08em] uppercase transition-all duration-200 cursor-pointer';
 
   const sizes = {
