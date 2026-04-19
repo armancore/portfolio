@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 const useReveal = (delay = 0, disabled = false) => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const element = ref.current;
@@ -17,7 +17,7 @@ const useReveal = (delay = 0, disabled = false) => {
       return;
     }
 
-    const timeouts = new Set();
+    const timeouts = new Set<number>();
 
     const observer = new IntersectionObserver(
       (entries) => {
