@@ -2,7 +2,16 @@ import React, { useState } from 'react';
 import { Send, CheckCircle } from 'lucide-react';
 import RevealWrapper from '../ui/RevealWrapper';
 
-const initialForm = {
+type FormState = {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+};
+
+type FormErrors = Partial<Record<keyof FormState, string>>;
+
+const initialForm: FormState = {
   name: '',
   email: '',
   subject: '',
@@ -13,14 +22,14 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mdapvrel';
 const HAS_REAL_FORMSPREE_ID = !FORMSPREE_ENDPOINT.includes('YOUR_FORM_ID_HERE');
 
 const ContactForm = () => {
-  const [form, setForm] = useState(initialForm);
-  const [errors, setErrors] = useState({});
+  const [form, setForm] = useState<FormState>(initialForm);
+  const [errors, setErrors] = useState<FormErrors>({});
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [submitError, setSubmitError] = useState('');
 
-  const validate = () => {
-    const errs = {};
+  const validate = (): FormErrors => {
+    const errs: FormErrors = {};
     if (!form.name.trim()) errs.name = 'Name is required.';
     if (!form.email.trim()) {
       errs.email = 'Email is required.';
@@ -32,7 +41,7 @@ const ContactForm = () => {
     return errs;
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) {
@@ -43,7 +52,7 @@ const ContactForm = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length > 0) {
@@ -87,13 +96,17 @@ const ContactForm = () => {
       setSending(false);
       setSent(true);
       setForm(initialForm);
-    } catch (error) {
+    } catch (error: unknown) {
       setSending(false);
-      setSubmitError(error.message || 'Something went wrong while sending your message.');
+      const message =
+        error instanceof Error
+          ? error.message
+          : 'Something went wrong while sending your message.';
+      setSubmitError(message);
     }
   };
 
-  const inputClass = (field) =>
+  const inputClass = (field: keyof FormState) =>
     `w-full px-4 py-3 bg-bg-tertiary border rounded-xl text-text-primary text-sm placeholder-text-muted transition-all duration-200 outline-none focus:ring-1 ${
       errors[field]
         ? 'border-red-500/60 focus:border-red-500 focus:ring-red-500/20'
