@@ -12,7 +12,7 @@ const Navbar = () => {
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
   const [isLowPowerDevice, setIsLowPowerDevice] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [hoveredPath, setHoveredPath] = useState(null);
+  const [hoveredPath, setHoveredPath] = useState<string | null>(null);
 
   useEffect(() => {
     setIsMenuOpen(false);
@@ -25,15 +25,17 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    const memory = navigator.deviceMemory;
+    const memory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
     const cores = navigator.hardwareConcurrency;
-    const saveData = navigator.connection?.saveData;
+    const saveData = (
+      navigator as Navigator & { connection?: { saveData?: boolean } }
+    ).connection?.saveData;
     const lowMemory = typeof memory === 'number' && memory <= 4;
     const lowCores = typeof cores === 'number' && cores <= 4;
     setIsLowPowerDevice(Boolean(saveData || lowMemory || lowCores));
   }, []);
 
-  const isActive = (path) => {
+  const isActive = (path: string) => {
     if (path === '/') return location.pathname === '/';
     return location.pathname.startsWith(path);
   };
