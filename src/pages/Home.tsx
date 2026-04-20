@@ -42,7 +42,7 @@ try {
 const statsData = [
   { value: `${PROJECTS.length + 1}+`, label: 'Projects' },
   { value: '4+', label: 'Languages' },
-  { value: '1+', label: 'Experience' },
+  { value: '1+', label: 'Years Learning' },
 ];
 
 const bentoSkills = [

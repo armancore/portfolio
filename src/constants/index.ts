@@ -185,7 +185,7 @@ export const PROJECTS = [
     category: "API",
     liveUrl: "https://weather-app-arman.vercel.app/",
     githubUrl: "https://github.com/armancore/Weather-App.git",
-    featured: true
+    featured: false
   },
   {
     id: 2,
@@ -272,7 +272,7 @@ export const PROJECTS = [
     status: "In Progress",
     liveUrl: null,
     githubUrl: "https://github.com/armancore/TriLearn.git",
-    featured: false
+    featured: true
   },
   {
     id: 7,

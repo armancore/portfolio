@@ -9,7 +9,9 @@ const Navbar = () => {
   const scrolled = useScrolled(20);
   const location = useLocation();
   const prefersReducedMotion = useReducedMotion();
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== 'undefined' && window.innerWidth < 768
+  );
   const [isLowPowerDevice, setIsLowPowerDevice] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hoveredPath, setHoveredPath] = useState<string | null>(null);
