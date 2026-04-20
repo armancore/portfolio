@@ -17,9 +17,9 @@ import {
 } from 'lucide-react';
 import PageMeta from '../components/seo/PageMeta';
 import { PERSONAL_INFO, PROJECTS } from '../constants';
-import profileImg384 from '../assets/profile-384.webp';
 import profileImg640 from '../assets/profile-640.webp';
 import profileImg960 from '../assets/profile-960.webp';
+import profileImgOriginal from '../assets/profile.webp';
 import {
   fadeUp,
   fadeRight,
@@ -67,7 +67,6 @@ const Home = () => {
   const heroY = useTransform(scrollY, [0, 500], [0, 120]);
   const heroOpacity = useTransform(scrollY, [0, 400], [1, 0]);
   const reduceAnimations = prefersReducedMotion;
-  const mobileDataMode = isMobile;
 
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth < 768);
@@ -291,15 +290,14 @@ const Home = () => {
 
                   <motion.img
                     className="hero-profile-image"
-                    src={profileImg640}
-                    srcSet={`${profileImg384} 384w, ${profileImg640} 640w, ${profileImg960} 960w`}
+                    src={profileImg960}
+                    srcSet={`${profileImg640} 1x, ${profileImg960} 2x, ${profileImgOriginal} 3x`}
                     alt="Arman Khan"
-                    fetchPriority={mobileDataMode ? 'auto' : 'high'}
-                    loading={mobileDataMode ? 'lazy' : 'eager'}
+                    fetchPriority="high"
+                    loading="eager"
                     decoding="async"
                     width="662"
                     height="882"
-                    sizes="(max-width: 480px) 92vw, (max-width: 768px) 88vw, 385px"
                     whileHover={reduceAnimations || isMobile ? undefined : { scale: 1.03 }}
                     transition={reduceAnimations ? undefined : { duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                     style={{ width: '100%', height: 'min(560px, 82vw)', minHeight: '360px', objectFit: 'cover', display: 'block' }}
