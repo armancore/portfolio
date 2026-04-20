@@ -10,15 +10,15 @@ const Contact = lazy(() => import('./pages/Contact'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 const MouseGlow = () => {
-  const glowRef = useRef(null);
-  const frameRef = useRef(null);
+  const glowRef = useRef<HTMLDivElement | null>(null);
+  const frameRef = useRef<number | null>(null);
   const isPointerFine =
     typeof window !== 'undefined' && window.matchMedia('(pointer: fine)').matches;
 
   useEffect(() => {
     if (!isPointerFine) return undefined;
 
-    const handleMouseMove = (event) => {
+    const handleMouseMove = (event: MouseEvent) => {
       if (!glowRef.current) return;
       if (frameRef.current) cancelAnimationFrame(frameRef.current);
 
@@ -48,7 +48,7 @@ const MouseGlow = () => {
         '--glow-x': '50vw',
         '--glow-y': '30vh',
         background: 'radial-gradient(600px circle at var(--glow-x) var(--glow-y), rgba(79,142,247,0.05) 0%, transparent 60%)',
-      }}
+      } as React.CSSProperties}
     />
   );
 };
