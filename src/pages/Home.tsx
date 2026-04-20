@@ -17,6 +17,9 @@ import {
 } from 'lucide-react';
 import PageMeta from '../components/seo/PageMeta';
 import { PERSONAL_INFO, PROJECTS } from '../constants';
+import profileImg384 from '../assets/profile-384.webp';
+import profileImg640 from '../assets/profile-640.webp';
+import profileImg960 from '../assets/profile-960.webp';
 import {
   fadeUp,
   fadeRight,
@@ -28,19 +31,8 @@ import {
   cardReveal,
 } from '../lib/motion';
 
-let profileImg384 = null;
-let profileImg640 = null;
-let profileImg960 = null;
-try {
-  profileImg384 = new URL('../assets/profile-384.webp', import.meta.url).href;
-  profileImg640 = new URL('../assets/profile-640.webp', import.meta.url).href;
-  profileImg960 = new URL('../assets/profile-960.webp', import.meta.url).href;
-} catch {
-  // The profile image is optional during development.
-}
-
 const statsData = [
-  { value: `${PROJECTS.length + 1}+`, label: 'Projects' },
+  { value: `${PROJECTS.length}`, label: 'Projects' },
   { value: '4+', label: 'Languages' },
   { value: '1+', label: 'Years Learning' },
 ];
@@ -297,31 +289,21 @@ const Home = () => {
                 <div style={{ position: 'relative', zIndex: 1, borderRadius: '28px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.09)', boxShadow: '0 32px 80px rgba(0,0,0,0.4)', width: '100%', maxWidth: '385px', margin: '0 auto' }}>
                   <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(79,142,247,0.9), rgba(124,92,252,0.9), transparent)', zIndex: 2 }} />
 
-                  {profileImg640 ? (
-                    <motion.img
-                      className="hero-profile-image"
-                      src={profileImg640}
-                      srcSet={
-                        profileImg384 && profileImg640 && profileImg960
-                          ? `${profileImg384} 384w, ${profileImg640} 640w, ${profileImg960} 960w`
-                          : undefined
-                      }
-                      alt="Arman Khan"
-                      fetchPriority={mobileDataMode ? 'auto' : 'high'}
-                      loading={mobileDataMode ? 'lazy' : 'eager'}
-                      decoding="async"
-                      width="662"
-                      height="882"
-                      sizes="(max-width: 480px) 92vw, (max-width: 768px) 88vw, 385px"
-                      whileHover={reduceAnimations || isMobile ? undefined : { scale: 1.03 }}
-                      transition={reduceAnimations ? undefined : { duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                      style={{ width: '100%', height: 'min(560px, 82vw)', minHeight: '360px', objectFit: 'cover', display: 'block' }}
-                    />
-                  ) : (
-                    <div style={{ width: '100%', height: 'min(560px, 82vw)', minHeight: '360px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(160deg, #141b2c 0%, #0d1117 50%, #161b27 100%)' }}>
-                      <span style={{ fontFamily: "'Syne', sans-serif", fontSize: '80px', fontWeight: 800, background: 'linear-gradient(135deg, #4F8EF7, #7C5CFC)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>AK</span>
-                    </div>
-                  )}
+                  <motion.img
+                    className="hero-profile-image"
+                    src={profileImg640}
+                    srcSet={`${profileImg384} 384w, ${profileImg640} 640w, ${profileImg960} 960w`}
+                    alt="Arman Khan"
+                    fetchPriority={mobileDataMode ? 'auto' : 'high'}
+                    loading={mobileDataMode ? 'lazy' : 'eager'}
+                    decoding="async"
+                    width="662"
+                    height="882"
+                    sizes="(max-width: 480px) 92vw, (max-width: 768px) 88vw, 385px"
+                    whileHover={reduceAnimations || isMobile ? undefined : { scale: 1.03 }}
+                    transition={reduceAnimations ? undefined : { duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    style={{ width: '100%', height: 'min(560px, 82vw)', minHeight: '360px', objectFit: 'cover', display: 'block' }}
+                  />
 
                   <div className="hidden md:block" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '50%', background: 'linear-gradient(to top, rgba(8,11,20,0.97) 0%, rgba(8,11,20,0.65) 50%, transparent 100%)', zIndex: 2 }} />
 
