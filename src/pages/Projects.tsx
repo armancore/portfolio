@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ExternalLink, Github } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
+import ScrollReveal from '../components/ui/ScrollReveal';
 import PageMeta from '../components/seo/PageMeta';
 import { CATEGORY_ACCENTS, PROJECTS } from '../constants';
 import { fadeUp, staggerContainer, blurIn } from '../lib/motion';
@@ -86,67 +87,68 @@ const Projects = () => {
               {filtered.map((p, i) => {
                 const ca = CATEGORY_ACCENTS[p.category] || CATEGORY_ACCENTS.API;
                 return (
-                  <motion.div
-                    key={p.id}
-                    layout
-                    initial={{ opacity: 0, y: 30, scale: 0.96 }}
-                    animate={{ opacity: 1, y: 0, scale: 1, transition: { duration: 0.45, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] } }}
-                    exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.25 } }}
-                    whileHover={{ y: -6, borderColor: 'rgba(79,142,247,0.3)', boxShadow: '0 24px 52px rgba(0,0,0,0.35)' }}
-                    style={{ position: 'relative', display: 'flex', flexDirection: 'column', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', transition: 'border-color 0.25s' }}
-                  >
-                    <div style={{ height: '2px', background: `linear-gradient(90deg, ${ca.text}80, ${ca.text}30, transparent)`, flexShrink: 0 }} />
+                  <ScrollReveal key={p.id} delay={i * 0.07}>
+                    <motion.div
+                      layout
+                      initial={{ opacity: 0, y: 30, scale: 0.96 }}
+                      animate={{ opacity: 1, y: 0, scale: 1, transition: { duration: 0.45, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] } }}
+                      exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.25 } }}
+                      whileHover={{ y: -6, borderColor: 'rgba(79,142,247,0.3)', boxShadow: '0 24px 52px rgba(0,0,0,0.35)' }}
+                      style={{ position: 'relative', display: 'flex', flexDirection: 'column', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', transition: 'border-color 0.25s' }}
+                    >
+                      <div style={{ height: '2px', background: `linear-gradient(90deg, ${ca.text}80, ${ca.text}30, transparent)`, flexShrink: 0 }} />
 
-                    <div style={{ position: 'absolute', top: '14px', right: '16px', fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: '72px', color: 'rgba(255,255,255,0.02)', lineHeight: 1, pointerEvents: 'none', userSelect: 'none' }}>
-                      {p.num}
-                    </div>
+                      <div style={{ position: 'absolute', top: '14px', right: '16px', fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: '72px', color: 'rgba(255,255,255,0.02)', lineHeight: 1, pointerEvents: 'none', userSelect: 'none' }}>
+                        {p.num}
+                      </div>
 
-                    <div style={{ padding: 'clamp(18px, 4vw, 26px)', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
-                        <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4A4A6A' }}>{p.num}</span>
-                        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-end', gap: '6px' }}>
-                          <span style={{ padding: '3px 10px', borderRadius: '6px', background: ca.bg, border: `1px solid ${ca.border}`, fontSize: '10px', color: ca.text, fontFamily: "'JetBrains Mono', monospace" }}>{p.category}</span>
-                          {p.status ? <span style={{ padding: '3px 10px', borderRadius: '6px', background: 'rgba(249,115,22,0.1)', border: '1px solid rgba(249,115,22,0.22)', fontSize: '10px', color: '#F97316', fontFamily: "'JetBrains Mono', monospace" }}>{p.status}</span> : null}
+                      <div style={{ padding: 'clamp(18px, 4vw, 26px)', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+                          <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4A4A6A' }}>{p.num}</span>
+                          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-end', gap: '6px' }}>
+                            <span style={{ padding: '3px 10px', borderRadius: '6px', background: ca.bg, border: `1px solid ${ca.border}`, fontSize: '10px', color: ca.text, fontFamily: "'JetBrains Mono', monospace" }}>{p.category}</span>
+                            {p.status ? <span style={{ padding: '3px 10px', borderRadius: '6px', background: 'rgba(249,115,22,0.1)', border: '1px solid rgba(249,115,22,0.22)', fontSize: '10px', color: '#F97316', fontFamily: "'JetBrains Mono', monospace" }}>{p.status}</span> : null}
+                          </div>
+                        </div>
+
+                        <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '18px', color: '#E8E8F2', lineHeight: 1.3, marginBottom: '10px' }}>{p.title}</h3>
+                        <p style={{ fontSize: '13.5px', color: '#8B8BAE', lineHeight: 1.78, marginBottom: '18px', flex: 1 }}>{p.description}</p>
+
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '18px' }}>
+                          {p.tags.map((t) => (
+                            <span key={t.label} style={{ padding: '3px 8px', borderRadius: '5px', background: 'rgba(79,142,247,0.07)', border: '1px solid rgba(79,142,247,0.15)', fontSize: '10px', color: '#4F8EF7', fontFamily: "'JetBrains Mono', monospace" }}>{t.label}</span>
+                          ))}
+                        </div>
+
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '16px', gap: '12px', flexWrap: 'wrap' }}>
+                          {p.liveUrl ? (
+                            <motion.a
+                              href={p.liveUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              whileHover={{ scale: 1.04 }}
+                              style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', borderRadius: '8px', border: '1px solid rgba(79,142,247,0.25)', background: 'rgba(79,142,247,0.1)', padding: '7px 14px', fontSize: '12px', fontWeight: 500, color: '#4F8EF7', textDecoration: 'none' }}
+                            >
+                              Live Demo <ExternalLink size={11} />
+                            </motion.a>
+                          ) : (
+                            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '7px 14px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '8px', fontSize: '12px', color: '#6B6B8E', fontWeight: 500 }}>
+                              {p.status || 'In Progress'}
+                            </span>
+                          )}
+                          {p.githubUrl ? (
+                            <a href={p.githubUrl} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '12px', color: '#4A4A6A', textDecoration: 'none' }}>
+                              <Github size={13} /> Source
+                            </a>
+                          ) : (
+                            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '12px', color: '#3A3A5C' }}>
+                              <Github size={13} /> Soon
+                            </span>
+                          )}
                         </div>
                       </div>
-
-                      <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '18px', color: '#E8E8F2', lineHeight: 1.3, marginBottom: '10px' }}>{p.title}</h3>
-                      <p style={{ fontSize: '13.5px', color: '#8B8BAE', lineHeight: 1.78, marginBottom: '18px', flex: 1 }}>{p.description}</p>
-
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '18px' }}>
-                        {p.tags.map((t) => (
-                          <span key={t.label} style={{ padding: '3px 8px', borderRadius: '5px', background: 'rgba(79,142,247,0.07)', border: '1px solid rgba(79,142,247,0.15)', fontSize: '10px', color: '#4F8EF7', fontFamily: "'JetBrains Mono', monospace" }}>{t.label}</span>
-                        ))}
-                      </div>
-
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '16px', gap: '12px', flexWrap: 'wrap' }}>
-                        {p.liveUrl ? (
-                          <motion.a
-                            href={p.liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            whileHover={{ scale: 1.04 }}
-                            style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', borderRadius: '8px', border: '1px solid rgba(79,142,247,0.25)', background: 'rgba(79,142,247,0.1)', padding: '7px 14px', fontSize: '12px', fontWeight: 500, color: '#4F8EF7', textDecoration: 'none' }}
-                          >
-                            Live Demo <ExternalLink size={11} />
-                          </motion.a>
-                        ) : (
-                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '7px 14px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '8px', fontSize: '12px', color: '#6B6B8E', fontWeight: 500 }}>
-                            {p.status || 'In Progress'}
-                          </span>
-                        )}
-                        {p.githubUrl ? (
-                          <a href={p.githubUrl} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '12px', color: '#4A4A6A', textDecoration: 'none' }}>
-                            <Github size={13} /> Source
-                          </a>
-                        ) : (
-                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '12px', color: '#3A3A5C' }}>
-                            <Github size={13} /> Soon
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </motion.div>
+                    </motion.div>
+                  </ScrollReveal>
                 );
               })}
             </AnimatePresence>

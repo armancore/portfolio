@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Mail, Github, Linkedin, Facebook, Instagram, ArrowRight, ExternalLink } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
+import ScrollReveal from '../components/ui/ScrollReveal';
 import ContactForm from '../components/sections/ContactForm';
 import PageMeta from '../components/seo/PageMeta';
 import { PERSONAL_INFO, CONTACT_LINKS } from '../constants';
@@ -88,7 +89,7 @@ const Contact = () => (
                 const Icon = iconMap[link.iconName];
                 const ac = accentForLink(link.iconName);
                 return (
-                  <RevealWrapper key={link.label} delay={i * 65}>
+                  <ScrollReveal key={link.label} delay={i * 0.06}>
                     <motion.a
                       href={link.href}
                       target={link.href.startsWith('http') ? '_blank' : undefined}
@@ -105,7 +106,7 @@ const Contact = () => (
                       </div>
                       <ArrowRight size={13} style={{ color: '#4A4A6A', flexShrink: 0 }} />
                     </motion.a>
-                  </RevealWrapper>
+                  </ScrollReveal>
                 );
               })}
             </div>

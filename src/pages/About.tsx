@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { MapPin, Mail, BookOpen, ArrowRight, Briefcase, GraduationCap, Clock } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
+import ScrollReveal from '../components/ui/ScrollReveal';
 import PageMeta from '../components/seo/PageMeta';
 import { ACCENT_MAP, PERSONAL_INFO, PHOTO_MODE, PROJECTS, SKILLS, TIMELINE } from '../constants';
 import profileImg from '../assets/profile.webp';
@@ -141,7 +142,7 @@ const About = () => (
             </RevealWrapper>
 
             {PERSONAL_INFO.bio.map((para, i) => (
-              <RevealWrapper key={i} delay={i * 90}>
+              <ScrollReveal key={i} delay={i * 0.08}>
                 <p style={{ fontSize: 'clamp(14px, 3.4vw, 15.5px)', color: i === 0 ? '#D7E0F0' : '#9AA8C7', lineHeight: 1.95, marginBottom: '20px' }}>
                   {para.split(/\b(React|Node\.js|Express|Prisma|PostgreSQL|JavaScript|C\+\+|Java|Python|full-stack|internship|junior developer)\b/gi).map((part, j) => {
                     const kw = ['react', 'node.js', 'express', 'prisma', 'postgresql', 'javascript', 'c++', 'java', 'python', 'full-stack', 'internship', 'junior developer'];
@@ -152,21 +153,22 @@ const About = () => (
                     );
                   })}
                 </p>
-              </RevealWrapper>
+              </ScrollReveal>
             ))}
 
             <RevealWrapper delay={280}>
               <div style={{ marginTop: '32px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(180px, 100%), 1fr))', gap: '12px' }}>
-                {values.map((v) => (
-                  <motion.div
-                    key={v.title}
-                    whileHover={{ y: -5, borderColor: 'rgba(79,142,247,0.3)', boxShadow: '0 12px 30px rgba(79,142,247,0.1)' }}
-                    style={{ borderRadius: '16px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: '20px', transition: 'border-color 0.25s, box-shadow 0.25s' }}
-                  >
-                    <span style={{ fontSize: '24px', display: 'block', marginBottom: '10px' }}>{v.icon}</span>
-                    <p style={{ fontFamily: "'Syne', sans-serif", fontWeight: 600, fontSize: '13px', color: '#E8E8F2', marginBottom: '5px' }}>{v.title}</p>
-                    <p style={{ fontSize: '12px', color: '#6B6B8E', lineHeight: 1.55 }}>{v.desc}</p>
-                  </motion.div>
+                {values.map((v, i) => (
+                  <ScrollReveal key={v.title} delay={i * 0.08}>
+                    <motion.div
+                      whileHover={{ y: -5, borderColor: 'rgba(79,142,247,0.3)', boxShadow: '0 12px 30px rgba(79,142,247,0.1)' }}
+                      style={{ borderRadius: '16px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: '20px', transition: 'border-color 0.25s, box-shadow 0.25s' }}
+                    >
+                      <span style={{ fontSize: '24px', display: 'block', marginBottom: '10px' }}>{v.icon}</span>
+                      <p style={{ fontFamily: "'Syne', sans-serif", fontWeight: 600, fontSize: '13px', color: '#E8E8F2', marginBottom: '5px' }}>{v.title}</p>
+                      <p style={{ fontSize: '12px', color: '#6B6B8E', lineHeight: 1.55 }}>{v.desc}</p>
+                    </motion.div>
+                  </ScrollReveal>
                 ))}
               </div>
             </RevealWrapper>
@@ -266,7 +268,7 @@ const About = () => (
           {SKILLS.map((skill, i) => {
             const ac = ACCENT_MAP[skill.accentColor] || ACCENT_MAP.blue;
             return (
-              <RevealWrapper key={skill.id} delay={i * 65}>
+              <ScrollReveal key={skill.id} delay={i * 0.08}>
                 <motion.div
                   whileHover={{ y: -6, borderColor: ac.border, boxShadow: `0 20px 44px ${ac.glow}` }}
                   style={{ position: 'relative', height: '100%', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: 'clamp(18px,4vw,24px)', transition: 'border-color 0.25s, box-shadow 0.25s' }}
@@ -284,7 +286,7 @@ const About = () => (
                     ))}
                   </div>
                 </motion.div>
-              </RevealWrapper>
+              </ScrollReveal>
             );
           })}
         </div>
@@ -314,7 +316,7 @@ const About = () => (
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             {TIMELINE.map((item, i) => (
-              <RevealWrapper key={item.id} delay={i * 100}>
+              <ScrollReveal key={item.id} delay={i * 0.08}>
                 <div style={{ display: 'flex', gap: '16px', paddingLeft: '30px', position: 'relative' }}>
                   <motion.div
                     initial={{ scale: 0 }}
@@ -357,7 +359,7 @@ const About = () => (
                     </div>
                   </motion.div>
                 </div>
-              </RevealWrapper>
+              </ScrollReveal>
             ))}
           </div>
         </div>
