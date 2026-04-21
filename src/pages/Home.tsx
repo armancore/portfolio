@@ -16,7 +16,11 @@ import {
   ChevronDown,
 } from 'lucide-react';
 import PageMeta from '../components/seo/PageMeta';
+import SplitTextReveal from '../components/ui/SplitTextReveal';
 import { PERSONAL_INFO, PROJECTS } from '../constants';
+import useCountUp from '../hooks/useCountUp';
+import useMagnetic from '../hooks/useMagnetic';
+import useTypewriter from '../hooks/useTypewriter';
 import {
   fadeUp,
   fadeRight,
@@ -31,9 +35,10 @@ import {
 const profileImg640 = '/profile-640.webp';
 const profileImg960 = '/profile-960.webp';
 const profileImgOriginal = '/profile.webp';
+const SUBTITLE = 'IT Student | Learning Frontend & Backend';
 
 const statsData = [
-  { value: `${PROJECTS.length}`, label: 'Projects' },
+  { value: PROJECTS.length, label: 'Projects' },
   { value: '4+', label: 'Languages' },
   { value: '1+', label: 'Years Learning' },
 ];
@@ -57,6 +62,79 @@ const Particle = ({ style, index, active }) => (
   />
 );
 
+type StatValue = number | string;
+
+const StatDisplay = ({
+  value,
+  label,
+  reduceAnimations,
+  fontSize,
+}: {
+  value: StatValue;
+  label: string;
+  reduceAnimations: boolean;
+  fontSize: string;
+}) => {
+  const numericValue = typeof value === 'number' ? value : parseInt(value, 10);
+  const suffix = typeof value === 'string' ? value.replace(String(numericValue), '') : '';
+  const { count, ref } = useCountUp({
+    target: numericValue,
+    duration: label === 'Projects' ? 1600 : 1400,
+    delay: label === 'Projects' ? 200 : 0,
+    enabled: !reduceAnimations,
+  });
+
+  return (
+    <div ref={ref as React.RefObject<HTMLDivElement>} style={{ textAlign: 'center' }}>
+      <p style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize, color: '#E8E8F2' }}>
+        {reduceAnimations ? numericValue : count}
+        {suffix}
+      </p>
+      <p style={{ fontSize: '9px', color: '#4A4A6A', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.07em' }}>{label}</p>
+    </div>
+  );
+};
+
+const SocialButton = ({
+  href,
+  Icon,
+  label,
+  color,
+  border,
+  bg,
+  glow,
+  index,
+}: {
+  href: string;
+  Icon: React.ComponentType<{ size?: number; style?: React.CSSProperties }>;
+  label: string;
+  color: string;
+  border: string;
+  bg: string;
+  glow: string;
+  index: number;
+}) => {
+  const { ref, style } = useMagnetic(0.45);
+
+  return (
+    <motion.div ref={ref as React.RefObject<HTMLDivElement>} style={style}>
+      <motion.a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={label}
+        whileHover={{ scale: 1.15, y: -3, boxShadow: glow }}
+        whileTap={{ scale: 0.92 }}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0, transition: { delay: 0.8 + index * 0.08 } }}
+        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '38px', height: '38px', borderRadius: '10px', border: `1px solid ${border}`, background: bg, color, textDecoration: 'none', backdropFilter: 'blur(4px)' }}
+      >
+        <Icon size={15} />
+      </motion.a>
+    </motion.div>
+  );
+};
+
 const Home = () => {
   const featured = PROJECTS.filter((p) => p.featured).slice(0, 2);
   const heroRef = useRef(null);
@@ -68,6 +146,14 @@ const Home = () => {
   const heroY = useTransform(scrollY, [0, 500], [0, 120]);
   const heroOpacity = useTransform(scrollY, [0, 400], [1, 0]);
   const reduceAnimations = prefersReducedMotion || isMobile;
+  const { displayed: subtitleDisplayed } = useTypewriter({
+    text: SUBTITLE,
+    speed: 42,
+    delay: 900,
+    enabled: !reduceAnimations,
+  });
+  const viewProjectsMagnetic = useMagnetic(0.28);
+  const contactMeMagnetic = useMagnetic(0.28);
 
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth < 768);
@@ -171,16 +257,18 @@ const Home = () => {
               </motion.div>
 
               <motion.h1 variants={blurIn} style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, lineHeight: 0.96, letterSpacing: '-0.035em', marginBottom: '4px' }}>
-                <motion.span style={{ fontSize: 'clamp(42px, 12vw, 90px)', color: '#E8E8F2', display: 'block' }}>Arman</motion.span>
+                <motion.span style={{ fontSize: 'clamp(42px, 12vw, 90px)', color: '#E8E8F2', display: 'block' }}>
+                  <SplitTextReveal text="Arman" delay={0} />
+                </motion.span>
                 <motion.span style={{ fontSize: 'clamp(42px, 12vw, 90px)', display: 'block', background: 'linear-gradient(125deg, #4F8EF7 15%, #7C5CFC 55%, #22d3ee 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-                  Khan.
+                  <SplitTextReveal text="Khan." delay={0.22} />
                 </motion.span>
               </motion.h1>
 
               <motion.div variants={heroVariants} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '16px', marginBottom: '18px' }}>
                 <div style={{ width: '28px', height: '1px', background: 'rgba(79,142,247,0.6)' }} />
                 <p style={{ fontSize: 'clamp(15px, 3.5vw, 17px)', color: '#8B8BAE', fontWeight: 300, letterSpacing: '0.01em' }}>
-                  IT Student | Learning Frontend & Backend
+                  {subtitleDisplayed}
                 </p>
               </motion.div>
 
@@ -189,7 +277,12 @@ const Home = () => {
               </motion.p>
 
               <motion.div variants={heroVariants} style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginBottom: '32px' }}>
-                <motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.97 }}>
+                <motion.div
+                  ref={viewProjectsMagnetic.ref as React.RefObject<HTMLDivElement>}
+                  style={viewProjectsMagnetic.style}
+                  whileHover={{ scale: 1.03, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                >
                   <Link
                     to="/projects"
                     style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', borderRadius: '12px', background: 'linear-gradient(135deg, #4F8EF7, #7C5CFC)', padding: '13px 24px', fontSize: '14px', fontWeight: 600, color: 'white', textDecoration: 'none', boxShadow: '0 8px 32px rgba(79,142,247,0.4), 0 0 0 1px rgba(79,142,247,0.2)' }}
@@ -197,7 +290,12 @@ const Home = () => {
                     View Projects <ArrowRight size={15} />
                   </Link>
                 </motion.div>
-                <motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.97 }}>
+                <motion.div
+                  ref={contactMeMagnetic.ref as React.RefObject<HTMLDivElement>}
+                  style={contactMeMagnetic.style}
+                  whileHover={{ scale: 1.03, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                >
                   <Link
                     to="/contact"
                     style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.03)', padding: '13px 24px', fontSize: '14px', fontWeight: 500, color: '#E8E8F2', textDecoration: 'none', backdropFilter: 'blur(8px)' }}
@@ -246,20 +344,17 @@ const Home = () => {
                     glow: '0 8px 20px rgba(236,72,153,0.24)',
                   },
                 ].map(({ href, icon: Icon, label, color, border, bg, glow }, i) => (
-                  <motion.a
+                  <SocialButton
                     key={href}
                     href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={label}
-                    whileHover={{ scale: 1.15, y: -3, boxShadow: glow }}
-                    whileTap={{ scale: 0.92 }}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0, transition: { delay: 0.8 + i * 0.08 } }}
-                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '38px', height: '38px', borderRadius: '10px', border: `1px solid ${border}`, background: bg, color, textDecoration: 'none', backdropFilter: 'blur(4px)' }}
-                  >
-                    <Icon size={15} />
-                  </motion.a>
+                    Icon={Icon}
+                    label={label}
+                    color={color}
+                    border={border}
+                    bg={bg}
+                    glow={glow}
+                    index={i}
+                  />
                 ))}
                 <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 1.2 } }} style={{ color: '#3A3A5C', fontSize: '12px', marginLeft: '4px' }}>
                   Based in Kathmandu, Nepal
@@ -311,10 +406,13 @@ const Home = () => {
                     <p style={{ fontSize: '12px', color: '#8B8BAE', marginBottom: '14px' }}>IT Student | Learning Frontend & Backend</p>
                     <div style={{ display: 'flex', gap: '18px', flexWrap: 'wrap' }}>
                       {statsData.map((s) => (
-                        <div key={s.label} style={{ textAlign: 'center' }}>
-                          <p style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '17px', color: '#E8E8F2' }}>{s.value}</p>
-                          <p style={{ fontSize: '9px', color: '#4A4A6A', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.07em' }}>{s.label}</p>
-                        </div>
+                        <StatDisplay
+                          key={s.label}
+                          value={s.value}
+                          label={s.label}
+                          reduceAnimations={reduceAnimations}
+                          fontSize="17px"
+                        />
                       ))}
                     </div>
                   </div>
@@ -326,10 +424,13 @@ const Home = () => {
                   <p style={{ fontSize: '12px', color: '#8B8BAE', marginBottom: '14px' }}>IT Student | Learning Frontend & Backend</p>
                   <div style={{ display: 'flex', justifyContent: 'center', gap: '18px' }}>
                     {statsData.map((s) => (
-                      <div key={`m-${s.label}`} style={{ textAlign: 'center' }}>
-                        <p style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '16px', color: '#E8E8F2' }}>{s.value}</p>
-                        <p style={{ fontSize: '9px', color: '#4A4A6A', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.07em' }}>{s.label}</p>
-                      </div>
+                      <StatDisplay
+                        key={`m-${s.label}`}
+                        value={s.value}
+                        label={s.label}
+                        reduceAnimations={reduceAnimations}
+                        fontSize="16px"
+                      />
                       ))}
                     </div>
                   </div>
