@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { MapPin, Mail, BookOpen, ArrowRight, Briefcase, GraduationCap, Clock } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
 import ScrollReveal from '../components/ui/ScrollReveal';
@@ -32,7 +32,20 @@ const values = [
   { icon: '🤝', title: 'Team Player', desc: 'Communication is a core skill.' },
 ];
 
-const About = () => (
+const About = () => {
+  const prefersReducedMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== 'undefined' && window.innerWidth < 768
+  );
+  const reduceAnimations = prefersReducedMotion || isMobile;
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', onResize, { passive: true });
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  return (
   <div style={{ background: 'transparent', minHeight: '100vh' }}>
     <PageMeta
       title="About | Arman Khan"
@@ -43,13 +56,13 @@ const About = () => (
       <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(79,142,247,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(79,142,247,0.035) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
 
       <motion.div
-        animate={{ opacity: [0.4, 0.8, 0.4], scale: [1, 1.12, 1] }}
-        transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
+        animate={reduceAnimations ? undefined : { opacity: [0.4, 0.8, 0.4], scale: [1, 1.12, 1] }}
+        transition={reduceAnimations ? undefined : { duration: 9, repeat: Infinity, ease: 'easeInOut' }}
         style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '100%', background: 'radial-gradient(ellipse 55% 65% at 25% 50%, rgba(79,142,247,0.08) 0%, transparent 65%)', pointerEvents: 'none' }}
       />
       <motion.div
-        animate={{ opacity: [0.3, 0.7, 0.3], scale: [1, 1.08, 1] }}
-        transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+        animate={reduceAnimations ? undefined : { opacity: [0.3, 0.7, 0.3], scale: [1, 1.08, 1] }}
+        transition={reduceAnimations ? undefined : { duration: 11, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
         style={{ position: 'absolute', top: 0, right: 0, width: '50%', height: '100%', background: 'radial-gradient(ellipse 40% 55% at 80% 50%, rgba(124,92,252,0.06) 0%, transparent 65%)', pointerEvents: 'none' }}
       />
 
@@ -57,8 +70,8 @@ const About = () => (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           <motion.div
             variants={staggerContainer(0.1, 0.05)}
-            initial="hidden"
-            animate="show"
+            initial={reduceAnimations ? false : 'hidden'}
+            animate={reduceAnimations ? undefined : 'show'}
             style={{ gridColumn: 'span 12' }}
             className="lg:!col-span-7"
           >
@@ -72,12 +85,12 @@ const About = () => (
               IT student and lifelong learner from Damak, Jhapa, currently learning frontend and backend development while building meaningful software in Kathmandu, Nepal.
             </motion.p>
 
-            <motion.div variants={staggerContainer(0.07)} initial="hidden" animate="show" style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+            <motion.div variants={staggerContainer(0.07)} initial={reduceAnimations ? false : 'hidden'} animate={reduceAnimations ? undefined : 'show'} style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
               {quickFacts.map(({ label, accent }) => (
                 <motion.span
                   key={label}
                   variants={fadeUp}
-                  whileHover={{ scale: 1.04, y: -2 }}
+                  whileHover={reduceAnimations ? undefined : { scale: 1.04, y: -2 }}
                   style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 13px', background: accent.bg, border: `1px solid ${accent.border}`, borderRadius: '9px', fontSize: '11px', color: accent.text, fontFamily: "'JetBrains Mono', monospace" }}
                 >
                   <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: accent.text, flexShrink: 0 }} />
@@ -89,9 +102,9 @@ const About = () => (
 
           <div style={{ gridColumn: 'span 12' }} className="hidden lg:!col-span-5 lg:block">
             <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              initial={reduceAnimations ? false : { opacity: 0, x: 40 }}
+              animate={reduceAnimations ? undefined : { opacity: 1, x: 0 }}
+              transition={reduceAnimations ? undefined : { delay: 0.4, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             >
               <div style={{ background: 'linear-gradient(145deg, #0f1520, #0D1117)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '20px', padding: '24px', position: 'relative', overflow: 'hidden' }}>
                 <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(79,142,247,0.7), rgba(124,92,252,0.7), transparent)' }} />
@@ -115,8 +128,8 @@ const About = () => (
                     <p style={{ fontSize: '12px', color: '#8B8BAE', marginBottom: '8px' }}>IT Student | Learning Frontend & Backend</p>
                     <motion.div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '3px 9px', background: 'rgba(0,217,181,0.08)', border: '1px solid rgba(0,217,181,0.2)', borderRadius: '20px' }}>
                       <motion.span
-                        animate={{ scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
-                        transition={{ duration: 2, repeat: Infinity }}
+                        animate={reduceAnimations ? undefined : { scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
+                        transition={reduceAnimations ? undefined : { duration: 2, repeat: Infinity }}
                         style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#00D9B5', display: 'inline-block' }}
                       />
                       <span style={{ color: '#00D9B5', fontSize: '10px', fontFamily: "'JetBrains Mono', monospace" }}>Available</span>
@@ -161,7 +174,7 @@ const About = () => (
                 {values.map((v, i) => (
                   <ScrollReveal key={v.title} delay={i * 0.08}>
                     <motion.div
-                      whileHover={{ y: -5, borderColor: 'rgba(79,142,247,0.3)', boxShadow: '0 12px 30px rgba(79,142,247,0.1)' }}
+                      whileHover={reduceAnimations ? undefined : { y: -5, borderColor: 'rgba(79,142,247,0.3)', boxShadow: '0 12px 30px rgba(79,142,247,0.1)' }}
                       style={{ borderRadius: '16px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: '20px', transition: 'border-color 0.25s, box-shadow 0.25s' }}
                     >
                       <span style={{ fontSize: '24px', display: 'block', marginBottom: '10px' }}>{v.icon}</span>
@@ -178,8 +191,8 @@ const About = () => (
             <RevealWrapper delay={100}>
               <div style={{ position: 'relative', marginBottom: '24px' }}>
                 <motion.div
-                  animate={{ opacity: [0.3, 0.7, 0.3] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+                  animate={reduceAnimations ? undefined : { opacity: [0.3, 0.7, 0.3] }}
+                  transition={reduceAnimations ? undefined : { duration: 5, repeat: Infinity, ease: 'easeInOut' }}
                   style={{ position: 'absolute', inset: '-8px', borderRadius: '32px', border: '1px solid rgba(79,142,247,0.18)', pointerEvents: 'none', zIndex: 0 }}
                 />
                 <div style={{ position: 'relative', borderRadius: '24px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.09)', boxShadow: '0 36px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(79,142,247,0.08)', maxWidth: '420px', margin: '0 auto', zIndex: 1 }}>
@@ -190,8 +203,8 @@ const About = () => (
                       src={profileImg}
                       alt="Portrait of Arman Khan"
                       loading="lazy"
-                      whileHover={{ scale: 1.04 }}
-                      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                      whileHover={reduceAnimations ? undefined : { scale: 1.04 }}
+                      transition={reduceAnimations ? undefined : { duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                       style={{ width: '100%', aspectRatio: '3/4', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
                     />
                   ) : (
@@ -207,13 +220,13 @@ const About = () => (
                   </div>
 
                   <motion.div
-                    animate={{ boxShadow: ['0 0 0px rgba(0,217,181,0)', '0 0 12px rgba(0,217,181,0.3)', '0 0 0px rgba(0,217,181,0)'] }}
-                    transition={{ duration: 3, repeat: Infinity }}
+                    animate={reduceAnimations ? undefined : { boxShadow: ['0 0 0px rgba(0,217,181,0)', '0 0 12px rgba(0,217,181,0.3)', '0 0 0px rgba(0,217,181,0)'] }}
+                    transition={reduceAnimations ? undefined : { duration: 3, repeat: Infinity }}
                     style={{ position: 'absolute', top: '14px', right: '14px', zIndex: 2, display: 'flex', alignItems: 'center', gap: '5px', background: 'rgba(8,11,20,0.85)', border: '1px solid rgba(0,217,181,0.3)', borderRadius: '20px', padding: '5px 12px', backdropFilter: 'blur(10px)' }}
                   >
                     <motion.span
-                      animate={{ scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
-                      transition={{ duration: 2, repeat: Infinity }}
+                      animate={reduceAnimations ? undefined : { scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
+                      transition={reduceAnimations ? undefined : { duration: 2, repeat: Infinity }}
                       style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#00D9B5', display: 'inline-block' }}
                     />
                     <span style={{ color: '#00D9B5', fontSize: '11px', fontFamily: "'JetBrains Mono', monospace" }}>Available</span>
@@ -229,7 +242,7 @@ const About = () => (
                 {details.map(({ icon: Icon, label, value, accent, isEmail }, i) => (
                   <motion.div
                     key={label}
-                    whileHover={{ background: 'rgba(79,142,247,0.04)' }}
+                    whileHover={reduceAnimations ? undefined : { background: 'rgba(79,142,247,0.04)' }}
                     style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '14px 18px', borderBottom: i < details.length - 1 ? '1px solid rgba(148,163,184,0.06)' : 'none' }}
                   >
                     <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(79,142,247,0.08)', border: '1px solid rgba(79,142,247,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
@@ -270,7 +283,7 @@ const About = () => (
             return (
               <ScrollReveal key={skill.id} delay={i * 0.08}>
                 <motion.div
-                  whileHover={{ y: -6, borderColor: ac.border, boxShadow: `0 20px 44px ${ac.glow}` }}
+                  whileHover={reduceAnimations ? undefined : { y: -6, borderColor: ac.border, boxShadow: `0 20px 44px ${ac.glow}` }}
                   style={{ position: 'relative', height: '100%', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: 'clamp(18px,4vw,24px)', transition: 'border-color 0.25s, box-shadow 0.25s' }}
                 >
                   <div style={{ position: 'absolute', top: 0, right: 0, width: '90px', height: '90px', background: `radial-gradient(circle at top right, ${ac.bg}, transparent 70%)`, pointerEvents: 'none' }} />
@@ -307,10 +320,10 @@ const About = () => (
 
         <div style={{ position: 'relative' }}>
           <motion.div
-            initial={{ scaleY: 0 }}
-            whileInView={{ scaleY: 1 }}
-            viewport={viewport}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            initial={reduceAnimations ? false : { scaleY: 0 }}
+            whileInView={reduceAnimations ? undefined : { scaleY: 1 }}
+            viewport={reduceAnimations ? undefined : viewport}
+            transition={reduceAnimations ? undefined : { duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             style={{ position: 'absolute', left: '15px', top: '8px', bottom: '8px', width: '1px', background: 'linear-gradient(to bottom, rgba(79,142,247,0.7), rgba(79,142,247,0.05))', transformOrigin: 'top' }}
           />
 
@@ -319,17 +332,17 @@ const About = () => (
               <ScrollReveal key={item.id} delay={i * 0.08}>
                 <div style={{ display: 'flex', gap: '16px', paddingLeft: '30px', position: 'relative' }}>
                   <motion.div
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1 + 0.2, type: 'spring', stiffness: 250 }}
+                    initial={reduceAnimations ? false : { scale: 0 }}
+                    whileInView={reduceAnimations ? undefined : { scale: 1 }}
+                    viewport={reduceAnimations ? undefined : { once: true }}
+                    transition={reduceAnimations ? undefined : { delay: i * 0.1 + 0.2, type: 'spring', stiffness: 250 }}
                     style={{ position: 'absolute', left: '7px', top: '22px', width: '16px', height: '16px', borderRadius: '50%', border: '2px solid #4F8EF7', background: '#080B14', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1, boxShadow: '0 0 14px rgba(79,142,247,0.4)' }}
                   >
                     <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#4F8EF7' }} />
                   </motion.div>
 
                   <motion.div
-                    whileHover={{ borderColor: 'rgba(79,142,247,0.3)', boxShadow: '0 14px 36px rgba(79,142,247,0.09)' }}
+                    whileHover={reduceAnimations ? undefined : { borderColor: 'rgba(79,142,247,0.3)', boxShadow: '0 14px 36px rgba(79,142,247,0.09)' }}
                     style={{ flex: 1, overflow: 'hidden', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: 'clamp(18px,4vw,26px)', transition: 'border-color 0.25s, box-shadow 0.25s', position: 'relative' }}
                   >
                     <div style={{ position: 'absolute', top: 0, right: 0, width: '120px', height: '80px', background: 'radial-gradient(circle at top right, rgba(79,142,247,0.06), transparent 70%)', pointerEvents: 'none' }} />
@@ -366,7 +379,7 @@ const About = () => (
 
         <RevealWrapper delay={320}>
           <div style={{ marginTop: '60px', display: 'flex', justifyContent: 'center', gap: '14px', flexWrap: 'wrap' }}>
-            <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
+            <motion.div whileHover={reduceAnimations ? undefined : { scale: 1.04, y: -2 }} whileTap={reduceAnimations ? undefined : { scale: 0.97 }}>
               <Link
                 to="/contact"
                 style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', borderRadius: '13px', background: 'linear-gradient(135deg, #4F8EF7, #7C5CFC)', padding: '13px 28px', fontSize: '14px', fontWeight: 600, color: 'white', textDecoration: 'none', boxShadow: '0 10px 30px rgba(79,142,247,0.35)' }}
@@ -374,7 +387,7 @@ const About = () => (
                 Let&apos;s Connect <ArrowRight size={14} />
               </Link>
             </motion.div>
-            <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
+            <motion.div whileHover={reduceAnimations ? undefined : { scale: 1.04, y: -2 }} whileTap={reduceAnimations ? undefined : { scale: 0.97 }}>
               <Link
                 to="/projects"
                 style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', borderRadius: '13px', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.03)', padding: '13px 28px', fontSize: '14px', fontWeight: 500, color: '#E8E8F2', textDecoration: 'none' }}
@@ -387,6 +400,7 @@ const About = () => (
       </div>
     </section>
   </div>
-);
+  );
+};
 
 export default About;

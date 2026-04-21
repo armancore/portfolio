@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { ExternalLink, Github } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
 import ScrollReveal from '../components/ui/ScrollReveal';
@@ -12,8 +12,19 @@ const portfolioTechs = ['React 19', 'Vite 7', 'Tailwind CSS v4', 'React Router v
 
 const Projects = () => {
   const [active, setActive] = useState('All');
+  const prefersReducedMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== 'undefined' && window.innerWidth < 768
+  );
+  const reduceAnimations = prefersReducedMotion || isMobile;
   const filtered = active === 'All' ? PROJECTS : PROJECTS.filter((p) => p.category === active);
   const portfolioProjectNum = String(PROJECTS.length + 1).padStart(2, '0');
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', onResize, { passive: true });
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
 
   return (
     <div style={{ background: 'transparent', minHeight: '100vh' }}>
@@ -25,13 +36,13 @@ const Projects = () => {
       <section style={{ paddingTop: '110px', paddingBottom: '60px', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(79,142,247,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(79,142,247,0.03) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
         <motion.div
-          animate={{ opacity: [0.4, 0.8, 0.4], scale: [1, 1.12, 1] }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+          animate={reduceAnimations ? undefined : { opacity: [0.4, 0.8, 0.4], scale: [1, 1.12, 1] }}
+          transition={reduceAnimations ? undefined : { duration: 10, repeat: Infinity, ease: 'easeInOut' }}
           style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '100%', background: 'radial-gradient(ellipse 50% 60% at 70% 50%, rgba(124,92,252,0.08) 0%, transparent 65%)', pointerEvents: 'none' }}
         />
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" style={{ position: 'relative', zIndex: 1 }}>
-          <motion.div variants={staggerContainer(0.1, 0.05)} initial="hidden" animate="show">
+          <motion.div variants={staggerContainer(0.1, 0.05)} initial={reduceAnimations ? false : 'hidden'} animate={reduceAnimations ? undefined : 'show'}>
             <motion.p variants={fadeUp} style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4F8EF7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '12px' }}>
               My work
             </motion.p>
@@ -54,8 +65,8 @@ const Projects = () => {
                   key={cat}
                   onClick={() => setActive(cat)}
                   type="button"
-                  whileHover={{ scale: 1.04 }}
-                  whileTap={{ scale: 0.96 }}
+                  whileHover={reduceAnimations ? undefined : { scale: 1.04 }}
+                  whileTap={reduceAnimations ? undefined : { scale: 0.96 }}
                   style={{
                     borderRadius: '10px',
                     padding: '8px 18px',
@@ -90,10 +101,10 @@ const Projects = () => {
                   <ScrollReveal key={p.id} delay={i * 0.07}>
                     <motion.div
                       layout
-                      initial={{ opacity: 0, y: 30, scale: 0.96 }}
-                      animate={{ opacity: 1, y: 0, scale: 1, transition: { duration: 0.45, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] } }}
-                      exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.25 } }}
-                      whileHover={{ y: -6, borderColor: 'rgba(79,142,247,0.3)', boxShadow: '0 24px 52px rgba(0,0,0,0.35)' }}
+                      initial={reduceAnimations ? false : { opacity: 0, y: 30, scale: 0.96 }}
+                      animate={reduceAnimations ? undefined : { opacity: 1, y: 0, scale: 1, transition: { duration: 0.45, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] } }}
+                      exit={reduceAnimations ? undefined : { opacity: 0, scale: 0.95, transition: { duration: 0.25 } }}
+                      whileHover={reduceAnimations ? undefined : { y: -6, borderColor: 'rgba(79,142,247,0.3)', boxShadow: '0 24px 52px rgba(0,0,0,0.35)' }}
                       style={{ position: 'relative', display: 'flex', flexDirection: 'column', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', transition: 'border-color 0.25s' }}
                     >
                       <div style={{ height: '2px', background: `linear-gradient(90deg, ${ca.text}80, ${ca.text}30, transparent)`, flexShrink: 0 }} />
@@ -126,7 +137,7 @@ const Projects = () => {
                               href={p.liveUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              whileHover={{ scale: 1.04 }}
+                              whileHover={reduceAnimations ? undefined : { scale: 1.04 }}
                               style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', borderRadius: '8px', border: '1px solid rgba(79,142,247,0.25)', background: 'rgba(79,142,247,0.1)', padding: '7px 14px', fontSize: '12px', fontWeight: 500, color: '#4F8EF7', textDecoration: 'none' }}
                             >
                               Live Demo <ExternalLink size={11} />
@@ -156,7 +167,7 @@ const Projects = () => {
 
           <RevealWrapper delay={200}>
             <motion.div
-              whileHover={{ borderColor: 'rgba(124,92,252,0.3)', boxShadow: '0 16px 44px rgba(124,92,252,0.1)' }}
+              whileHover={reduceAnimations ? undefined : { borderColor: 'rgba(124,92,252,0.3)', boxShadow: '0 16px 44px rgba(124,92,252,0.1)' }}
               style={{ marginTop: '48px', background: 'linear-gradient(145deg, #0f1520, #0D1117)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '18px', overflow: 'hidden', transition: 'border-color 0.25s, box-shadow 0.25s' }}
             >
               <div style={{ height: '2px', background: 'linear-gradient(90deg, #7C5CFC, #4F8EF7)' }} />
@@ -178,7 +189,7 @@ const Projects = () => {
                   href="https://github.com/armancore/portfolio"
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.04, y: -2 }}
+                  whileHover={reduceAnimations ? undefined : { scale: 1.04, y: -2 }}
                   style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '6px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.03)', padding: '10px 20px', fontSize: '13px', color: '#E8E8F2', textDecoration: 'none', flexShrink: 0 }}
                 >
                   <Github size={14} /> View on GitHub

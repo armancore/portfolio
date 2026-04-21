@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'motion/react';
+import React, { useEffect, useState } from 'react';
+import { motion, useReducedMotion } from 'motion/react';
 import { Mail, Github, Linkedin, Facebook, Instagram, ArrowRight, ExternalLink } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
 import ScrollReveal from '../components/ui/ScrollReveal';
@@ -23,7 +23,20 @@ const accentForLink = (iconName) => {
 
 const RECIPIENT_EMAIL = 'arman.techiee@gmail.com';
 
-const Contact = () => (
+const Contact = () => {
+  const prefersReducedMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== 'undefined' && window.innerWidth < 768
+  );
+  const reduceAnimations = prefersReducedMotion || isMobile;
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', onResize, { passive: true });
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  return (
   <div style={{ background: 'transparent', minHeight: '100vh' }}>
     <PageMeta
       title="Contact | Arman Khan"
@@ -34,18 +47,18 @@ const Contact = () => (
       <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(79,142,247,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(79,142,247,0.03) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
 
       <motion.div
-        animate={{ opacity: [0.4, 0.9, 0.4], scale: [1, 1.12, 1] }}
-        transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
+        animate={reduceAnimations ? undefined : { opacity: [0.4, 0.9, 0.4], scale: [1, 1.12, 1] }}
+        transition={reduceAnimations ? undefined : { duration: 9, repeat: Infinity, ease: 'easeInOut' }}
         style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 50% 60% at 80% 50%, rgba(0,217,181,0.07) 0%, transparent 65%)', pointerEvents: 'none' }}
       />
       <motion.div
-        animate={{ opacity: [0.3, 0.7, 0.3], scale: [1, 1.08, 1] }}
-        transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+        animate={reduceAnimations ? undefined : { opacity: [0.3, 0.7, 0.3], scale: [1, 1.08, 1] }}
+        transition={reduceAnimations ? undefined : { duration: 11, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
         style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 45% 55% at 20% 50%, rgba(79,142,247,0.06) 0%, transparent 65%)', pointerEvents: 'none' }}
       />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" style={{ position: 'relative', zIndex: 1 }}>
-        <motion.div variants={staggerContainer(0.1, 0.05)} initial="hidden" animate="show">
+        <motion.div variants={staggerContainer(0.1, 0.05)} initial={reduceAnimations ? false : 'hidden'} animate={reduceAnimations ? undefined : 'show'}>
           <motion.p variants={fadeUp} style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4F8EF7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '12px' }}>
             Contact
           </motion.p>
@@ -54,13 +67,13 @@ const Contact = () => (
               Let&apos;s Connect
             </h1>
             <motion.div
-              animate={{ boxShadow: ['0 0 0px rgba(0,217,181,0)', '0 0 16px rgba(0,217,181,0.3)', '0 0 0px rgba(0,217,181,0)'] }}
-              transition={{ duration: 3, repeat: Infinity }}
+              animate={reduceAnimations ? undefined : { boxShadow: ['0 0 0px rgba(0,217,181,0)', '0 0 16px rgba(0,217,181,0.3)', '0 0 0px rgba(0,217,181,0)'] }}
+              transition={reduceAnimations ? undefined : { duration: 3, repeat: Infinity }}
               style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 14px', background: 'rgba(0,217,181,0.08)', border: '1px solid rgba(0,217,181,0.22)', borderRadius: '100px' }}
             >
               <motion.span
-                animate={{ scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
+                animate={reduceAnimations ? undefined : { scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
+                transition={reduceAnimations ? undefined : { duration: 2, repeat: Infinity }}
                 style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#00D9B5', display: 'inline-block' }}
               />
               <span style={{ color: '#00D9B5', fontSize: '11px', fontFamily: "'JetBrains Mono', monospace" }}>Available</span>
@@ -91,12 +104,12 @@ const Contact = () => (
                 return (
                   <ScrollReveal key={link.label} delay={i * 0.06}>
                     <motion.a
-                      href={link.href}
-                      target={link.href.startsWith('http') ? '_blank' : undefined}
-                      rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      whileHover={{ x: 5, borderColor: ac.border, background: 'rgba(255,255,255,0.04)' }}
-                      style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '14px', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: '14px 16px', textDecoration: 'none', transition: 'border-color 0.2s, background 0.2s, transform 0.2s' }}
-                    >
+                    href={link.href}
+                    target={link.href.startsWith('http') ? '_blank' : undefined}
+                    rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    whileHover={reduceAnimations ? undefined : { x: 5, borderColor: ac.border, background: 'rgba(255,255,255,0.04)' }}
+                    style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '14px', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: '14px 16px', textDecoration: 'none', transition: 'border-color 0.2s, background 0.2s, transform 0.2s' }}
+                  >
                       <div style={{ width: '40px', height: '40px', borderRadius: '11px', background: ac.bg, border: `1px solid ${ac.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                         {Icon && <Icon size={17} style={{ color: ac.icon }} />}
                       </div>
@@ -113,15 +126,15 @@ const Contact = () => (
 
             <RevealWrapper delay={380}>
               <motion.div
-                animate={{ borderColor: ['rgba(0,217,181,0.18)', 'rgba(0,217,181,0.4)', 'rgba(0,217,181,0.18)'] }}
-                transition={{ duration: 4, repeat: Infinity }}
+                animate={reduceAnimations ? undefined : { borderColor: ['rgba(0,217,181,0.18)', 'rgba(0,217,181,0.4)', 'rgba(0,217,181,0.18)'] }}
+                transition={reduceAnimations ? undefined : { duration: 4, repeat: Infinity }}
                 style={{ background: 'linear-gradient(145deg, rgba(0,217,181,0.05), rgba(0,217,181,0.02))', border: '1px solid rgba(0,217,181,0.18)', borderRadius: '14px', padding: '20px', position: 'relative', overflow: 'hidden' }}
               >
                 <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(0,217,181,0.6), transparent)' }} />
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
                   <motion.span
-                    animate={{ scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
-                    transition={{ duration: 2, repeat: Infinity }}
+                    animate={reduceAnimations ? undefined : { scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
+                    transition={reduceAnimations ? undefined : { duration: 2, repeat: Infinity }}
                     style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#00D9B5', display: 'inline-block' }}
                   />
                   <span style={{ color: '#00D9B5', fontSize: '13px', fontWeight: 600 }}>Currently Available</span>
@@ -138,8 +151,8 @@ const Contact = () => (
                   href={`https://mail.google.com/mail/?view=cm&to=${RECIPIENT_EMAIL}&su=Hello%20Arman`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.04, y: -1 }}
-                  whileTap={{ scale: 0.97 }}
+                  whileHover={reduceAnimations ? undefined : { scale: 1.04, y: -1 }}
+                  whileTap={reduceAnimations ? undefined : { scale: 0.97 }}
                   style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', borderRadius: '10px', border: '1px solid rgba(79,142,247,0.25)', background: 'rgba(79,142,247,0.07)', padding: '10px 18px', fontSize: '12px', color: '#4F8EF7', textDecoration: 'none', fontFamily: "'JetBrains Mono', monospace" }}
                 >
                   <Mail size={12} />
@@ -155,6 +168,7 @@ const Contact = () => (
       </div>
     </section>
   </div>
-);
+  );
+};
 
 export default Contact;
