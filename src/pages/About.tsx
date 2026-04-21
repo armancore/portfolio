@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useReducedMotion } from 'motion/react';
 import { MapPin, Mail, BookOpen, ArrowRight, Briefcase, GraduationCap, Clock } from 'lucide-react';
@@ -34,16 +34,7 @@ const values = [
 
 const About = () => {
   const prefersReducedMotion = useReducedMotion();
-  const [isMobile, setIsMobile] = useState(
-    () => typeof window !== 'undefined' && window.innerWidth < 768
-  );
-  const reduceAnimations = prefersReducedMotion || isMobile;
-
-  useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener('resize', onResize, { passive: true });
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
+  const reduceAnimations = prefersReducedMotion;
 
   return (
   <div style={{ background: 'transparent', minHeight: '100vh' }}>

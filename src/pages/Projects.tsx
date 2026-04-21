@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { ExternalLink, Github } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
@@ -13,18 +13,9 @@ const portfolioTechs = ['React 19', 'Vite 7', 'Tailwind CSS v4', 'React Router v
 const Projects = () => {
   const [active, setActive] = useState('All');
   const prefersReducedMotion = useReducedMotion();
-  const [isMobile, setIsMobile] = useState(
-    () => typeof window !== 'undefined' && window.innerWidth < 768
-  );
-  const reduceAnimations = prefersReducedMotion || isMobile;
+  const reduceAnimations = prefersReducedMotion;
   const filtered = active === 'All' ? PROJECTS : PROJECTS.filter((p) => p.category === active);
   const portfolioProjectNum = String(PROJECTS.length + 1).padStart(2, '0');
-
-  useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener('resize', onResize, { passive: true });
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
 
   return (
     <div style={{ background: 'transparent', minHeight: '100vh' }}>

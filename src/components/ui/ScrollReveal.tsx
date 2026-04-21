@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 
 type ScrollRevealProps = {
@@ -17,16 +17,7 @@ const ScrollReveal = ({
   style,
 }: ScrollRevealProps) => {
   const prefersReducedMotion = useReducedMotion();
-  const [isMobile, setIsMobile] = useState(
-    () => typeof window !== 'undefined' && window.innerWidth < 768
-  );
-  const reduceAnimations = prefersReducedMotion || isMobile;
-
-  useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener('resize', onResize, { passive: true });
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
+  const reduceAnimations = prefersReducedMotion;
 
   if (reduceAnimations) {
     return (
