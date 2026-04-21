@@ -34,11 +34,6 @@ html {
   scrollbar-gutter: stable;
 }
 
-html.has-custom-cursor,
-html.has-custom-cursor * {
-  cursor: none !important;
-}
-
 body {
   margin: 0;
   font-family: 'Plus Jakarta Sans', sans-serif;
