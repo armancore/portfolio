@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
+import CustomCursor from './components/ui/CustomCursor';
 import Home from './pages/Home';
 const About = lazy(() => import('./pages/About'));
 const Projects = lazy(() => import('./pages/Projects'));
@@ -93,6 +94,7 @@ const AppContent = () => {
 
   return (
     <div className="min-h-screen bg-bg-primary text-text-primary relative">
+      <CustomCursor />
       <ScrollToTop />
       {!performanceMode && <MouseGlow />}
       <div style={{ position: 'relative', zIndex: 2 }}>
