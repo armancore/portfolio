@@ -66,7 +66,7 @@ const Home = () => {
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 500], [0, 120]);
   const heroOpacity = useTransform(scrollY, [0, 400], [1, 0]);
-  const reduceAnimations = prefersReducedMotion;
+  const reduceAnimations = prefersReducedMotion || isMobile;
 
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth < 768);

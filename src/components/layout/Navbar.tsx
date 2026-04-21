@@ -41,8 +41,8 @@ const Navbar = () => {
     if (path === '/') return location.pathname === '/';
     return location.pathname.startsWith(path);
   };
-  const lowPerfMode = prefersReducedMotion || isMobile;
-  const ultraMobileMode = isMobile && (prefersReducedMotion || isLowPowerDevice);
+  const lowPerfMode = prefersReducedMotion || isMobile || isLowPowerDevice;
+  const ultraMobileMode = isMobile;
 
   return (
     <motion.header
@@ -228,34 +228,99 @@ const Navbar = () => {
           className="md:hidden"
           aria-label="Toggle menu"
         >
-          <AnimatePresence mode="wait">
-            {isMenuOpen ? (
-              <motion.div
-                key="x"
-                initial={ultraMobileMode ? { opacity: 0 } : { rotate: -90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={ultraMobileMode ? { opacity: 0 } : { rotate: 90, opacity: 0 }}
-                transition={{ duration: ultraMobileMode ? 0.1 : 0.2 }}
-              >
-                <X size={20} />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="menu"
-                initial={ultraMobileMode ? { opacity: 0 } : { rotate: 90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={ultraMobileMode ? { opacity: 0 } : { rotate: -90, opacity: 0 }}
-                transition={{ duration: ultraMobileMode ? 0.1 : 0.2 }}
-              >
-                <Menu size={20} />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {ultraMobileMode ? (
+            isMenuOpen ? <X size={20} /> : <Menu size={20} />
+          ) : (
+            <AnimatePresence mode="wait">
+              {isMenuOpen ? (
+                <motion.div
+                  key="x"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <X size={20} />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="menu"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Menu size={20} />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          )}
         </motion.button>
       </motion.div>
 
-      <AnimatePresence>
-        {isMenuOpen && (
+      {ultraMobileMode ? (
+        isMenuOpen && (
+          <div
+            style={{
+              overflow: 'hidden',
+              background: 'linear-gradient(165deg, rgba(6,9,18,0.98), rgba(8,14,25,0.96) 50%, rgba(11,18,32,0.98))',
+              borderTop: '1px solid rgba(148,163,184,0.14)',
+            }}
+            className="md:hidden"
+          >
+            <nav style={{ padding: '10px 12px 14px' }}>
+              {NAV_LINKS.map((link) => (
+                <div key={link.path}>
+                  <Link
+                    to={link.path}
+                    onClick={() => setIsMenuOpen(false)}
+                    style={{
+                      display: 'block',
+                      padding: '13px 14px',
+                      fontSize: '14px',
+                      fontWeight: 600,
+                      letterSpacing: '0.07em',
+                      textTransform: 'uppercase',
+                      textDecoration: 'none',
+                      borderRadius: '12px',
+                      color: isActive(link.path) ? '#E8E8F2' : '#A8B8DA',
+                      border: isActive(link.path) ? '1px solid rgba(124,92,252,0.5)' : '1px solid rgba(148,163,184,0.16)',
+                      background: isActive(link.path)
+                        ? 'linear-gradient(120deg, rgba(79,142,247,0.2), rgba(124,92,252,0.18))'
+                        : 'linear-gradient(120deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015))',
+                      marginBottom: '8px',
+                    }}
+                  >
+                    {link.label}
+                  </Link>
+                </div>
+              ))}
+              <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', marginTop: '4px', paddingTop: '12px' }}>
+                <Link
+                  to="/contact"
+                  onClick={() => setIsMenuOpen(false)}
+                  style={{
+                    display: 'block',
+                    padding: '13px 16px',
+                    fontSize: '14px',
+                    fontWeight: 700,
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    borderRadius: '12px',
+                    background: 'linear-gradient(135deg, #4F8EF7, #22D3EE 45%, #7C5CFC)',
+                    color: 'white',
+                    letterSpacing: '0.06em',
+                  }}
+                >
+                  Hire Me
+                </Link>
+              </div>
+            </nav>
+          </div>
+        )
+      ) : (
+        <AnimatePresence>
+          {isMenuOpen && (
           <motion.div
             initial={{ opacity: 0, y: -8, height: 0 }}
             animate={ultraMobileMode ? { opacity: 1, y: 0, height: 'auto' } : { opacity: 1, y: 0, height: 'auto' }}
@@ -348,8 +413,9 @@ const Navbar = () => {
               </motion.div>
             </motion.nav>
           </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
+      )}
     </motion.header>
   );
 };

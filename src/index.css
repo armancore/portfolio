@@ -172,6 +172,8 @@ a { color: inherit; }
 }
 
 @media (max-width: 767px) {
+  body { background-attachment: scroll; }
+  .tech-panel { backdrop-filter: none; }
   .navbar-scanline { display: none; }
   .navbar-brand-glyph { box-shadow: 0 0 10px rgba(79, 142, 247, 0.35); }
 

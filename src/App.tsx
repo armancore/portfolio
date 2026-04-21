@@ -65,37 +65,70 @@ const ScrollToTop = () => {
 const AppContent = () => {
   const location = useLocation();
   const prefersReducedMotion = useReducedMotion();
+  const [isConstrainedDevice, setIsConstrainedDevice] = React.useState(false);
+
+  useEffect(() => {
+    const media =
+      typeof window !== 'undefined'
+        ? window.matchMedia('(max-width: 767px), (pointer: coarse)')
+        : null;
+
+    const computeConstrained = () => {
+      const saveData = (
+        navigator as Navigator & { connection?: { saveData?: boolean } }
+      ).connection?.saveData;
+      const mobileViewport = media?.matches ?? false;
+      setIsConstrainedDevice(Boolean(mobileViewport || saveData));
+    };
+
+    computeConstrained();
+    media?.addEventListener('change', computeConstrained);
+
+    return () => {
+      media?.removeEventListener('change', computeConstrained);
+    };
+  }, []);
+
+  const performanceMode = prefersReducedMotion || isConstrainedDevice;
 
   return (
     <div className="min-h-screen bg-bg-primary text-text-primary relative">
       <ScrollToTop />
-      <MouseGlow />
+      {!performanceMode && <MouseGlow />}
       <div style={{ position: 'relative', zIndex: 2 }}>
         <Navbar />
         <main>
-          <AnimatePresence mode="wait" initial={!prefersReducedMotion}>
+          {performanceMode ? (
             <Suspense fallback={null}>
-              <motion.div
-                key={location.pathname}
-                initial={
-                  prefersReducedMotion ? false : { opacity: 0, y: 28, filter: 'blur(4px)' }
-                }
-                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                exit={
-                  prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: -16, filter: 'blur(2px)' }
-                }
-                transition={{ duration: 0.36, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <Routes location={location}>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/projects" element={<Projects />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </motion.div>
+              <Routes location={location}>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
             </Suspense>
-          </AnimatePresence>
+          ) : (
+            <AnimatePresence mode="wait" initial>
+              <Suspense fallback={null}>
+                <motion.div
+                  key={location.pathname}
+                  initial={{ opacity: 0, y: 28, filter: 'blur(4px)' }}
+                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, y: -16, filter: 'blur(2px)' }}
+                  transition={{ duration: 0.36, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <Routes location={location}>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/projects" element={<Projects />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </motion.div>
+              </Suspense>
+            </AnimatePresence>
+          )}
         </main>
         <Footer />
       </div>
