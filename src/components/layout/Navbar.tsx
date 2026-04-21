@@ -180,6 +180,22 @@ const Navbar = () => {
                   transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                 />
               )}
+              {hoveredPath === link.path && !isActive(link.path) && (
+                <motion.span
+                  layoutId="nav-hover-line"
+                  style={{
+                    position: 'absolute',
+                    bottom: '3px',
+                    left: '24px',
+                    right: '24px',
+                    height: '1px',
+                    background: 'rgba(255,255,255,0.25)',
+                    borderRadius: '999px',
+                    zIndex: 2,
+                  }}
+                  transition={{ type: 'spring', stiffness: 480, damping: 32 }}
+                />
+              )}
             </Link>
           ))}
         </nav>

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Github, Linkedin, Facebook, Instagram, ArrowUpRight, Mail, MapPin } from 'lucide-react';
 import { NAV_LINKS, SOCIAL_LINKS, PERSONAL_INFO } from '../../constants';
+import useMagnetic from '../../hooks/useMagnetic';
 import GlowLine from '../ui/GlowLine';
 
 const iconMap = {
@@ -10,6 +11,39 @@ const iconMap = {
   Linkedin,
   Facebook,
   Instagram,
+};
+
+const MagneticSocialLink = ({
+  social,
+  style,
+}: {
+  social: { label: string; url: string; icon: string };
+  style: { color: string; border: string; bg: string; glow: string };
+}) => {
+  const { ref, style: magneticStyle } = useMagnetic(0.4);
+  const Icon = iconMap[social.icon as keyof typeof iconMap];
+  if (!Icon) return null;
+
+  return (
+    <motion.div ref={ref as React.RefObject<HTMLDivElement>} style={magneticStyle}>
+      <motion.a
+        href={social.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={social.label}
+        whileHover={{ y: -3, scale: 1.06, boxShadow: style.glow }}
+        whileTap={{ scale: 0.94 }}
+        className="w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-200"
+        style={{
+          color: style.color,
+          border: `1px solid ${style.border}`,
+          background: style.bg,
+        }}
+      >
+        <Icon size={17} />
+      </motion.a>
+    </motion.div>
+  );
 };
 
 const Footer = () => {
@@ -142,29 +176,8 @@ const Footer = () => {
 
             <div className="flex items-center gap-3">
               {SOCIAL_LINKS.map((social) => {
-                const Icon = iconMap[social.icon];
                 const style = socialStyle[social.label] || socialStyle.GitHub;
-                if (!Icon) return null;
-
-                return (
-                  <motion.a
-                    key={social.label}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={social.label}
-                    whileHover={{ y: -3, scale: 1.06, boxShadow: style.glow }}
-                    whileTap={{ scale: 0.94 }}
-                    className="w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-200"
-                    style={{
-                      color: style.color,
-                      border: `1px solid ${style.border}`,
-                      background: style.bg,
-                    }}
-                  >
-                    <Icon size={17} />
-                  </motion.a>
-                );
+                return <MagneticSocialLink key={social.label} social={social} style={style} />;
               })}
             </div>
           </motion.div>
