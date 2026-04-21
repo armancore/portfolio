@@ -17,9 +17,6 @@ import {
 } from 'lucide-react';
 import PageMeta from '../components/seo/PageMeta';
 import { PERSONAL_INFO, PROJECTS } from '../constants';
-import profileImg640 from '../assets/profile-640.webp';
-import profileImg960 from '../assets/profile-960.webp';
-import profileImgOriginal from '../assets/profile.webp';
 import {
   fadeUp,
   fadeRight,
@@ -30,6 +27,10 @@ import {
   blurIn,
   cardReveal,
 } from '../lib/motion';
+
+const profileImg640 = '/profile-640.webp';
+const profileImg960 = '/profile-960.webp';
+const profileImgOriginal = '/profile.webp';
 
 const statsData = [
   { value: `${PROJECTS.length}`, label: 'Projects' },
