@@ -13,14 +13,15 @@ const iconMap = {
   Instagram,
 };
 
-const MagneticSocialLink = ({
+const FooterSocialIcon = ({
   social,
-  style,
+  styleMap,
 }: {
   social: { label: string; url: string; icon: string };
-  style: { color: string; border: string; bg: string; glow: string };
+  styleMap: Record<string, { color: string; border: string; bg: string; glow: string }>;
 }) => {
   const { ref, style: magneticStyle } = useMagnetic(0.4);
+  const style = styleMap[social.label] || styleMap.GitHub;
   const Icon = iconMap[social.icon as keyof typeof iconMap];
   if (!Icon) return null;
 
@@ -175,10 +176,9 @@ const Footer = () => {
             </p>
 
             <div className="flex items-center gap-3">
-              {SOCIAL_LINKS.map((social) => {
-                const style = socialStyle[social.label] || socialStyle.GitHub;
-                return <MagneticSocialLink key={social.label} social={social} style={style} />;
-              })}
+              {SOCIAL_LINKS.map((social) => (
+                <FooterSocialIcon key={social.label} social={social} styleMap={socialStyle} />
+              ))}
             </div>
           </motion.div>
         </div>
