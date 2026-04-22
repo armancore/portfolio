@@ -15,9 +15,11 @@
 :root {
   --border: rgba(148, 163, 184, 0.12);
   --border-hover: rgba(148, 163, 184, 0.24);
-  --accent-glow: rgba(79, 142, 247, 0.16);
-  --accent2-glow: rgba(34, 211, 238, 0.14);
-  --accent3-glow: rgba(139, 156, 255, 0.14);
+  --accent-glow: rgba(79, 142, 247, 0.24);
+  --accent2-glow: rgba(34, 211, 238, 0.22);
+  --accent3-glow: rgba(139, 156, 255, 0.22);
+  --hover-glow-ring: rgba(255, 255, 255, 0.18);
+  --hover-glow-boost: saturate(1.15) brightness(1.08);
   --panel-shadow: 0 24px 80px rgba(2, 6, 23, 0.5);
   --card-bg: linear-gradient(145deg, #0f1520, #0d1117);
   --bg-gradient:
@@ -50,6 +52,14 @@ body {
 
 #root { min-height: 100vh; }
 a { color: inherit; }
+
+/* Improves hover clarity on low-quality displays with a sharper edge + stronger color pop */
+@media (hover: hover) {
+  .hover-glow-crisp:hover {
+    box-shadow: 0 0 0 1px var(--hover-glow-ring), var(--tw-shadow, 0 10px 28px rgba(79, 142, 247, 0.24));
+    filter: var(--hover-glow-boost);
+  }
+}
 
 ::selection {
   background: rgba(79, 142, 247, 0.28);

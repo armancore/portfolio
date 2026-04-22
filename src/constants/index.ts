@@ -14,31 +14,31 @@ export const ACCENT_MAP = {
     bg: "color-mix(in srgb, var(--color-accent) 10%, transparent)",
     border: "color-mix(in srgb, var(--color-accent) 22%, transparent)",
     text: "var(--color-accent)",
-    glow: "color-mix(in srgb, var(--color-accent) 12%, transparent)",
+    glow: "color-mix(in srgb, var(--color-accent) 24%, transparent)",
   },
   purple: {
     bg: "color-mix(in srgb, var(--color-accent3) 10%, transparent)",
     border: "color-mix(in srgb, var(--color-accent3) 22%, transparent)",
     text: "var(--color-accent3)",
-    glow: "color-mix(in srgb, var(--color-accent3) 12%, transparent)",
+    glow: "color-mix(in srgb, var(--color-accent3) 24%, transparent)",
   },
   teal: {
     bg: "color-mix(in srgb, var(--color-accent2) 10%, transparent)",
     border: "color-mix(in srgb, var(--color-accent2) 22%, transparent)",
     text: "var(--color-accent2)",
-    glow: "color-mix(in srgb, var(--color-accent2) 10%, transparent)",
+    glow: "color-mix(in srgb, var(--color-accent2) 22%, transparent)",
   },
   orange: {
     bg: "rgba(249,115,22,0.1)",
     border: "rgba(249,115,22,0.22)",
     text: "#F97316",
-    glow: "rgba(249,115,22,0.1)",
+    glow: "rgba(249,115,22,0.2)",
   },
   pink: {
     bg: "rgba(236,72,153,0.1)",
     border: "rgba(236,72,153,0.22)",
     text: "#EC4899",
-    glow: "rgba(236,72,153,0.1)",
+    glow: "rgba(236,72,153,0.2)",
   },
 };
 

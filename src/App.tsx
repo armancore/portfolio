@@ -45,9 +45,15 @@ const MouseGlow = () => {
         position: 'fixed',
         inset: 0,
         zIndex: 1,
+        opacity: 0.84,
+        mixBlendMode: 'screen',
         '--glow-x': '50vw',
         '--glow-y': '30vh',
-        background: 'radial-gradient(600px circle at var(--glow-x) var(--glow-y), rgba(79,142,247,0.05) 0%, transparent 60%)',
+        background: `
+          radial-gradient(180px circle at var(--glow-x) var(--glow-y), rgba(148, 193, 255, 0.16) 0%, rgba(148, 193, 255, 0.075) 35%, transparent 72%),
+          radial-gradient(520px circle at var(--glow-x) var(--glow-y), rgba(79, 142, 247, 0.125) 0%, rgba(79, 142, 247, 0.06) 42%, transparent 78%),
+          radial-gradient(900px circle at var(--glow-x) var(--glow-y), rgba(34, 211, 238, 0.07) 0%, transparent 82%)
+        `,
       } as React.CSSProperties}
     />
   );
