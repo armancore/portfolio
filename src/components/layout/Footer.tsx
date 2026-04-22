@@ -32,9 +32,14 @@ const FooterSocialIcon = ({
         target="_blank"
         rel="noopener noreferrer"
         aria-label={social.label}
-        whileHover={{ y: -3, scale: 1.06, boxShadow: style.glow }}
+        whileHover={{
+          y: -3,
+          scale: 1.06,
+          boxShadow: `${style.glow}, 0 0 0 1px ${style.border}`,
+          filter: 'saturate(1.16) brightness(1.08)',
+        }}
         whileTap={{ scale: 0.94 }}
-        className="w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-200"
+        className="w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-200 hover-glow-crisp"
         style={{
           color: style.color,
           border: `1px solid ${style.border}`,
@@ -55,25 +60,25 @@ const Footer = () => {
       color: '#E8E8F2',
       border: 'rgba(255,255,255,0.16)',
       bg: 'rgba(255,255,255,0.05)',
-      glow: '0 10px 24px rgba(255,255,255,0.12)',
+      glow: '0 0 0 1px rgba(255,255,255,0.2), 0 14px 30px rgba(255,255,255,0.2)',
     },
     LinkedIn: {
       color: '#38BDF8',
       border: 'rgba(56,189,248,0.3)',
       bg: 'rgba(56,189,248,0.12)',
-      glow: '0 10px 24px rgba(56,189,248,0.24)',
+      glow: '0 0 0 1px rgba(56,189,248,0.28), 0 14px 30px rgba(56,189,248,0.34)',
     },
     Facebook: {
       color: '#7C5CFC',
       border: 'rgba(124,92,252,0.32)',
       bg: 'rgba(124,92,252,0.12)',
-      glow: '0 10px 24px rgba(124,92,252,0.24)',
+      glow: '0 0 0 1px rgba(124,92,252,0.28), 0 14px 30px rgba(124,92,252,0.34)',
     },
     Instagram: {
       color: '#EC4899',
       border: 'rgba(236,72,153,0.34)',
       bg: 'rgba(236,72,153,0.12)',
-      glow: '0 10px 24px rgba(236,72,153,0.22)',
+      glow: '0 0 0 1px rgba(236,72,153,0.28), 0 14px 30px rgba(236,72,153,0.32)',
     },
   };
 

@@ -221,7 +221,7 @@ const ContactForm = () => {
           <button
             type="submit"
             disabled={sending}
-            className="w-full flex items-center justify-center gap-2 py-3.5 bg-accent text-white rounded-xl font-medium text-sm hover:bg-accent/90 hover:shadow-[0_8px_24px_rgba(79,142,247,0.25)] transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-full flex items-center justify-center gap-2 py-3.5 bg-accent text-white rounded-xl font-medium text-sm hover:bg-accent/90 hover:shadow-[0_0_0_1px_rgba(255,255,255,0.2),0_12px_30px_rgba(79,142,247,0.35)] hover-glow-crisp transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {sending ? (
               <>

@@ -30,7 +30,7 @@ const ContactCTA = () => {
             <RevealWrapper delay={120}>
               <a
                 href={`mailto:${PERSONAL_INFO.email}`}
-                className="inline-flex items-center gap-2.5 px-8 py-4 bg-accent text-white rounded-xl font-medium text-base hover:bg-accent/90 hover:shadow-[0_8px_24px_rgba(79,142,247,0.35)] transition-all duration-200"
+                className="inline-flex items-center gap-2.5 px-8 py-4 bg-accent text-white rounded-xl font-medium text-base hover:bg-accent/90 hover:shadow-[0_0_0_1px_rgba(255,255,255,0.2),0_12px_30px_rgba(79,142,247,0.42)] hover-glow-crisp transition-all duration-200"
               >
                 <Mail size={18} />
                 {PERSONAL_INFO.email}

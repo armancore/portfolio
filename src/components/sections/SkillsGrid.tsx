@@ -8,31 +8,31 @@ const accentStyles = {
     icon: 'bg-[var(--accent-glow)] border border-accent/20',
     title: 'text-accent',
     border: 'hover:border-accent/30',
-    glow: 'hover:shadow-[0_0_20px_rgba(79,142,247,0.06)]',
+    glow: 'hover:shadow-[0_0_0_1px_rgba(79,142,247,0.24),0_0_26px_rgba(79,142,247,0.2)]',
   },
   purple: {
     icon: 'bg-[var(--accent2-glow)] border border-accent2/20',
     title: 'text-accent2',
     border: 'hover:border-accent2/30',
-    glow: 'hover:shadow-[0_0_20px_rgba(124,92,252,0.06)]',
+    glow: 'hover:shadow-[0_0_0_1px_rgba(124,92,252,0.24),0_0_26px_rgba(124,92,252,0.2)]',
   },
   orange: {
     icon: 'bg-orange-500/10 border border-orange-500/20',
     title: 'text-orange-400',
     border: 'hover:border-orange-500/30',
-    glow: 'hover:shadow-[0_0_20px_rgba(249,115,22,0.06)]',
+    glow: 'hover:shadow-[0_0_0_1px_rgba(249,115,22,0.24),0_0_26px_rgba(249,115,22,0.2)]',
   },
   teal: {
     icon: 'bg-[var(--accent3-glow)] border border-accent3/20',
     title: 'text-accent3',
     border: 'hover:border-accent3/30',
-    glow: 'hover:shadow-[0_0_20px_rgba(0,217,181,0.06)]',
+    glow: 'hover:shadow-[0_0_0_1px_rgba(0,217,181,0.24),0_0_26px_rgba(0,217,181,0.2)]',
   },
   pink: {
     icon: 'bg-pink-500/10 border border-pink-500/20',
     title: 'text-pink-400',
     border: 'hover:border-pink-500/30',
-    glow: 'hover:shadow-[0_0_20px_rgba(236,72,153,0.06)]',
+    glow: 'hover:shadow-[0_0_0_1px_rgba(236,72,153,0.24),0_0_26px_rgba(236,72,153,0.2)]',
   },
 };
 
@@ -46,7 +46,7 @@ const SkillsGrid = () => {
             return (
               <RevealWrapper key={skill.id} delay={i * 80}>
                 <div
-                  className={`bg-bg-secondary border border-[var(--border)] rounded-xl p-6 ${styles.border} ${styles.glow} transition-all duration-200 hover:-translate-y-0.5 h-full`}
+                  className={`bg-bg-secondary border border-[var(--border)] rounded-xl p-6 ${styles.border} ${styles.glow} transition-all duration-200 hover:-translate-y-0.5 hover-glow-crisp h-full`}
                 >
                   {/* Icon */}
                   <div className={`w-10 h-10 rounded-lg ${styles.icon} flex items-center justify-center text-xl mb-4`}>
