@@ -29,7 +29,7 @@ const NotFound = () => {
               </p>
               <Link
                 to="/"
-                className="inline-flex items-center justify-center gap-2 rounded-[10px] bg-[#4F8EF7] px-[22px] py-3 text-sm font-medium text-white no-underline transition-all duration-200 hover:bg-[#3a7de0] hover:shadow-[0_10px_28px_rgba(79,142,247,0.38)]"
+                className="inline-flex items-center justify-center gap-2 rounded-[10px] bg-[#4F8EF7] px-[22px] py-3 text-sm font-medium text-white no-underline transition-all duration-200 hover:bg-[#3a7de0] hover:shadow-[0_0_0_1px_rgba(255,255,255,0.2),0_12px_30px_rgba(79,142,247,0.46)] hover-glow-crisp"
               >
                 <ArrowLeft size={15} />
                 Back to home

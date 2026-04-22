@@ -107,7 +107,7 @@ const Contact = () => {
                     href={link.href}
                     target={link.href.startsWith('http') ? '_blank' : undefined}
                     rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    whileHover={reduceAnimations ? undefined : { x: 5, borderColor: ac.border, background: 'rgba(255,255,255,0.04)' }}
+                    whileHover={reduceAnimations ? undefined : { x: 5, borderColor: ac.border, background: 'rgba(255,255,255,0.05)', boxShadow: `0 0 0 1px ${ac.border}, 0 14px 28px rgba(2,6,23,0.36)`, filter: 'saturate(1.1)' }}
                     style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '14px', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: '14px 16px', textDecoration: 'none', transition: 'border-color 0.2s, background 0.2s, transform 0.2s' }}
                   >
                       <div style={{ width: '40px', height: '40px', borderRadius: '11px', background: ac.bg, border: `1px solid ${ac.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
@@ -153,7 +153,7 @@ const Contact = () => {
                   rel="noopener noreferrer"
                   whileHover={reduceAnimations ? undefined : { scale: 1.04, y: -1 }}
                   whileTap={reduceAnimations ? undefined : { scale: 0.97 }}
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', borderRadius: '10px', border: '1px solid rgba(79,142,247,0.25)', background: 'rgba(79,142,247,0.07)', padding: '10px 18px', fontSize: '12px', color: '#4F8EF7', textDecoration: 'none', fontFamily: "'JetBrains Mono', monospace" }}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', borderRadius: '10px', border: '1px solid rgba(79,142,247,0.25)', background: 'rgba(79,142,247,0.07)', padding: '10px 18px', fontSize: '12px', color: '#4F8EF7', textDecoration: 'none', fontFamily: "'JetBrains Mono', monospace", boxShadow: '0 0 0 1px rgba(79,142,247,0.12)' }}
                 >
                   <Mail size={12} />
                   Open Gmail directly

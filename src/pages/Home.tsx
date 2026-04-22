@@ -44,10 +44,10 @@ const statsData = [
 ];
 
 const bentoSkills = [
-  { icon: Layers, title: 'Frontend', desc: 'React, Tailwind, Vite pixel-perfect UIs', color: '#4F8EF7', glow: 'rgba(79,142,247,0.22)' },
-  { icon: Cpu, title: 'Learning Backend', desc: 'Node.js, Express, Prisma, PostgreSQL', color: '#8b9cff', glow: 'rgba(139,156,255,0.22)' },
-  { icon: Globe, title: 'Networking', desc: 'TCP/IP, DNS, Linux, Cybersecurity', color: '#22d3ee', glow: 'rgba(34,211,238,0.22)' },
-  { icon: Code2, title: 'Languages', desc: 'C++, Java, Python, JavaScript', color: '#F97316', glow: 'rgba(249,115,22,0.22)' },
+  { icon: Layers, title: 'Frontend', desc: 'React, Tailwind, Vite pixel-perfect UIs', color: '#4F8EF7', glow: 'rgba(79,142,247,0.3)' },
+  { icon: Cpu, title: 'Learning Backend', desc: 'Node.js, Express, Prisma, PostgreSQL', color: '#8b9cff', glow: 'rgba(139,156,255,0.3)' },
+  { icon: Globe, title: 'Networking', desc: 'TCP/IP, DNS, Linux, Cybersecurity', color: '#22d3ee', glow: 'rgba(34,211,238,0.3)' },
+  { icon: Code2, title: 'Languages', desc: 'C++, Java, Python, JavaScript', color: '#F97316', glow: 'rgba(249,115,22,0.3)' },
 ];
 
 const Particle = ({ style, index, active }) => (
@@ -123,10 +123,16 @@ const SocialButton = ({
         target="_blank"
         rel="noopener noreferrer"
         aria-label={label}
-        whileHover={{ scale: 1.15, y: -3, boxShadow: glow }}
+        whileHover={{
+          scale: 1.15,
+          y: -3,
+          boxShadow: `${glow}, 0 0 0 1px ${border}`,
+          filter: 'saturate(1.16) brightness(1.08)',
+        }}
         whileTap={{ scale: 0.92 }}
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0, transition: { delay: 0.8 + index * 0.08 } }}
+        className="hover-glow-crisp"
         style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '38px', height: '38px', borderRadius: '10px', border: `1px solid ${border}`, background: bg, color, textDecoration: 'none', backdropFilter: 'blur(4px)' }}
       >
         <Icon size={15} />
@@ -314,7 +320,7 @@ const Home = () => {
                     color: '#E8E8F2',
                     border: 'rgba(255,255,255,0.16)',
                     bg: 'rgba(255,255,255,0.06)',
-                    glow: '0 8px 20px rgba(255,255,255,0.12)',
+                    glow: '0 0 0 1px rgba(255,255,255,0.2), 0 12px 28px rgba(255,255,255,0.2)',
                   },
                   {
                     href: 'https://www.linkedin.com/in/techiee-arman/',
@@ -323,7 +329,7 @@ const Home = () => {
                     color: '#38BDF8',
                     border: 'rgba(56,189,248,0.28)',
                     bg: 'rgba(56,189,248,0.12)',
-                    glow: '0 8px 20px rgba(56,189,248,0.25)',
+                    glow: '0 0 0 1px rgba(56,189,248,0.3), 0 12px 28px rgba(56,189,248,0.34)',
                   },
                   {
                     href: 'https://www.facebook.com/techiee.arman',
@@ -332,7 +338,7 @@ const Home = () => {
                     color: '#7C5CFC',
                     border: 'rgba(124,92,252,0.3)',
                     bg: 'rgba(124,92,252,0.12)',
-                    glow: '0 8px 20px rgba(124,92,252,0.25)',
+                    glow: '0 0 0 1px rgba(124,92,252,0.3), 0 12px 28px rgba(124,92,252,0.34)',
                   },
                   {
                     href: 'https://www.instagram.com/techiee.arman',
@@ -341,7 +347,7 @@ const Home = () => {
                     color: '#EC4899',
                     border: 'rgba(236,72,153,0.32)',
                     bg: 'rgba(236,72,153,0.12)',
-                    glow: '0 8px 20px rgba(236,72,153,0.24)',
+                    glow: '0 0 0 1px rgba(236,72,153,0.28), 0 12px 28px rgba(236,72,153,0.32)',
                   },
                 ].map(({ href, icon: Icon, label, color, border, bg, glow }, i) => (
                   <SocialButton
@@ -482,7 +488,7 @@ const Home = () => {
               <motion.div
                 key={s.title}
                 variants={cardReveal}
-                whileHover={{ y: -8, boxShadow: `0 24px 50px ${s.glow}`, borderColor: `${s.color}60` }}
+                whileHover={{ y: -8, boxShadow: `0 0 0 1px ${s.color}66, 0 24px 50px ${s.glow}`, borderColor: `${s.color}75`, filter: 'saturate(1.12)' }}
                 style={{ position: 'relative', cursor: 'default', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.08)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: '28px', transition: 'border-color 0.25s, box-shadow 0.25s' }}
               >
                 <div style={{ position: 'absolute', top: 0, right: 0, width: '100px', height: '100px', background: `radial-gradient(circle at top right, ${s.color}18, transparent 65%)`, pointerEvents: 'none' }} />

@@ -165,7 +165,7 @@ const About = () => {
                 {values.map((v, i) => (
                   <ScrollReveal key={v.title} delay={i * 0.08}>
                     <motion.div
-                      whileHover={reduceAnimations ? undefined : { y: -5, borderColor: 'rgba(79,142,247,0.3)', boxShadow: '0 12px 30px rgba(79,142,247,0.1)' }}
+                      whileHover={reduceAnimations ? undefined : { y: -5, borderColor: 'rgba(79,142,247,0.38)', boxShadow: '0 0 0 1px rgba(79,142,247,0.18), 0 14px 34px rgba(79,142,247,0.2)', filter: 'saturate(1.1)' }}
                       style={{ borderRadius: '16px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: '20px', transition: 'border-color 0.25s, box-shadow 0.25s' }}
                     >
                       <span style={{ fontSize: '24px', display: 'block', marginBottom: '10px' }}>{v.icon}</span>
@@ -274,7 +274,7 @@ const About = () => {
             return (
               <ScrollReveal key={skill.id} delay={i * 0.08}>
                 <motion.div
-                  whileHover={reduceAnimations ? undefined : { y: -6, borderColor: ac.border, boxShadow: `0 20px 44px ${ac.glow}` }}
+                  whileHover={reduceAnimations ? undefined : { y: -6, borderColor: ac.border, boxShadow: `0 0 0 1px ${ac.border}, 0 20px 44px ${ac.glow}`, filter: 'saturate(1.1)' }}
                   style={{ position: 'relative', height: '100%', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: 'clamp(18px,4vw,24px)', transition: 'border-color 0.25s, box-shadow 0.25s' }}
                 >
                   <div style={{ position: 'absolute', top: 0, right: 0, width: '90px', height: '90px', background: `radial-gradient(circle at top right, ${ac.bg}, transparent 70%)`, pointerEvents: 'none' }} />
@@ -333,7 +333,7 @@ const About = () => {
                   </motion.div>
 
                   <motion.div
-                    whileHover={reduceAnimations ? undefined : { borderColor: 'rgba(79,142,247,0.3)', boxShadow: '0 14px 36px rgba(79,142,247,0.09)' }}
+                  whileHover={reduceAnimations ? undefined : { borderColor: 'rgba(79,142,247,0.38)', boxShadow: '0 0 0 1px rgba(79,142,247,0.16), 0 14px 36px rgba(79,142,247,0.18)', filter: 'saturate(1.1)' }}
                     style={{ flex: 1, overflow: 'hidden', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: 'clamp(18px,4vw,26px)', transition: 'border-color 0.25s, box-shadow 0.25s', position: 'relative' }}
                   >
                     <div style={{ position: 'absolute', top: 0, right: 0, width: '120px', height: '80px', background: 'radial-gradient(circle at top right, rgba(79,142,247,0.06), transparent 70%)', pointerEvents: 'none' }} />
