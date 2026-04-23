@@ -3,16 +3,11 @@
     {
       "source": "/(.*)",
       "has": [
-        { "type": "host", "value": "www.armankhan.com.np" }
-      ],
-      "destination": "https://armankhan.com.np/$1",
-      "statusCode": 301
-    },
-    {
-      "source": "/(.*)",
-      "has": [
-        { "type": "host", "value": "armankhan.com.np" },
-        { "type": "header", "key": "x-forwarded-proto", "value": "http" }
+        {
+          "type": "header",
+          "key": "x-forwarded-proto",
+          "value": "http"
+        }
       ],
       "destination": "https://armankhan.com.np/$1",
       "statusCode": 301
