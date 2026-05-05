@@ -12,5 +12,8 @@
       "destination": "https://armankhan.com.np/$1",
       "statusCode": 301
     }
+  ],
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
