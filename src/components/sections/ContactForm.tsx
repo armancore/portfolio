@@ -18,8 +18,8 @@ const initialForm: FormState = {
   message: '',
 };
 
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mdapvrel';
-const HAS_REAL_FORMSPREE_ID = !FORMSPREE_ENDPOINT.includes('YOUR_FORM_ID_HERE');
+const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT?.trim() ?? '';
+const HAS_REAL_FORMSPREE_ID = FORMSPREE_ENDPOINT.length > 0;
 
 const ContactForm = () => {
   const [form, setForm] = useState<FormState>(initialForm);
@@ -61,7 +61,7 @@ const ContactForm = () => {
     }
 
     if (!HAS_REAL_FORMSPREE_ID) {
-      setSubmitError('Replace YOUR_FORM_ID_HERE in the Formspree URL before using the contact form.');
+      setSubmitError('Contact form is not configured yet.');
       return;
     }
 
