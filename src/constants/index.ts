@@ -269,8 +269,8 @@ export const PROJECTS = [
       { label: "EdTech", color: "blue" }
     ],
     category: "Tool",
-    status: "In Progress",
-    liveUrl: null,
+    status: "Deployed & In Progress",
+    liveUrl: "https://trilearn-arman.vercel.app/",
     githubUrl: "https://github.com/armancore/TriLearn.git",
     featured: true
   },
