@@ -6,8 +6,9 @@ import RevealWrapper from '../components/ui/RevealWrapper';
 import ScrollReveal from '../components/ui/ScrollReveal';
 import PageMeta from '../components/seo/PageMeta';
 import { ACCENT_MAP, PERSONAL_INFO, PHOTO_MODE, PROJECTS, SKILLS, TIMELINE } from '../constants';
-import profileImg from '../assets/profile.webp';
 import { fadeUp, staggerContainer, viewport, blurIn } from '../lib/motion';
+
+const profileImg = '/profile.webp';
 
 const details = [
   { icon: BookOpen, label: 'Status', value: PERSONAL_INFO.status, accent: true },
