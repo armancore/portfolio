@@ -27,6 +27,7 @@ const colorMap = {
   blue: {
     border: 'hover:border-accent/40',
     bg: 'hover:bg-[var(--accent-glow)]',
+    glow: 'hover:shadow-[0_0_0_1px_rgba(79,142,247,0.22),0_20px_44px_rgba(79,142,247,0.16),0_18px_40px_rgba(0,0,0,0.3)]',
     icon: 'bg-[var(--accent-glow)] border border-accent/20',
     title: 'text-accent',
     dot: 'bg-accent',
@@ -34,6 +35,7 @@ const colorMap = {
   purple: {
     border: 'hover:border-accent2/40',
     bg: 'hover:bg-[var(--accent2-glow)]',
+    glow: 'hover:shadow-[0_0_0_1px_rgba(124,92,252,0.22),0_20px_44px_rgba(124,92,252,0.16),0_18px_40px_rgba(0,0,0,0.3)]',
     icon: 'bg-[var(--accent2-glow)] border border-accent2/20',
     title: 'text-accent2',
     dot: 'bg-accent2',
@@ -41,6 +43,7 @@ const colorMap = {
   orange: {
     border: 'hover:border-orange-500/40',
     bg: 'hover:bg-orange-500/5',
+    glow: 'hover:shadow-[0_0_0_1px_rgba(249,115,22,0.22),0_20px_44px_rgba(249,115,22,0.14),0_18px_40px_rgba(0,0,0,0.3)]',
     icon: 'bg-orange-500/10 border border-orange-500/20',
     title: 'text-orange-400',
     dot: 'bg-orange-400',
@@ -67,7 +70,7 @@ const SkillsOverview = () => {
             return (
               <RevealWrapper key={col.title} delay={i * 100}>
                 <div
-                  className={`group bg-bg-secondary border border-[var(--border)] rounded-xl p-6 ${c.border} ${c.bg} transition-all duration-200 hover:-translate-y-1`}
+                  className={`group bg-bg-secondary border border-[var(--border)] rounded-xl p-6 ${c.border} ${c.bg} ${c.glow} transition-all duration-150 ease-out hover:-translate-y-1 hover:brightness-105`}
                 >
                   {/* Icon */}
                   <div className={`w-10 h-10 rounded-lg ${c.icon} flex items-center justify-center text-xl mb-4`}>

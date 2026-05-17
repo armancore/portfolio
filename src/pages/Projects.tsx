@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
-import { ExternalLink, Github } from 'lucide-react';
+import { ExternalLink, Github, Star } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
 import ScrollReveal from '../components/ui/ScrollReveal';
 import PageMeta from '../components/seo/PageMeta';
@@ -88,6 +88,7 @@ const Projects = () => {
             <AnimatePresence mode="popLayout">
               {filtered.map((p, i) => {
                 const ca = CATEGORY_ACCENTS[p.category] || CATEGORY_ACCENTS.API;
+                const isFeatured = Boolean(p.featured);
                 return (
                   <ScrollReveal key={p.id} delay={i * 0.07}>
                     <motion.div
@@ -96,7 +97,8 @@ const Projects = () => {
                       animate={reduceAnimations ? undefined : { opacity: 1, y: 0, scale: 1, transition: { duration: 0.45, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] } }}
                       exit={reduceAnimations ? undefined : { opacity: 0, scale: 0.95, transition: { duration: 0.25 } }}
                       whileHover={reduceAnimations ? undefined : { y: -6, borderColor: 'rgba(79,142,247,0.38)', boxShadow: '0 0 0 1px rgba(79,142,247,0.18), 0 24px 52px rgba(0,0,0,0.42)', filter: 'saturate(1.1)' }}
-                      style={{ position: 'relative', display: 'flex', flexDirection: 'column', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', transition: 'border-color 0.25s' }}
+                      transition={reduceAnimations ? undefined : { duration: 0.15, ease: 'easeOut' }}
+                      style={{ position: 'relative', display: 'flex', flexDirection: 'column', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', transition: 'border-color 0.15s ease-out, box-shadow 0.15s ease-out, filter 0.15s ease-out' }}
                     >
                       <div style={{ height: '2px', background: `linear-gradient(90deg, ${ca.text}80, ${ca.text}30, transparent)`, flexShrink: 0 }} />
 
@@ -108,6 +110,11 @@ const Projects = () => {
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
                           <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4A4A6A' }}>{p.num}</span>
                           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-end', gap: '6px' }}>
+                            {isFeatured ? (
+                              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', padding: '3px 10px', borderRadius: '6px', background: 'rgba(79,142,247,0.14)', border: '1px solid rgba(79,142,247,0.32)', fontSize: '10px', color: '#A9C6FF', fontFamily: "'JetBrains Mono', monospace" }}>
+                                <Star size={10} fill="currentColor" /> Featured
+                              </span>
+                            ) : null}
                             <span style={{ padding: '3px 10px', borderRadius: '6px', background: ca.bg, border: `1px solid ${ca.border}`, fontSize: '10px', color: ca.text, fontFamily: "'JetBrains Mono', monospace" }}>{p.category}</span>
                             {p.status ? <span style={{ padding: '3px 10px', borderRadius: '6px', background: 'rgba(249,115,22,0.1)', border: '1px solid rgba(249,115,22,0.22)', fontSize: '10px', color: '#F97316', fontFamily: "'JetBrains Mono', monospace" }}>{p.status}</span> : null}
                           </div>
@@ -159,7 +166,8 @@ const Projects = () => {
           <RevealWrapper delay={200}>
             <motion.div
               whileHover={reduceAnimations ? undefined : { borderColor: 'rgba(124,92,252,0.4)', boxShadow: '0 0 0 1px rgba(124,92,252,0.18), 0 16px 44px rgba(124,92,252,0.2)', filter: 'saturate(1.1)' }}
-              style={{ marginTop: '48px', background: 'linear-gradient(145deg, #0f1520, #0D1117)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '18px', overflow: 'hidden', transition: 'border-color 0.25s, box-shadow 0.25s' }}
+              transition={reduceAnimations ? undefined : { duration: 0.15, ease: 'easeOut' }}
+              style={{ marginTop: '48px', background: 'linear-gradient(145deg, #0f1520, #0D1117)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '18px', overflow: 'hidden', transition: 'border-color 0.15s ease-out, box-shadow 0.15s ease-out, filter 0.15s ease-out' }}
             >
               <div style={{ height: '2px', background: 'linear-gradient(90deg, #7C5CFC, #4F8EF7)' }} />
               <div style={{ padding: 'clamp(18px, 4vw, 28px)', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '20px', justifyContent: 'space-between' }}>

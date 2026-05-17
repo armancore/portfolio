@@ -489,7 +489,8 @@ const Home = () => {
                 key={s.title}
                 variants={cardReveal}
                 whileHover={{ y: -8, boxShadow: `0 0 0 1px ${s.color}66, 0 24px 50px ${s.glow}`, borderColor: `${s.color}75`, filter: 'saturate(1.12)' }}
-                style={{ position: 'relative', cursor: 'default', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.08)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: '28px', transition: 'border-color 0.25s, box-shadow 0.25s' }}
+                transition={{ duration: 0.15, ease: 'easeOut' }}
+                style={{ position: 'relative', cursor: 'default', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.08)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: '28px', transition: 'border-color 0.15s ease-out, box-shadow 0.15s ease-out, filter 0.15s ease-out' }}
               >
                 <div style={{ position: 'absolute', top: 0, right: 0, width: '100px', height: '100px', background: `radial-gradient(circle at top right, ${s.color}18, transparent 65%)`, pointerEvents: 'none' }} />
                 <div style={{ position: 'absolute', bottom: 0, left: 0, width: '80px', height: '80px', background: `radial-gradient(circle at bottom left, ${s.color}0a, transparent 65%)`, pointerEvents: 'none' }} />
@@ -540,8 +541,9 @@ const Home = () => {
               <motion.div
                 key={p.id}
                 variants={cardReveal}
-                whileHover={{ y: -6 }}
-                style={{ position: 'relative', display: 'flex', flexDirection: 'column', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.08)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: '30px', transition: 'border-color 0.25s', cursor: 'default' }}
+                whileHover={{ y: -6, borderColor: 'rgba(79,142,247,0.42)', boxShadow: '0 0 0 1px rgba(79,142,247,0.18), 0 22px 50px rgba(79,142,247,0.18), 0 22px 50px rgba(0,0,0,0.36)', filter: 'saturate(1.1) brightness(1.05)' }}
+                transition={{ duration: 0.15, ease: 'easeOut' }}
+                style={{ position: 'relative', display: 'flex', flexDirection: 'column', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.08)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: '30px', transition: 'border-color 0.15s ease-out, box-shadow 0.15s ease-out, filter 0.15s ease-out', cursor: 'default' }}
               >
                 <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(79,142,247,0.7), rgba(124,92,252,0.7), transparent)' }} />
 
