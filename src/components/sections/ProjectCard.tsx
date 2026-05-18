@@ -1,8 +1,9 @@
 import React from 'react';
-import { ExternalLink, Github } from 'lucide-react';
+import { ExternalLink, Github, Star } from 'lucide-react';
 import Badge from '../ui/Badge';
 
 const ProjectCard = ({ project }) => {
+  const isFeatured = Boolean(project.featured);
   const badgeColor = project.category === 'API'
     ? 'teal'
     : project.category === 'Tool'
@@ -12,7 +13,7 @@ const ProjectCard = ({ project }) => {
         : 'blue';
 
   return (
-    <div className="group relative bg-bg-secondary border border-[var(--border)] rounded-xl p-6 hover:border-[var(--border-hover)] hover:bg-bg-tertiary transition-all duration-200 flex flex-col h-full overflow-hidden">
+    <div className="group relative bg-bg-secondary border border-[var(--border)] rounded-xl p-6 hover:-translate-y-1 hover:border-accent/40 hover:bg-bg-tertiary hover:shadow-[0_0_0_1px_rgba(79,142,247,0.18),0_22px_50px_rgba(79,142,247,0.18),0_22px_50px_rgba(0,0,0,0.36)] hover:brightness-105 transition-all duration-150 ease-out flex flex-col h-full overflow-hidden">
       {/* Top accent line on hover */}
       <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-accent to-accent2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-xl" />
 
@@ -20,6 +21,12 @@ const ProjectCard = ({ project }) => {
       <div className="flex items-start justify-between mb-4">
         <span className="font-mono text-xs text-text-muted">{project.num}</span>
         <div className="flex flex-wrap justify-end gap-1.5">
+          {isFeatured ? (
+            <span className="inline-flex items-center gap-1 rounded-md border border-accent/30 bg-accent/15 px-2.5 py-1 font-mono text-[10px] text-blue-200">
+              <Star size={10} fill="currentColor" />
+              Featured
+            </span>
+          ) : null}
           <Badge label={project.category} color={badgeColor} />
           {project.status ? <Badge label={project.status} color="orange" /> : null}
         </div>

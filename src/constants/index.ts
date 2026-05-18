@@ -53,7 +53,7 @@ export const PERSONAL_INFO = {
   name: "Arman Khan",
   role: "IT Student | Learning Frontend & Backend",
   tagline: "Building things that live on the internet.",
-  email: "arman.techiee@gmail.com",
+  email: "contact@armankhan.com.np",
   location: "Tinkune, Kathmandu, Nepal",
   hometown: "Damak, Jhapa, Nepal",
   institution: "Texas College of Management and IT",
@@ -173,6 +173,27 @@ export const PROJECTS = [
   {
     id: 1,
     num: "01",
+    title: "TriLearn",
+    description: "A full-stack student learning and management platform with three access levels for administrators, instructors, and students.",
+    longDescription: "TriLearn is a student learning and management platform I am currently building for schools and colleges. It supports three core roles, administrators, instructors, and students, with a modern full-stack architecture using React, Vite, Node.js, Express, PostgreSQL, Prisma, JWT auth, Zod validation, and GitHub Actions for CI.",
+    tags: [
+      { label: "React", color: "blue" },
+      { label: "Node.js", color: "teal" },
+      { label: "Express", color: "orange" },
+      { label: "PostgreSQL", color: "purple" },
+      { label: "Prisma", color: "purple" },
+      { label: "JWT Auth", color: "teal" },
+      { label: "EdTech", color: "blue" }
+    ],
+    category: "Tool",
+    status: "Featured Build",
+    liveUrl: "https://trilearn-arman.vercel.app/",
+    githubUrl: "https://github.com/armancore/TriLearn.git",
+    featured: true
+  },
+  {
+    id: 2,
+    num: "02",
     title: "Weather Intelligence Platform",
     description: "Real-time weather data with comprehensive metrics including temperature, humidity, UV index, and air quality. Features search history and multi-location forecasts.",
     longDescription: "A comprehensive weather application integrating WeatherAPI.com to deliver real-time meteorological data. Built with React and Axios, featuring dynamic search with history tracking, detailed forecasts including UV index and air quality metrics, and a fully responsive layout powered by Tailwind CSS.",
@@ -188,8 +209,8 @@ export const PROJECTS = [
     featured: false
   },
   {
-    id: 2,
-    num: "02",
+    id: 3,
+    num: "03",
     title: "Movie Rating & Discovery App",
     description: "TMDB-powered movie discovery with a personal 5-star rating system, watchlist management, favorites collection, and advanced search filtering.",
     longDescription: "A feature-rich movie discovery platform leveraging the TMDB API. Users can search across thousands of films, apply personal 5-star ratings, manage watchlists and favorites, and explore advanced filters. Built with React and styled with Tailwind CSS for a cinematic browsing experience.",
@@ -204,8 +225,8 @@ export const PROJECTS = [
     featured: false
   },
   {
-    id: 3,
-    num: "03",
+    id: 4,
+    num: "04",
     title: "Professional Typing Test",
     description: "WPM and accuracy tracking tool with configurable test durations from 30 seconds to 5 minutes, performance analytics, and history tracking.",
     longDescription: "A polished typing speed assessment tool built entirely with React Hooks. Features configurable test durations, real-time WPM calculation, accuracy tracking, and a performance history dashboard. No external dependencies — pure React state management for a snappy, responsive experience.",
@@ -220,8 +241,8 @@ export const PROJECTS = [
     featured: true
   },
   {
-    id: 4,
-    num: "04",
+    id: 5,
+    num: "05",
     title: "Nepal News Aggregator",
     description: "Nepal-focused news app powered by TheNewsAPI with category-based browsing, fresh headline discovery, and a responsive card layout for smooth reading across devices.",
     longDescription: "Nepal Patra is a Nepal-centric news application built with React that uses TheNewsAPI to fetch and display current headlines in a clean, mobile-friendly interface. It focuses on easy category exploration, fast headline browsing, and a responsive card-based layout that keeps the reading experience simple and accessible.",
@@ -237,8 +258,8 @@ export const PROJECTS = [
     featured: false
   },
   {
-    id: 5,
-    num: "05",
+    id: 6,
+    num: "06",
     title: "Professional Expense Tracker",
     description: "Full-stack expense tracking application for recording transactions, organizing spending, and monitoring personal finances with a clean professional workflow.",
     longDescription: "A professional expense tracker built with React and Node.js for managing day-to-day finances in one place. It focuses on practical expense logging, category-based organization, and a streamlined dashboard experience that makes it easier to understand spending patterns over time.",
@@ -252,27 +273,6 @@ export const PROJECTS = [
     liveUrl: "https://expense-tracker-arman.vercel.app/",
     githubUrl: "https://github.com/armancore/expense-tracker",
     featured: false
-  },
-  {
-    id: 6,
-    num: "06",
-    title: "TriLearn",
-    description: "A full-stack student learning and management platform with three access levels for administrators, instructors, and students.",
-    longDescription: "TriLearn is a student learning and management platform I am currently building for schools and colleges. It supports three core roles, administrators, instructors, and students, with a modern full-stack architecture using React, Vite, Node.js, Express, PostgreSQL, Prisma, JWT auth, Zod validation, and GitHub Actions for CI.",
-    tags: [
-      { label: "React", color: "blue" },
-      { label: "Node.js", color: "teal" },
-      { label: "Express", color: "orange" },
-      { label: "PostgreSQL", color: "purple" },
-      { label: "Prisma", color: "purple" },
-      { label: "JWT Auth", color: "teal" },
-      { label: "EdTech", color: "blue" }
-    ],
-    category: "Tool",
-    status: "Deployed & In Progress",
-    liveUrl: "https://trilearn-arman.vercel.app/",
-    githubUrl: "https://github.com/armancore/TriLearn.git",
-    featured: true
   },
   {
     id: 7,
@@ -400,9 +400,9 @@ export const TIMELINE = [
 
 export const CONTACT_LINKS = [
   {
-    label: "arman.techiee@gmail.com",
+    label: "contact@armankhan.com.np",
     sublabel: "Fastest response",
-    href: "mailto:arman.techiee@gmail.com",
+    href: "mailto:contact@armankhan.com.np",
     iconName: "Mail",
     bgColor: "bg-[var(--accent-glow)] border-accent/20 text-accent"
   },
