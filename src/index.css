@@ -18,8 +18,8 @@
   --accent-glow: rgba(79, 142, 247, 0.24);
   --accent2-glow: rgba(34, 211, 238, 0.22);
   --accent3-glow: rgba(139, 156, 255, 0.22);
-  --hover-glow-ring: rgba(255, 255, 255, 0.18);
-  --hover-glow-boost: saturate(1.15) brightness(1.08);
+  --hover-glow-ring: color-mix(in srgb, var(--color-accent) 18%, transparent);
+  --hover-glow-boost: saturate(1.08) brightness(1.04);
   --panel-shadow: 0 24px 80px rgba(2, 6, 23, 0.5);
   --card-bg: linear-gradient(145deg, #0f1520, #0d1117);
   --bg-gradient:
@@ -53,10 +53,77 @@ body {
 #root { min-height: 100vh; }
 a { color: inherit; }
 
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  --cursor-x: -100px;
+  --cursor-y: -100px;
+  transform: translate3d(var(--cursor-x), var(--cursor-y), 0) translate(-50%, -50%);
+  z-index: 2147483647;
+  will-change: transform;
+}
+
+.custom-cursor__ring {
+  pointer-events: none;
+}
+
+.custom-cursor__ring span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  border-radius: 999px;
+  background: transparent;
+  transition: border-color 160ms ease, transform 160ms ease;
+}
+
+.custom-cursor__ring--interactive span {
+  border-color: var(--color-accent);
+  transform: scale(1.5);
+}
+
+.custom-cursor__dot {
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+}
+
+.custom-cursor__dot span {
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  background: #FFFFFF;
+}
+
+.custom-cursor__dot--pulse span {
+  animation: custom-cursor-dot-pulse 220ms ease-out;
+}
+
+@keyframes custom-cursor-dot-pulse {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.8); }
+  100% { transform: scale(1); }
+}
+
+@media (pointer: fine) {
+  body,
+  body * {
+    cursor: none !important;
+  }
+}
+
+@media (pointer: coarse) {
+  .custom-cursor {
+    display: none;
+  }
+}
+
 /* Improves hover clarity on low-quality displays with a sharper edge + stronger color pop */
 @media (hover: hover) {
   .hover-glow-crisp:hover {
-    box-shadow: 0 0 0 1px var(--hover-glow-ring), var(--tw-shadow, 0 10px 28px rgba(79, 142, 247, 0.24));
+    box-shadow: 0 0 0 1px var(--hover-glow-ring), var(--tw-shadow, 0 10px 26px color-mix(in srgb, var(--color-accent) 22%, transparent));
     filter: var(--hover-glow-boost);
   }
 }
