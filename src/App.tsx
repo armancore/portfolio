@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
+import CustomCursor from './components/ui/CustomCursor';
 import Home from './pages/Home';
 const About = lazy(() => import('./pages/About'));
 const Projects = lazy(() => import('./pages/Projects'));
@@ -45,14 +46,14 @@ const MouseGlow = () => {
         position: 'fixed',
         inset: 0,
         zIndex: 1,
-        opacity: 0.84,
+        opacity: 0.74,
         mixBlendMode: 'screen',
         '--glow-x': '50vw',
         '--glow-y': '30vh',
         background: `
-          radial-gradient(180px circle at var(--glow-x) var(--glow-y), rgba(148, 193, 255, 0.16) 0%, rgba(148, 193, 255, 0.075) 35%, transparent 72%),
-          radial-gradient(520px circle at var(--glow-x) var(--glow-y), rgba(79, 142, 247, 0.125) 0%, rgba(79, 142, 247, 0.06) 42%, transparent 78%),
-          radial-gradient(900px circle at var(--glow-x) var(--glow-y), rgba(34, 211, 238, 0.07) 0%, transparent 82%)
+          radial-gradient(170px circle at var(--glow-x) var(--glow-y), color-mix(in srgb, var(--color-accent) 13%, transparent) 0%, color-mix(in srgb, var(--color-accent) 5.5%, transparent) 35%, transparent 72%),
+          radial-gradient(480px circle at var(--glow-x) var(--glow-y), color-mix(in srgb, var(--color-accent) 10%, transparent) 0%, color-mix(in srgb, var(--color-accent) 4.8%, transparent) 42%, transparent 78%),
+          radial-gradient(780px circle at var(--glow-x) var(--glow-y), color-mix(in srgb, var(--color-accent) 4.5%, transparent) 0%, transparent 82%)
         `,
       } as React.CSSProperties}
     />
@@ -145,6 +146,7 @@ const AppContent = () => {
 const App = () => {
   return (
     <BrowserRouter>
+      <CustomCursor />
       <AppContent />
     </BrowserRouter>
   );

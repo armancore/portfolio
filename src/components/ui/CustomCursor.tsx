@@ -1,108 +1,120 @@
-import React, { useEffect, useState } from 'react';
-import { motion, useMotionValue, useReducedMotion, useSpring } from 'motion/react';
+import { useEffect, useRef } from 'react';
+
+const INTERACTIVE_SELECTOR = 'a, button, [role="button"], input, textarea, label';
+const RING_SIZE = 32;
+const DOT_SIZE = 6;
+const LERP_FACTOR = 0.18;
 
 const CustomCursor = () => {
-  const prefersReducedMotion = useReducedMotion();
-  const [enabled, setEnabled] = useState(false);
-  const [interactive, setInteractive] = useState(false);
-
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const dotX = useSpring(x, { stiffness: 900, damping: 30 });
-  const dotY = useSpring(y, { stiffness: 900, damping: 30 });
-  const ringX = useSpring(x, { stiffness: 180, damping: 22 });
-  const ringY = useSpring(y, { stiffness: 180, damping: 22 });
+  const dotRef = useRef<HTMLDivElement | null>(null);
+  const ringRef = useRef<HTMLDivElement | null>(null);
+  const frameRef = useRef<number | null>(null);
+  const pulseTimeoutRef = useRef<number | null>(null);
+  const mouseRef = useRef({ x: 0, y: 0 });
+  const ringPositionRef = useRef({ x: 0, y: 0 });
+  const isAnimatingRef = useRef(false);
 
   useEffect(() => {
-    if (prefersReducedMotion) {
-      setEnabled(false);
-      return undefined;
-    }
+    const coarsePointerMedia = window.matchMedia('(pointer: coarse)');
+    if (coarsePointerMedia.matches) return undefined;
 
-    const media = window.matchMedia('(pointer: fine)');
-    const onMediaChange = () => setEnabled(media.matches);
-    onMediaChange();
-    media.addEventListener('change', onMediaChange);
+    const dot = dotRef.current;
+    const ring = ringRef.current;
+    if (!dot || !ring) return undefined;
 
-    return () => {
-      media.removeEventListener('change', onMediaChange);
-    };
-  }, [prefersReducedMotion]);
-
-  useEffect(() => {
-    if (!enabled) return undefined;
-
-    document.documentElement.classList.add('has-custom-cursor');
-
-    let frame: number | null = null;
-    const onMouseMove = (event: MouseEvent) => {
-      if (frame) cancelAnimationFrame(frame);
-      frame = window.requestAnimationFrame(() => {
-        x.set(event.clientX);
-        y.set(event.clientY);
-      });
+    const moveElement = (element: HTMLDivElement, x: number, y: number) => {
+      element.style.setProperty('--cursor-x', `${x}px`);
+      element.style.setProperty('--cursor-y', `${y}px`);
     };
 
-    const onMouseOver = (event: MouseEvent) => {
+    const animateRing = () => {
+      const ringPosition = ringPositionRef.current;
+      const mouse = mouseRef.current;
+
+      ringPosition.x += (mouse.x - ringPosition.x) * LERP_FACTOR;
+      ringPosition.y += (mouse.y - ringPosition.y) * LERP_FACTOR;
+      moveElement(ring, ringPosition.x, ringPosition.y);
+
+      frameRef.current = window.requestAnimationFrame(animateRing);
+    };
+
+    const handleMouseMove = (event: MouseEvent) => {
+      mouseRef.current = { x: event.clientX, y: event.clientY };
+
+      if (!isAnimatingRef.current) {
+        isAnimatingRef.current = true;
+        ringPositionRef.current = mouseRef.current;
+        frameRef.current = window.requestAnimationFrame(animateRing);
+      }
+
+      moveElement(dot, event.clientX, event.clientY);
+    };
+
+    const handleMouseOver = (event: MouseEvent) => {
       const target = event.target as Element | null;
-      setInteractive(Boolean(target?.closest('a, button, [role=button]')));
+      const isInteractive = Boolean(target?.closest(INTERACTIVE_SELECTOR));
+      ring.classList.toggle('custom-cursor__ring--interactive', isInteractive);
     };
 
-    const onMouseOut = (event: MouseEvent) => {
-      const related = event.relatedTarget as Element | null;
-      setInteractive(Boolean(related?.closest('a, button, [role=button]')));
+    const handleMouseOut = (event: MouseEvent) => {
+      const relatedTarget = event.relatedTarget as Element | null;
+      const isInteractive = Boolean(relatedTarget?.closest(INTERACTIVE_SELECTOR));
+      ring.classList.toggle('custom-cursor__ring--interactive', isInteractive);
     };
 
-    window.addEventListener('mousemove', onMouseMove, { passive: true });
-    window.addEventListener('mouseover', onMouseOver, { passive: true });
-    window.addEventListener('mouseout', onMouseOut, { passive: true });
+    const handleMouseDown = () => {
+      dot.classList.remove('custom-cursor__dot--pulse');
+      void dot.offsetWidth;
+      dot.classList.add('custom-cursor__dot--pulse');
+
+      if (pulseTimeoutRef.current) {
+        window.clearTimeout(pulseTimeoutRef.current);
+      }
+
+      pulseTimeoutRef.current = window.setTimeout(() => {
+        dot.classList.remove('custom-cursor__dot--pulse');
+      }, 220);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('mousedown', handleMouseDown, { passive: true });
+    document.addEventListener('mouseover', handleMouseOver, { passive: true });
+    document.addEventListener('mouseout', handleMouseOut, { passive: true });
 
     return () => {
-      document.documentElement.classList.remove('has-custom-cursor');
-      window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('mouseover', onMouseOver);
-      window.removeEventListener('mouseout', onMouseOut);
-      if (frame) cancelAnimationFrame(frame);
-    };
-  }, [enabled, x, y]);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mousedown', handleMouseDown);
+      document.removeEventListener('mouseover', handleMouseOver);
+      document.removeEventListener('mouseout', handleMouseOut);
 
-  if (!enabled) return null;
+      if (frameRef.current) {
+        window.cancelAnimationFrame(frameRef.current);
+      }
+
+      if (pulseTimeoutRef.current) {
+        window.clearTimeout(pulseTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <>
-      <motion.div
-        style={{
-          position: 'fixed',
-          width: 8,
-          height: 8,
-          borderRadius: '50%',
-          background: '#4F8EF7',
-          pointerEvents: 'none',
-          zIndex: 9999,
-          x: dotX,
-          y: dotY,
-          translateX: '-50%',
-          translateY: '-50%',
-        }}
-      />
-      <motion.div
-        animate={{ scale: interactive ? 1.8 : 1, opacity: interactive ? 0.5 : 1 }}
-        transition={{ type: 'spring', stiffness: 320, damping: 24 }}
-        style={{
-          position: 'fixed',
-          width: 32,
-          height: 32,
-          borderRadius: '50%',
-          border: '1.5px solid rgba(79,142,247,0.5)',
-          pointerEvents: 'none',
-          zIndex: 9999,
-          x: ringX,
-          y: ringY,
-          translateX: '-50%',
-          translateY: '-50%',
-        }}
-      />
+      <div
+        ref={ringRef}
+        aria-hidden="true"
+        className="custom-cursor custom-cursor__ring"
+        style={{ width: RING_SIZE, height: RING_SIZE, pointerEvents: 'none' }}
+      >
+        <span />
+      </div>
+      <div
+        ref={dotRef}
+        aria-hidden="true"
+        className="custom-cursor custom-cursor__dot"
+        style={{ width: DOT_SIZE, height: DOT_SIZE, pointerEvents: 'none' }}
+      >
+        <span />
+      </div>
     </>
   );
 };
