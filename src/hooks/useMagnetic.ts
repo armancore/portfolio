@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import type React from 'react';
 import { useReducedMotion, useSpring } from 'motion/react';
 
 type UseMagneticResult = {
