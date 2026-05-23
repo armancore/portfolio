@@ -23,10 +23,10 @@ export const ACCENT_MAP = {
     glow: "color-mix(in srgb, var(--color-accent3) 24%, transparent)",
   },
   teal: {
-    bg: "color-mix(in srgb, var(--color-accent2) 10%, transparent)",
-    border: "color-mix(in srgb, var(--color-accent2) 22%, transparent)",
-    text: "var(--color-accent2)",
-    glow: "color-mix(in srgb, var(--color-accent2) 22%, transparent)",
+    bg: "color-mix(in srgb, #64748B 10%, transparent)",
+    border: "color-mix(in srgb, #64748B 22%, transparent)",
+    text: "#64748B",
+    glow: "color-mix(in srgb, #64748B 11%, transparent)",
   },
   orange: {
     bg: "rgba(249,115,22,0.1)",
@@ -43,7 +43,7 @@ export const ACCENT_MAP = {
 };
 
 export const CATEGORY_ACCENTS = {
-  API: { bg: "color-mix(in srgb, var(--color-accent2) 9%, transparent)", border: "color-mix(in srgb, var(--color-accent2) 20%, transparent)", text: "var(--color-accent2)" },
+  API: { bg: "color-mix(in srgb, #64748B 9%, transparent)", border: "color-mix(in srgb, #64748B 20%, transparent)", text: "#64748B" },
   Tool: { bg: "rgba(249,115,22,0.09)", border: "rgba(249,115,22,0.2)", text: "#F97316" },
   Frontend: { bg: "color-mix(in srgb, var(--color-accent) 9%, transparent)", border: "color-mix(in srgb, var(--color-accent) 20%, transparent)", text: "var(--color-accent)" },
   Social: { bg: "rgba(236,72,153,0.09)", border: "rgba(236,72,153,0.2)", text: "#EC4899" },
