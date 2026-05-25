@@ -31,8 +31,8 @@ const ProfilePhoto = ({ mode = 'placeholder', size = 'md', className = '' }) => 
 
       {/* Availability badge */}
       <div className="absolute -bottom-2 -right-2 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-bg-tertiary border border-[var(--border)] text-xs text-text-secondary shadow-lg">
-        <span className="w-1.5 h-1.5 rounded-full bg-accent3 pulse-dot flex-shrink-0" />
-        <span className="font-medium text-accent3">Available</span>
+        <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-status)] pulse-dot flex-shrink-0" />
+        <span className="font-medium text-[var(--color-status)]">Available</span>
       </div>
     </div>
   );

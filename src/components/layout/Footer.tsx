@@ -60,25 +60,25 @@ const Footer = () => {
       color: '#E8E8F2',
       border: 'rgba(255,255,255,0.16)',
       bg: 'rgba(255,255,255,0.05)',
-      glow: '0 0 0 1px rgba(255,255,255,0.2), 0 14px 30px rgba(255,255,255,0.2)',
+      glow: '0 0 0 1px rgba(255,255,255,0.1), 0 14px 30px rgba(255,255,255,0.1)',
     },
     LinkedIn: {
       color: '#38BDF8',
       border: 'rgba(56,189,248,0.3)',
       bg: 'rgba(56,189,248,0.12)',
-      glow: '0 0 0 1px rgba(56,189,248,0.28), 0 14px 30px rgba(56,189,248,0.34)',
+      glow: '0 0 0 1px rgba(56,189,248,0.14), 0 14px 30px rgba(56,189,248,0.34)',
     },
     Facebook: {
       color: '#7C5CFC',
       border: 'rgba(124,92,252,0.32)',
       bg: 'rgba(124,92,252,0.12)',
-      glow: '0 0 0 1px rgba(124,92,252,0.28), 0 14px 30px rgba(124,92,252,0.34)',
+      glow: '0 0 0 1px rgba(124,92,252,0.14), 0 14px 30px rgba(124,92,252,0.34)',
     },
     Instagram: {
       color: '#EC4899',
       border: 'rgba(236,72,153,0.34)',
       bg: 'rgba(236,72,153,0.12)',
-      glow: '0 0 0 1px rgba(236,72,153,0.28), 0 14px 30px rgba(236,72,153,0.32)',
+      glow: '0 0 0 1px rgba(236,72,153,0.14), 0 14px 30px rgba(236,72,153,0.32)',
     },
   };
 
@@ -102,7 +102,7 @@ const Footer = () => {
         transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
         style={{
           background:
-            'radial-gradient(circle at 15% 0%, rgba(88,166,255,0.08), transparent 28%), radial-gradient(circle at 85% 20%, rgba(34,211,238,0.06), transparent 24%)',
+            'radial-gradient(circle at 15% 0%, rgba(88,166,255,0.08), transparent 28%), radial-gradient(circle at 85% 20%, rgba(100,116,139,0.03), transparent 24%)',
         }}
       />
 

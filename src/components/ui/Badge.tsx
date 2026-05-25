@@ -4,7 +4,7 @@ const Badge = ({ label, color = 'blue', className = '' }) => {
   const colorMap = {
     blue: 'bg-[var(--accent-glow)] text-accent border border-accent/20',
     purple: 'bg-[var(--accent2-glow)] text-accent2 border border-accent2/20',
-    teal: 'bg-[var(--accent3-glow)] text-accent3 border border-accent3/20',
+    teal: 'bg-[var(--accent2-glow)] text-accent2 border border-accent2/20',
     orange: 'bg-orange-500/10 text-orange-400 border border-orange-500/20',
     pink: 'bg-pink-500/10 text-pink-400 border border-pink-500/20',
   };
