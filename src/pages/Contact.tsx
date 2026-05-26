@@ -21,7 +21,7 @@ const accentForLink = (iconName) => {
   return map[iconName] || map.Mail;
 };
 
-const RECIPIENT_EMAIL = 'arman.techiee@gmail.com';
+const RECIPIENT_EMAIL = PERSONAL_INFO.email;
 
 const Contact = () => {
   const prefersReducedMotion = useReducedMotion();
