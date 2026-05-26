@@ -49,7 +49,7 @@ const Contact = () => {
       <motion.div
         animate={reduceAnimations ? undefined : { opacity: [0.4, 0.9, 0.4], scale: [1, 1.12, 1] }}
         transition={reduceAnimations ? undefined : { duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-        style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 50% 60% at 80% 50%, rgba(0,217,181,0.07) 0%, transparent 65%)', pointerEvents: 'none' }}
+        style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 50% 60% at 80% 50%, rgba(22,163,74,0.07) 0%, transparent 65%)', pointerEvents: 'none' }}
       />
       <motion.div
         animate={reduceAnimations ? undefined : { opacity: [0.3, 0.7, 0.3], scale: [1, 1.08, 1] }}
@@ -67,16 +67,16 @@ const Contact = () => {
               Let&apos;s Connect
             </h1>
             <motion.div
-              animate={reduceAnimations ? undefined : { boxShadow: ['0 0 0px rgba(0,217,181,0)', '0 0 16px rgba(0,217,181,0.3)', '0 0 0px rgba(0,217,181,0)'] }}
+              animate={reduceAnimations ? undefined : { boxShadow: ['0 0 0px rgba(22,163,74,0)', '0 0 16px rgba(22,163,74,0.15)', '0 0 0px rgba(22,163,74,0)'] }}
               transition={reduceAnimations ? undefined : { duration: 3, repeat: Infinity }}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 14px', background: 'rgba(0,217,181,0.08)', border: '1px solid rgba(0,217,181,0.22)', borderRadius: '100px' }}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 14px', background: 'rgba(22,163,74,0.08)', border: '1px solid rgba(22,163,74,0.22)', borderRadius: '100px' }}
             >
               <motion.span
                 animate={reduceAnimations ? undefined : { scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
                 transition={reduceAnimations ? undefined : { duration: 2, repeat: Infinity }}
-                style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#00D9B5', display: 'inline-block' }}
+                style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#16A34A', display: 'inline-block' }}
               />
-              <span style={{ color: '#00D9B5', fontSize: '11px', fontFamily: "'JetBrains Mono', monospace" }}>Available</span>
+              <span style={{ color: '#16A34A', fontSize: '11px', fontFamily: "'JetBrains Mono', monospace" }}>Available</span>
             </motion.div>
           </motion.div>
           <motion.p variants={fadeUp} style={{ fontSize: 'clamp(14px, 3.6vw, 16.5px)', color: '#8B8BAE', maxWidth: '500px', lineHeight: 1.82 }}>
@@ -126,18 +126,18 @@ const Contact = () => {
 
             <RevealWrapper delay={380}>
               <motion.div
-                animate={reduceAnimations ? undefined : { borderColor: ['rgba(0,217,181,0.18)', 'rgba(0,217,181,0.4)', 'rgba(0,217,181,0.18)'] }}
+                animate={reduceAnimations ? undefined : { borderColor: ['rgba(22,163,74,0.18)', 'rgba(22,163,74,0.4)', 'rgba(22,163,74,0.18)'] }}
                 transition={reduceAnimations ? undefined : { duration: 4, repeat: Infinity }}
-                style={{ background: 'linear-gradient(145deg, rgba(0,217,181,0.05), rgba(0,217,181,0.02))', border: '1px solid rgba(0,217,181,0.18)', borderRadius: '14px', padding: '20px', position: 'relative', overflow: 'hidden' }}
+                style={{ background: 'linear-gradient(145deg, rgba(22,163,74,0.05), rgba(22,163,74,0.02))', border: '1px solid rgba(22,163,74,0.18)', borderRadius: '14px', padding: '20px', position: 'relative', overflow: 'hidden' }}
               >
-                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(0,217,181,0.6), transparent)' }} />
+                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(22,163,74,0.6), transparent)' }} />
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
                   <motion.span
                     animate={reduceAnimations ? undefined : { scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
                     transition={reduceAnimations ? undefined : { duration: 2, repeat: Infinity }}
-                    style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#00D9B5', display: 'inline-block' }}
+                    style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#16A34A', display: 'inline-block' }}
                   />
-                  <span style={{ color: '#00D9B5', fontSize: '13px', fontWeight: 600 }}>Currently Available</span>
+                  <span style={{ color: '#16A34A', fontSize: '13px', fontWeight: 600 }}>Currently Available</span>
                 </div>
                 <p style={{ fontSize: '13.5px', color: '#8B8BAE', lineHeight: 1.78 }}>
                   Open to internship and junior developer positions. I bring energy, curiosity, and a genuine drive to ship great software.
@@ -153,7 +153,7 @@ const Contact = () => {
                   rel="noopener noreferrer"
                   whileHover={reduceAnimations ? undefined : { scale: 1.04, y: -1 }}
                   whileTap={reduceAnimations ? undefined : { scale: 0.97 }}
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', borderRadius: '10px', border: '1px solid rgba(79,142,247,0.25)', background: 'rgba(79,142,247,0.07)', padding: '10px 18px', fontSize: '12px', color: '#4F8EF7', textDecoration: 'none', fontFamily: "'JetBrains Mono', monospace", boxShadow: '0 0 0 1px rgba(79,142,247,0.12)' }}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', borderRadius: '10px', border: '1px solid rgba(79,142,247,0.25)', background: 'rgba(79,142,247,0.07)', padding: '10px 18px', fontSize: '12px', color: '#4F8EF7', textDecoration: 'none', fontFamily: "'JetBrains Mono', monospace", boxShadow: '0 0 0 1px rgba(79,142,247,0.06)' }}
                 >
                   <Mail size={12} />
                   Open Gmail directly
