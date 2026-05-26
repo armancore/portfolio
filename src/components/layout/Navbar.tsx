@@ -69,11 +69,11 @@ const Navbar = () => {
         backdropFilter: lowPerfMode ? 'none' : 'blur(20px)',
         boxShadow: scrolled
           ? lowPerfMode
-            ? '0 12px 24px rgba(2,6,23,0.42), 0 0 18px rgba(79,142,247,0.18), 0 0 0 1px rgba(79,142,247,0.12) inset'
-            : '0 30px 80px rgba(2,6,23,0.55), 0 0 0 1px rgba(79,142,247,0.16) inset'
+            ? '0 12px 24px rgba(2,6,23,0.42), 0 0 18px rgba(79,142,247,0.09), 0 0 0 1px rgba(79,142,247,0.06) inset'
+            : '0 30px 80px rgba(2,6,23,0.55), 0 0 0 1px rgba(79,142,247,0.08) inset'
           : lowPerfMode
-            ? '0 10px 20px rgba(2,6,23,0.34), 0 0 14px rgba(79,142,247,0.15), 0 0 0 1px rgba(79,142,247,0.08) inset'
-            : '0 22px 60px rgba(2,6,23,0.45), 0 0 0 1px rgba(79,142,247,0.1) inset',
+            ? '0 10px 20px rgba(2,6,23,0.34), 0 0 14px rgba(79,142,247,0.075), 0 0 0 1px rgba(79,142,247,0.08) inset'
+            : '0 22px 60px rgba(2,6,23,0.45), 0 0 0 1px rgba(79,142,247,0.05) inset',
         transition: ultraMobileMode ? 'none' : 'border-color 0.35s, box-shadow 0.35s, background 0.35s',
       }}
     >
@@ -124,7 +124,7 @@ const Navbar = () => {
           style={{
             background: 'linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015))',
             border: '1px solid rgba(148,163,184,0.14)',
-            boxShadow: '0 12px 28px rgba(2,6,23,0.24)',
+            boxShadow: '0 12px 28px rgba(2,6,23,0.12)',
           }}
         >
           {NAV_LINKS.map((link) => (
@@ -158,7 +158,7 @@ const Navbar = () => {
                     border: `1px solid ${isActive(link.path) ? 'rgba(124,92,252,0.55)' : 'rgba(79,142,247,0.34)'}`,
                     background: isActive(link.path)
                       ? 'linear-gradient(120deg, rgba(79,142,247,0.24), rgba(124,92,252,0.2))'
-                      : 'linear-gradient(120deg, rgba(79,142,247,0.11), rgba(34,211,238,0.08))',
+                      : 'linear-gradient(120deg, rgba(79,142,247,0.11), rgba(100,116,139,0.08))',
                   }}
                   transition={{ type: 'spring', stiffness: 350, damping: 30, mass: 0.5 }}
                 />
@@ -173,7 +173,7 @@ const Navbar = () => {
                     left: '24px',
                     right: '24px',
                     height: '2px',
-                    background: 'linear-gradient(90deg, #22D3EE, #4F8EF7 45%, #7C5CFC)',
+                    background: 'linear-gradient(90deg, #64748B, #4F8EF7 45%, #7C5CFC)',
                     borderRadius: '999px',
                     zIndex: 2,
                   }}
@@ -215,12 +215,12 @@ const Navbar = () => {
                 textTransform: 'uppercase',
                 textDecoration: 'none',
                 borderRadius: '12px',
-                background: 'linear-gradient(130deg, rgba(79,142,247,0.24), rgba(34,211,238,0.22), rgba(124,92,252,0.23))',
+                background: 'linear-gradient(130deg, rgba(79,142,247,0.12), rgba(100,116,139,0.11), rgba(124,92,252,0.115))',
                 border: '1px solid rgba(79,142,247,0.42)',
                 color: '#E8E8F2',
                 boxShadow: lowPerfMode
                   ? '0 0 0 1px rgba(255,255,255,0.08) inset'
-                  : '0 10px 24px rgba(79,142,247,0.2), 0 0 0 1px rgba(255,255,255,0.08) inset',
+                  : '0 10px 24px rgba(79,142,247,0.1), 0 0 0 1px rgba(255,255,255,0.08) inset',
               }}
             >
               <span className="navbar-hire-dot" />
@@ -323,7 +323,7 @@ const Navbar = () => {
                     textAlign: 'center',
                     textDecoration: 'none',
                     borderRadius: '12px',
-                    background: 'linear-gradient(135deg, #4F8EF7, #22D3EE 45%, #7C5CFC)',
+                    background: 'linear-gradient(135deg, #4F8EF7, #64748B 45%, #7C5CFC)',
                     color: 'white',
                     letterSpacing: '0.06em',
                   }}
@@ -419,7 +419,7 @@ const Navbar = () => {
                     textAlign: 'center',
                     textDecoration: 'none',
                     borderRadius: '12px',
-                    background: 'linear-gradient(135deg, #4F8EF7, #22D3EE 45%, #7C5CFC)',
+                    background: 'linear-gradient(135deg, #4F8EF7, #64748B 45%, #7C5CFC)',
                     color: 'white',
                     letterSpacing: '0.06em',
                   }}

@@ -13,7 +13,7 @@ const ContactCTA = () => {
           <div
             className="absolute inset-0 -z-0 opacity-40"
             style={{
-              background: 'radial-gradient(ellipse 60% 50% at 50% 100%, rgba(79,142,247,0.15) 0%, transparent 70%)',
+              background: 'radial-gradient(ellipse 60% 50% at 50% 100%, rgba(79,142,247,0.075) 0%, transparent 70%)',
             }}
           />
           <div className="relative z-10">
@@ -30,7 +30,7 @@ const ContactCTA = () => {
             <RevealWrapper delay={120}>
               <a
                 href={`mailto:${PERSONAL_INFO.email}`}
-                className="inline-flex items-center gap-2.5 px-8 py-4 bg-accent text-white rounded-xl font-medium text-base hover:bg-accent/90 hover:shadow-[0_0_0_1px_rgba(255,255,255,0.2),0_12px_30px_rgba(79,142,247,0.42)] hover-glow-crisp transition-all duration-200"
+                className="inline-flex items-center gap-2.5 px-8 py-4 bg-accent text-white rounded-xl font-medium text-base hover:bg-accent/90 hover:shadow-[0_0_0_1px_rgba(255,255,255,0.1),0_12px_30px_rgba(79,142,247,0.42)] hover-glow-crisp transition-all duration-200"
               >
                 <Mail size={18} />
                 {PERSONAL_INFO.email}
@@ -39,7 +39,7 @@ const ContactCTA = () => {
 
             <RevealWrapper delay={200}>
               <div className="flex items-center justify-center gap-2 mt-6 text-text-muted text-sm">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent3 pulse-dot" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-status)] pulse-dot" />
                 <span>Currently available — response within {PERSONAL_INFO.responseTime}</span>
               </div>
             </RevealWrapper>

@@ -57,8 +57,8 @@ const ContactInfo = () => {
       <RevealWrapper delay={400}>
         <div className="bg-bg-secondary border border-[var(--border)] rounded-xl p-5">
           <div className="flex items-center gap-2 mb-2">
-            <span className="w-2 h-2 rounded-full bg-accent3 pulse-dot" />
-            <span className="text-accent3 text-sm font-medium">Currently Available</span>
+            <span className="w-2 h-2 rounded-full bg-[var(--color-status)] pulse-dot" />
+            <span className="text-[var(--color-status)] text-sm font-medium">Currently Available</span>
           </div>
           <p className="text-text-secondary text-sm leading-relaxed">
             Open to internship and junior developer positions. I bring energy, curiosity, and a genuine drive to ship great software.

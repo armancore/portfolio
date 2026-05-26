@@ -23,7 +23,14 @@ const details = [
 const quickFacts = [
   { label: `${PROJECTS.length} Projects Deployed`, accent: ACCENT_MAP.blue },
   { label: 'Prisma + PostgreSQL', accent: ACCENT_MAP.purple },
-  { label: 'Open to Hire', accent: ACCENT_MAP.teal },
+  {
+    label: 'Open to Hire',
+    accent: {
+      bg: 'var(--status-glow)',
+      border: 'color-mix(in srgb, var(--color-status) 22%, transparent)',
+      text: 'var(--color-status)',
+    },
+  },
   { label: 'From Damak, Jhapa', accent: ACCENT_MAP.orange },
 ];
 
@@ -118,13 +125,13 @@ const About = () => {
                   <div>
                     <p style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '16px', color: '#E8E8F2', marginBottom: '3px' }}>Arman Khan</p>
                     <p style={{ fontSize: '12px', color: '#8B8BAE', marginBottom: '8px' }}>IT Student | Learning Frontend & Backend</p>
-                    <motion.div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '3px 9px', background: 'rgba(0,217,181,0.08)', border: '1px solid rgba(0,217,181,0.2)', borderRadius: '20px' }}>
+                    <motion.div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '3px 9px', background: 'rgba(22,163,74,0.08)', border: '1px solid rgba(22,163,74,0.1)', borderRadius: '20px' }}>
                       <motion.span
                         animate={reduceAnimations ? undefined : { scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
                         transition={reduceAnimations ? undefined : { duration: 2, repeat: Infinity }}
-                        style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#00D9B5', display: 'inline-block' }}
+                        style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#16A34A', display: 'inline-block' }}
                       />
-                      <span style={{ color: '#00D9B5', fontSize: '10px', fontFamily: "'JetBrains Mono', monospace" }}>Available</span>
+                      <span style={{ color: '#16A34A', fontSize: '10px', fontFamily: "'JetBrains Mono', monospace" }}>Available</span>
                     </motion.div>
                   </div>
                 </div>
@@ -166,7 +173,7 @@ const About = () => {
                 {values.map((v, i) => (
                   <ScrollReveal key={v.title} delay={i * 0.08}>
                     <motion.div
-                      whileHover={reduceAnimations ? undefined : { y: -5, borderColor: 'rgba(79,142,247,0.38)', boxShadow: '0 0 0 1px rgba(79,142,247,0.18), 0 14px 34px rgba(79,142,247,0.2)', filter: 'saturate(1.1)' }}
+                      whileHover={reduceAnimations ? undefined : { y: -5, borderColor: 'rgba(79,142,247,0.38)', boxShadow: '0 0 0 1px rgba(79,142,247,0.09), 0 14px 34px rgba(79,142,247,0.1)', filter: 'saturate(1.1)' }}
                       style={{ borderRadius: '16px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: '20px', transition: 'border-color 0.25s, box-shadow 0.25s' }}
                     >
                       <span style={{ fontSize: '24px', display: 'block', marginBottom: '10px' }}>{v.icon}</span>
@@ -212,22 +219,22 @@ const About = () => {
                   </div>
 
                   <motion.div
-                    animate={reduceAnimations ? undefined : { boxShadow: ['0 0 0px rgba(0,217,181,0)', '0 0 12px rgba(0,217,181,0.3)', '0 0 0px rgba(0,217,181,0)'] }}
+                    animate={reduceAnimations ? undefined : { boxShadow: ['0 0 0px rgba(22,163,74,0)', '0 0 12px rgba(22,163,74,0.15)', '0 0 0px rgba(22,163,74,0)'] }}
                     transition={reduceAnimations ? undefined : { duration: 3, repeat: Infinity }}
-                    style={{ position: 'absolute', top: '14px', right: '14px', zIndex: 2, display: 'flex', alignItems: 'center', gap: '5px', background: 'rgba(8,11,20,0.85)', border: '1px solid rgba(0,217,181,0.3)', borderRadius: '20px', padding: '5px 12px', backdropFilter: 'blur(10px)' }}
+                    style={{ position: 'absolute', top: '14px', right: '14px', zIndex: 2, display: 'flex', alignItems: 'center', gap: '5px', background: 'rgba(8,11,20,0.85)', border: '1px solid rgba(22,163,74,0.3)', borderRadius: '20px', padding: '5px 12px', backdropFilter: 'blur(10px)' }}
                   >
                     <motion.span
                       animate={reduceAnimations ? undefined : { scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
                       transition={reduceAnimations ? undefined : { duration: 2, repeat: Infinity }}
-                      style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#00D9B5', display: 'inline-block' }}
+                      style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#16A34A', display: 'inline-block' }}
                     />
-                    <span style={{ color: '#00D9B5', fontSize: '11px', fontFamily: "'JetBrains Mono', monospace" }}>Available</span>
+                    <span style={{ color: '#16A34A', fontSize: '11px', fontFamily: "'JetBrains Mono', monospace" }}>Available</span>
                   </motion.div>
 
                 </div>
               </div>
 
-              <div style={{ background: 'linear-gradient(145deg, #0f1520, #0D1117)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.25)' }}>
+              <div style={{ background: 'linear-gradient(145deg, #0f1520, #0D1117)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.125)' }}>
                 <div style={{ padding: '14px 18px', borderBottom: '1px solid rgba(255,255,255,0.05)', background: 'rgba(255,255,255,0.02)' }}>
                   <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4A4A6A', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Personal Info</p>
                 </div>
@@ -245,7 +252,7 @@ const About = () => {
                       {isEmail ? (
                         <a href={`mailto:${value}`} style={{ fontSize: '13px', color: '#4F8EF7', textDecoration: 'none', wordBreak: 'break-all' }}>{value}</a>
                       ) : (
-                        <p style={{ fontSize: '13px', color: accent ? '#00D9B5' : '#D7E0F0', wordBreak: 'break-word', fontWeight: accent ? 500 : 400 }}>{value}</p>
+                        <p style={{ fontSize: '13px', color: accent ? '#16A34A' : '#D7E0F0', wordBreak: 'break-word', fontWeight: accent ? 500 : 400 }}>{value}</p>
                       )}
                     </div>
                   </motion.div>
@@ -334,7 +341,7 @@ const About = () => {
                   </motion.div>
 
                   <motion.div
-                  whileHover={reduceAnimations ? undefined : { borderColor: 'rgba(79,142,247,0.38)', boxShadow: '0 0 0 1px rgba(79,142,247,0.16), 0 14px 36px rgba(79,142,247,0.18)', filter: 'saturate(1.1)' }}
+                  whileHover={reduceAnimations ? undefined : { borderColor: 'rgba(79,142,247,0.38)', boxShadow: '0 0 0 1px rgba(79,142,247,0.08), 0 14px 36px rgba(79,142,247,0.09)', filter: 'saturate(1.1)' }}
                     style={{ flex: 1, overflow: 'hidden', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: 'clamp(18px,4vw,26px)', transition: 'border-color 0.25s, box-shadow 0.25s', position: 'relative' }}
                   >
                     <div style={{ position: 'absolute', top: 0, right: 0, width: '120px', height: '80px', background: 'radial-gradient(circle at top right, rgba(79,142,247,0.06), transparent 70%)', pointerEvents: 'none' }} />

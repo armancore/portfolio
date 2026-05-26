@@ -13,7 +13,7 @@ const ProjectCard = ({ project }) => {
         : 'blue';
 
   return (
-    <div className="group relative bg-bg-secondary border border-[var(--border)] rounded-xl p-6 hover:-translate-y-1 hover:border-accent/40 hover:bg-bg-tertiary hover:shadow-[0_0_0_1px_rgba(79,142,247,0.18),0_22px_50px_rgba(79,142,247,0.18),0_22px_50px_rgba(0,0,0,0.36)] hover:brightness-105 transition-all duration-150 ease-out flex flex-col h-full overflow-hidden">
+    <div className="group relative bg-bg-secondary border border-[var(--border)] rounded-xl p-6 hover:-translate-y-1 hover:border-accent/40 hover:bg-bg-tertiary hover:shadow-[0_0_0_1px_rgba(79,142,247,0.09),0_22px_50px_rgba(79,142,247,0.09),0_22px_50px_rgba(0,0,0,0.36)] hover:brightness-105 transition-all duration-150 ease-out flex flex-col h-full overflow-hidden">
       {/* Top accent line on hover */}
       <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-accent to-accent2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-xl" />
 
@@ -56,7 +56,7 @@ const ProjectCard = ({ project }) => {
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-accent text-sm font-medium hover:text-accent/80 transition-colors"
+            className="flex items-center gap-1.5 text-[var(--color-status)] text-sm font-medium hover:text-accent3 transition-colors"
           >
             Live Demo
             <ExternalLink size={13} />
