@@ -116,9 +116,9 @@ const ContactForm = () => {
   if (sent) {
     return (
       <RevealWrapper>
-        <div className="bg-bg-secondary border border-accent3/30 rounded-2xl p-10 text-center">
-          <div className="w-14 h-14 rounded-full bg-[var(--accent3-glow)] border border-accent3/20 flex items-center justify-center mx-auto mb-4">
-            <CheckCircle size={24} className="text-accent3" />
+        <div className="bg-bg-secondary border border-[var(--color-status)]/30 rounded-2xl p-10 text-center">
+          <div className="w-14 h-14 rounded-full bg-[var(--status-glow)] border border-[var(--color-status)]/20 flex items-center justify-center mx-auto mb-4">
+            <CheckCircle size={24} className="text-[var(--color-status)]" />
           </div>
           <h3 className="font-display text-xl font-bold text-text-primary mb-2">Message sent!</h3>
           <p className="text-text-secondary text-sm mb-6">
@@ -221,7 +221,7 @@ const ContactForm = () => {
           <button
             type="submit"
             disabled={sending}
-            className="w-full flex items-center justify-center gap-2 py-3.5 bg-accent text-white rounded-xl font-medium text-sm hover:bg-accent/90 hover:shadow-[0_0_0_1px_rgba(255,255,255,0.2),0_12px_30px_rgba(79,142,247,0.35)] hover-glow-crisp transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-full flex items-center justify-center gap-2 py-3.5 bg-accent text-white rounded-xl font-medium text-sm hover:bg-accent/90 hover:shadow-[0_0_0_1px_rgba(255,255,255,0.1),0_12px_30px_rgba(79,142,247,0.35)] hover-glow-crisp transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {sending ? (
               <>

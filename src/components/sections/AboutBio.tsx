@@ -66,7 +66,7 @@ const AboutBio = () => {
                         {detail.value}
                       </a>
                     ) : (
-                      <span className={`text-sm break-all ${detail.accent ? 'text-accent3 font-medium' : 'text-text-primary'}`}>
+                      <span className={`text-sm break-all ${detail.accent ? 'text-[var(--color-status)] font-medium' : 'text-text-primary'}`}>
                         {detail.value}
                       </span>
                     )}

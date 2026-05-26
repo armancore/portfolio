@@ -44,10 +44,10 @@ const statsData = [
 ];
 
 const bentoSkills = [
-  { icon: Layers, title: 'Frontend', desc: 'React, Tailwind, Vite pixel-perfect UIs', color: '#4F8EF7', glow: 'rgba(79,142,247,0.3)' },
-  { icon: Cpu, title: 'Learning Backend', desc: 'Node.js, Express, Prisma, PostgreSQL', color: '#8b9cff', glow: 'rgba(139,156,255,0.3)' },
-  { icon: Globe, title: 'Networking', desc: 'TCP/IP, DNS, Linux, Cybersecurity', color: '#22d3ee', glow: 'rgba(34,211,238,0.3)' },
-  { icon: Code2, title: 'Languages', desc: 'C++, Java, Python, JavaScript', color: '#F97316', glow: 'rgba(249,115,22,0.3)' },
+  { icon: Layers, title: 'Frontend', desc: 'React, Tailwind, Vite pixel-perfect UIs', color: '#4F8EF7', glow: 'rgba(79,142,247,0.15)' },
+  { icon: Cpu, title: 'Learning Backend', desc: 'Node.js, Express, Prisma, PostgreSQL', color: '#64748B', glow: 'rgba(100,116,139,0.15)' },
+  { icon: Globe, title: 'Networking', desc: 'TCP/IP, DNS, Linux, Cybersecurity', color: '#64748B', glow: 'rgba(100,116,139,0.15)' },
+  { icon: Code2, title: 'Languages', desc: 'C++, Java, Python, JavaScript', color: '#F97316', glow: 'rgba(249,115,22,0.15)' },
 ];
 
 const Particle = ({ style, index, active }) => (
@@ -179,7 +179,7 @@ const Home = () => {
           width: i % 3 === 0 ? '3px' : '2px',
           height: i % 3 === 0 ? '3px' : '2px',
           borderRadius: '50%',
-          background: i % 2 === 0 ? '#4F8EF7' : '#8b9cff',
+          background: i % 2 === 0 ? '#4F8EF7' : '#64748B',
           left: `${10 + i * 7.5}%`,
           top: `${15 + ((i * 5.3) % 70)}%`,
           pointerEvents: 'none',
@@ -237,7 +237,7 @@ const Home = () => {
             <motion.div
               animate={{ scale: [1, 1.08, 1], opacity: [0.3, 0.6, 0.3] }}
               transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
-              style={{ position: 'absolute', top: '50%', left: '40%', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,211,238,0.06) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }}
+              style={{ position: 'absolute', top: '50%', left: '40%', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(100,116,139,0.03) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }}
             />
           </>
         )}
@@ -275,7 +275,7 @@ const Home = () => {
                 <motion.span style={{ fontSize: 'clamp(42px, 12vw, 90px)', color: '#E8E8F2', display: 'block' }}>
                   <SplitTextReveal text="Arman" delay={0} />
                 </motion.span>
-                <motion.span style={{ fontSize: 'clamp(42px, 12vw, 90px)', display: 'block', background: 'linear-gradient(125deg, #4F8EF7 15%, #7C5CFC 55%, #22d3ee 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                <motion.span style={{ fontSize: 'clamp(42px, 12vw, 90px)', display: 'block', background: 'linear-gradient(125deg, #4F8EF7 15%, #7C5CFC 55%, #64748B 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                   <SplitTextReveal text="Khan." delay={0.22} />
                 </motion.span>
               </motion.h1>
@@ -300,7 +300,7 @@ const Home = () => {
                 >
                   <Link
                     to="/projects"
-                    style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', borderRadius: '12px', background: 'linear-gradient(135deg, #4F8EF7, #7C5CFC)', padding: '13px 24px', fontSize: '14px', fontWeight: 600, color: 'white', textDecoration: 'none', boxShadow: '0 8px 32px rgba(79,142,247,0.4), 0 0 0 1px rgba(79,142,247,0.2)' }}
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', borderRadius: '12px', background: 'linear-gradient(135deg, #4F8EF7, #7C5CFC)', padding: '13px 24px', fontSize: '14px', fontWeight: 600, color: 'white', textDecoration: 'none', boxShadow: '0 8px 32px rgba(79,142,247,0.4), 0 0 0 1px rgba(79,142,247,0.1)' }}
                   >
                     View Projects <ArrowRight size={15} />
                   </Link>
@@ -329,7 +329,7 @@ const Home = () => {
                     color: '#E8E8F2',
                     border: 'rgba(255,255,255,0.16)',
                     bg: 'rgba(255,255,255,0.06)',
-                    glow: '0 0 0 1px rgba(255,255,255,0.2), 0 12px 28px rgba(255,255,255,0.2)',
+                    glow: '0 0 0 1px rgba(255,255,255,0.1), 0 12px 28px rgba(255,255,255,0.1)',
                   },
                   {
                     href: 'https://www.linkedin.com/in/techiee-arman/',
@@ -338,7 +338,7 @@ const Home = () => {
                     color: '#38BDF8',
                     border: 'rgba(56,189,248,0.28)',
                     bg: 'rgba(56,189,248,0.12)',
-                    glow: '0 0 0 1px rgba(56,189,248,0.3), 0 12px 28px rgba(56,189,248,0.34)',
+                    glow: '0 0 0 1px rgba(56,189,248,0.15), 0 12px 28px rgba(56,189,248,0.34)',
                   },
                   {
                     href: 'https://www.facebook.com/techiee.arman',
@@ -347,7 +347,7 @@ const Home = () => {
                     color: '#7C5CFC',
                     border: 'rgba(124,92,252,0.3)',
                     bg: 'rgba(124,92,252,0.12)',
-                    glow: '0 0 0 1px rgba(124,92,252,0.3), 0 12px 28px rgba(124,92,252,0.34)',
+                    glow: '0 0 0 1px rgba(124,92,252,0.15), 0 12px 28px rgba(124,92,252,0.34)',
                   },
                   {
                     href: 'https://www.instagram.com/techiee.arman',
@@ -356,7 +356,7 @@ const Home = () => {
                     color: '#EC4899',
                     border: 'rgba(236,72,153,0.32)',
                     bg: 'rgba(236,72,153,0.12)',
-                    glow: '0 0 0 1px rgba(236,72,153,0.28), 0 12px 28px rgba(236,72,153,0.32)',
+                    glow: '0 0 0 1px rgba(236,72,153,0.14), 0 12px 28px rgba(236,72,153,0.32)',
                   },
                 ].map(({ href, icon: Icon, label, color, border, bg, glow }, i) => (
                   <SocialButton
@@ -460,14 +460,14 @@ const Home = () => {
                     initial={reduceAnimations ? false : { opacity: 0, scale: 0.8 }}
                     animate={reduceAnimations ? undefined : { opacity: 1, scale: 1 }}
                     transition={reduceAnimations ? undefined : { delay: 1.1, type: 'spring', stiffness: 200 }}
-                    style={{ position: 'absolute', top: '16px', right: '16px', zIndex: 4, display: 'flex', alignItems: 'center', gap: '5px', background: 'rgba(8,11,20,0.8)', border: '1px solid rgba(0,217,181,0.35)', borderRadius: '20px', padding: '5px 12px', backdropFilter: 'blur(12px)' }}
+                    style={{ position: 'absolute', top: '16px', right: '16px', zIndex: 4, display: 'flex', alignItems: 'center', gap: '5px', background: 'rgba(8,11,20,0.8)', border: '1px solid rgba(22,163,74,0.35)', borderRadius: '20px', padding: '5px 12px', backdropFilter: 'blur(12px)' }}
                   >
                     <motion.span
                       animate={{ scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
                       transition={{ duration: 2, repeat: Infinity }}
-                      style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#00D9B5', display: 'inline-block' }}
+                      style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#16A34A', display: 'inline-block' }}
                     />
-                    <span style={{ color: '#00D9B5', fontSize: '11px', fontFamily: "'JetBrains Mono', monospace" }}>Available</span>
+                    <span style={{ color: '#16A34A', fontSize: '11px', fontFamily: "'JetBrains Mono', monospace" }}>Available</span>
                   </motion.div>
                 </div>
             </motion.div>
@@ -556,7 +556,7 @@ const Home = () => {
               <motion.div
                 key={p.id}
                 variants={cardReveal}
-                whileHover={{ y: -6, borderColor: 'rgba(79,142,247,0.42)', boxShadow: '0 0 0 1px rgba(79,142,247,0.18), 0 22px 50px rgba(79,142,247,0.18), 0 22px 50px rgba(0,0,0,0.36)', filter: 'saturate(1.1) brightness(1.05)' }}
+                whileHover={{ y: -6, borderColor: 'rgba(79,142,247,0.42)', boxShadow: '0 0 0 1px rgba(79,142,247,0.09), 0 22px 50px rgba(79,142,247,0.09), 0 22px 50px rgba(0,0,0,0.36)', filter: 'saturate(1.1) brightness(1.05)' }}
                 transition={{ duration: 0.15, ease: 'easeOut' }}
                 style={{ position: 'relative', display: 'flex', flexDirection: 'column', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.08)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: '30px', transition: 'border-color 0.15s ease-out, box-shadow 0.15s ease-out, filter 0.15s ease-out', cursor: 'default' }}
               >
@@ -565,7 +565,7 @@ const Home = () => {
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
                   <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', color: '#4A4A6A' }}>{p.num}</span>
                   <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-end', gap: '6px' }}>
-                    <span style={{ padding: '3px 10px', borderRadius: '6px', background: 'rgba(0,217,181,0.08)', border: '1px solid rgba(0,217,181,0.2)', fontSize: '10px', color: '#00D9B5', fontFamily: "'JetBrains Mono', monospace" }}>{p.category}</span>
+                    <span style={{ padding: '3px 10px', borderRadius: '6px', background: 'rgba(22,163,74,0.08)', border: '1px solid rgba(22,163,74,0.1)', fontSize: '10px', color: '#16A34A', fontFamily: "'JetBrains Mono', monospace" }}>{p.category}</span>
                     {p.status ? <span style={{ padding: '3px 10px', borderRadius: '6px', background: 'rgba(249,115,22,0.1)', border: '1px solid rgba(249,115,22,0.22)', fontSize: '10px', color: '#F97316', fontFamily: "'JetBrains Mono', monospace" }}>{p.status}</span> : null}
                   </div>
                 </div>
@@ -581,7 +581,7 @@ const Home = () => {
 
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '16px' }}>
                   {p.liveUrl ? (
-                    <a href={p.liveUrl} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '13px', color: '#4F8EF7', fontWeight: 500, textDecoration: 'none' }}>
+                    <a href={p.liveUrl} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '13px', color: '#16A34A', fontWeight: 500, textDecoration: 'none' }}>
                       Live Demo <ExternalLink size={11} />
                     </a>
                   ) : (
@@ -634,7 +634,7 @@ const Home = () => {
               </motion.a>
 
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginTop: '20px', position: 'relative' }}>
-                <motion.span animate={{ scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }} transition={{ duration: 2, repeat: Infinity }} style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#00D9B5', display: 'inline-block' }} />
+                <motion.span animate={{ scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }} transition={{ duration: 2, repeat: Infinity }} style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#16A34A', display: 'inline-block' }} />
                 <span style={{ fontSize: '12px', color: '#4A4A6A' }}>Responds within 24 hours</span>
               </div>
             </div>
