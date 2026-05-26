@@ -625,12 +625,12 @@ const Home = () => {
               </p>
 
               <motion.a
-                href="mailto:arman.techiee@gmail.com"
+                href={`mailto:${PERSONAL_INFO.email}`}
                 whileHover={{ scale: 1.05, y: -3 }}
                 whileTap={{ scale: 0.97 }}
                 style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', borderRadius: '13px', background: 'linear-gradient(135deg, #4F8EF7, #7C5CFC)', padding: '14px 28px', fontSize: '14.5px', fontWeight: 600, color: 'white', textDecoration: 'none', boxShadow: '0 12px 36px rgba(79,142,247,0.38)', position: 'relative' }}
               >
-                arman.techiee@gmail.com
+                {PERSONAL_INFO.email}
               </motion.a>
 
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginTop: '20px', position: 'relative' }}>
