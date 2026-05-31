@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import '@fontsource-variable/syne';
 
 @theme {
   --color-bg-primary: #060912;
