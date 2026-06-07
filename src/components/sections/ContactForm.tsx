@@ -1,119 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useForm, ValidationError } from '@formspree/react';
 import { Send, CheckCircle } from 'lucide-react';
 import RevealWrapper from '../ui/RevealWrapper';
 
-type FormState = {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-};
+const FORMSPREE_FORM_ID = import.meta.env.VITE_FORMSPREE_FORM_ID?.trim() ?? '';
 
-type FormErrors = Partial<Record<keyof FormState, string>>;
+const inputClass =
+  'w-full px-4 py-3 bg-bg-tertiary border rounded-xl text-text-primary text-sm placeholder-text-muted transition-all duration-200 outline-none focus:ring-1 border-[var(--border)] focus:border-accent/60 focus:ring-accent/10 hover:border-[var(--border-hover)]';
 
-const initialForm: FormState = {
-  name: '',
-  email: '',
-  subject: '',
-  message: '',
-};
-
-const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT?.trim() ?? '';
-const HAS_REAL_FORMSPREE_ID = FORMSPREE_ENDPOINT.length > 0;
+const errorClass = 'text-red-400 text-xs mt-1';
 
 const ContactForm = () => {
-  const [form, setForm] = useState<FormState>(initialForm);
-  const [errors, setErrors] = useState<FormErrors>({});
-  const [sending, setSending] = useState(false);
-  const [sent, setSent] = useState(false);
-  const [submitError, setSubmitError] = useState('');
+  const [state, handleSubmit] = useForm(FORMSPREE_FORM_ID);
+  const isConfigured = FORMSPREE_FORM_ID.length > 0;
 
-  const validate = (): FormErrors => {
-    const errs: FormErrors = {};
-    if (!form.name.trim()) errs.name = 'Name is required.';
-    if (!form.email.trim()) {
-      errs.email = 'Email is required.';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      errs.email = 'Please enter a valid email address.';
-    }
-    if (!form.subject.trim()) errs.subject = 'Subject is required.';
-    if (!form.message.trim()) errs.message = 'Message is required.';
-    return errs;
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-    if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: '' }));
-    }
-    if (submitError) {
-      setSubmitError('');
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const errs = validate();
-    if (Object.keys(errs).length > 0) {
-      setErrors(errs);
-      return;
-    }
-
-    if (!HAS_REAL_FORMSPREE_ID) {
-      setSubmitError('Contact form is not configured yet.');
-      return;
-    }
-
-    setSubmitError('');
-    setSending(true);
-
-    try {
-      const submittedFrom = `${window.location.origin}${window.location.pathname}`;
-
-      const res = await fetch(FORMSPREE_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          subject: form.subject,
-          message: form.message,
-          submittedFrom,
-        }),
-      });
-
-      const data = await res.json().catch(() => ({}));
-
-      if (!res.ok) {
-        const message = data?.errors?.[0]?.message || 'Something went wrong while sending your message.';
-        throw new Error(message);
-      }
-
-      setSending(false);
-      setSent(true);
-      setForm(initialForm);
-    } catch (error: unknown) {
-      setSending(false);
-      const message =
-        error instanceof Error
-          ? error.message
-          : 'Something went wrong while sending your message.';
-      setSubmitError(message);
-    }
-  };
-
-  const inputClass = (field: keyof FormState) =>
-    `w-full px-4 py-3 bg-bg-tertiary border rounded-xl text-text-primary text-sm placeholder-text-muted transition-all duration-200 outline-none focus:ring-1 ${
-      errors[field]
-        ? 'border-red-500/60 focus:border-red-500 focus:ring-red-500/20'
-        : 'border-[var(--border)] focus:border-accent/60 focus:ring-accent/10 hover:border-[var(--border-hover)]'
-    }`;
-
-  if (sent) {
+  if (state.succeeded) {
     return (
       <RevealWrapper>
         <div className="bg-bg-secondary border border-[var(--color-status)]/30 rounded-2xl p-10 text-center">
@@ -121,15 +22,9 @@ const ContactForm = () => {
             <CheckCircle size={24} className="text-[var(--color-status)]" />
           </div>
           <h3 className="font-display text-xl font-bold text-text-primary mb-2">Message sent!</h3>
-          <p className="text-text-secondary text-sm mb-6">
+          <p className="text-text-secondary text-sm">
             Thanks for reaching out. I'll get back to you within 24 hours.
           </p>
-          <button
-            onClick={() => setSent(false)}
-            className="px-5 py-2.5 text-sm border border-[var(--border-hover)] text-text-primary rounded-lg hover:border-accent hover:text-accent transition-all duration-200"
-          >
-            Send another message
-          </button>
         </div>
       </RevealWrapper>
     );
@@ -141,7 +36,6 @@ const ContactForm = () => {
         <h2 className="font-display text-xl font-bold text-text-primary mb-6">Send a message</h2>
 
         <form onSubmit={handleSubmit} noValidate>
-          {/* Name + Email row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             <div>
               <label htmlFor="contact-name" className="block text-xs text-text-muted font-mono uppercase tracking-wider mb-1.5">
@@ -151,14 +45,11 @@ const ContactForm = () => {
                 id="contact-name"
                 type="text"
                 name="name"
-                value={form.name}
-                onChange={handleChange}
+                required
                 placeholder="Arman Khan"
-                className={inputClass('name')}
-                aria-invalid={Boolean(errors.name)}
-                aria-describedby={errors.name ? 'contact-name-error' : undefined}
+                className={inputClass}
               />
-              {errors.name && <p id="contact-name-error" className="text-red-400 text-xs mt-1">{errors.name}</p>}
+              <ValidationError field="name" prefix="Name" errors={state.errors} className={errorClass} />
             </div>
             <div>
               <label htmlFor="contact-email" className="block text-xs text-text-muted font-mono uppercase tracking-wider mb-1.5">
@@ -168,18 +59,14 @@ const ContactForm = () => {
                 id="contact-email"
                 type="email"
                 name="email"
-                value={form.email}
-                onChange={handleChange}
+                required
                 placeholder="you@example.com"
-                className={inputClass('email')}
-                aria-invalid={Boolean(errors.email)}
-                aria-describedby={errors.email ? 'contact-email-error' : undefined}
+                className={inputClass}
               />
-              {errors.email && <p id="contact-email-error" className="text-red-400 text-xs mt-1">{errors.email}</p>}
+              <ValidationError field="email" prefix="Email" errors={state.errors} className={errorClass} />
             </div>
           </div>
 
-          {/* Subject */}
           <div className="mb-4">
             <label htmlFor="contact-subject" className="block text-xs text-text-muted font-mono uppercase tracking-wider mb-1.5">
               Subject
@@ -188,17 +75,13 @@ const ContactForm = () => {
               id="contact-subject"
               type="text"
               name="subject"
-              value={form.subject}
-              onChange={handleChange}
+              required
               placeholder="Internship opportunity / Project collaboration"
-              className={inputClass('subject')}
-              aria-invalid={Boolean(errors.subject)}
-              aria-describedby={errors.subject ? 'contact-subject-error' : undefined}
+              className={inputClass}
             />
-            {errors.subject && <p id="contact-subject-error" className="text-red-400 text-xs mt-1">{errors.subject}</p>}
+            <ValidationError field="subject" prefix="Subject" errors={state.errors} className={errorClass} />
           </div>
 
-          {/* Message */}
           <div className="mb-6">
             <label htmlFor="contact-message" className="block text-xs text-text-muted font-mono uppercase tracking-wider mb-1.5">
               Message
@@ -206,24 +89,22 @@ const ContactForm = () => {
             <textarea
               id="contact-message"
               name="message"
-              value={form.message}
-              onChange={handleChange}
+              required
               rows={5}
               placeholder="Tell me about the opportunity, project, or just say hello..."
-              className={`${inputClass('message')} resize-none`}
-              aria-invalid={Boolean(errors.message)}
-              aria-describedby={errors.message ? 'contact-message-error' : undefined}
+              className={`${inputClass} resize-none`}
             />
-            {errors.message && <p id="contact-message-error" className="text-red-400 text-xs mt-1">{errors.message}</p>}
+            <ValidationError field="message" prefix="Message" errors={state.errors} className={errorClass} />
           </div>
 
-          {/* Submit */}
+          <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
+
           <button
             type="submit"
-            disabled={sending}
+            disabled={state.submitting || !isConfigured}
             className="w-full flex items-center justify-center gap-2 py-3.5 bg-accent text-white rounded-xl font-medium text-sm hover:bg-accent/90 hover:shadow-[0_0_0_1px_rgba(255,255,255,0.1),0_12px_30px_rgba(79,142,247,0.35)] hover-glow-crisp transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            {sending ? (
+            {state.submitting ? (
               <>
                 <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 Sending...
@@ -240,11 +121,12 @@ const ContactForm = () => {
             Typical response time: within 24 hours
           </p>
 
-          {submitError && (
+          {!isConfigured && (
             <p className="text-red-400 text-xs text-center mt-3">
-              {submitError}
+              Contact form is not configured.
             </p>
           )}
+          <ValidationError errors={state.errors} className="text-red-400 text-xs text-center mt-3" />
         </form>
       </div>
     </RevealWrapper>
