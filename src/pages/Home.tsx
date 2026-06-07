@@ -150,10 +150,12 @@ const Home = () => {
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== 'undefined' && window.innerWidth < 768
   );
+  const [enableAmbientMotion, setEnableAmbientMotion] = useState(false);
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 500], [0, 120]);
   const heroOpacity = useTransform(scrollY, [0, 400], [1, 0]);
   const reduceAnimations = prefersReducedMotion || isMobile;
+  const ambientMotion = !reduceAnimations && enableAmbientMotion;
   const { displayed: subtitleDisplayed } = useTypewriter({
     text: SUBTITLE,
     speed: 42,
@@ -170,6 +172,29 @@ const Home = () => {
     window.addEventListener('resize', onResize, { passive: true });
     return () => window.removeEventListener('resize', onResize);
   }, []);
+
+  useEffect(() => {
+    if (reduceAnimations) {
+      setEnableAmbientMotion(false);
+      return undefined;
+    }
+
+    let timeoutId: number | undefined;
+    const startAmbientMotion = () => {
+      timeoutId = window.setTimeout(() => setEnableAmbientMotion(true), 250);
+    };
+
+    if (document.readyState === 'complete') {
+      startAmbientMotion();
+    } else {
+      window.addEventListener('load', startAmbientMotion, { once: true });
+    }
+
+    return () => {
+      window.removeEventListener('load', startAmbientMotion);
+      if (timeoutId) window.clearTimeout(timeoutId);
+    };
+  }, [reduceAnimations]);
 
   const particles = useMemo(
     () => (reduceAnimations ? [] :
@@ -225,25 +250,25 @@ const Home = () => {
         {!reduceAnimations && (
           <>
             <motion.div
-              animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.9, 0.5] }}
-              transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+              animate={ambientMotion ? { scale: [1, 1.15, 1], opacity: [0.5, 0.9, 0.5] } : undefined}
+              transition={ambientMotion ? { duration: 8, repeat: Infinity, ease: 'easeInOut' } : undefined}
               style={{ position: 'absolute', top: '15%', right: '8%', width: '520px', height: '520px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(79,142,247,0.12) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }}
             />
             <motion.div
-              animate={{ scale: [1, 1.1, 1], opacity: [0.4, 0.8, 0.4] }}
-              transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut', delay: 2.5 }}
+              animate={ambientMotion ? { scale: [1, 1.1, 1], opacity: [0.4, 0.8, 0.4] } : undefined}
+              transition={ambientMotion ? { duration: 11, repeat: Infinity, ease: 'easeInOut', delay: 2.5 } : undefined}
               style={{ position: 'absolute', bottom: '15%', left: '3%', width: '380px', height: '380px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(124,92,252,0.10) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }}
             />
             <motion.div
-              animate={{ scale: [1, 1.08, 1], opacity: [0.3, 0.6, 0.3] }}
-              transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
+              animate={ambientMotion ? { scale: [1, 1.08, 1], opacity: [0.3, 0.6, 0.3] } : undefined}
+              transition={ambientMotion ? { duration: 9, repeat: Infinity, ease: 'easeInOut', delay: 1.5 } : undefined}
               style={{ position: 'absolute', top: '50%', left: '40%', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(100,116,139,0.03) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }}
             />
           </>
         )}
 
         {particles.map((p, i) => (
-          <Particle key={i} style={p.style} index={i} active={!reduceAnimations} />
+          <Particle key={i} style={p.style} index={i} active={ambientMotion} />
         ))}
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full" style={{ position: 'relative', zIndex: 2, paddingTop: '40px', paddingBottom: '96px' }}>

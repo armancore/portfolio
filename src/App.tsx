@@ -4,11 +4,20 @@ import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import CustomCursor from './components/ui/CustomCursor';
-import Home from './pages/Home';
+const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
 const Projects = lazy(() => import('./pages/Projects'));
 const Contact = lazy(() => import('./pages/Contact'));
 const NotFound = lazy(() => import('./pages/NotFound'));
+
+const RouteFallback = () => (
+  <div
+    aria-hidden="true"
+    style={{
+      minHeight: '100vh',
+    }}
+  />
+);
 
 const MouseGlow = () => {
   const glowRef = useRef<HTMLDivElement | null>(null);
@@ -106,7 +115,7 @@ const AppContent = () => {
         <Navbar />
         <main>
           {performanceMode ? (
-            <Suspense fallback={null}>
+            <Suspense fallback={<RouteFallback />}>
               <Routes location={location}>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
@@ -117,7 +126,7 @@ const AppContent = () => {
             </Suspense>
           ) : (
             <AnimatePresence mode="wait" initial>
-              <Suspense fallback={null}>
+              <Suspense fallback={<RouteFallback />}>
                 <motion.div
                   key={location.pathname}
                   initial={{ opacity: 0, y: 28, filter: 'blur(4px)' }}
