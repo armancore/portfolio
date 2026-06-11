@@ -23,7 +23,7 @@ const NotFound = () => {
                 <Compass size={28} style={{ color: '#4F8EF7' }} />
               </div>
               <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', color: '#4F8EF7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '10px' }}>404</p>
-              <h1 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: 'clamp(34px, 7vw, 58px)', color: '#E8E8F2', lineHeight: 1.05, marginBottom: '14px' }}>Page not found</h1>
+              <h1 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: 'clamp(34px, 7vw, 58px)', color: '#E8E8F2', lineHeight: 1.05, marginBottom: '14px' }}>Page not found</h1>
               <p style={{ fontSize: '15px', color: '#8B8BAE', lineHeight: 1.8, maxWidth: '500px', margin: '0 auto 28px' }}>
                 The page you tried to open does not exist or the link is no longer valid.
               </p>

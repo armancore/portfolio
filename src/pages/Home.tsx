@@ -86,7 +86,7 @@ const StatDisplay = ({
 
   return (
     <div ref={ref as React.RefObject<HTMLDivElement>} style={{ textAlign: 'center' }}>
-      <p style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize, color: '#E8E8F2' }}>
+      <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize, color: '#E8E8F2' }}>
         {reduceAnimations ? numericValue : count}
         {suffix}
       </p>
@@ -296,7 +296,7 @@ const Home = () => {
                 </motion.div>
               </motion.div>
 
-              <motion.h1 variants={blurIn} style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, lineHeight: 0.96, letterSpacing: '-0.035em', marginBottom: '4px' }}>
+              <motion.h1 variants={blurIn} style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 800, lineHeight: 0.96, letterSpacing: '-0.035em', marginBottom: '4px' }}>
                 <motion.span style={{ fontSize: 'clamp(42px, 12vw, 90px)', color: '#E8E8F2', display: 'block' }}>
                   <SplitTextReveal text="Arman" delay={0} />
                 </motion.span>
@@ -448,7 +448,7 @@ const Home = () => {
                   <div className="hidden md:block" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '50%', background: 'linear-gradient(to top, rgba(8,11,20,0.97) 0%, rgba(8,11,20,0.65) 50%, transparent 100%)', zIndex: 2 }} />
 
                   <div className="hidden md:block" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: 'clamp(20px, 4vw, 30px)', zIndex: 3 }}>
-                    <p style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 'clamp(18px, 4vw, 21px)', color: '#E8E8F2', marginBottom: '4px' }}>Arman Khan</p>
+                    <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(18px, 4vw, 21px)', color: '#E8E8F2', marginBottom: '4px' }}>Arman Khan</p>
                     <p style={{ fontSize: '12px', color: '#8B8BAE', marginBottom: '14px' }}>IT Student | Learning Frontend & Backend</p>
                     <div style={{ display: 'flex', gap: '18px', flexWrap: 'wrap' }}>
                       {statsData.map((s) => (
@@ -466,7 +466,7 @@ const Home = () => {
                 </div>
 
                 <div className="block md:hidden" style={{ marginTop: '20px', textAlign: 'center' }}>
-                  <p style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '20px', color: '#E8E8F2', marginBottom: '4px' }}>Arman Khan</p>
+                  <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '20px', color: '#E8E8F2', marginBottom: '4px' }}>Arman Khan</p>
                   <p style={{ fontSize: '12px', color: '#8B8BAE', marginBottom: '14px' }}>IT Student | Learning Frontend & Backend</p>
                   <div style={{ display: 'flex', justifyContent: 'center', gap: '18px' }}>
                     {statsData.map((s) => (
@@ -518,7 +518,7 @@ const Home = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={viewport}>
             <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4F8EF7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '10px' }}>What I do</p>
-            <h2 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 'clamp(28px, 4vw, 42px)', color: '#E8E8F2', marginBottom: '52px' }}>
+            <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(28px, 4vw, 42px)', color: '#E8E8F2', marginBottom: '52px' }}>
               Skills and expertise
             </h2>
           </motion.div>
@@ -538,7 +538,7 @@ const Home = () => {
                 <div style={{ width: '46px', height: '46px', borderRadius: '13px', background: `${s.color}18`, border: `1px solid ${s.color}30`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
                   <s.icon size={20} style={{ color: s.color }} />
                 </div>
-                <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '15px', color: '#E8E8F2', marginBottom: '8px' }}>{s.title}</h3>
+                <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '15px', color: '#E8E8F2', marginBottom: '8px' }}>{s.title}</h3>
                 <p style={{ fontSize: '13px', color: '#8B8BAE', lineHeight: 1.65 }}>{s.desc}</p>
 
                 <motion.div
@@ -568,7 +568,7 @@ const Home = () => {
             <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '52px', flexWrap: 'wrap', gap: '12px' }}>
               <div>
                 <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4F8EF7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '10px' }}>Featured work</p>
-                <h2 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 'clamp(28px, 4vw, 42px)', color: '#E8E8F2' }}>Things I have built</h2>
+                <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(28px, 4vw, 42px)', color: '#E8E8F2' }}>Things I have built</h2>
               </div>
               <Link to="/projects" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '13px', color: '#4F8EF7', textDecoration: 'none' }}>
                 All projects <ArrowRight size={13} />
@@ -595,7 +595,7 @@ const Home = () => {
                   </div>
                 </div>
 
-                <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '18px', color: '#E8E8F2', marginBottom: '10px', lineHeight: 1.3 }}>{p.title}</h3>
+                <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '18px', color: '#E8E8F2', marginBottom: '10px', lineHeight: 1.3 }}>{p.title}</h3>
                 <p style={{ fontSize: '13.5px', color: '#8B8BAE', lineHeight: 1.75, marginBottom: '20px', flex: 1 }}>{p.description}</p>
 
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '20px' }}>
@@ -642,7 +642,7 @@ const Home = () => {
               <div style={{ position: 'absolute', top: 0, left: '20%', right: '20%', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(79,142,247,0.7), transparent)' }} />
 
               <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4F8EF7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '16px', position: 'relative' }}>Let us work together</p>
-              <h2 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: 'clamp(32px, 5vw, 56px)', color: '#E8E8F2', letterSpacing: '-0.02em', lineHeight: 1.12, marginBottom: '16px', position: 'relative' }}>
+              <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: 'clamp(32px, 5vw, 56px)', color: '#E8E8F2', letterSpacing: '-0.02em', lineHeight: 1.12, marginBottom: '16px', position: 'relative' }}>
                 Have a project in mind?
               </h2>
               <p style={{ fontSize: '15.5px', color: '#8B8BAE', maxWidth: '450px', margin: '0 auto 36px', lineHeight: 1.75, position: 'relative' }}>
