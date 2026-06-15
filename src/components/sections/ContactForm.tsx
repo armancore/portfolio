@@ -10,9 +10,8 @@ const inputClass =
 
 const errorClass = 'text-red-400 text-xs mt-1';
 
-const ContactForm = () => {
-  const [state, handleSubmit] = useForm(FORMSPREE_FORM_ID);
-  const isConfigured = FORMSPREE_FORM_ID.length > 0;
+const ContactFormFields = ({ formId }: { formId: string }) => {
+  const [state, handleSubmit] = useForm(formId);
 
   if (state.succeeded) {
     return (
@@ -101,7 +100,7 @@ const ContactForm = () => {
 
           <button
             type="submit"
-            disabled={state.submitting || !isConfigured}
+            disabled={state.submitting}
             className="w-full flex items-center justify-center gap-2 py-3.5 bg-accent text-white rounded-xl font-medium text-sm hover:bg-accent/90 hover:shadow-[0_0_0_1px_rgba(255,255,255,0.1),0_12px_30px_rgba(79,142,247,0.35)] hover-glow-crisp transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {state.submitting ? (
@@ -121,16 +120,28 @@ const ContactForm = () => {
             Typical response time: within 24 hours
           </p>
 
-          {!isConfigured && (
-            <p className="text-red-400 text-xs text-center mt-3">
-              Contact form is not configured.
-            </p>
-          )}
           <ValidationError errors={state.errors} className="text-red-400 text-xs text-center mt-3" />
         </form>
       </div>
     </RevealWrapper>
   );
+};
+
+const ContactForm = () => {
+  if (!FORMSPREE_FORM_ID) {
+    return (
+      <RevealWrapper delay={100}>
+        <div className="bg-bg-secondary border border-[var(--border)] rounded-2xl p-6 lg:p-8">
+          <h2 className="font-display text-xl font-bold text-text-primary mb-6">Send a message</h2>
+          <p className="text-text-muted text-sm text-center py-8">
+            Contact form is not configured.
+          </p>
+        </div>
+      </RevealWrapper>
+    );
+  }
+
+  return <ContactFormFields formId={FORMSPREE_FORM_ID} />;
 };
 
 export default ContactForm;
