@@ -63,7 +63,7 @@ const Contact = () => {
             Contact
           </motion.p>
           <motion.div variants={blurIn} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '16px', marginBottom: '16px' }}>
-            <h1 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: 'clamp(44px, 7vw, 78px)', color: '#E8E8F2', letterSpacing: '-0.035em', lineHeight: 1.05 }}>
+            <h1 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: 'clamp(44px, 7vw, 78px)', color: '#E8E8F2', letterSpacing: '-0.035em', lineHeight: 1.05 }}>
               Let&apos;s Connect
             </h1>
             <motion.div
@@ -91,7 +91,7 @@ const Contact = () => {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))', gap: '44px' }}>
           <div>
             <RevealWrapper>
-              <h2 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '23px', color: '#E8E8F2', marginBottom: '10px' }}>Get in touch</h2>
+              <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '23px', color: '#E8E8F2', marginBottom: '10px' }}>Get in touch</h2>
               <p style={{ fontSize: '14.5px', color: '#8B8BAE', lineHeight: 1.9, marginBottom: '32px' }}>
                 {PERSONAL_INFO.bio[2]}
               </p>

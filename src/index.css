@@ -1,7 +1,19 @@
 @import "tailwindcss";
-@import '@fontsource-variable/syne';
+@import '@fontsource/poppins/600.css';
+@import '@fontsource/poppins/700.css';
+@import '@fontsource/poppins/800.css';
+@import '@fontsource/plus-jakarta-sans/300.css';
+@import '@fontsource/plus-jakarta-sans/400.css';
+@import '@fontsource/plus-jakarta-sans/500.css';
+@import '@fontsource/plus-jakarta-sans/600.css';
+@import '@fontsource/plus-jakarta-sans/700.css';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
+@import '@fontsource/jetbrains-mono/600.css';
 
 @theme {
+  --font-display: 'Poppins', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
   --color-bg-primary: #060912;
   --color-bg-secondary: #0b1220;
   --color-bg-tertiary: #111a2d;

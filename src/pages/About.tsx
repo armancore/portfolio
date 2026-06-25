@@ -77,7 +77,7 @@ const About = () => {
             <motion.p variants={fadeUp} style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4F8EF7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '14px' }}>
               Who I am
             </motion.p>
-            <motion.h1 variants={blurIn} style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: 'clamp(48px, 7.6vw, 80px)', color: '#E8E8F2', letterSpacing: '-0.035em', lineHeight: 1.0, marginBottom: '20px' }}>
+            <motion.h1 variants={blurIn} style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: 'clamp(48px, 7.6vw, 80px)', color: '#E8E8F2', letterSpacing: '-0.035em', lineHeight: 1.0, marginBottom: '20px' }}>
               About Me
             </motion.h1>
             <motion.p variants={fadeUp} style={{ fontSize: 'clamp(15px, 3.8vw, 17px)', color: '#9AA8C7', maxWidth: '520px', lineHeight: 1.85, marginBottom: '28px' }}>
@@ -119,11 +119,11 @@ const About = () => {
                     />
                   ) : (
                     <div style={{ width: '60px', height: '60px', borderRadius: '14px', background: 'linear-gradient(135deg, #4F8EF7, #7C5CFC)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                      <span style={{ fontFamily: "'Syne', sans-serif", fontSize: '18px', fontWeight: 800, color: '#fff' }}>AK</span>
+                      <span style={{ fontFamily: "'Poppins', sans-serif", fontSize: '18px', fontWeight: 800, color: '#fff' }}>AK</span>
                     </div>
                   )}
                   <div>
-                    <p style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '16px', color: '#E8E8F2', marginBottom: '3px' }}>Arman Khan</p>
+                    <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '16px', color: '#E8E8F2', marginBottom: '3px' }}>Arman Khan</p>
                     <p style={{ fontSize: '12px', color: '#8B8BAE', marginBottom: '8px' }}>IT Student | Learning Frontend & Backend</p>
                     <motion.div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '3px 9px', background: 'rgba(22,163,74,0.08)', border: '1px solid rgba(22,163,74,0.1)', borderRadius: '20px' }}>
                       <motion.span
@@ -148,7 +148,7 @@ const About = () => {
           <div style={{ gridColumn: 'span 12' }} className="lg:!col-span-7">
             <RevealWrapper>
               <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4F8EF7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '10px' }}>My story</p>
-              <h2 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 'clamp(22px, 3vw, 32px)', color: '#E8E8F2', marginBottom: '30px' }}>
+              <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(22px, 3vw, 32px)', color: '#E8E8F2', marginBottom: '30px' }}>
                 Background and Motivation
               </h2>
             </RevealWrapper>
@@ -177,7 +177,7 @@ const About = () => {
                       style={{ borderRadius: '16px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: '20px', transition: 'border-color 0.25s, box-shadow 0.25s' }}
                     >
                       <span style={{ fontSize: '24px', display: 'block', marginBottom: '10px' }}>{v.icon}</span>
-                      <p style={{ fontFamily: "'Syne', sans-serif", fontWeight: 600, fontSize: '13px', color: '#E8E8F2', marginBottom: '5px' }}>{v.title}</p>
+                      <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: '13px', color: '#E8E8F2', marginBottom: '5px' }}>{v.title}</p>
                       <p style={{ fontSize: '12px', color: '#6B6B8E', lineHeight: 1.55 }}>{v.desc}</p>
                     </motion.div>
                   </ScrollReveal>
@@ -208,13 +208,13 @@ const About = () => {
                     />
                   ) : (
                     <div style={{ width: '100%', aspectRatio: '3/4', background: 'linear-gradient(160deg, #1a2236 0%, #0d1117 50%, #161b27 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <span style={{ fontFamily: "'Syne', sans-serif", fontSize: '80px', fontWeight: 800, background: 'linear-gradient(135deg, #4F8EF7, #7C5CFC)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>AK</span>
+                      <span style={{ fontFamily: "'Poppins', sans-serif", fontSize: '80px', fontWeight: 800, background: 'linear-gradient(135deg, #4F8EF7, #7C5CFC)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>AK</span>
                     </div>
                   )}
 
                   <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '42%', background: 'linear-gradient(to top, rgba(8,11,20,0.95) 0%, transparent 100%)', zIndex: 1 }} />
                   <div style={{ position: 'absolute', bottom: '20px', left: '20px', right: '20px', zIndex: 2 }}>
-                    <p style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '19px', color: '#E8E8F2', marginBottom: '3px' }}>Arman Khan</p>
+                    <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '19px', color: '#E8E8F2', marginBottom: '3px' }}>Arman Khan</p>
                     <p style={{ fontSize: '12px', color: '#8B8BAE' }}>IT Student | Learning Frontend & Backend | Kathmandu</p>
                   </div>
 
@@ -269,7 +269,7 @@ const About = () => {
         <RevealWrapper>
           <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4F8EF7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '10px' }}>Technical skills</p>
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '44px', flexWrap: 'wrap', gap: '12px' }}>
-            <h2 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 'clamp(26px, 4vw, 40px)', color: '#E8E8F2' }}>Technical Expertise</h2>
+            <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(26px, 4vw, 40px)', color: '#E8E8F2' }}>Technical Expertise</h2>
             <p style={{ fontSize: '13px', color: '#6B6B8E', maxWidth: '280px', lineHeight: 1.6 }} className="lg:text-right">
               Technologies I've worked with professionally and in personal projects.
             </p>
@@ -290,7 +290,7 @@ const About = () => {
                     <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: ac.bg, border: `1px solid ${ac.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '19px', flexShrink: 0 }}>
                       {skill.icon}
                     </div>
-                    <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '14.5px', color: ac.text }}>{skill.title}</h3>
+                    <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '14.5px', color: ac.text }}>{skill.title}</h3>
                   </div>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
                     {skill.tags.map((t) => (
@@ -310,7 +310,7 @@ const About = () => {
         <RevealWrapper>
           <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4F8EF7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '10px' }}>Journey</p>
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '56px', flexWrap: 'wrap', gap: '12px' }}>
-            <h2 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 'clamp(26px, 4vw, 40px)', color: '#E8E8F2' }}>Experience and Education</h2>
+            <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(26px, 4vw, 40px)', color: '#E8E8F2' }}>Experience and Education</h2>
             <p style={{ fontSize: '13px', color: '#6B6B8E', maxWidth: '260px', lineHeight: 1.6 }} className="lg:text-right">
               My path through academia and hands-on development.
             </p>
@@ -348,7 +348,7 @@ const About = () => {
 
                     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', justifyContent: 'space-between', gap: '10px', marginBottom: '12px' }}>
                       <div>
-                        <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '16.5px', color: '#E8E8F2', marginBottom: '4px' }}>{item.title}</h3>
+                        <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '16.5px', color: '#E8E8F2', marginBottom: '4px' }}>{item.title}</h3>
                         <p style={{ fontSize: '13px', color: '#8B8BAE', display: 'flex', alignItems: 'center', gap: '5px' }}>
                           <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#4F8EF7', flexShrink: 0 }} />
                           {item.org}

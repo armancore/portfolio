@@ -4,6 +4,48 @@ import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import CustomCursor from './components/ui/CustomCursor';
+
+class ErrorBoundary extends React.Component<
+  { children: React.ReactNode },
+  { hasError: boolean }
+> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div
+          style={{
+            minHeight: '60vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#9aa8c7',
+            fontFamily: "'Plus Jakarta Sans', sans-serif",
+            fontSize: '14px',
+            textAlign: 'center',
+            padding: '48px 24px',
+          }}
+        >
+          <div>
+            <p style={{ color: '#eef4ff', fontWeight: 500, marginBottom: '8px' }}>
+              Something went wrong.
+            </p>
+            <p>Please refresh the page or try again later.</p>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
 const Projects = lazy(() => import('./pages/Projects'));
@@ -114,37 +156,39 @@ const AppContent = () => {
       <div style={{ position: 'relative', zIndex: 2 }}>
         <Navbar />
         <main>
-          {performanceMode ? (
-            <Suspense fallback={<RouteFallback />}>
-              <Routes location={location}>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/projects" element={<Projects />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
-          ) : (
-            <AnimatePresence mode="wait" initial>
+          <ErrorBoundary>
+            {performanceMode ? (
               <Suspense fallback={<RouteFallback />}>
-                <motion.div
-                  key={location.pathname}
-                  initial={{ opacity: 0, y: 28, filter: 'blur(4px)' }}
-                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                  exit={{ opacity: 0, y: -16, filter: 'blur(2px)' }}
-                  transition={{ duration: 0.36, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <Routes location={location}>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/about" element={<About />} />
-                    <Route path="/projects" element={<Projects />} />
-                    <Route path="/contact" element={<Contact />} />
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                </motion.div>
+                <Routes location={location}>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/projects" element={<Projects />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
               </Suspense>
-            </AnimatePresence>
-          )}
+            ) : (
+              <AnimatePresence mode="wait" initial>
+                <Suspense fallback={<RouteFallback />}>
+                  <motion.div
+                    key={location.pathname}
+                    initial={{ opacity: 0, y: 28, filter: 'blur(4px)' }}
+                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                    exit={{ opacity: 0, y: -16, filter: 'blur(2px)' }}
+                    transition={{ duration: 0.36, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    <Routes location={location}>
+                      <Route path="/" element={<Home />} />
+                      <Route path="/about" element={<About />} />
+                      <Route path="/projects" element={<Projects />} />
+                      <Route path="/contact" element={<Contact />} />
+                      <Route path="*" element={<NotFound />} />
+                    </Routes>
+                  </motion.div>
+                </Suspense>
+              </AnimatePresence>
+            )}
+          </ErrorBoundary>
         </main>
         <Footer />
       </div>
