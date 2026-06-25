@@ -44,10 +44,10 @@ const statsData = [
 ];
 
 const bentoSkills = [
-  { icon: Layers, title: 'Frontend', desc: 'React, Tailwind, Vite pixel-perfect UIs', color: '#4F8EF7', glow: 'rgba(79,142,247,0.15)' },
-  { icon: Cpu, title: 'Learning Backend', desc: 'Node.js, Express, Prisma, PostgreSQL', color: '#64748B', glow: 'rgba(100,116,139,0.15)' },
-  { icon: Globe, title: 'Networking', desc: 'TCP/IP, DNS, Linux, Cybersecurity', color: '#64748B', glow: 'rgba(100,116,139,0.15)' },
-  { icon: Code2, title: 'Languages', desc: 'C++, Java, Python, JavaScript', color: '#F97316', glow: 'rgba(249,115,22,0.15)' },
+  { icon: Layers, title: 'Frontend', desc: 'React, Tailwind, Vite pixel-perfect UIs', color: '#2E8FFF', glow: 'rgba(46,143,255,0.15)' },
+  { icon: Cpu, title: 'Learning Backend', desc: 'Node.js, Express, Prisma, PostgreSQL', color: '#2E8FFF', glow: 'rgba(46,143,255,0.15)' },
+  { icon: Globe, title: 'Networking', desc: 'TCP/IP, DNS, Linux, Cybersecurity', color: '#2E8FFF', glow: 'rgba(46,143,255,0.15)' },
+  { icon: Code2, title: 'Languages', desc: 'C++, Java, Python, JavaScript', color: '#2E8FFF', glow: 'rgba(46,143,255,0.15)' },
 ];
 
 const Particle = ({ style, index, active }) => (
@@ -86,11 +86,11 @@ const StatDisplay = ({
 
   return (
     <div ref={ref as React.RefObject<HTMLDivElement>} style={{ textAlign: 'center' }}>
-      <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize, color: '#E8E8F2' }}>
+      <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize, color: '#ECEEF2' }}>
         {reduceAnimations ? numericValue : count}
         {suffix}
       </p>
-      <p style={{ fontSize: '9px', color: '#4A4A6A', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.07em' }}>{label}</p>
+      <p style={{ fontSize: '9px', color: '#5C626E', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.07em' }}>{label}</p>
     </div>
   );
 };
@@ -204,7 +204,7 @@ const Home = () => {
           width: i % 3 === 0 ? '3px' : '2px',
           height: i % 3 === 0 ? '3px' : '2px',
           borderRadius: '50%',
-          background: i % 2 === 0 ? '#4F8EF7' : '#64748B',
+          background: i % 2 === 0 ? '#2E8FFF' : '#2E8FFF',
           left: `${10 + i * 7.5}%`,
           top: `${15 + ((i * 5.3) % 70)}%`,
           pointerEvents: 'none',
@@ -238,31 +238,31 @@ const Home = () => {
             inset: 0,
             zIndex: 0,
             backgroundImage:
-              'linear-gradient(rgba(79,142,247,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(79,142,247,0.04) 1px, transparent 1px)',
+              'linear-gradient(rgba(46,143,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(46,143,255,0.04) 1px, transparent 1px)',
             backgroundSize: '60px 60px',
             y: reduceAnimations ? 0 : heroY,
           }}
         />
 
-        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '200px', zIndex: 1, background: 'linear-gradient(to bottom, #080B14, transparent)' }} />
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '200px', zIndex: 1, background: 'linear-gradient(to top, #080B14, transparent)' }} />
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '200px', zIndex: 1, background: 'linear-gradient(to bottom, #0A0B0D, transparent)' }} />
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '200px', zIndex: 1, background: 'linear-gradient(to top, #0A0B0D, transparent)' }} />
 
         {!reduceAnimations && (
           <>
             <motion.div
               animate={ambientMotion ? { scale: [1, 1.15, 1], opacity: [0.5, 0.9, 0.5] } : undefined}
               transition={ambientMotion ? { duration: 8, repeat: Infinity, ease: 'easeInOut' } : undefined}
-              style={{ position: 'absolute', top: '15%', right: '8%', width: '520px', height: '520px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(79,142,247,0.12) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }}
+              style={{ position: 'absolute', top: '15%', right: '8%', width: '520px', height: '520px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(46,143,255,0.12) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }}
             />
             <motion.div
               animate={ambientMotion ? { scale: [1, 1.1, 1], opacity: [0.4, 0.8, 0.4] } : undefined}
               transition={ambientMotion ? { duration: 11, repeat: Infinity, ease: 'easeInOut', delay: 2.5 } : undefined}
-              style={{ position: 'absolute', bottom: '15%', left: '3%', width: '380px', height: '380px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(124,92,252,0.10) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }}
+              style={{ position: 'absolute', bottom: '15%', left: '3%', width: '380px', height: '380px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(46,143,255,0.10) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }}
             />
             <motion.div
               animate={ambientMotion ? { scale: [1, 1.08, 1], opacity: [0.3, 0.6, 0.3] } : undefined}
               transition={ambientMotion ? { duration: 9, repeat: Infinity, ease: 'easeInOut', delay: 1.5 } : undefined}
-              style={{ position: 'absolute', top: '50%', left: '40%', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(100,116,139,0.03) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }}
+              style={{ position: 'absolute', top: '50%', left: '40%', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(46,143,255,0.03) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }}
             />
           </>
         )}
@@ -282,37 +282,37 @@ const Home = () => {
               <motion.div variants={heroVariants} style={{ marginBottom: '28px' }}>
                 <motion.div
                   whileHover={{ scale: 1.03 }}
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px 6px 10px', background: 'rgba(79,142,247,0.07)', border: '1px solid rgba(79,142,247,0.25)', borderRadius: '100px', backdropFilter: 'blur(8px)' }}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px 6px 10px', background: 'rgba(46,143,255,0.07)', border: '1px solid rgba(46,143,255,0.25)', borderRadius: '100px', backdropFilter: 'blur(8px)' }}
                 >
                   <motion.span
                     animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
-                    style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#4F8EF7', boxShadow: '0 0 0 3px rgba(79,142,247,0.2)', flexShrink: 0, display: 'inline-block' }}
+                    style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#2E8FFF', boxShadow: '0 0 0 3px rgba(46,143,255,0.2)', flexShrink: 0, display: 'inline-block' }}
                   />
-                  <span style={{ color: '#A9C6FF', fontSize: '11px', fontFamily: "'JetBrains Mono', monospace", letterSpacing: '0.05em' }}>
+                  <span style={{ color: '#7DB8FF', fontSize: '11px', fontFamily: "'JetBrains Mono', monospace", letterSpacing: '0.05em' }}>
                     building polished frontend and learning backend
                   </span>
-                  <Sparkles size={10} style={{ color: '#4F8EF7', flexShrink: 0 }} />
+                  <Sparkles size={10} style={{ color: '#2E8FFF', flexShrink: 0 }} />
                 </motion.div>
               </motion.div>
 
               <motion.h1 variants={blurIn} style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 800, lineHeight: 0.96, letterSpacing: '-0.035em', marginBottom: '4px' }}>
-                <motion.span style={{ fontSize: 'clamp(42px, 12vw, 90px)', color: '#E8E8F2', display: 'block' }}>
+                <motion.span style={{ fontSize: 'clamp(42px, 12vw, 90px)', color: '#ECEEF2', display: 'block' }}>
                   <SplitTextReveal text="Arman" delay={0} />
                 </motion.span>
-                <motion.span style={{ fontSize: 'clamp(42px, 12vw, 90px)', display: 'block', background: 'linear-gradient(125deg, #4F8EF7 15%, #7C5CFC 55%, #64748B 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                <motion.span style={{ fontSize: 'clamp(42px, 12vw, 90px)', display: 'block', color: '#2E8FFF' }}>
                   <SplitTextReveal text="Khan." delay={0.22} />
                 </motion.span>
               </motion.h1>
 
               <motion.div variants={heroVariants} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '16px', marginBottom: '18px' }}>
-                <div style={{ width: '28px', height: '1px', background: 'rgba(79,142,247,0.6)' }} />
-                <p style={{ fontSize: 'clamp(15px, 3.5vw, 17px)', color: '#8B8BAE', fontWeight: 300, letterSpacing: '0.01em' }}>
+                <div style={{ width: '28px', height: '1px', background: 'rgba(46,143,255,0.6)' }} />
+                <p style={{ fontSize: 'clamp(15px, 3.5vw, 17px)', color: '#9BA1AD', fontWeight: 300, letterSpacing: '0.01em' }}>
                   {subtitleDisplayed}
                 </p>
               </motion.div>
 
-              <motion.p variants={heroVariants} style={{ fontSize: '14.5px', color: '#6B6B8E', lineHeight: 1.85, maxWidth: '500px', marginBottom: '32px' }}>
+              <motion.p variants={heroVariants} style={{ fontSize: '14.5px', color: '#9BA1AD', lineHeight: 1.85, maxWidth: '500px', marginBottom: '32px' }}>
                 {PERSONAL_INFO.bio[0]}
               </motion.p>
 
@@ -325,7 +325,7 @@ const Home = () => {
                 >
                   <Link
                     to="/projects"
-                    style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', borderRadius: '12px', background: 'linear-gradient(135deg, #4F8EF7, #7C5CFC)', padding: '13px 24px', fontSize: '14px', fontWeight: 600, color: 'white', textDecoration: 'none', boxShadow: '0 8px 32px rgba(79,142,247,0.4), 0 0 0 1px rgba(79,142,247,0.1)' }}
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', borderRadius: '12px', background: 'linear-gradient(135deg, #2E8FFF, #1E6FD9)', padding: '13px 24px', fontSize: '14px', fontWeight: 600, color: 'white', textDecoration: 'none', boxShadow: '0 8px 32px rgba(46,143,255,0.4), 0 0 0 1px rgba(46,143,255,0.1)' }}
                   >
                     View Projects <ArrowRight size={15} />
                   </Link>
@@ -338,7 +338,7 @@ const Home = () => {
                 >
                   <Link
                     to="/contact"
-                    style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.03)', padding: '13px 24px', fontSize: '14px', fontWeight: 500, color: '#E8E8F2', textDecoration: 'none', backdropFilter: 'blur(8px)' }}
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.03)', padding: '13px 24px', fontSize: '14px', fontWeight: 500, color: '#ECEEF2', textDecoration: 'none', backdropFilter: 'blur(8px)' }}
                   >
                     Contact Me
                   </Link>
@@ -351,7 +351,7 @@ const Home = () => {
                     href: 'https://github.com/armancore',
                     icon: Github,
                     label: 'GitHub',
-                    color: '#E8E8F2',
+                    color: '#ECEEF2',
                     border: 'rgba(255,255,255,0.16)',
                     bg: 'rgba(255,255,255,0.06)',
                     glow: '0 0 0 1px rgba(255,255,255,0.1), 0 12px 28px rgba(255,255,255,0.1)',
@@ -369,10 +369,10 @@ const Home = () => {
                     href: 'https://www.facebook.com/techiee.arman',
                     icon: Facebook,
                     label: 'Facebook',
-                    color: '#7C5CFC',
-                    border: 'rgba(124,92,252,0.3)',
-                    bg: 'rgba(124,92,252,0.12)',
-                    glow: '0 0 0 1px rgba(124,92,252,0.15), 0 12px 28px rgba(124,92,252,0.34)',
+                    color: '#1E6FD9',
+                    border: 'rgba(46,143,255,0.3)',
+                    bg: 'rgba(46,143,255,0.12)',
+                    glow: '0 0 0 1px rgba(46,143,255,0.15), 0 12px 28px rgba(46,143,255,0.34)',
                   },
                   {
                     href: 'https://www.instagram.com/techiee.arman',
@@ -400,7 +400,7 @@ const Home = () => {
                 <motion.span
                   initial={reduceAnimations ? false : { opacity: 0 }}
                   animate={reduceAnimations ? undefined : { opacity: 1, transition: { delay: 1.2 } }}
-                  style={{ color: '#3A3A5C', fontSize: '12px', marginLeft: '4px' }}
+                  style={{ color: '#5C626E', fontSize: '12px', marginLeft: '4px' }}
                 >
                   Based in Kathmandu, Nepal
                 </motion.span>
@@ -418,16 +418,16 @@ const Home = () => {
                 <motion.div
                   animate={{ opacity: [0.3, 0.7, 0.3], scale: [0.96, 1.03, 0.96] }}
                   transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-                  style={{ position: 'absolute', inset: '-18px', borderRadius: '40px', background: 'radial-gradient(ellipse at center, rgba(79,142,247,0.13) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }}
+                  style={{ position: 'absolute', inset: '-18px', borderRadius: '40px', background: 'radial-gradient(ellipse at center, rgba(46,143,255,0.13) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }}
                 />
                 <motion.div
                   animate={{ opacity: [0.5, 1, 0.5] }}
                   transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                  style={{ position: 'absolute', inset: 0, borderRadius: '30px', background: 'transparent', border: '1px solid rgba(79,142,247,0.2)', zIndex: 3, pointerEvents: 'none' }}
+                  style={{ position: 'absolute', inset: 0, borderRadius: '30px', background: 'transparent', border: '1px solid rgba(46,143,255,0.2)', zIndex: 3, pointerEvents: 'none' }}
                 />
 
                 <div style={{ position: 'relative', zIndex: 1, borderRadius: '28px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.09)', boxShadow: '0 32px 80px rgba(0,0,0,0.4)', width: '100%', maxWidth: '385px', margin: '0 auto' }}>
-                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(79,142,247,0.9), rgba(124,92,252,0.9), transparent)', zIndex: 2 }} />
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(46,143,255,0.9), rgba(46,143,255,0.9), transparent)', zIndex: 2 }} />
 
                   <motion.img
                     className="hero-profile-image"
@@ -445,11 +445,11 @@ const Home = () => {
                     style={{ width: '100%', height: 'min(560px, 82vw)', minHeight: '360px', objectFit: 'cover', display: 'block' }}
                   />
 
-                  <div className="hidden md:block" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '50%', background: 'linear-gradient(to top, rgba(8,11,20,0.97) 0%, rgba(8,11,20,0.65) 50%, transparent 100%)', zIndex: 2 }} />
+                  <div className="hidden md:block" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '50%', background: 'linear-gradient(to top, rgba(10,11,13,0.97) 0%, rgba(10,11,13,0.65) 50%, transparent 100%)', zIndex: 2 }} />
 
                   <div className="hidden md:block" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: 'clamp(20px, 4vw, 30px)', zIndex: 3 }}>
-                    <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(18px, 4vw, 21px)', color: '#E8E8F2', marginBottom: '4px' }}>Arman Khan</p>
-                    <p style={{ fontSize: '12px', color: '#8B8BAE', marginBottom: '14px' }}>IT Student | Learning Frontend & Backend</p>
+                    <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(18px, 4vw, 21px)', color: '#ECEEF2', marginBottom: '4px' }}>Arman Khan</p>
+                    <p style={{ fontSize: '12px', color: '#9BA1AD', marginBottom: '14px' }}>IT Student | Learning Frontend & Backend</p>
                     <div style={{ display: 'flex', gap: '18px', flexWrap: 'wrap' }}>
                       {statsData.map((s) => (
                         <StatDisplay
@@ -466,8 +466,8 @@ const Home = () => {
                 </div>
 
                 <div className="block md:hidden" style={{ marginTop: '20px', textAlign: 'center' }}>
-                  <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '20px', color: '#E8E8F2', marginBottom: '4px' }}>Arman Khan</p>
-                  <p style={{ fontSize: '12px', color: '#8B8BAE', marginBottom: '14px' }}>IT Student | Learning Frontend & Backend</p>
+                  <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '20px', color: '#ECEEF2', marginBottom: '4px' }}>Arman Khan</p>
+                  <p style={{ fontSize: '12px', color: '#9BA1AD', marginBottom: '14px' }}>IT Student | Learning Frontend & Backend</p>
                   <div style={{ display: 'flex', justifyContent: 'center', gap: '18px' }}>
                     {statsData.map((s) => (
                       <StatDisplay
@@ -485,7 +485,7 @@ const Home = () => {
                     initial={reduceAnimations ? false : { opacity: 0, scale: 0.8 }}
                     animate={reduceAnimations ? undefined : { opacity: 1, scale: 1 }}
                     transition={reduceAnimations ? undefined : { delay: 1.1, type: 'spring', stiffness: 200 }}
-                    style={{ position: 'absolute', top: '16px', right: '16px', zIndex: 4, display: 'flex', alignItems: 'center', gap: '5px', background: 'rgba(8,11,20,0.8)', border: '1px solid rgba(22,163,74,0.35)', borderRadius: '20px', padding: '5px 12px', backdropFilter: 'blur(12px)' }}
+                    style={{ position: 'absolute', top: '16px', right: '16px', zIndex: 4, display: 'flex', alignItems: 'center', gap: '5px', background: 'rgba(10,11,13,0.8)', border: '1px solid rgba(22,163,74,0.35)', borderRadius: '20px', padding: '5px 12px', backdropFilter: 'blur(12px)' }}
                   >
                     <motion.span
                       animate={{ scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
@@ -509,7 +509,7 @@ const Home = () => {
             animate={reduceAnimations ? undefined : { y: [0, 6, 0] }}
             transition={reduceAnimations ? undefined : { duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
           >
-            <ChevronDown size={18} style={{ color: '#3A3A5C' }} />
+            <ChevronDown size={18} style={{ color: '#5C626E' }} />
           </motion.div>
         </motion.div>
       </section>
@@ -517,8 +517,8 @@ const Home = () => {
       <section style={{ padding: '88px 0', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={viewport}>
-            <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4F8EF7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '10px' }}>What I do</p>
-            <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(28px, 4vw, 42px)', color: '#E8E8F2', marginBottom: '52px' }}>
+            <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#2E8FFF', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '10px' }}>What I do</p>
+            <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(28px, 4vw, 42px)', color: '#ECEEF2', marginBottom: '52px' }}>
               Skills and expertise
             </h2>
           </motion.div>
@@ -530,7 +530,7 @@ const Home = () => {
                 variants={cardReveal}
                 whileHover={{ y: -8, boxShadow: `0 0 0 1px ${s.color}66, 0 24px 50px ${s.glow}`, borderColor: `${s.color}75`, filter: 'saturate(1.12)' }}
                 transition={{ duration: 0.15, ease: 'easeOut' }}
-                style={{ position: 'relative', cursor: 'default', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.08)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: '28px', transition: 'border-color 0.15s ease-out, box-shadow 0.15s ease-out, filter 0.15s ease-out' }}
+                style={{ position: 'relative', cursor: 'default', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.08)', background: 'linear-gradient(145deg, #1A1D23, #111317)', padding: '28px', transition: 'border-color 0.15s ease-out, box-shadow 0.15s ease-out, filter 0.15s ease-out' }}
               >
                 <div style={{ position: 'absolute', top: 0, right: 0, width: '100px', height: '100px', background: `radial-gradient(circle at top right, ${s.color}18, transparent 65%)`, pointerEvents: 'none' }} />
                 <div style={{ position: 'absolute', bottom: 0, left: 0, width: '80px', height: '80px', background: `radial-gradient(circle at bottom left, ${s.color}0a, transparent 65%)`, pointerEvents: 'none' }} />
@@ -538,8 +538,8 @@ const Home = () => {
                 <div style={{ width: '46px', height: '46px', borderRadius: '13px', background: `${s.color}18`, border: `1px solid ${s.color}30`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
                   <s.icon size={20} style={{ color: s.color }} />
                 </div>
-                <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '15px', color: '#E8E8F2', marginBottom: '8px' }}>{s.title}</h3>
-                <p style={{ fontSize: '13px', color: '#8B8BAE', lineHeight: 1.65 }}>{s.desc}</p>
+                <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '15px', color: '#ECEEF2', marginBottom: '8px' }}>{s.title}</h3>
+                <p style={{ fontSize: '13px', color: '#9BA1AD', lineHeight: 1.65 }}>{s.desc}</p>
 
                 <motion.div
                   initial={{ scaleX: 0 }}
@@ -554,7 +554,7 @@ const Home = () => {
 
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={viewport} style={{ textAlign: 'center', marginTop: '32px' }}>
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-              <Link to="/about" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.09)', padding: '10px 20px', fontSize: '13px', color: '#8B8BAE', textDecoration: 'none', background: 'rgba(255,255,255,0.02)' }}>
+              <Link to="/about" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.09)', padding: '10px 20px', fontSize: '13px', color: '#9BA1AD', textDecoration: 'none', background: 'rgba(255,255,255,0.02)' }}>
                 Full skills breakdown <ArrowRight size={13} />
               </Link>
             </motion.div>
@@ -567,10 +567,10 @@ const Home = () => {
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={viewport}>
             <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '52px', flexWrap: 'wrap', gap: '12px' }}>
               <div>
-                <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4F8EF7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '10px' }}>Featured work</p>
-                <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(28px, 4vw, 42px)', color: '#E8E8F2' }}>Things I have built</h2>
+                <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#2E8FFF', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '10px' }}>Featured work</p>
+                <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(28px, 4vw, 42px)', color: '#ECEEF2' }}>Things I have built</h2>
               </div>
-              <Link to="/projects" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '13px', color: '#4F8EF7', textDecoration: 'none' }}>
+              <Link to="/projects" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '13px', color: '#2E8FFF', textDecoration: 'none' }}>
                 All projects <ArrowRight size={13} />
               </Link>
             </div>
@@ -581,26 +581,26 @@ const Home = () => {
               <motion.div
                 key={p.id}
                 variants={cardReveal}
-                whileHover={{ y: -6, borderColor: 'rgba(79,142,247,0.42)', boxShadow: '0 0 0 1px rgba(79,142,247,0.09), 0 22px 50px rgba(79,142,247,0.09), 0 22px 50px rgba(0,0,0,0.36)', filter: 'saturate(1.1) brightness(1.05)' }}
+                whileHover={{ y: -6, borderColor: 'rgba(46,143,255,0.42)', boxShadow: '0 0 0 1px rgba(46,143,255,0.09), 0 22px 50px rgba(46,143,255,0.09), 0 22px 50px rgba(0,0,0,0.36)', filter: 'saturate(1.1) brightness(1.05)' }}
                 transition={{ duration: 0.15, ease: 'easeOut' }}
-                style={{ position: 'relative', display: 'flex', flexDirection: 'column', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.08)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: '30px', transition: 'border-color 0.15s ease-out, box-shadow 0.15s ease-out, filter 0.15s ease-out', cursor: 'default' }}
+                style={{ position: 'relative', display: 'flex', flexDirection: 'column', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.08)', background: 'linear-gradient(145deg, #1A1D23, #111317)', padding: '30px', transition: 'border-color 0.15s ease-out, box-shadow 0.15s ease-out, filter 0.15s ease-out', cursor: 'default' }}
               >
-                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(79,142,247,0.7), rgba(124,92,252,0.7), transparent)' }} />
+                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(46,143,255,0.7), rgba(46,143,255,0.7), transparent)' }} />
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
-                  <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', color: '#4A4A6A' }}>{p.num}</span>
+                  <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', color: '#5C626E' }}>{p.num}</span>
                   <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-end', gap: '6px' }}>
                     <span style={{ padding: '3px 10px', borderRadius: '6px', background: 'rgba(22,163,74,0.08)', border: '1px solid rgba(22,163,74,0.1)', fontSize: '10px', color: '#16A34A', fontFamily: "'JetBrains Mono', monospace" }}>{p.category}</span>
-                    {p.status ? <span style={{ padding: '3px 10px', borderRadius: '6px', background: 'rgba(249,115,22,0.1)', border: '1px solid rgba(249,115,22,0.22)', fontSize: '10px', color: '#F97316', fontFamily: "'JetBrains Mono', monospace" }}>{p.status}</span> : null}
+                    {p.status ? <span style={{ padding: '3px 10px', borderRadius: '6px', background: 'rgba(46,143,255,0.1)', border: '1px solid rgba(46,143,255,0.22)', fontSize: '10px', color: '#2E8FFF', fontFamily: "'JetBrains Mono', monospace" }}>{p.status}</span> : null}
                   </div>
                 </div>
 
-                <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '18px', color: '#E8E8F2', marginBottom: '10px', lineHeight: 1.3 }}>{p.title}</h3>
-                <p style={{ fontSize: '13.5px', color: '#8B8BAE', lineHeight: 1.75, marginBottom: '20px', flex: 1 }}>{p.description}</p>
+                <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '18px', color: '#ECEEF2', marginBottom: '10px', lineHeight: 1.3 }}>{p.title}</h3>
+                <p style={{ fontSize: '13.5px', color: '#9BA1AD', lineHeight: 1.75, marginBottom: '20px', flex: 1 }}>{p.description}</p>
 
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '20px' }}>
                   {p.tags.map((t) => (
-                    <span key={t.label} style={{ padding: '3px 9px', borderRadius: '6px', background: 'rgba(79,142,247,0.08)', border: '1px solid rgba(79,142,247,0.18)', fontSize: '10px', color: '#4F8EF7', fontFamily: "'JetBrains Mono', monospace" }}>{t.label}</span>
+                    <span key={t.label} style={{ padding: '3px 9px', borderRadius: '6px', background: 'rgba(46,143,255,0.08)', border: '1px solid rgba(46,143,255,0.18)', fontSize: '10px', color: '#2E8FFF', fontFamily: "'JetBrains Mono', monospace" }}>{t.label}</span>
                   ))}
                 </div>
 
@@ -610,11 +610,11 @@ const Home = () => {
                       Live Demo <ExternalLink size={11} />
                     </a>
                   ) : (
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', padding: '4px 10px', borderRadius: '6px', background: 'rgba(249,115,22,0.1)', border: '1px solid rgba(249,115,22,0.22)', fontSize: '11px', color: '#F97316', fontWeight: 600, fontFamily: "'JetBrains Mono', monospace" }}>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', padding: '4px 10px', borderRadius: '6px', background: 'rgba(46,143,255,0.1)', border: '1px solid rgba(46,143,255,0.22)', fontSize: '11px', color: '#2E8FFF', fontWeight: 600, fontFamily: "'JetBrains Mono', monospace" }}>
                       {p.status || 'In Progress'}
                     </span>
                   )}
-                  <a href={p.githubUrl} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '11px', color: '#4A4A6A', textDecoration: 'none' }}>
+                  <a href={p.githubUrl} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '11px', color: '#5C626E', textDecoration: 'none' }}>
                     <Github size={12} /> GitHub
                   </a>
                 </div>
@@ -627,25 +627,25 @@ const Home = () => {
       <section style={{ padding: '88px 0', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div variants={scaleIn} initial="hidden" whileInView="show" viewport={viewport}>
-            <div style={{ position: 'relative', background: 'linear-gradient(145deg, #0f1520, #0D1117)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '28px', padding: 'clamp(52px, 6vw, 88px)', textAlign: 'center', overflow: 'hidden' }}>
+            <div style={{ position: 'relative', background: 'linear-gradient(145deg, #1A1D23, #111317)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '28px', padding: 'clamp(52px, 6vw, 88px)', textAlign: 'center', overflow: 'hidden' }}>
               <motion.div
                 animate={{ scale: [1, 1.2, 1], opacity: [0.4, 0.8, 0.4] }}
                 transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 55% 45% at 50% 100%, rgba(79,142,247,0.1) 0%, transparent 60%)', pointerEvents: 'none' }}
+                style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 55% 45% at 50% 100%, rgba(46,143,255,0.1) 0%, transparent 60%)', pointerEvents: 'none' }}
               />
               <motion.div
                 animate={{ scale: [1, 1.15, 1], opacity: [0.3, 0.6, 0.3] }}
                 transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-                style={{ position: 'absolute', top: '-20%', right: '-10%', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(124,92,252,0.08) 0%, transparent 70%)', pointerEvents: 'none' }}
+                style={{ position: 'absolute', top: '-20%', right: '-10%', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(46,143,255,0.08) 0%, transparent 70%)', pointerEvents: 'none' }}
               />
 
-              <div style={{ position: 'absolute', top: 0, left: '20%', right: '20%', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(79,142,247,0.7), transparent)' }} />
+              <div style={{ position: 'absolute', top: 0, left: '20%', right: '20%', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(46,143,255,0.7), transparent)' }} />
 
-              <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4F8EF7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '16px', position: 'relative' }}>Let us work together</p>
-              <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: 'clamp(32px, 5vw, 56px)', color: '#E8E8F2', letterSpacing: '-0.02em', lineHeight: 1.12, marginBottom: '16px', position: 'relative' }}>
+              <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#2E8FFF', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '16px', position: 'relative' }}>Let us work together</p>
+              <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: 'clamp(32px, 5vw, 56px)', color: '#ECEEF2', letterSpacing: '-0.02em', lineHeight: 1.12, marginBottom: '16px', position: 'relative' }}>
                 Have a project in mind?
               </h2>
-              <p style={{ fontSize: '15.5px', color: '#8B8BAE', maxWidth: '450px', margin: '0 auto 36px', lineHeight: 1.75, position: 'relative' }}>
+              <p style={{ fontSize: '15.5px', color: '#9BA1AD', maxWidth: '450px', margin: '0 auto 36px', lineHeight: 1.75, position: 'relative' }}>
                 Open to internship and junior developer roles. Let us build something great together.
               </p>
 
@@ -653,14 +653,14 @@ const Home = () => {
                 href={`mailto:${PERSONAL_INFO.email}`}
                 whileHover={{ scale: 1.05, y: -3 }}
                 whileTap={{ scale: 0.97 }}
-                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', borderRadius: '13px', background: 'linear-gradient(135deg, #4F8EF7, #7C5CFC)', padding: '14px 28px', fontSize: '14.5px', fontWeight: 600, color: 'white', textDecoration: 'none', boxShadow: '0 12px 36px rgba(79,142,247,0.38)', position: 'relative' }}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', borderRadius: '13px', background: 'linear-gradient(135deg, #2E8FFF, #1E6FD9)', padding: '14px 28px', fontSize: '14.5px', fontWeight: 600, color: 'white', textDecoration: 'none', boxShadow: '0 12px 36px rgba(46,143,255,0.38)', position: 'relative' }}
               >
                 {PERSONAL_INFO.email}
               </motion.a>
 
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginTop: '20px', position: 'relative' }}>
                 <motion.span animate={{ scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }} transition={{ duration: 2, repeat: Infinity }} style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#16A34A', display: 'inline-block' }} />
-                <span style={{ fontSize: '12px', color: '#4A4A6A' }}>Responds within 24 hours</span>
+                <span style={{ fontSize: '12px', color: '#5C626E' }}>Responds within 24 hours</span>
               </div>
             </div>
           </motion.div>

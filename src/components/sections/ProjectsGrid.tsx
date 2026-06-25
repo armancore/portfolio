@@ -23,7 +23,7 @@ const ProjectsGrid = () => {
               onClick={() => setActiveFilter(cat)}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer ${
                 activeFilter === cat
-                  ? 'bg-accent text-white shadow-[0_4px_12px_rgba(79,142,247,0.15)]'
+                  ? 'bg-accent text-white shadow-[0_4px_12px_rgba(46,143,255,0.15)]'
                   : 'border border-[var(--border-hover)] text-text-secondary hover:text-text-primary hover:border-accent/40'
               }`}
             >

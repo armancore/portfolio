@@ -101,7 +101,7 @@ const ContactFormFields = ({ formId }: { formId: string }) => {
           <button
             type="submit"
             disabled={state.submitting}
-            className="w-full flex items-center justify-center gap-2 py-3.5 bg-accent text-white rounded-xl font-medium text-sm hover:bg-accent/90 hover:shadow-[0_0_0_1px_rgba(255,255,255,0.1),0_12px_30px_rgba(79,142,247,0.35)] hover-glow-crisp transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-full flex items-center justify-center gap-2 py-3.5 bg-accent text-white rounded-xl font-medium text-sm hover:bg-accent/90 hover:shadow-[0_0_0_1px_rgba(255,255,255,0.1),0_12px_30px_rgba(46,143,255,0.35)] hover-glow-crisp transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {state.submitting ? (
               <>
