@@ -62,18 +62,18 @@ const Navbar = () => {
         zIndex: 50,
         borderRadius: '22px',
         overflow: 'hidden',
-        border: scrolled ? '1px solid rgba(148,163,184,0.25)' : '1px solid rgba(148,163,184,0.14)',
+        border: scrolled ? '1px solid rgba(255,255,255,0.25)' : '1px solid rgba(255,255,255,0.14)',
         background: scrolled
-          ? 'linear-gradient(140deg, rgba(6,9,18,0.95), rgba(8,14,25,0.9) 42%, rgba(11,18,32,0.95))'
-          : 'linear-gradient(140deg, rgba(6,9,18,0.8), rgba(8,14,25,0.75) 42%, rgba(11,18,32,0.84))',
+          ? 'linear-gradient(140deg, rgba(10,11,13,0.95), rgba(17,19,23,0.9) 42%, rgba(26,29,35,0.95))'
+          : 'linear-gradient(140deg, rgba(10,11,13,0.8), rgba(17,19,23,0.75) 42%, rgba(26,29,35,0.84))',
         backdropFilter: lowPerfMode ? 'none' : 'blur(20px)',
         boxShadow: scrolled
           ? lowPerfMode
-            ? '0 12px 24px rgba(2,6,23,0.42), 0 0 18px rgba(79,142,247,0.09), 0 0 0 1px rgba(79,142,247,0.06) inset'
-            : '0 30px 80px rgba(2,6,23,0.55), 0 0 0 1px rgba(79,142,247,0.08) inset'
+            ? '0 12px 24px rgba(0,0,0,0.42), 0 0 18px rgba(46,143,255,0.09), 0 0 0 1px rgba(46,143,255,0.06) inset'
+            : '0 30px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(46,143,255,0.08) inset'
           : lowPerfMode
-            ? '0 10px 20px rgba(2,6,23,0.34), 0 0 14px rgba(79,142,247,0.075), 0 0 0 1px rgba(79,142,247,0.08) inset'
-            : '0 22px 60px rgba(2,6,23,0.45), 0 0 0 1px rgba(79,142,247,0.05) inset',
+            ? '0 10px 20px rgba(0,0,0,0.34), 0 0 14px rgba(46,143,255,0.075), 0 0 0 1px rgba(46,143,255,0.08) inset'
+            : '0 22px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(46,143,255,0.05) inset',
         transition: ultraMobileMode ? 'none' : 'border-color 0.35s, box-shadow 0.35s, background 0.35s',
       }}
     >
@@ -111,7 +111,7 @@ const Navbar = () => {
                 fontWeight: 800,
                 letterSpacing: '0.1em',
                 textTransform: 'uppercase',
-                color: '#E8E8F2',
+                color: '#ECEEF2',
               }}
             >
               Arman
@@ -123,8 +123,8 @@ const Navbar = () => {
           className="hidden md:flex items-center gap-1 p-1 rounded-2xl"
           style={{
             background: 'linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015))',
-            border: '1px solid rgba(148,163,184,0.14)',
-            boxShadow: '0 12px 28px rgba(2,6,23,0.12)',
+            border: '1px solid rgba(255,255,255,0.14)',
+            boxShadow: '0 12px 28px rgba(0,0,0,0.12)',
           }}
         >
           {NAV_LINKS.map((link) => (
@@ -144,7 +144,7 @@ const Navbar = () => {
                 textTransform: 'uppercase',
                 textDecoration: 'none',
                 borderRadius: '12px',
-                color: isActive(link.path) ? '#E8E8F2' : '#9AA8C7',
+                color: isActive(link.path) ? '#ECEEF2' : '#9BA1AD',
                 transition: 'color 0.22s',
                 overflow: 'hidden',
               }}
@@ -155,10 +155,10 @@ const Navbar = () => {
                   className="absolute inset-0"
                   style={{
                     borderRadius: '12px',
-                    border: `1px solid ${isActive(link.path) ? 'rgba(124,92,252,0.55)' : 'rgba(79,142,247,0.34)'}`,
+                    border: `1px solid ${isActive(link.path) ? 'rgba(46,143,255,0.55)' : 'rgba(46,143,255,0.34)'}`,
                     background: isActive(link.path)
-                      ? 'linear-gradient(120deg, rgba(79,142,247,0.24), rgba(124,92,252,0.2))'
-                      : 'linear-gradient(120deg, rgba(79,142,247,0.11), rgba(100,116,139,0.08))',
+                      ? 'linear-gradient(120deg, rgba(46,143,255,0.24), rgba(46,143,255,0.2))'
+                      : 'linear-gradient(120deg, rgba(46,143,255,0.11), rgba(46,143,255,0.08))',
                   }}
                   transition={{ type: 'spring', stiffness: 350, damping: 30, mass: 0.5 }}
                 />
@@ -173,7 +173,7 @@ const Navbar = () => {
                     left: '24px',
                     right: '24px',
                     height: '2px',
-                    background: 'linear-gradient(90deg, #64748B, #4F8EF7 45%, #7C5CFC)',
+                    background: 'linear-gradient(90deg, #2E8FFF, #2E8FFF 45%, #1E6FD9)',
                     borderRadius: '999px',
                     zIndex: 2,
                   }}
@@ -215,12 +215,12 @@ const Navbar = () => {
                 textTransform: 'uppercase',
                 textDecoration: 'none',
                 borderRadius: '12px',
-                background: 'linear-gradient(130deg, rgba(79,142,247,0.12), rgba(100,116,139,0.11), rgba(124,92,252,0.115))',
-                border: '1px solid rgba(79,142,247,0.42)',
-                color: '#E8E8F2',
+                background: 'linear-gradient(130deg, rgba(46,143,255,0.12), rgba(46,143,255,0.11), rgba(46,143,255,0.115))',
+                border: '1px solid rgba(46,143,255,0.42)',
+                color: '#ECEEF2',
                 boxShadow: lowPerfMode
                   ? '0 0 0 1px rgba(255,255,255,0.08) inset'
-                  : '0 10px 24px rgba(79,142,247,0.1), 0 0 0 1px rgba(255,255,255,0.08) inset',
+                  : '0 10px 24px rgba(46,143,255,0.1), 0 0 0 1px rgba(255,255,255,0.08) inset',
               }}
             >
               <span className="navbar-hire-dot" />
@@ -234,9 +234,9 @@ const Navbar = () => {
           whileTap={ultraMobileMode ? undefined : { scale: 0.9 }}
           style={{
             padding: '8px',
-            color: '#BFD1FF',
-            background: 'rgba(79,142,247,0.08)',
-            border: '1px solid rgba(79,142,247,0.24)',
+            color: '#7DB8FF',
+            background: 'rgba(46,143,255,0.08)',
+            border: '1px solid rgba(46,143,255,0.24)',
             cursor: 'pointer',
             borderRadius: '12px',
             flexShrink: 0,
@@ -279,8 +279,8 @@ const Navbar = () => {
           <div
             style={{
               overflow: 'hidden',
-              background: 'linear-gradient(165deg, rgba(6,9,18,0.98), rgba(8,14,25,0.96) 50%, rgba(11,18,32,0.98))',
-              borderTop: '1px solid rgba(148,163,184,0.14)',
+              background: 'linear-gradient(165deg, rgba(10,11,13,0.98), rgba(17,19,23,0.96) 50%, rgba(26,29,35,0.98))',
+              borderTop: '1px solid rgba(255,255,255,0.14)',
             }}
             className="md:hidden"
           >
@@ -299,10 +299,10 @@ const Navbar = () => {
                       textTransform: 'uppercase',
                       textDecoration: 'none',
                       borderRadius: '12px',
-                      color: isActive(link.path) ? '#E8E8F2' : '#A8B8DA',
-                      border: isActive(link.path) ? '1px solid rgba(124,92,252,0.5)' : '1px solid rgba(148,163,184,0.16)',
+                      color: isActive(link.path) ? '#ECEEF2' : '#9BA1AD',
+                      border: isActive(link.path) ? '1px solid rgba(46,143,255,0.5)' : '1px solid rgba(255,255,255,0.16)',
                       background: isActive(link.path)
-                        ? 'linear-gradient(120deg, rgba(79,142,247,0.2), rgba(124,92,252,0.18))'
+                        ? 'linear-gradient(120deg, rgba(46,143,255,0.2), rgba(46,143,255,0.18))'
                         : 'linear-gradient(120deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015))',
                       marginBottom: '8px',
                     }}
@@ -323,7 +323,7 @@ const Navbar = () => {
                     textAlign: 'center',
                     textDecoration: 'none',
                     borderRadius: '12px',
-                    background: 'linear-gradient(135deg, #4F8EF7, #64748B 45%, #7C5CFC)',
+                    background: 'linear-gradient(135deg, #2E8FFF, #2E8FFF 45%, #1E6FD9)',
                     color: 'white',
                     letterSpacing: '0.06em',
                   }}
@@ -344,9 +344,9 @@ const Navbar = () => {
             transition={ultraMobileMode ? { duration: 0.2, ease: [0.22, 1, 0.36, 1] } : { duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             style={{
               overflow: 'hidden',
-              background: 'linear-gradient(165deg, rgba(6,9,18,0.98), rgba(8,14,25,0.96) 50%, rgba(11,18,32,0.98))',
+              background: 'linear-gradient(165deg, rgba(10,11,13,0.98), rgba(17,19,23,0.96) 50%, rgba(26,29,35,0.98))',
               backdropFilter: lowPerfMode ? 'none' : 'blur(20px)',
-              borderTop: '1px solid rgba(148,163,184,0.14)',
+              borderTop: '1px solid rgba(255,255,255,0.14)',
             }}
             className="md:hidden"
           >
@@ -384,10 +384,10 @@ const Navbar = () => {
                       textTransform: 'uppercase',
                       textDecoration: 'none',
                       borderRadius: '12px',
-                      color: isActive(link.path) ? '#E8E8F2' : '#A8B8DA',
-                      border: isActive(link.path) ? '1px solid rgba(124,92,252,0.5)' : '1px solid rgba(148,163,184,0.16)',
+                      color: isActive(link.path) ? '#ECEEF2' : '#9BA1AD',
+                      border: isActive(link.path) ? '1px solid rgba(46,143,255,0.5)' : '1px solid rgba(255,255,255,0.16)',
                       background: isActive(link.path)
-                        ? 'linear-gradient(120deg, rgba(79,142,247,0.2), rgba(124,92,252,0.18))'
+                        ? 'linear-gradient(120deg, rgba(46,143,255,0.2), rgba(46,143,255,0.18))'
                         : 'linear-gradient(120deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015))',
                       marginBottom: '8px',
                     }}
@@ -419,7 +419,7 @@ const Navbar = () => {
                     textAlign: 'center',
                     textDecoration: 'none',
                     borderRadius: '12px',
-                    background: 'linear-gradient(135deg, #4F8EF7, #64748B 45%, #7C5CFC)',
+                    background: 'linear-gradient(135deg, #2E8FFF, #2E8FFF 45%, #1E6FD9)',
                     color: 'white',
                     letterSpacing: '0.06em',
                   }}

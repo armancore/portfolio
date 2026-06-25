@@ -27,7 +27,7 @@ class ErrorBoundary extends React.Component<
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#9aa8c7',
+            color: '#9BA1AD',
             fontFamily: "'Plus Jakarta Sans', sans-serif",
             fontSize: '14px',
             textAlign: 'center',
@@ -35,7 +35,7 @@ class ErrorBoundary extends React.Component<
           }}
         >
           <div>
-            <p style={{ color: '#eef4ff', fontWeight: 500, marginBottom: '8px' }}>
+            <p style={{ color: '#ECEEF2', fontWeight: 500, marginBottom: '8px' }}>
               Something went wrong.
             </p>
             <p>Please refresh the page or try again later.</p>
