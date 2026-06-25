@@ -12,10 +12,10 @@ const iconMap = { Mail, Github, Linkedin, Facebook, Instagram };
 
 const accentForLink = (iconName) => {
   const map = {
-    Mail: { icon: '#4F8EF7', bg: 'rgba(79,142,247,0.1)', border: 'rgba(79,142,247,0.22)' },
-    Github: { icon: '#E8E8F2', bg: 'rgba(255,255,255,0.06)', border: 'rgba(255,255,255,0.12)' },
+    Mail: { icon: '#2E8FFF', bg: 'rgba(46,143,255,0.1)', border: 'rgba(46,143,255,0.22)' },
+    Github: { icon: '#ECEEF2', bg: 'rgba(255,255,255,0.06)', border: 'rgba(255,255,255,0.12)' },
     Linkedin: { icon: '#38BDF8', bg: 'rgba(56,189,248,0.1)', border: 'rgba(56,189,248,0.22)' },
-    Facebook: { icon: '#7C5CFC', bg: 'rgba(124,92,252,0.1)', border: 'rgba(124,92,252,0.22)' },
+    Facebook: { icon: '#1E6FD9', bg: 'rgba(46,143,255,0.1)', border: 'rgba(46,143,255,0.22)' },
     Instagram: { icon: '#EC4899', bg: 'rgba(236,72,153,0.1)', border: 'rgba(236,72,153,0.22)' },
   };
   return map[iconName] || map.Mail;
@@ -44,7 +44,7 @@ const Contact = () => {
     />
 
     <section style={{ paddingTop: '110px', paddingBottom: '60px', position: 'relative', overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(79,142,247,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(79,142,247,0.03) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
+      <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(46,143,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(46,143,255,0.03) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
 
       <motion.div
         animate={reduceAnimations ? undefined : { opacity: [0.4, 0.9, 0.4], scale: [1, 1.12, 1] }}
@@ -54,16 +54,16 @@ const Contact = () => {
       <motion.div
         animate={reduceAnimations ? undefined : { opacity: [0.3, 0.7, 0.3], scale: [1, 1.08, 1] }}
         transition={reduceAnimations ? undefined : { duration: 11, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-        style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 45% 55% at 20% 50%, rgba(79,142,247,0.06) 0%, transparent 65%)', pointerEvents: 'none' }}
+        style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 45% 55% at 20% 50%, rgba(46,143,255,0.06) 0%, transparent 65%)', pointerEvents: 'none' }}
       />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" style={{ position: 'relative', zIndex: 1 }}>
         <motion.div variants={staggerContainer(0.1, 0.05)} initial={reduceAnimations ? false : 'hidden'} animate={reduceAnimations ? undefined : 'show'}>
-          <motion.p variants={fadeUp} style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4F8EF7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '12px' }}>
+          <motion.p variants={fadeUp} style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#2E8FFF', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '12px' }}>
             Contact
           </motion.p>
           <motion.div variants={blurIn} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '16px', marginBottom: '16px' }}>
-            <h1 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: 'clamp(44px, 7vw, 78px)', color: '#E8E8F2', letterSpacing: '-0.035em', lineHeight: 1.05 }}>
+            <h1 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: 'clamp(44px, 7vw, 78px)', color: '#ECEEF2', letterSpacing: '-0.035em', lineHeight: 1.05 }}>
               Let&apos;s Connect
             </h1>
             <motion.div
@@ -79,7 +79,7 @@ const Contact = () => {
               <span style={{ color: '#16A34A', fontSize: '11px', fontFamily: "'JetBrains Mono', monospace" }}>Available</span>
             </motion.div>
           </motion.div>
-          <motion.p variants={fadeUp} style={{ fontSize: 'clamp(14px, 3.6vw, 16.5px)', color: '#8B8BAE', maxWidth: '500px', lineHeight: 1.82 }}>
+          <motion.p variants={fadeUp} style={{ fontSize: 'clamp(14px, 3.6vw, 16.5px)', color: '#9BA1AD', maxWidth: '500px', lineHeight: 1.82 }}>
             Whether you have a job opportunity, a project to collaborate on, or just want to say hi my inbox is always open.
           </motion.p>
         </motion.div>
@@ -91,8 +91,8 @@ const Contact = () => {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))', gap: '44px' }}>
           <div>
             <RevealWrapper>
-              <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '23px', color: '#E8E8F2', marginBottom: '10px' }}>Get in touch</h2>
-              <p style={{ fontSize: '14.5px', color: '#8B8BAE', lineHeight: 1.9, marginBottom: '32px' }}>
+              <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '23px', color: '#ECEEF2', marginBottom: '10px' }}>Get in touch</h2>
+              <p style={{ fontSize: '14.5px', color: '#9BA1AD', lineHeight: 1.9, marginBottom: '32px' }}>
                 {PERSONAL_INFO.bio[2]}
               </p>
             </RevealWrapper>
@@ -107,17 +107,17 @@ const Contact = () => {
                     href={link.href}
                     target={link.href.startsWith('http') ? '_blank' : undefined}
                     rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    whileHover={reduceAnimations ? undefined : { x: 5, borderColor: ac.border, background: 'rgba(255,255,255,0.05)', boxShadow: `0 0 0 1px ${ac.border}, 0 14px 28px rgba(2,6,23,0.36)`, filter: 'saturate(1.1)' }}
-                    style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '14px', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: '14px 16px', textDecoration: 'none', transition: 'border-color 0.2s, background 0.2s, transform 0.2s' }}
+                    whileHover={reduceAnimations ? undefined : { x: 5, borderColor: ac.border, background: 'rgba(255,255,255,0.05)', boxShadow: `0 0 0 1px ${ac.border}, 0 14px 28px rgba(0,0,0,0.36)`, filter: 'saturate(1.1)' }}
+                    style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '14px', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #1A1D23, #111317)', padding: '14px 16px', textDecoration: 'none', transition: 'border-color 0.2s, background 0.2s, transform 0.2s' }}
                   >
                       <div style={{ width: '40px', height: '40px', borderRadius: '11px', background: ac.bg, border: `1px solid ${ac.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                         {Icon && <Icon size={17} style={{ color: ac.icon }} />}
                       </div>
                       <div style={{ minWidth: 0, flex: 1 }}>
-                        <p style={{ fontSize: '13.5px', color: '#E8E8F2', fontWeight: 500, marginBottom: '2px', overflowWrap: 'anywhere' }}>{link.label}</p>
-                        <p style={{ fontSize: '11px', color: '#4A4A6A', fontFamily: "'JetBrains Mono', monospace" }}>{link.sublabel}</p>
+                        <p style={{ fontSize: '13.5px', color: '#ECEEF2', fontWeight: 500, marginBottom: '2px', overflowWrap: 'anywhere' }}>{link.label}</p>
+                        <p style={{ fontSize: '11px', color: '#5C626E', fontFamily: "'JetBrains Mono', monospace" }}>{link.sublabel}</p>
                       </div>
-                      <ArrowRight size={13} style={{ color: '#4A4A6A', flexShrink: 0 }} />
+                      <ArrowRight size={13} style={{ color: '#5C626E', flexShrink: 0 }} />
                     </motion.a>
                   </ScrollReveal>
                 );
@@ -139,7 +139,7 @@ const Contact = () => {
                   />
                   <span style={{ color: '#16A34A', fontSize: '13px', fontWeight: 600 }}>Currently Available</span>
                 </div>
-                <p style={{ fontSize: '13.5px', color: '#8B8BAE', lineHeight: 1.78 }}>
+                <p style={{ fontSize: '13.5px', color: '#9BA1AD', lineHeight: 1.78 }}>
                   Open to internship and junior developer positions. I bring energy, curiosity, and a genuine drive to ship great software.
                 </p>
               </motion.div>
@@ -153,7 +153,7 @@ const Contact = () => {
                   rel="noopener noreferrer"
                   whileHover={reduceAnimations ? undefined : { scale: 1.04, y: -1 }}
                   whileTap={reduceAnimations ? undefined : { scale: 0.97 }}
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', borderRadius: '10px', border: '1px solid rgba(79,142,247,0.25)', background: 'rgba(79,142,247,0.07)', padding: '10px 18px', fontSize: '12px', color: '#4F8EF7', textDecoration: 'none', fontFamily: "'JetBrains Mono', monospace", boxShadow: '0 0 0 1px rgba(79,142,247,0.06)' }}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', borderRadius: '10px', border: '1px solid rgba(46,143,255,0.25)', background: 'rgba(46,143,255,0.07)', padding: '10px 18px', fontSize: '12px', color: '#2E8FFF', textDecoration: 'none', fontFamily: "'JetBrains Mono', monospace", boxShadow: '0 0 0 1px rgba(46,143,255,0.06)' }}
                 >
                   <Mail size={12} />
                   Open Gmail directly

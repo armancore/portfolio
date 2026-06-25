@@ -52,17 +52,17 @@ const About = () => {
     />
 
     <section style={{ paddingTop: '110px', paddingBottom: '72px', position: 'relative', overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(79,142,247,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(79,142,247,0.035) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
+      <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(46,143,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(46,143,255,0.035) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
 
       <motion.div
         animate={reduceAnimations ? undefined : { opacity: [0.4, 0.8, 0.4], scale: [1, 1.12, 1] }}
         transition={reduceAnimations ? undefined : { duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-        style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '100%', background: 'radial-gradient(ellipse 55% 65% at 25% 50%, rgba(79,142,247,0.08) 0%, transparent 65%)', pointerEvents: 'none' }}
+        style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '100%', background: 'radial-gradient(ellipse 55% 65% at 25% 50%, rgba(46,143,255,0.08) 0%, transparent 65%)', pointerEvents: 'none' }}
       />
       <motion.div
         animate={reduceAnimations ? undefined : { opacity: [0.3, 0.7, 0.3], scale: [1, 1.08, 1] }}
         transition={reduceAnimations ? undefined : { duration: 11, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-        style={{ position: 'absolute', top: 0, right: 0, width: '50%', height: '100%', background: 'radial-gradient(ellipse 40% 55% at 80% 50%, rgba(124,92,252,0.06) 0%, transparent 65%)', pointerEvents: 'none' }}
+        style={{ position: 'absolute', top: 0, right: 0, width: '50%', height: '100%', background: 'radial-gradient(ellipse 40% 55% at 80% 50%, rgba(46,143,255,0.06) 0%, transparent 65%)', pointerEvents: 'none' }}
       />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" style={{ position: 'relative', zIndex: 1 }}>
@@ -74,13 +74,13 @@ const About = () => {
             style={{ gridColumn: 'span 12' }}
             className="lg:!col-span-7"
           >
-            <motion.p variants={fadeUp} style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4F8EF7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '14px' }}>
+            <motion.p variants={fadeUp} style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#2E8FFF', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '14px' }}>
               Who I am
             </motion.p>
-            <motion.h1 variants={blurIn} style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: 'clamp(48px, 7.6vw, 80px)', color: '#E8E8F2', letterSpacing: '-0.035em', lineHeight: 1.0, marginBottom: '20px' }}>
+            <motion.h1 variants={blurIn} style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: 'clamp(48px, 7.6vw, 80px)', color: '#ECEEF2', letterSpacing: '-0.035em', lineHeight: 1.0, marginBottom: '20px' }}>
               About Me
             </motion.h1>
-            <motion.p variants={fadeUp} style={{ fontSize: 'clamp(15px, 3.8vw, 17px)', color: '#9AA8C7', maxWidth: '520px', lineHeight: 1.85, marginBottom: '28px' }}>
+            <motion.p variants={fadeUp} style={{ fontSize: 'clamp(15px, 3.8vw, 17px)', color: '#9BA1AD', maxWidth: '520px', lineHeight: 1.85, marginBottom: '28px' }}>
               IT student and lifelong learner from Damak, Jhapa, currently learning frontend and backend development while building meaningful software in Kathmandu, Nepal.
             </motion.p>
 
@@ -105,8 +105,8 @@ const About = () => {
               animate={reduceAnimations ? undefined : { opacity: 1, x: 0 }}
               transition={reduceAnimations ? undefined : { delay: 0.4, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div style={{ background: 'linear-gradient(145deg, #0f1520, #0D1117)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '20px', padding: '24px', position: 'relative', overflow: 'hidden' }}>
-                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(79,142,247,0.7), rgba(124,92,252,0.7), transparent)' }} />
+              <div style={{ background: 'linear-gradient(145deg, #1A1D23, #111317)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '20px', padding: '24px', position: 'relative', overflow: 'hidden' }}>
+                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(46,143,255,0.7), rgba(46,143,255,0.7), transparent)' }} />
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                   {PHOTO_MODE === 'photo' && profileImg ? (
                     <img
@@ -118,13 +118,13 @@ const About = () => {
                       style={{ width: '60px', height: '60px', borderRadius: '14px', objectFit: 'cover', border: '2px solid rgba(255,255,255,0.1)', flexShrink: 0 }}
                     />
                   ) : (
-                    <div style={{ width: '60px', height: '60px', borderRadius: '14px', background: 'linear-gradient(135deg, #4F8EF7, #7C5CFC)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <div style={{ width: '60px', height: '60px', borderRadius: '14px', background: 'linear-gradient(135deg, #2E8FFF, #1E6FD9)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                       <span style={{ fontFamily: "'Poppins', sans-serif", fontSize: '18px', fontWeight: 800, color: '#fff' }}>AK</span>
                     </div>
                   )}
                   <div>
-                    <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '16px', color: '#E8E8F2', marginBottom: '3px' }}>Arman Khan</p>
-                    <p style={{ fontSize: '12px', color: '#8B8BAE', marginBottom: '8px' }}>IT Student | Learning Frontend & Backend</p>
+                    <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '16px', color: '#ECEEF2', marginBottom: '3px' }}>Arman Khan</p>
+                    <p style={{ fontSize: '12px', color: '#9BA1AD', marginBottom: '8px' }}>IT Student | Learning Frontend & Backend</p>
                     <motion.div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '3px 9px', background: 'rgba(22,163,74,0.08)', border: '1px solid rgba(22,163,74,0.1)', borderRadius: '20px' }}>
                       <motion.span
                         animate={reduceAnimations ? undefined : { scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
@@ -147,19 +147,19 @@ const About = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           <div style={{ gridColumn: 'span 12' }} className="lg:!col-span-7">
             <RevealWrapper>
-              <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4F8EF7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '10px' }}>My story</p>
-              <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(22px, 3vw, 32px)', color: '#E8E8F2', marginBottom: '30px' }}>
+              <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#2E8FFF', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '10px' }}>My story</p>
+              <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(22px, 3vw, 32px)', color: '#ECEEF2', marginBottom: '30px' }}>
                 Background and Motivation
               </h2>
             </RevealWrapper>
 
             {PERSONAL_INFO.bio.map((para, i) => (
               <ScrollReveal key={i} delay={i * 0.08}>
-                <p style={{ fontSize: 'clamp(14px, 3.4vw, 15.5px)', color: i === 0 ? '#D7E0F0' : '#9AA8C7', lineHeight: 1.95, marginBottom: '20px' }}>
+                <p style={{ fontSize: 'clamp(14px, 3.4vw, 15.5px)', color: i === 0 ? '#ECEEF2' : '#9BA1AD', lineHeight: 1.95, marginBottom: '20px' }}>
                   {para.split(/\b(React|Node\.js|Express|Prisma|PostgreSQL|JavaScript|C\+\+|Java|Python|full-stack|internship|junior developer)\b/gi).map((part, j) => {
                     const kw = ['react', 'node.js', 'express', 'prisma', 'postgresql', 'javascript', 'c++', 'java', 'python', 'full-stack', 'internship', 'junior developer'];
                     return kw.includes(part.toLowerCase()) ? (
-                      <strong key={j} style={{ color: '#E8E8F2', fontWeight: 500 }}>{part}</strong>
+                      <strong key={j} style={{ color: '#ECEEF2', fontWeight: 500 }}>{part}</strong>
                     ) : (
                       part
                     );
@@ -173,12 +173,12 @@ const About = () => {
                 {values.map((v, i) => (
                   <ScrollReveal key={v.title} delay={i * 0.08}>
                     <motion.div
-                      whileHover={reduceAnimations ? undefined : { y: -5, borderColor: 'rgba(79,142,247,0.38)', boxShadow: '0 0 0 1px rgba(79,142,247,0.09), 0 14px 34px rgba(79,142,247,0.1)', filter: 'saturate(1.1)' }}
-                      style={{ borderRadius: '16px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: '20px', transition: 'border-color 0.25s, box-shadow 0.25s' }}
+                      whileHover={reduceAnimations ? undefined : { y: -5, borderColor: 'rgba(46,143,255,0.38)', boxShadow: '0 0 0 1px rgba(46,143,255,0.09), 0 14px 34px rgba(46,143,255,0.1)', filter: 'saturate(1.1)' }}
+                      style={{ borderRadius: '16px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #1A1D23, #111317)', padding: '20px', transition: 'border-color 0.25s, box-shadow 0.25s' }}
                     >
                       <span style={{ fontSize: '24px', display: 'block', marginBottom: '10px' }}>{v.icon}</span>
-                      <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: '13px', color: '#E8E8F2', marginBottom: '5px' }}>{v.title}</p>
-                      <p style={{ fontSize: '12px', color: '#6B6B8E', lineHeight: 1.55 }}>{v.desc}</p>
+                      <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: '13px', color: '#ECEEF2', marginBottom: '5px' }}>{v.title}</p>
+                      <p style={{ fontSize: '12px', color: '#9BA1AD', lineHeight: 1.55 }}>{v.desc}</p>
                     </motion.div>
                   </ScrollReveal>
                 ))}
@@ -192,10 +192,10 @@ const About = () => {
                 <motion.div
                   animate={reduceAnimations ? undefined : { opacity: [0.3, 0.7, 0.3] }}
                   transition={reduceAnimations ? undefined : { duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-                  style={{ position: 'absolute', inset: '-8px', borderRadius: '32px', border: '1px solid rgba(79,142,247,0.18)', pointerEvents: 'none', zIndex: 0 }}
+                  style={{ position: 'absolute', inset: '-8px', borderRadius: '32px', border: '1px solid rgba(46,143,255,0.18)', pointerEvents: 'none', zIndex: 0 }}
                 />
-                <div style={{ position: 'relative', borderRadius: '24px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.09)', boxShadow: '0 36px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(79,142,247,0.08)', maxWidth: '420px', margin: '0 auto', zIndex: 1 }}>
-                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(79,142,247,0.8), rgba(124,92,252,0.8), transparent)', zIndex: 2 }} />
+                <div style={{ position: 'relative', borderRadius: '24px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.09)', boxShadow: '0 36px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(46,143,255,0.08)', maxWidth: '420px', margin: '0 auto', zIndex: 1 }}>
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(46,143,255,0.8), rgba(46,143,255,0.8), transparent)', zIndex: 2 }} />
 
                   {PHOTO_MODE === 'photo' && profileImg ? (
                     <motion.img
@@ -207,21 +207,21 @@ const About = () => {
                       style={{ width: '100%', aspectRatio: '3/4', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
                     />
                   ) : (
-                    <div style={{ width: '100%', aspectRatio: '3/4', background: 'linear-gradient(160deg, #1a2236 0%, #0d1117 50%, #161b27 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <span style={{ fontFamily: "'Poppins', sans-serif", fontSize: '80px', fontWeight: 800, background: 'linear-gradient(135deg, #4F8EF7, #7C5CFC)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>AK</span>
+                    <div style={{ width: '100%', aspectRatio: '3/4', background: 'linear-gradient(160deg, #1A1D23 0%, #111317 50%, #1A1D23 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <span style={{ fontFamily: "'Poppins', sans-serif", fontSize: '80px', fontWeight: 800, background: 'linear-gradient(135deg, #2E8FFF, #1E6FD9)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>AK</span>
                     </div>
                   )}
 
-                  <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '42%', background: 'linear-gradient(to top, rgba(8,11,20,0.95) 0%, transparent 100%)', zIndex: 1 }} />
+                  <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '42%', background: 'linear-gradient(to top, rgba(10,11,13,0.95) 0%, transparent 100%)', zIndex: 1 }} />
                   <div style={{ position: 'absolute', bottom: '20px', left: '20px', right: '20px', zIndex: 2 }}>
-                    <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '19px', color: '#E8E8F2', marginBottom: '3px' }}>Arman Khan</p>
-                    <p style={{ fontSize: '12px', color: '#8B8BAE' }}>IT Student | Learning Frontend & Backend | Kathmandu</p>
+                    <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '19px', color: '#ECEEF2', marginBottom: '3px' }}>Arman Khan</p>
+                    <p style={{ fontSize: '12px', color: '#9BA1AD' }}>IT Student | Learning Frontend & Backend | Kathmandu</p>
                   </div>
 
                   <motion.div
                     animate={reduceAnimations ? undefined : { boxShadow: ['0 0 0px rgba(22,163,74,0)', '0 0 12px rgba(22,163,74,0.15)', '0 0 0px rgba(22,163,74,0)'] }}
                     transition={reduceAnimations ? undefined : { duration: 3, repeat: Infinity }}
-                    style={{ position: 'absolute', top: '14px', right: '14px', zIndex: 2, display: 'flex', alignItems: 'center', gap: '5px', background: 'rgba(8,11,20,0.85)', border: '1px solid rgba(22,163,74,0.3)', borderRadius: '20px', padding: '5px 12px', backdropFilter: 'blur(10px)' }}
+                    style={{ position: 'absolute', top: '14px', right: '14px', zIndex: 2, display: 'flex', alignItems: 'center', gap: '5px', background: 'rgba(10,11,13,0.85)', border: '1px solid rgba(22,163,74,0.3)', borderRadius: '20px', padding: '5px 12px', backdropFilter: 'blur(10px)' }}
                   >
                     <motion.span
                       animate={reduceAnimations ? undefined : { scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
@@ -234,25 +234,25 @@ const About = () => {
                 </div>
               </div>
 
-              <div style={{ background: 'linear-gradient(145deg, #0f1520, #0D1117)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.125)' }}>
+              <div style={{ background: 'linear-gradient(145deg, #1A1D23, #111317)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.125)' }}>
                 <div style={{ padding: '14px 18px', borderBottom: '1px solid rgba(255,255,255,0.05)', background: 'rgba(255,255,255,0.02)' }}>
-                  <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4A4A6A', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Personal Info</p>
+                  <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#5C626E', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Personal Info</p>
                 </div>
                 {details.map(({ icon: Icon, label, value, accent, isEmail }, i) => (
                   <motion.div
                     key={label}
-                    whileHover={reduceAnimations ? undefined : { background: 'rgba(79,142,247,0.04)' }}
-                    style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '14px 18px', borderBottom: i < details.length - 1 ? '1px solid rgba(148,163,184,0.06)' : 'none' }}
+                    whileHover={reduceAnimations ? undefined : { background: 'rgba(46,143,255,0.04)' }}
+                    style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '14px 18px', borderBottom: i < details.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none' }}
                   >
-                    <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(79,142,247,0.08)', border: '1px solid rgba(79,142,247,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                      <Icon size={13} style={{ color: '#4F8EF7' }} />
+                    <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(46,143,255,0.08)', border: '1px solid rgba(46,143,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <Icon size={13} style={{ color: '#2E8FFF' }} />
                     </div>
                     <div style={{ minWidth: 0, flex: 1 }}>
-                      <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '9px', color: '#4A4A6A', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '3px' }}>{label}</p>
+                      <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '9px', color: '#5C626E', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '3px' }}>{label}</p>
                       {isEmail ? (
-                        <a href={`mailto:${value}`} style={{ fontSize: '13px', color: '#4F8EF7', textDecoration: 'none', wordBreak: 'break-all' }}>{value}</a>
+                        <a href={`mailto:${value}`} style={{ fontSize: '13px', color: '#2E8FFF', textDecoration: 'none', wordBreak: 'break-all' }}>{value}</a>
                       ) : (
-                        <p style={{ fontSize: '13px', color: accent ? '#16A34A' : '#D7E0F0', wordBreak: 'break-word', fontWeight: accent ? 500 : 400 }}>{value}</p>
+                        <p style={{ fontSize: '13px', color: accent ? '#16A34A' : '#ECEEF2', wordBreak: 'break-word', fontWeight: accent ? 500 : 400 }}>{value}</p>
                       )}
                     </div>
                   </motion.div>
@@ -267,10 +267,10 @@ const About = () => {
     <section style={{ padding: '88px 0', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <RevealWrapper>
-          <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4F8EF7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '10px' }}>Technical skills</p>
+          <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#2E8FFF', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '10px' }}>Technical skills</p>
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '44px', flexWrap: 'wrap', gap: '12px' }}>
-            <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(26px, 4vw, 40px)', color: '#E8E8F2' }}>Technical Expertise</h2>
-            <p style={{ fontSize: '13px', color: '#6B6B8E', maxWidth: '280px', lineHeight: 1.6 }} className="lg:text-right">
+            <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(26px, 4vw, 40px)', color: '#ECEEF2' }}>Technical Expertise</h2>
+            <p style={{ fontSize: '13px', color: '#9BA1AD', maxWidth: '280px', lineHeight: 1.6 }} className="lg:text-right">
               Technologies I've worked with professionally and in personal projects.
             </p>
           </div>
@@ -283,7 +283,7 @@ const About = () => {
               <ScrollReveal key={skill.id} delay={i * 0.08}>
                 <motion.div
                   whileHover={reduceAnimations ? undefined : { y: -6, borderColor: ac.border, boxShadow: `0 0 0 1px ${ac.border}, 0 20px 44px ${ac.glow}`, filter: 'saturate(1.1)' }}
-                  style={{ position: 'relative', height: '100%', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: 'clamp(18px,4vw,24px)', transition: 'border-color 0.25s, box-shadow 0.25s' }}
+                  style={{ position: 'relative', height: '100%', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #1A1D23, #111317)', padding: 'clamp(18px,4vw,24px)', transition: 'border-color 0.25s, box-shadow 0.25s' }}
                 >
                   <div style={{ position: 'absolute', top: 0, right: 0, width: '90px', height: '90px', background: `radial-gradient(circle at top right, ${ac.bg}, transparent 70%)`, pointerEvents: 'none' }} />
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
@@ -308,10 +308,10 @@ const About = () => {
     <section style={{ padding: '88px 0 100px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <RevealWrapper>
-          <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4F8EF7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '10px' }}>Journey</p>
+          <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#2E8FFF', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '10px' }}>Journey</p>
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '56px', flexWrap: 'wrap', gap: '12px' }}>
-            <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(26px, 4vw, 40px)', color: '#E8E8F2' }}>Experience and Education</h2>
-            <p style={{ fontSize: '13px', color: '#6B6B8E', maxWidth: '260px', lineHeight: 1.6 }} className="lg:text-right">
+            <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(26px, 4vw, 40px)', color: '#ECEEF2' }}>Experience and Education</h2>
+            <p style={{ fontSize: '13px', color: '#9BA1AD', maxWidth: '260px', lineHeight: 1.6 }} className="lg:text-right">
               My path through academia and hands-on development.
             </p>
           </div>
@@ -323,7 +323,7 @@ const About = () => {
             whileInView={reduceAnimations ? undefined : { scaleY: 1 }}
             viewport={reduceAnimations ? undefined : viewport}
             transition={reduceAnimations ? undefined : { duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            style={{ position: 'absolute', left: '15px', top: '8px', bottom: '8px', width: '1px', background: 'linear-gradient(to bottom, rgba(79,142,247,0.7), rgba(79,142,247,0.05))', transformOrigin: 'top' }}
+            style={{ position: 'absolute', left: '15px', top: '8px', bottom: '8px', width: '1px', background: 'linear-gradient(to bottom, rgba(46,143,255,0.7), rgba(46,143,255,0.05))', transformOrigin: 'top' }}
           />
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -335,30 +335,30 @@ const About = () => {
                     whileInView={reduceAnimations ? undefined : { scale: 1 }}
                     viewport={reduceAnimations ? undefined : { once: true }}
                     transition={reduceAnimations ? undefined : { delay: i * 0.1 + 0.2, type: 'spring', stiffness: 250 }}
-                    style={{ position: 'absolute', left: '7px', top: '22px', width: '16px', height: '16px', borderRadius: '50%', border: '2px solid #4F8EF7', background: '#080B14', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1, boxShadow: '0 0 14px rgba(79,142,247,0.4)' }}
+                    style={{ position: 'absolute', left: '7px', top: '22px', width: '16px', height: '16px', borderRadius: '50%', border: '2px solid #2E8FFF', background: '#0A0B0D', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1, boxShadow: '0 0 14px rgba(46,143,255,0.4)' }}
                   >
-                    <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#4F8EF7' }} />
+                    <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#2E8FFF' }} />
                   </motion.div>
 
                   <motion.div
-                  whileHover={reduceAnimations ? undefined : { borderColor: 'rgba(79,142,247,0.38)', boxShadow: '0 0 0 1px rgba(79,142,247,0.08), 0 14px 36px rgba(79,142,247,0.09)', filter: 'saturate(1.1)' }}
-                    style={{ flex: 1, overflow: 'hidden', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #0f1520, #0D1117)', padding: 'clamp(18px,4vw,26px)', transition: 'border-color 0.25s, box-shadow 0.25s', position: 'relative' }}
+                  whileHover={reduceAnimations ? undefined : { borderColor: 'rgba(46,143,255,0.38)', boxShadow: '0 0 0 1px rgba(46,143,255,0.08), 0 14px 36px rgba(46,143,255,0.09)', filter: 'saturate(1.1)' }}
+                    style={{ flex: 1, overflow: 'hidden', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #1A1D23, #111317)', padding: 'clamp(18px,4vw,26px)', transition: 'border-color 0.25s, box-shadow 0.25s', position: 'relative' }}
                   >
-                    <div style={{ position: 'absolute', top: 0, right: 0, width: '120px', height: '80px', background: 'radial-gradient(circle at top right, rgba(79,142,247,0.06), transparent 70%)', pointerEvents: 'none' }} />
+                    <div style={{ position: 'absolute', top: 0, right: 0, width: '120px', height: '80px', background: 'radial-gradient(circle at top right, rgba(46,143,255,0.06), transparent 70%)', pointerEvents: 'none' }} />
 
                     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', justifyContent: 'space-between', gap: '10px', marginBottom: '12px' }}>
                       <div>
-                        <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '16.5px', color: '#E8E8F2', marginBottom: '4px' }}>{item.title}</h3>
-                        <p style={{ fontSize: '13px', color: '#8B8BAE', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                          <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#4F8EF7', flexShrink: 0 }} />
+                        <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '16.5px', color: '#ECEEF2', marginBottom: '4px' }}>{item.title}</h3>
+                        <p style={{ fontSize: '13px', color: '#9BA1AD', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                          <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#2E8FFF', flexShrink: 0 }} />
                           {item.org}
                         </p>
                       </div>
-                      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', color: '#4F8EF7', background: 'rgba(79,142,247,0.1)', border: '1px solid rgba(79,142,247,0.2)', borderRadius: '20px', padding: '4px 12px', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', color: '#2E8FFF', background: 'rgba(46,143,255,0.1)', border: '1px solid rgba(46,143,255,0.2)', borderRadius: '20px', padding: '4px 12px', whiteSpace: 'nowrap', flexShrink: 0 }}>
                         {item.year}
                       </span>
                     </div>
-                    <p style={{ fontSize: '13.5px', color: '#8B8BAE', lineHeight: 1.8, marginBottom: '16px' }}>{item.description}</p>
+                    <p style={{ fontSize: '13.5px', color: '#9BA1AD', lineHeight: 1.8, marginBottom: '16px' }}>{item.description}</p>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
                       {item.tags.map((t) => {
                         const ac = ACCENT_MAP[t.color] || ACCENT_MAP.blue;
@@ -381,7 +381,7 @@ const About = () => {
             <motion.div whileHover={reduceAnimations ? undefined : { scale: 1.04, y: -2 }} whileTap={reduceAnimations ? undefined : { scale: 0.97 }}>
               <Link
                 to="/contact"
-                style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', borderRadius: '13px', background: 'linear-gradient(135deg, #4F8EF7, #7C5CFC)', padding: '13px 28px', fontSize: '14px', fontWeight: 600, color: 'white', textDecoration: 'none', boxShadow: '0 10px 30px rgba(79,142,247,0.35)' }}
+                style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', borderRadius: '13px', background: 'linear-gradient(135deg, #2E8FFF, #1E6FD9)', padding: '13px 28px', fontSize: '14px', fontWeight: 600, color: 'white', textDecoration: 'none', boxShadow: '0 10px 30px rgba(46,143,255,0.35)' }}
               >
                 Let&apos;s Connect <ArrowRight size={14} />
               </Link>
@@ -389,7 +389,7 @@ const About = () => {
             <motion.div whileHover={reduceAnimations ? undefined : { scale: 1.04, y: -2 }} whileTap={reduceAnimations ? undefined : { scale: 0.97 }}>
               <Link
                 to="/projects"
-                style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', borderRadius: '13px', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.03)', padding: '13px 28px', fontSize: '14px', fontWeight: 500, color: '#E8E8F2', textDecoration: 'none' }}
+                style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', borderRadius: '13px', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.03)', padding: '13px 28px', fontSize: '14px', fontWeight: 500, color: '#ECEEF2', textDecoration: 'none' }}
               >
                 View My Projects <ArrowRight size={14} />
               </Link>
