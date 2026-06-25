@@ -106,7 +106,7 @@ const Navbar = () => {
             />
             <span
               style={{
-                fontFamily: "'Syne', sans-serif",
+                fontFamily: "'Poppins', sans-serif",
                 fontSize: '19px',
                 fontWeight: 800,
                 letterSpacing: '0.1em',

@@ -1,5 +1,13 @@
 # Arman Khan
 
+## Environment Variables
+
+Copy `.env.example` to `.env.local` and fill in the values before running locally.
+
+| Variable | Required | Description |
+|---|---|---|
+| `VITE_FORMSPREE_FORM_ID` | Yes (for contact form) | Formspree form ID — sign up at formspree.io, create a form, and paste the ID here. Without it the contact form shows a "not configured" notice instead of crashing. |
+
 IT student from Nepal, currently learning frontend and backend development by building real-world projects and improving every day through hands-on practice.
 
 ## About Me

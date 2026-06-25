@@ -37,7 +37,7 @@ const Projects = () => {
             <motion.p variants={fadeUp} style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4F8EF7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '12px' }}>
               My work
             </motion.p>
-            <motion.h1 variants={blurIn} style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: 'clamp(44px, 7vw, 78px)', color: '#E8E8F2', letterSpacing: '-0.035em', lineHeight: 1.03, marginBottom: '16px' }}>
+            <motion.h1 variants={blurIn} style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: 'clamp(44px, 7vw, 78px)', color: '#E8E8F2', letterSpacing: '-0.035em', lineHeight: 1.03, marginBottom: '16px' }}>
               Projects
             </motion.h1>
             <motion.p variants={fadeUp} style={{ fontSize: 'clamp(14px, 3.6vw, 16.5px)', color: '#8B8BAE', maxWidth: '520px', lineHeight: 1.75 }}>
@@ -102,7 +102,7 @@ const Projects = () => {
                     >
                       <div style={{ height: '2px', background: `linear-gradient(90deg, ${ca.text}80, ${ca.text}30, transparent)`, flexShrink: 0 }} />
 
-                      <div style={{ position: 'absolute', top: '14px', right: '16px', fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: '72px', color: 'rgba(255,255,255,0.02)', lineHeight: 1, pointerEvents: 'none', userSelect: 'none' }}>
+                      <div style={{ position: 'absolute', top: '14px', right: '16px', fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: '72px', color: 'rgba(255,255,255,0.02)', lineHeight: 1, pointerEvents: 'none', userSelect: 'none' }}>
                         {p.num}
                       </div>
 
@@ -120,7 +120,7 @@ const Projects = () => {
                           </div>
                         </div>
 
-                        <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '18px', color: '#E8E8F2', lineHeight: 1.3, marginBottom: '10px' }}>{p.title}</h3>
+                        <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '18px', color: '#E8E8F2', lineHeight: 1.3, marginBottom: '10px' }}>{p.title}</h3>
                         <p style={{ fontSize: '13.5px', color: '#8B8BAE', lineHeight: 1.78, marginBottom: '18px', flex: 1 }}>{p.description}</p>
 
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '18px' }}>
@@ -176,7 +176,7 @@ const Projects = () => {
                     <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#4A4A6A' }}>{portfolioProjectNum}</span>
                     <span style={{ padding: '2px 9px', borderRadius: '5px', background: 'rgba(124,92,252,0.09)', border: '1px solid rgba(124,92,252,0.22)', fontSize: '10px', color: '#7C5CFC', fontFamily: "'JetBrains Mono', monospace" }}>Portfolio</span>
                   </div>
-                  <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '17px', color: '#E8E8F2', marginBottom: '8px' }}>This Portfolio Website</h3>
+                  <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '17px', color: '#E8E8F2', marginBottom: '8px' }}>This Portfolio Website</h3>
                   <p style={{ fontSize: '13px', color: '#8B8BAE', marginBottom: '14px', lineHeight: 1.75 }}>Built from scratch with React 19, Vite 7, Tailwind CSS v4. Motion animations, dark design system, fully responsive.</p>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
                     {portfolioTechs.map((t) => (
