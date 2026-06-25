@@ -57,7 +57,7 @@ const Footer = () => {
 
   const socialStyle = {
     GitHub: {
-      color: '#E8E8F2',
+      color: '#ECEEF2',
       border: 'rgba(255,255,255,0.16)',
       bg: 'rgba(255,255,255,0.05)',
       glow: '0 0 0 1px rgba(255,255,255,0.1), 0 14px 30px rgba(255,255,255,0.1)',
@@ -69,10 +69,10 @@ const Footer = () => {
       glow: '0 0 0 1px rgba(56,189,248,0.14), 0 14px 30px rgba(56,189,248,0.34)',
     },
     Facebook: {
-      color: '#7C5CFC',
-      border: 'rgba(124,92,252,0.32)',
-      bg: 'rgba(124,92,252,0.12)',
-      glow: '0 0 0 1px rgba(124,92,252,0.14), 0 14px 30px rgba(124,92,252,0.34)',
+      color: '#1E6FD9',
+      border: 'rgba(46,143,255,0.32)',
+      bg: 'rgba(46,143,255,0.12)',
+      glow: '0 0 0 1px rgba(46,143,255,0.14), 0 14px 30px rgba(46,143,255,0.34)',
     },
     Instagram: {
       color: '#EC4899',
@@ -91,7 +91,7 @@ const Footer = () => {
       className="relative border-t border-[var(--border)] overflow-hidden"
       style={{
         background:
-          'linear-gradient(180deg, rgba(8,16,29,0.92) 0%, rgba(6,9,18,0.98) 100%)',
+          'linear-gradient(180deg, rgba(17,19,23,0.92) 0%, rgba(10,11,13,0.98) 100%)',
       }}
     >
       <GlowLine />
@@ -102,7 +102,7 @@ const Footer = () => {
         transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
         style={{
           background:
-            'radial-gradient(circle at 15% 0%, rgba(88,166,255,0.08), transparent 28%), radial-gradient(circle at 85% 20%, rgba(100,116,139,0.03), transparent 24%)',
+            'radial-gradient(circle at 15% 0%, rgba(46,143,255,0.08), transparent 28%), radial-gradient(circle at 85% 20%, rgba(46,143,255,0.03), transparent 24%)',
         }}
       />
 

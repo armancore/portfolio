@@ -9,44 +9,46 @@ export const THEME_COLORS = {
   textMuted: "var(--color-text-muted)",
 };
 
+// Mono-blue tag system: every accent maps to the single electric-blue family,
+// varying only in opacity/shade so tags read as one cohesive palette.
 export const ACCENT_MAP = {
   blue: {
-    bg: "color-mix(in srgb, var(--color-accent) 10%, transparent)",
-    border: "color-mix(in srgb, var(--color-accent) 22%, transparent)",
+    bg: "rgba(46,143,255,0.10)",
+    border: "rgba(46,143,255,0.24)",
     text: "var(--color-accent)",
-    glow: "color-mix(in srgb, var(--color-accent) 24%, transparent)",
+    glow: "rgba(46,143,255,0.24)",
   },
   purple: {
-    bg: "color-mix(in srgb, var(--color-accent3) 10%, transparent)",
-    border: "color-mix(in srgb, var(--color-accent3) 22%, transparent)",
-    text: "var(--color-accent3)",
-    glow: "color-mix(in srgb, var(--color-accent3) 24%, transparent)",
+    bg: "rgba(46,143,255,0.10)",
+    border: "rgba(46,143,255,0.24)",
+    text: "var(--color-accent-soft)",
+    glow: "rgba(46,143,255,0.24)",
   },
   teal: {
-    bg: "color-mix(in srgb, #64748B 10%, transparent)",
-    border: "color-mix(in srgb, #64748B 22%, transparent)",
-    text: "#64748B",
-    glow: "color-mix(in srgb, #64748B 11%, transparent)",
+    bg: "rgba(46,143,255,0.08)",
+    border: "rgba(46,143,255,0.20)",
+    text: "var(--color-accent)",
+    glow: "rgba(46,143,255,0.18)",
   },
   orange: {
-    bg: "rgba(249,115,22,0.1)",
-    border: "rgba(249,115,22,0.22)",
-    text: "#F97316",
-    glow: "rgba(249,115,22,0.2)",
+    bg: "rgba(46,143,255,0.10)",
+    border: "rgba(46,143,255,0.22)",
+    text: "var(--color-accent)",
+    glow: "rgba(46,143,255,0.20)",
   },
   pink: {
-    bg: "rgba(236,72,153,0.1)",
-    border: "rgba(236,72,153,0.22)",
-    text: "#EC4899",
-    glow: "rgba(236,72,153,0.2)",
+    bg: "rgba(46,143,255,0.12)",
+    border: "rgba(46,143,255,0.26)",
+    text: "var(--color-accent-soft)",
+    glow: "rgba(46,143,255,0.20)",
   },
 };
 
 export const CATEGORY_ACCENTS = {
-  API: { bg: "color-mix(in srgb, #64748B 9%, transparent)", border: "color-mix(in srgb, #64748B 20%, transparent)", text: "#64748B" },
-  Tool: { bg: "rgba(249,115,22,0.09)", border: "rgba(249,115,22,0.2)", text: "#F97316" },
-  Frontend: { bg: "color-mix(in srgb, var(--color-accent) 9%, transparent)", border: "color-mix(in srgb, var(--color-accent) 20%, transparent)", text: "var(--color-accent)" },
-  Social: { bg: "rgba(236,72,153,0.09)", border: "rgba(236,72,153,0.2)", text: "#EC4899" },
+  API: { bg: "rgba(46,143,255,0.09)", border: "rgba(46,143,255,0.20)", text: "var(--color-accent)" },
+  Tool: { bg: "rgba(46,143,255,0.10)", border: "rgba(46,143,255,0.22)", text: "var(--color-accent)" },
+  Frontend: { bg: "rgba(46,143,255,0.09)", border: "rgba(46,143,255,0.20)", text: "var(--color-accent)" },
+  Social: { bg: "rgba(46,143,255,0.11)", border: "rgba(46,143,255,0.24)", text: "var(--color-accent-soft)" },
 };
 
 export const PERSONAL_INFO = {
