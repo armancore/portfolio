@@ -518,7 +518,7 @@ const Home = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={viewport}>
             <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#2E8FFF', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '10px' }}>What I do</p>
-            <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(28px, 4vw, 42px)', color: '#ECEEF2', marginBottom: '52px' }}>
+            <h2 className="heading-accent" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(28px, 4vw, 42px)', color: '#ECEEF2', marginBottom: '52px' }}>
               Skills and expertise
             </h2>
           </motion.div>
@@ -530,7 +530,7 @@ const Home = () => {
                 variants={cardReveal}
                 whileHover={{ y: -8, boxShadow: `0 0 0 1px ${s.color}66, 0 24px 50px ${s.glow}`, borderColor: `${s.color}75`, filter: 'saturate(1.12)' }}
                 transition={{ duration: 0.15, ease: 'easeOut' }}
-                style={{ position: 'relative', cursor: 'default', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.08)', background: 'linear-gradient(145deg, #1A1D23, #111317)', padding: '28px', transition: 'border-color 0.15s ease-out, box-shadow 0.15s ease-out, filter 0.15s ease-out' }}
+                style={{ position: 'relative', cursor: 'default', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.08)', background: 'linear-gradient(145deg, #1A1D23, #111317)', boxShadow: '0 0 0 1px rgba(46,143,255,0.06), 0 18px 40px rgba(46,143,255,0.05)', padding: '28px', transition: 'border-color 0.15s ease-out, box-shadow 0.15s ease-out, filter 0.15s ease-out' }}
               >
                 <div style={{ position: 'absolute', top: 0, right: 0, width: '100px', height: '100px', background: `radial-gradient(circle at top right, ${s.color}18, transparent 65%)`, pointerEvents: 'none' }} />
                 <div style={{ position: 'absolute', bottom: 0, left: 0, width: '80px', height: '80px', background: `radial-gradient(circle at bottom left, ${s.color}0a, transparent 65%)`, pointerEvents: 'none' }} />
@@ -568,7 +568,7 @@ const Home = () => {
             <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '52px', flexWrap: 'wrap', gap: '12px' }}>
               <div>
                 <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#2E8FFF', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '10px' }}>Featured work</p>
-                <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(28px, 4vw, 42px)', color: '#ECEEF2' }}>Things I have built</h2>
+                <h2 className="heading-accent" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(28px, 4vw, 42px)', color: '#ECEEF2' }}>Things I have built</h2>
               </div>
               <Link to="/projects" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '13px', color: '#2E8FFF', textDecoration: 'none' }}>
                 All projects <ArrowRight size={13} />
@@ -583,7 +583,7 @@ const Home = () => {
                 variants={cardReveal}
                 whileHover={{ y: -6, borderColor: 'rgba(46,143,255,0.42)', boxShadow: '0 0 0 1px rgba(46,143,255,0.09), 0 22px 50px rgba(46,143,255,0.09), 0 22px 50px rgba(0,0,0,0.36)', filter: 'saturate(1.1) brightness(1.05)' }}
                 transition={{ duration: 0.15, ease: 'easeOut' }}
-                style={{ position: 'relative', display: 'flex', flexDirection: 'column', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.08)', background: 'linear-gradient(145deg, #1A1D23, #111317)', padding: '30px', transition: 'border-color 0.15s ease-out, box-shadow 0.15s ease-out, filter 0.15s ease-out', cursor: 'default' }}
+                style={{ position: 'relative', display: 'flex', flexDirection: 'column', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.08)', background: 'linear-gradient(145deg, #1A1D23, #111317)', boxShadow: '0 0 0 1px rgba(46,143,255,0.06), 0 18px 40px rgba(46,143,255,0.05)', padding: '30px', transition: 'border-color 0.15s ease-out, box-shadow 0.15s ease-out, filter 0.15s ease-out', cursor: 'default' }}
               >
                 <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(46,143,255,0.7), rgba(46,143,255,0.7), transparent)' }} />
 

@@ -148,7 +148,7 @@ const About = () => {
           <div style={{ gridColumn: 'span 12' }} className="lg:!col-span-7">
             <RevealWrapper>
               <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#2E8FFF', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '10px' }}>My story</p>
-              <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(22px, 3vw, 32px)', color: '#ECEEF2', marginBottom: '30px' }}>
+              <h2 className="heading-accent" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(22px, 3vw, 32px)', color: '#ECEEF2', marginBottom: '30px' }}>
                 Background and Motivation
               </h2>
             </RevealWrapper>
@@ -269,7 +269,7 @@ const About = () => {
         <RevealWrapper>
           <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#2E8FFF', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '10px' }}>Technical skills</p>
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '44px', flexWrap: 'wrap', gap: '12px' }}>
-            <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(26px, 4vw, 40px)', color: '#ECEEF2' }}>Technical Expertise</h2>
+            <h2 className="heading-accent" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(26px, 4vw, 40px)', color: '#ECEEF2' }}>Technical Expertise</h2>
             <p style={{ fontSize: '13px', color: '#9BA1AD', maxWidth: '280px', lineHeight: 1.6 }} className="lg:text-right">
               Technologies I've worked with professionally and in personal projects.
             </p>
@@ -310,7 +310,7 @@ const About = () => {
         <RevealWrapper>
           <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#2E8FFF', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '10px' }}>Journey</p>
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '56px', flexWrap: 'wrap', gap: '12px' }}>
-            <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(26px, 4vw, 40px)', color: '#ECEEF2' }}>Experience and Education</h2>
+            <h2 className="heading-accent" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(26px, 4vw, 40px)', color: '#ECEEF2' }}>Experience and Education</h2>
             <p style={{ fontSize: '13px', color: '#9BA1AD', maxWidth: '260px', lineHeight: 1.6 }} className="lg:text-right">
               My path through academia and hands-on development.
             </p>

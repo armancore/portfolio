@@ -91,7 +91,7 @@ const Contact = () => {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))', gap: '44px' }}>
           <div>
             <RevealWrapper>
-              <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '23px', color: '#ECEEF2', marginBottom: '10px' }}>Get in touch</h2>
+              <h2 className="heading-accent" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '23px', color: '#ECEEF2', marginBottom: '28px' }}>Get in touch</h2>
               <p style={{ fontSize: '14.5px', color: '#9BA1AD', lineHeight: 1.9, marginBottom: '32px' }}>
                 {PERSONAL_INFO.bio[2]}
               </p>
