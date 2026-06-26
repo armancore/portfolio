@@ -98,7 +98,7 @@ const Projects = () => {
                       exit={reduceAnimations ? undefined : { opacity: 0, scale: 0.95, transition: { duration: 0.25 } }}
                       whileHover={reduceAnimations ? undefined : { y: -6, borderColor: 'rgba(46,143,255,0.38)', boxShadow: '0 0 0 1px rgba(46,143,255,0.09), 0 24px 52px rgba(0,0,0,0.42)', filter: 'saturate(1.1)' }}
                       transition={reduceAnimations ? undefined : { duration: 0.15, ease: 'easeOut' }}
-                      style={{ position: 'relative', display: 'flex', flexDirection: 'column', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #1A1D23, #111317)', transition: 'border-color 0.15s ease-out, box-shadow 0.15s ease-out, filter 0.15s ease-out' }}
+                      style={{ position: 'relative', display: 'flex', flexDirection: 'column', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #1A1D23, #111317)', boxShadow: '0 0 0 1px rgba(46,143,255,0.06), 0 18px 40px rgba(46,143,255,0.05)', transition: 'border-color 0.15s ease-out, box-shadow 0.15s ease-out, filter 0.15s ease-out' }}
                     >
                       <div style={{ height: '2px', background: `linear-gradient(90deg, ${ca.text}80, ${ca.text}30, transparent)`, flexShrink: 0 }} />
 
