@@ -53,7 +53,8 @@ export const CATEGORY_ACCENTS = {
 
 export const PERSONAL_INFO = {
   name: "Arman Khan",
-  role: "IT Student | Learning Frontend & Backend",
+  role: "Building full-stack web applications with React, Node.js, and PostgreSQL",
+  context: "IT student at Texas College of Management and IT, Kathmandu",
   tagline: "Building things that live on the internet.",
   email: "contact@armankhan.com.np",
   location: "Tinkune, Kathmandu, Nepal",
@@ -101,9 +102,9 @@ export const SKILLS = [
   },
   {
     id: 2,
-    title: "Backend Foundations",
+    title: "Backend Development",
     icon: "⚙️",
-    description: "Learning to build secure backend systems and APIs through hands-on projects.",
+    description: "Building REST APIs with token-based auth, relational schemas, and request validation.",
     tags: [
       { label: "Node.js", color: "purple" },
       { label: "Express.js", color: "purple" },
@@ -350,7 +351,7 @@ export const TIMELINE = [
   {
     id: 2,
     year: "2025–Present",
-    title: "Frontend and Backend Learner",
+    title: "Full-Stack Project Development",
     org: "Self-directed / Personal Projects",
     description: "Built and deployed production web applications while strengthening frontend architecture, API integration, authentication systems, and modern deployment workflows.",
     tags: [
