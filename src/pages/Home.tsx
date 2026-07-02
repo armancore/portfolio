@@ -14,11 +14,16 @@ import {
   Code2,
   Sparkles,
   ChevronDown,
+  Atom,
+  Hexagon,
+  Database,
+  Triangle,
+  Server,
+  GitBranch,
 } from 'lucide-react';
 import PageMeta from '../components/seo/PageMeta';
 import SplitTextReveal from '../components/ui/SplitTextReveal';
 import { PERSONAL_INFO, PROJECTS } from '../constants';
-import useCountUp from '../hooks/useCountUp';
 import useMagnetic from '../hooks/useMagnetic';
 import useTypewriter from '../hooks/useTypewriter';
 import {
@@ -37,10 +42,15 @@ const profileImg960 = '/profile-960.webp';
 const profileImgOriginal = '/profile.webp';
 const SUBTITLE = PERSONAL_INFO.role;
 
-const statsData = [
-  { value: PROJECTS.length, label: 'Projects' },
-  { value: '4+', label: 'Languages' },
-  { value: '1+', label: 'Years Learning' },
+// lucide has no brand marks, so each entry pairs the closest generic glyph
+// with the name it stands for -- the label is what identifies the tech.
+const techStack = [
+  { icon: Atom, label: 'React' },
+  { icon: Hexagon, label: 'Node.js' },
+  { icon: Database, label: 'PostgreSQL' },
+  { icon: Triangle, label: 'Prisma' },
+  { icon: Server, label: 'Express' },
+  { icon: GitBranch, label: 'Git' },
 ];
 
 const bentoSkills = [
@@ -62,38 +72,30 @@ const Particle = ({ style, index, active }) => (
   />
 );
 
-type StatValue = number | string;
-
-const StatDisplay = ({
-  value,
-  label,
+const TechStrip = ({
   reduceAnimations,
-  fontSize,
+  align = 'flex-start',
 }: {
-  value: StatValue;
-  label: string;
   reduceAnimations: boolean;
-  fontSize: string;
-}) => {
-  const numericValue = typeof value === 'number' ? value : parseInt(value, 10);
-  const suffix = typeof value === 'string' ? value.replace(String(numericValue), '') : '';
-  const { count, ref } = useCountUp({
-    target: numericValue,
-    duration: label === 'Projects' ? 1600 : 1400,
-    delay: label === 'Projects' ? 200 : 0,
-    enabled: !reduceAnimations,
-  });
-
-  return (
-    <div ref={ref as React.RefObject<HTMLDivElement>} style={{ textAlign: 'center' }}>
-      <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize, color: '#ECEEF2' }}>
-        {reduceAnimations ? numericValue : count}
-        {suffix}
-      </p>
-      <p style={{ fontSize: '9px', color: '#5C626E', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.07em' }}>{label}</p>
-    </div>
-  );
-};
+  align?: 'flex-start' | 'center';
+}) => (
+  <ul
+    aria-label="Core stack"
+    style={{ display: 'flex', flexWrap: 'wrap', justifyContent: align, gap: '6px', listStyle: 'none', margin: 0, padding: 0 }}
+  >
+    {techStack.map(({ icon: Icon, label }, i) => (
+      <motion.li
+        key={label}
+        initial={reduceAnimations ? false : { opacity: 0, y: 6 }}
+        animate={reduceAnimations ? undefined : { opacity: 1, y: 0, transition: { delay: 0.9 + i * 0.07 } }}
+        style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '4px 9px', borderRadius: '7px', background: 'rgba(46,143,255,0.08)', border: '1px solid rgba(46,143,255,0.18)' }}
+      >
+        <Icon size={11} style={{ color: '#2E8FFF', flexShrink: 0 }} aria-hidden="true" />
+        <span style={{ fontSize: '10px', color: '#9BA1AD', fontFamily: "'JetBrains Mono', monospace", whiteSpace: 'nowrap' }}>{label}</span>
+      </motion.li>
+    ))}
+  </ul>
+);
 
 const SocialButton = ({
   href,
@@ -458,17 +460,7 @@ const Home = () => {
                     <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(18px, 4vw, 21px)', color: '#ECEEF2', marginBottom: '4px' }}>Arman Khan</p>
                     <p style={{ fontSize: '12px', color: '#9BA1AD', lineHeight: 1.5 }}>{PERSONAL_INFO.role}</p>
                     <p style={{ fontSize: '10.5px', color: '#5C626E', lineHeight: 1.5, marginTop: '3px', marginBottom: '14px' }}>{PERSONAL_INFO.context}</p>
-                    <div style={{ display: 'flex', gap: '18px', flexWrap: 'wrap' }}>
-                      {statsData.map((s) => (
-                        <StatDisplay
-                          key={s.label}
-                          value={s.value}
-                          label={s.label}
-                          reduceAnimations={reduceAnimations}
-                          fontSize="17px"
-                        />
-                      ))}
-                    </div>
+                    <TechStrip reduceAnimations={reduceAnimations} />
                   </div>
 
                 </div>
@@ -477,18 +469,8 @@ const Home = () => {
                   <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '20px', color: '#ECEEF2', marginBottom: '4px' }}>Arman Khan</p>
                   <p style={{ fontSize: '12px', color: '#9BA1AD', lineHeight: 1.5, maxWidth: '300px', marginLeft: 'auto', marginRight: 'auto' }}>{PERSONAL_INFO.role}</p>
                   <p style={{ fontSize: '10.5px', color: '#5C626E', lineHeight: 1.5, marginTop: '3px', marginBottom: '14px' }}>{PERSONAL_INFO.context}</p>
-                  <div style={{ display: 'flex', justifyContent: 'center', gap: '18px' }}>
-                    {statsData.map((s) => (
-                      <StatDisplay
-                        key={`m-${s.label}`}
-                        value={s.value}
-                        label={s.label}
-                        reduceAnimations={reduceAnimations}
-                        fontSize="16px"
-                      />
-                      ))}
-                    </div>
-                  </div>
+                  <TechStrip reduceAnimations={reduceAnimations} align="center" />
+                </div>
 
                   <motion.div
                     initial={reduceAnimations ? false : { opacity: 0, scale: 0.8 }}
