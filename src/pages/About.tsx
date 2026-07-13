@@ -5,7 +5,7 @@ import { MapPin, Mail, BookOpen, ArrowRight, Briefcase, GraduationCap, Clock } f
 import RevealWrapper from '../components/ui/RevealWrapper';
 import ScrollReveal from '../components/ui/ScrollReveal';
 import PageMeta from '../components/seo/PageMeta';
-import { ACCENT_MAP, PERSONAL_INFO, PHOTO_MODE, PROJECTS, SKILLS, TIMELINE } from '../constants';
+import { ACCENT, PERSONAL_INFO, PHOTO_MODE, PROJECTS, SKILLS, TIMELINE } from '../constants';
 import { fadeUp, staggerContainer, viewport, blurIn } from '../lib/motion';
 
 const profileImg = '/profile.webp';
@@ -21,8 +21,8 @@ const details = [
 ];
 
 const quickFacts = [
-  { label: `${PROJECTS.length} Projects Deployed`, accent: ACCENT_MAP.blue },
-  { label: 'Prisma + PostgreSQL', accent: ACCENT_MAP.purple },
+  { label: `${PROJECTS.length} Projects Deployed`, accent: ACCENT },
+  { label: 'Prisma + PostgreSQL', accent: ACCENT },
   {
     label: 'Open to Hire',
     accent: {
@@ -31,7 +31,7 @@ const quickFacts = [
       text: 'var(--color-status)',
     },
   },
-  { label: 'From Damak, Jhapa', accent: ACCENT_MAP.orange },
+  { label: 'From Damak, Jhapa', accent: ACCENT },
 ];
 
 const values = [
@@ -279,30 +279,27 @@ const About = () => {
         </RevealWrapper>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))', gap: '14px' }}>
-          {SKILLS.map((skill, i) => {
-            const ac = ACCENT_MAP[skill.accentColor] || ACCENT_MAP.blue;
-            return (
-              <ScrollReveal key={skill.id} delay={i * 0.08}>
-                <motion.div
-                  whileHover={reduceAnimations ? undefined : { y: -6, borderColor: ac.border, boxShadow: `0 0 0 1px ${ac.border}, 0 20px 44px ${ac.glow}`, filter: 'saturate(1.1)' }}
-                  style={{ position: 'relative', height: '100%', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #1A1D23, #111317)', padding: 'clamp(18px,4vw,24px)', transition: 'border-color 0.25s, box-shadow 0.25s' }}
-                >
-                  <div style={{ position: 'absolute', top: 0, right: 0, width: '90px', height: '90px', background: `radial-gradient(circle at top right, ${ac.bg}, transparent 70%)`, pointerEvents: 'none' }} />
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                    <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: ac.bg, border: `1px solid ${ac.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '19px', flexShrink: 0 }}>
-                      {skill.icon}
-                    </div>
-                    <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '14.5px', color: ac.text }}>{skill.title}</h3>
+          {SKILLS.map((skill, i) => (
+            <ScrollReveal key={skill.id} delay={i * 0.08}>
+              <motion.div
+                whileHover={reduceAnimations ? undefined : { y: -6, borderColor: ACCENT.border, boxShadow: `0 0 0 1px ${ACCENT.border}, 0 20px 44px ${ACCENT.glow}`, filter: 'saturate(1.1)' }}
+                style={{ position: 'relative', height: '100%', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #1A1D23, #111317)', padding: 'clamp(18px,4vw,24px)', transition: 'border-color 0.25s, box-shadow 0.25s' }}
+              >
+                <div style={{ position: 'absolute', top: 0, right: 0, width: '90px', height: '90px', background: `radial-gradient(circle at top right, ${ACCENT.bg}, transparent 70%)`, pointerEvents: 'none' }} />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                  <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: ACCENT.bg, border: `1px solid ${ACCENT.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '19px', flexShrink: 0 }}>
+                    {skill.icon}
                   </div>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
-                    {skill.tags.map((t) => (
-                      <span key={t.label} style={{ padding: '3px 9px', borderRadius: '6px', background: ac.bg, border: `1px solid ${ac.border}`, fontSize: '10px', color: ac.text, fontFamily: "'JetBrains Mono', monospace" }}>{t.label}</span>
-                    ))}
-                  </div>
-                </motion.div>
-              </ScrollReveal>
-            );
-          })}
+                  <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '14.5px', color: ACCENT.text }}>{skill.title}</h3>
+                </div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
+                  {skill.tags.map((t) => (
+                    <span key={t.label} style={{ padding: '3px 9px', borderRadius: '6px', background: ACCENT.bg, border: `1px solid ${ACCENT.border}`, fontSize: '10px', color: ACCENT.text, fontFamily: "'JetBrains Mono', monospace" }}>{t.label}</span>
+                  ))}
+                </div>
+              </motion.div>
+            </ScrollReveal>
+          ))}
         </div>
       </div>
     </section>
@@ -362,14 +359,11 @@ const About = () => {
                     </div>
                     <p style={{ fontSize: '13.5px', color: '#9BA1AD', lineHeight: 1.8, marginBottom: '16px' }}>{item.description}</p>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
-                      {item.tags.map((t) => {
-                        const ac = ACCENT_MAP[t.color] || ACCENT_MAP.blue;
-                        return (
-                          <span key={t.label} style={{ padding: '3px 9px', borderRadius: '6px', background: ac.bg, border: `1px solid ${ac.border}`, fontSize: '10px', color: ac.text, fontFamily: "'JetBrains Mono', monospace" }}>
-                            {t.label}
-                          </span>
-                        );
-                      })}
+                      {item.tags.map((t) => (
+                        <span key={t.label} style={{ padding: '3px 9px', borderRadius: '6px', background: ACCENT.bg, border: `1px solid ${ACCENT.border}`, fontSize: '10px', color: ACCENT.text, fontFamily: "'JetBrains Mono', monospace" }}>
+                          {t.label}
+                        </span>
+                      ))}
                     </div>
                   </motion.div>
                 </div>
