@@ -1,7 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useReducedMotion } from 'motion/react';
-import { MapPin, Mail, BookOpen, ArrowRight, Briefcase, GraduationCap, Clock } from 'lucide-react';
+import {
+  MapPin,
+  Mail,
+  BookOpen,
+  ArrowRight,
+  Briefcase,
+  GraduationCap,
+  Clock,
+  Monitor,
+  Server,
+  Code2,
+  Wrench,
+  Network,
+  FileText,
+} from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
 import ScrollReveal from '../components/ui/ScrollReveal';
 import PageMeta from '../components/seo/PageMeta';
@@ -9,6 +23,9 @@ import { ACCENT, PERSONAL_INFO, PHOTO_MODE, PROJECTS, SKILLS, TIMELINE } from '.
 import { fadeUp, staggerContainer, viewport, blurIn } from '../lib/motion';
 
 const profileImg = '/profile.webp';
+
+// Same string-name-plus-lookup convention SOCIAL_LINKS and CONTACT_LINKS use.
+const skillIconMap = { Monitor, Server, Code2, Wrench, Network, FileText };
 
 const details = [
   { icon: BookOpen, label: 'Status', value: PERSONAL_INFO.status, accent: true },
@@ -279,7 +296,9 @@ const About = () => {
         </RevealWrapper>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))', gap: '14px' }}>
-          {SKILLS.map((skill, i) => (
+          {SKILLS.map((skill, i) => {
+            const SkillIcon = skillIconMap[skill.icon as keyof typeof skillIconMap];
+            return (
             <ScrollReveal key={skill.id} delay={i * 0.08}>
               <motion.div
                 whileHover={reduceAnimations ? undefined : { y: -6, borderColor: ACCENT.border, boxShadow: `0 0 0 1px ${ACCENT.border}, 0 20px 44px ${ACCENT.glow}`, filter: 'saturate(1.1)' }}
@@ -287,8 +306,8 @@ const About = () => {
               >
                 <div style={{ position: 'absolute', top: 0, right: 0, width: '90px', height: '90px', background: `radial-gradient(circle at top right, ${ACCENT.bg}, transparent 70%)`, pointerEvents: 'none' }} />
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                  <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: ACCENT.bg, border: `1px solid ${ACCENT.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '19px', flexShrink: 0 }}>
-                    {skill.icon}
+                  <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: ACCENT.bg, border: `1px solid ${ACCENT.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    {SkillIcon ? <SkillIcon size={19} style={{ color: ACCENT.text }} aria-hidden="true" /> : null}
                   </div>
                   <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '14.5px', color: ACCENT.text }}>{skill.title}</h3>
                 </div>
@@ -299,7 +318,8 @@ const About = () => {
                 </div>
               </motion.div>
             </ScrollReveal>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
