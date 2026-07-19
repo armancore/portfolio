@@ -1,13 +1,72 @@
 export const PHOTO_MODE = "photo";
 
-export const THEME_COLORS = {
-  accent: "var(--color-accent)",
-  accent2: "var(--color-accent2)",
-  accent3: "var(--color-accent3)",
-  textPrimary: "var(--color-text-primary)",
-  textSecondary: "var(--color-text-secondary)",
-  textMuted: "var(--color-text-muted)",
-};
+/** A technology or topic chip rendered beside a skill, project or timeline entry. */
+export interface Tag {
+  label: string;
+}
+
+/** lucide-react export names. Consumers map these to components via a lookup. */
+export type SkillIconName = "Monitor" | "Server" | "Code2" | "Wrench" | "Network" | "FileText";
+export type SocialIconName = "Github" | "Linkedin" | "Facebook" | "Instagram";
+export type ContactIconName = "Mail" | SocialIconName;
+
+/** The vocabulary of project categories. The Projects filter bar derives its
+ *  buttons from the projects that actually exist, not from this union. */
+export type ProjectCategory = "Tool" | "API" | "Social" | "Frontend";
+
+export interface Skill {
+  id: number;
+  title: string;
+  icon: SkillIconName;
+  description: string;
+  tags: Tag[];
+}
+
+export interface Project {
+  id: number;
+  /** Zero-padded display index, e.g. "01". Kept in sync with id. */
+  num: string;
+  title: string;
+  description: string;
+  longDescription: string;
+  tags: Tag[];
+  category: ProjectCategory;
+  /** Shown as a chip, and as the fallback when liveUrl is absent. */
+  status?: string;
+  /** Absent for projects with no public deployment. */
+  liveUrl?: string;
+  /** Absent for projects with no public repository. */
+  githubUrl?: string;
+  featured: boolean;
+}
+
+export interface TimelineEntry {
+  id: number;
+  year: string;
+  title: string;
+  org: string;
+  description: string;
+  tags: Tag[];
+}
+
+export interface NavLink {
+  label: string;
+  path: string;
+}
+
+export interface SocialLink {
+  label: string;
+  url: string;
+  icon: SocialIconName;
+}
+
+export interface ContactLink {
+  label: string;
+  sublabel: string;
+  href: string;
+  iconName: ContactIconName;
+  bgColor: string;
+}
 
 // Single accent style for every tag, category chip and skill card. The five
 // former ACCENT_MAP keys and four CATEGORY_ACCENTS keys all resolved to the
@@ -38,21 +97,21 @@ export const PERSONAL_INFO = {
   ]
 };
 
-export const NAV_LINKS = [
+export const NAV_LINKS: NavLink[] = [
   { label: "Home", path: "/" },
   { label: "About", path: "/about" },
   { label: "Projects", path: "/projects" },
   { label: "Contact", path: "/contact" }
 ];
 
-export const SOCIAL_LINKS = [
+export const SOCIAL_LINKS: SocialLink[] = [
   { label: "GitHub", url: "https://github.com/armancore", icon: "Github" },
   { label: "LinkedIn", url: "https://www.linkedin.com/in/techiee-arman/", icon: "Linkedin" },
   { label: "Facebook", url: "https://www.facebook.com/techiee.arman", icon: "Facebook" },
   { label: "Instagram", url: "https://www.instagram.com/techiee.arman", icon: "Instagram" }
 ];
 
-export const SKILLS = [
+export const SKILLS: Skill[] = [
   {
     id: 1,
     title: "Frontend Development",
@@ -134,7 +193,7 @@ export const SKILLS = [
   }
 ];
 
-export const PROJECTS = [
+export const PROJECTS: Project[] = [
   {
     id: 1,
     num: "01",
@@ -277,7 +336,7 @@ export const PROJECTS = [
   }
 ];
 
-export const TIMELINE = [
+export const TIMELINE: TimelineEntry[] = [
   {
     id: 1,
     year: "2026–Present",
@@ -345,7 +404,7 @@ export const TIMELINE = [
   },
 ];
 
-export const CONTACT_LINKS = [
+export const CONTACT_LINKS: ContactLink[] = [
   {
     label: "contact@armankhan.com.np",
     sublabel: "Fastest response",
