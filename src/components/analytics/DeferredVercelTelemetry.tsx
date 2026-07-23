@@ -15,17 +15,18 @@ const DeferredVercelTelemetry = () => {
   useEffect(() => {
     if (import.meta.env.DEV) return undefined;
 
-    let taskId;
-    const schedule =
-      typeof window !== 'undefined' && typeof window.requestIdleCallback === 'function'
-        ? window.requestIdleCallback
-        : (cb) => setTimeout(cb, 1800);
-    const cancel =
-      typeof window !== 'undefined' && typeof window.cancelIdleCallback === 'function'
-        ? window.cancelIdleCallback
-        : clearTimeout;
+    const hasIdleCallback =
+      typeof window !== 'undefined' && typeof window.requestIdleCallback === 'function';
 
-    taskId = schedule(() => setEnabled(true));
+    // Both branches are keyed by an opaque numeric handle, but requestIdleCallback
+    // and setTimeout hand back ids from different pools -- so the canceller has to
+    // be chosen alongside the scheduler, never mixed.
+    const schedule = (callback: () => void): number =>
+      hasIdleCallback ? window.requestIdleCallback(callback) : window.setTimeout(callback, 1800);
+    const cancel = (id: number): void =>
+      hasIdleCallback ? window.cancelIdleCallback(id) : window.clearTimeout(id);
+
+    const taskId = schedule(() => setEnabled(true));
     return () => cancel(taskId);
   }, []);
 

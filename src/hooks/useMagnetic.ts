@@ -2,13 +2,15 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import type React from 'react';
 import { useReducedMotion, useSpring } from 'motion/react';
 
-type UseMagneticResult = {
-  ref: React.RefObject<HTMLElement>;
+type UseMagneticResult<T extends HTMLElement> = {
+  ref: React.RefObject<T | null>;
   style: React.CSSProperties;
 };
 
-const useMagnetic = (strength = 0.35): UseMagneticResult => {
-  const ref = useRef<HTMLElement>(null);
+const useMagnetic = <T extends HTMLElement = HTMLDivElement>(
+  strength = 0.35
+): UseMagneticResult<T> => {
+  const ref = useRef<T>(null);
   const prefersReducedMotion = useReducedMotion();
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== 'undefined' && window.innerWidth < 768
