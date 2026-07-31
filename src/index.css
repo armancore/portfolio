@@ -124,14 +124,17 @@ a { color: inherit; }
   100% { transform: scale(1); }
 }
 
-@media (pointer: fine) {
+/* Only surrender the native cursor where the custom one actually renders.
+   CustomCursor returns null under reduced motion and coarse pointers, so
+   without the second condition those users would get no cursor at all. */
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
   body,
   body * {
     cursor: none !important;
   }
 }
 
-@media (pointer: coarse) {
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
   .custom-cursor {
     display: none;
   }
