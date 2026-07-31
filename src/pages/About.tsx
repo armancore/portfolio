@@ -36,7 +36,7 @@ const quickFacts = [
 
 const values = [
   { icon: '🎯', title: 'Goal-Oriented', desc: 'I ship products, not just code.' },
-  { icon: '📚', title: 'Always Learning', desc: 'CS fundamentals meet modern stacks.' },
+  { icon: '📚', title: 'Fundamentals First', desc: 'CS fundamentals meet modern stacks.' },
   { icon: '🤝', title: 'Team Player', desc: 'Communication is a core skill.' },
 ];
 
@@ -48,7 +48,7 @@ const About = () => {
   <div style={{ background: 'transparent', minHeight: '100vh' }}>
     <PageMeta
       title="About | Arman Khan"
-      description="Learn more about Arman Khan, an IT student from Damak, Jhapa currently learning frontend and backend development through project-based practice."
+      description="Arman Khan builds full-stack web applications with React, Node.js, and PostgreSQL. IT student from Damak, Jhapa, now based in Kathmandu, Nepal."
     />
 
     <section style={{ paddingTop: '110px', paddingBottom: '72px', position: 'relative', overflow: 'hidden' }}>
@@ -81,7 +81,7 @@ const About = () => {
               About Me
             </motion.h1>
             <motion.p variants={fadeUp} style={{ fontSize: 'clamp(15px, 3.8vw, 17px)', color: '#9BA1AD', maxWidth: '520px', lineHeight: 1.85, marginBottom: '28px' }}>
-              IT student and lifelong learner from Damak, Jhapa, currently learning frontend and backend development while building meaningful software in Kathmandu, Nepal.
+              I build full-stack web applications with React, Node.js, and PostgreSQL. Originally from Damak, Jhapa, now studying IT and building software in Kathmandu, Nepal.
             </motion.p>
 
             <motion.div variants={staggerContainer(0.07)} initial={reduceAnimations ? false : 'hidden'} animate={reduceAnimations ? undefined : 'show'} style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
@@ -124,7 +124,8 @@ const About = () => {
                   )}
                   <div>
                     <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '16px', color: '#ECEEF2', marginBottom: '3px' }}>Arman Khan</p>
-                    <p style={{ fontSize: '12px', color: '#9BA1AD', marginBottom: '8px' }}>IT Student | Learning Frontend & Backend</p>
+                    <p style={{ fontSize: '12px', color: '#9BA1AD', lineHeight: 1.5 }}>{PERSONAL_INFO.role}</p>
+                    <p style={{ fontSize: '10.5px', color: '#5C626E', lineHeight: 1.5, marginTop: '3px', marginBottom: '8px' }}>{PERSONAL_INFO.context}</p>
                     <motion.div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '3px 9px', background: 'rgba(22,163,74,0.08)', border: '1px solid rgba(22,163,74,0.1)', borderRadius: '20px' }}>
                       <motion.span
                         animate={reduceAnimations ? undefined : { scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
@@ -215,7 +216,8 @@ const About = () => {
                   <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '42%', background: 'linear-gradient(to top, rgba(10,11,13,0.95) 0%, transparent 100%)', zIndex: 1 }} />
                   <div style={{ position: 'absolute', bottom: '20px', left: '20px', right: '20px', zIndex: 2 }}>
                     <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '19px', color: '#ECEEF2', marginBottom: '3px' }}>Arman Khan</p>
-                    <p style={{ fontSize: '12px', color: '#9BA1AD' }}>IT Student | Learning Frontend & Backend | Kathmandu</p>
+                    <p style={{ fontSize: '12px', color: '#9BA1AD', lineHeight: 1.5 }}>{PERSONAL_INFO.role}</p>
+                    <p style={{ fontSize: '10.5px', color: '#5C626E', lineHeight: 1.5, marginTop: '3px' }}>{PERSONAL_INFO.context}</p>
                   </div>
 
                   <motion.div

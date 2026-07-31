@@ -35,7 +35,7 @@ import {
 const profileImg640 = '/profile-640.webp';
 const profileImg960 = '/profile-960.webp';
 const profileImgOriginal = '/profile.webp';
-const SUBTITLE = 'IT Student | Learning Frontend & Backend';
+const SUBTITLE = PERSONAL_INFO.role;
 
 const statsData = [
   { value: PROJECTS.length, label: 'Projects' },
@@ -45,7 +45,7 @@ const statsData = [
 
 const bentoSkills = [
   { icon: Layers, title: 'Frontend', desc: 'React, Tailwind, Vite pixel-perfect UIs', color: '#2E8FFF', glow: 'rgba(46,143,255,0.15)' },
-  { icon: Cpu, title: 'Learning Backend', desc: 'Node.js, Express, Prisma, PostgreSQL', color: '#2E8FFF', glow: 'rgba(46,143,255,0.15)' },
+  { icon: Cpu, title: 'Backend', desc: 'Node.js, Express, Prisma, PostgreSQL', color: '#2E8FFF', glow: 'rgba(46,143,255,0.15)' },
   { icon: Globe, title: 'Networking', desc: 'TCP/IP, DNS, Linux, Cybersecurity', color: '#2E8FFF', glow: 'rgba(46,143,255,0.15)' },
   { icon: Code2, title: 'Languages', desc: 'C++, Java, Python, JavaScript', color: '#2E8FFF', glow: 'rgba(46,143,255,0.15)' },
 ];
@@ -216,8 +216,8 @@ const Home = () => {
   return (
     <div style={{ background: 'transparent', minHeight: '100vh' }}>
       <PageMeta
-        title="Arman Khan"
-        description="IT student from Nepal currently learning frontend and backend development through hands-on projects with React, Node.js, Express, Prisma, and PostgreSQL."
+        title="Arman Khan — Building Full-Stack Web Applications | React, Node.js, PostgreSQL"
+        description="I build full-stack web applications with React, Node.js, and PostgreSQL. IT student at Texas College of Management and IT, Kathmandu, Nepal."
       />
 
       <section
@@ -290,7 +290,7 @@ const Home = () => {
                     style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#2E8FFF', boxShadow: '0 0 0 3px rgba(46,143,255,0.2)', flexShrink: 0, display: 'inline-block' }}
                   />
                   <span style={{ color: '#7DB8FF', fontSize: '11px', fontFamily: "'JetBrains Mono', monospace", letterSpacing: '0.05em' }}>
-                    building polished frontend and learning backend
+                    shipping full-stack apps from schema to interface
                   </span>
                   <Sparkles size={10} style={{ color: '#2E8FFF', flexShrink: 0 }} />
                 </motion.div>
@@ -305,11 +305,18 @@ const Home = () => {
                 </motion.span>
               </motion.h1>
 
-              <motion.div variants={heroVariants} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '16px', marginBottom: '18px' }}>
-                <div style={{ width: '28px', height: '1px', background: 'rgba(46,143,255,0.6)' }} />
-                <p style={{ fontSize: 'clamp(15px, 3.5vw, 17px)', color: '#9BA1AD', fontWeight: 300, letterSpacing: '0.01em' }}>
-                  {subtitleDisplayed}
-                </p>
+              <motion.div variants={heroVariants} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginTop: '16px', marginBottom: '18px' }}>
+                <div style={{ width: '28px', height: '1px', background: 'rgba(46,143,255,0.6)', flexShrink: 0, marginTop: '11px' }} />
+                <div style={{ minWidth: 0 }}>
+                  {/* minHeight reserves the two lines the full string wraps to, so the
+                      typewriter does not shift the bio and CTAs while it types. */}
+                  <p style={{ fontSize: 'clamp(15px, 3.5vw, 17px)', color: '#9BA1AD', fontWeight: 300, letterSpacing: '0.01em', lineHeight: 1.5, maxWidth: '440px', minHeight: reduceAnimations ? undefined : '51px' }}>
+                    {subtitleDisplayed}
+                  </p>
+                  <p style={{ fontSize: 'clamp(12px, 2.8vw, 13px)', color: '#5C626E', lineHeight: 1.5, marginTop: '7px', maxWidth: '440px' }}>
+                    {PERSONAL_INFO.context}
+                  </p>
+                </div>
               </motion.div>
 
               <motion.p variants={heroVariants} style={{ fontSize: '14.5px', color: '#9BA1AD', lineHeight: 1.85, maxWidth: '500px', marginBottom: '32px' }}>
@@ -449,7 +456,8 @@ const Home = () => {
 
                   <div className="hidden md:block" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: 'clamp(20px, 4vw, 30px)', zIndex: 3 }}>
                     <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(18px, 4vw, 21px)', color: '#ECEEF2', marginBottom: '4px' }}>Arman Khan</p>
-                    <p style={{ fontSize: '12px', color: '#9BA1AD', marginBottom: '14px' }}>IT Student | Learning Frontend & Backend</p>
+                    <p style={{ fontSize: '12px', color: '#9BA1AD', lineHeight: 1.5 }}>{PERSONAL_INFO.role}</p>
+                    <p style={{ fontSize: '10.5px', color: '#5C626E', lineHeight: 1.5, marginTop: '3px', marginBottom: '14px' }}>{PERSONAL_INFO.context}</p>
                     <div style={{ display: 'flex', gap: '18px', flexWrap: 'wrap' }}>
                       {statsData.map((s) => (
                         <StatDisplay
@@ -467,7 +475,8 @@ const Home = () => {
 
                 <div className="block md:hidden" style={{ marginTop: '20px', textAlign: 'center' }}>
                   <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '20px', color: '#ECEEF2', marginBottom: '4px' }}>Arman Khan</p>
-                  <p style={{ fontSize: '12px', color: '#9BA1AD', marginBottom: '14px' }}>IT Student | Learning Frontend & Backend</p>
+                  <p style={{ fontSize: '12px', color: '#9BA1AD', lineHeight: 1.5, maxWidth: '300px', marginLeft: 'auto', marginRight: 'auto' }}>{PERSONAL_INFO.role}</p>
+                  <p style={{ fontSize: '10.5px', color: '#5C626E', lineHeight: 1.5, marginTop: '3px', marginBottom: '14px' }}>{PERSONAL_INFO.context}</p>
                   <div style={{ display: 'flex', justifyContent: 'center', gap: '18px' }}>
                     {statsData.map((s) => (
                       <StatDisplay
