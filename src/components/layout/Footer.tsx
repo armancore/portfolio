@@ -26,7 +26,7 @@ const FooterSocialIcon = ({
   if (!Icon) return null;
 
   return (
-    <motion.div ref={ref as React.RefObject<HTMLDivElement>} style={magneticStyle}>
+    <motion.div ref={ref} style={magneticStyle}>
       <motion.a
         href={social.url}
         target="_blank"
