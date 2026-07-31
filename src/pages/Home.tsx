@@ -25,6 +25,7 @@ import PageMeta from '../components/seo/PageMeta';
 import SplitTextReveal from '../components/ui/SplitTextReveal';
 import { PERSONAL_INFO, PROJECTS } from '../constants';
 import useMagnetic from '../hooks/useMagnetic';
+import useIsMobile from '../hooks/useIsMobile';
 import useTypewriter from '../hooks/useTypewriter';
 import {
   fadeUp,
@@ -160,9 +161,7 @@ const Home = () => {
   const featured = [...PROJECTS].sort((a, b) => Number(b.featured) - Number(a.featured)).slice(0, 2);
   const heroRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
-  const [isMobile, setIsMobile] = useState(
-    () => typeof window !== 'undefined' && window.innerWidth < 768
-  );
+  const isMobile = useIsMobile();
   const [enableAmbientMotion, setEnableAmbientMotion] = useState(false);
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 500], [0, 120]);
@@ -179,12 +178,6 @@ const Home = () => {
   const contactMeMagnetic = useMagnetic(0.28);
   const { ref: viewProjectsRef, style: viewProjectsStyle } = viewProjectsMagnetic;
   const { ref: contactMeRef, style: contactMeStyle } = contactMeMagnetic;
-
-  useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener('resize', onResize, { passive: true });
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
 
   useEffect(() => {
     if (reduceAnimations) {
@@ -228,10 +221,7 @@ const Home = () => {
 
   return (
     <div style={{ background: 'transparent', minHeight: '100vh' }}>
-      <PageMeta
-        title="Arman Khan — Building Full-Stack Web Applications | React, Node.js, PostgreSQL"
-        description="I build full-stack web applications with React, Node.js, and PostgreSQL. IT student at Texas College of Management and IT, Kathmandu, Nepal."
-      />
+      <PageMeta path="/" />
 
       <section
         ref={heroRef}

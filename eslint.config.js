@@ -7,7 +7,7 @@ import tseslint from 'typescript-eslint';
 
 export default [
   {
-    ignores: ['dist', 'node_modules'],
+    ignores: ['dist', 'dist-ssr', 'node_modules'],
   },
   {
     files: ['**/*.{js,jsx}'],
@@ -73,6 +73,20 @@ export default [
       'react/jsx-uses-vars': 'error',
       'react-hooks/set-state-in-effect': 'off',
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    },
+  },
+  {
+    // Build-time code: the SSR entry and the prerender script run in Node, not
+    // the browser, and neither is part of the client component graph. Listed
+    // last so it overrides the browser-globals blocks above.
+    files: ['scripts/**/*.mjs', 'src/entry-server.tsx'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: globals.node,
+    },
+    rules: {
+      'react-refresh/only-export-components': 'off',
     },
   },
 ];

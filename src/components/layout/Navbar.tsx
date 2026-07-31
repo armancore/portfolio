@@ -3,15 +3,14 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import useScrolled from '../../hooks/useScrolled';
+import useIsMobile from '../../hooks/useIsMobile';
 import { NAV_LINKS } from '../../constants';
 
 const Navbar = () => {
   const scrolled = useScrolled(20);
   const location = useLocation();
   const prefersReducedMotion = useReducedMotion();
-  const [isMobile, setIsMobile] = useState(
-    () => typeof window !== 'undefined' && window.innerWidth < 768
-  );
+  const isMobile = useIsMobile();
   const [isLowPowerDevice, setIsLowPowerDevice] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hoveredPath, setHoveredPath] = useState<string | null>(null);
@@ -19,12 +18,6 @@ const Navbar = () => {
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location.pathname]);
-
-  useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener('resize', onResize, { passive: true });
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
 
   useEffect(() => {
     const memory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;

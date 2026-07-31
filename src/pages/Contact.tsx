@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { Mail, Github, Linkedin, Facebook, Instagram, ArrowRight, ExternalLink } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
@@ -9,6 +9,7 @@ import PageMeta from '../components/seo/PageMeta';
 import { PERSONAL_INFO, CONTACT_LINKS } from '../constants';
 import type { ContactIconName } from '../constants';
 import { fadeUp, staggerContainer, blurIn } from '../lib/motion';
+import useIsMobile from '../hooks/useIsMobile';
 
 const iconMap: Record<ContactIconName, LucideIcon> = { Mail, Github, Linkedin, Facebook, Instagram };
 
@@ -27,23 +28,12 @@ const RECIPIENT_EMAIL = PERSONAL_INFO.email;
 
 const Contact = () => {
   const prefersReducedMotion = useReducedMotion();
-  const [isMobile, setIsMobile] = useState(
-    () => typeof window !== 'undefined' && window.innerWidth < 768
-  );
+  const isMobile = useIsMobile();
   const reduceAnimations = prefersReducedMotion || isMobile;
-
-  useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener('resize', onResize, { passive: true });
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
 
   return (
   <div style={{ background: 'transparent', minHeight: '100vh' }}>
-    <PageMeta
-      title="Contact | Arman Khan"
-      description="Get in touch with Arman Khan for internship opportunities, junior developer roles, collaborations, or project discussions."
-    />
+    <PageMeta path="/contact" />
 
     <section style={{ paddingTop: '110px', paddingBottom: '60px', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(46,143,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(46,143,255,0.03) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />

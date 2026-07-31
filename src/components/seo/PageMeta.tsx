@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
+import { routeMeta } from '../../routes';
 
 type PageMetaProps = {
-  title: string;
-  description: string;
+  /** Key into the shared ROUTES table in src/routes.ts. */
+  path: string;
 };
 
 const updateMeta = (selector: string, value: string) => {
@@ -12,7 +13,15 @@ const updateMeta = (selector: string, value: string) => {
   }
 };
 
-const PageMeta = ({ title, description }: PageMetaProps): null => {
+/**
+ * Keeps the document head in step with the active route during client-side
+ * navigation. The prerendered HTML already carries the correct values for a
+ * cold load -- scripts/prerender.mjs bakes them in from the same table -- so
+ * this only matters once the router takes over.
+ */
+const PageMeta = ({ path }: PageMetaProps): null => {
+  const { title, description } = routeMeta(path);
+
   useEffect(() => {
     const canonicalUrl = `${window.location.origin}${window.location.pathname}`;
 
