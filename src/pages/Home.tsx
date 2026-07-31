@@ -311,9 +311,9 @@ const Home = () => {
               <motion.div variants={heroVariants} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginTop: '16px', marginBottom: '18px' }}>
                 <div style={{ width: '28px', height: '1px', background: 'rgba(46,143,255,0.6)', flexShrink: 0, marginTop: '11px' }} />
                 <div style={{ minWidth: 0 }}>
-                  {/* minHeight reserves the two lines the full string wraps to, so the
-                      typewriter does not shift the bio and CTAs while it types. */}
-                  <p style={{ fontSize: 'clamp(15px, 3.5vw, 17px)', color: '#9BA1AD', fontWeight: 300, letterSpacing: '0.01em', lineHeight: 1.5, maxWidth: '440px', minHeight: reduceAnimations ? undefined : '51px' }}>
+                  {/* Reserve one line while the typewriter runs so the supporting
+                      line, bio, and CTAs stay steady without leaving a false gap. */}
+                  <p style={{ fontSize: 'clamp(15px, 3.5vw, 17px)', color: '#9BA1AD', fontWeight: 300, letterSpacing: '0.01em', lineHeight: 1.5, maxWidth: '440px', minHeight: reduceAnimations ? undefined : '1.5em' }}>
                     {subtitleDisplayed}
                   </p>
                   <p style={{ fontSize: 'clamp(12px, 2.8vw, 13px)', color: '#5C626E', lineHeight: 1.5, marginTop: '7px', maxWidth: '440px' }}>
