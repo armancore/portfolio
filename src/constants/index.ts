@@ -56,7 +56,7 @@ export const SKILLS = [
   {
     id: 1,
     title: "Frontend Development",
-    icon: "💻",
+    icon: "Monitor",
     description: "Building responsive, performant user interfaces with modern frameworks.",
     tags: [
       { label: "React 19" },
@@ -70,7 +70,7 @@ export const SKILLS = [
   {
     id: 2,
     title: "Backend Development",
-    icon: "⚙️",
+    icon: "Server",
     description: "Building REST APIs with token-based auth, relational schemas, and request validation.",
     tags: [
       { label: "Node.js" },
@@ -84,7 +84,7 @@ export const SKILLS = [
   {
     id: 3,
     title: "Programming Languages",
-    icon: "🔤",
+    icon: "Code2",
     description: "Multi-paradigm development across systems and application languages.",
     tags: [
       { label: "C++ (OOP)" },
@@ -96,7 +96,7 @@ export const SKILLS = [
   {
     id: 4,
     title: "Dev Tools & Workflow",
-    icon: "🛠️",
+    icon: "Wrench",
     description: "Efficient development workflows with modern tooling and CI/CD.",
     tags: [
       { label: "Git" },
@@ -110,7 +110,7 @@ export const SKILLS = [
   {
     id: 5,
     title: "Networking & Systems",
-    icon: "🌐",
+    icon: "Network",
     description: "IT infrastructure fundamentals, networking protocols, and security.",
     tags: [
       { label: "TCP/IP" },
@@ -123,7 +123,7 @@ export const SKILLS = [
   {
     id: 6,
     title: "Research & Documentation",
-    icon: "📚",
+    icon: "FileText",
     description: "Technical writing, data analysis, and academic research methodology.",
     tags: [
       { label: "Academic writing" },
