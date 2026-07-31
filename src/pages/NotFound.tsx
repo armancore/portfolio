@@ -7,10 +7,7 @@ import PageMeta from '../components/seo/PageMeta';
 const NotFound = () => {
   return (
     <div style={{ background: 'transparent', minHeight: '100vh' }}>
-      <PageMeta
-        title="Page Not Found | Arman Khan"
-        description="The page you tried to visit on Arman Khan's portfolio could not be found."
-      />
+      <PageMeta path="/404" />
       <section style={{ paddingTop: '130px', paddingBottom: '90px', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)', backgroundSize: '80px 80px' }} />
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 50% 60% at 50% 35%, rgba(46,143,255,0.08) 0%, transparent 65%)' }} />

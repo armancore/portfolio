@@ -22,9 +22,10 @@ const CustomCursor = () => {
   const ringPositionRef = useRef({ x: 0, y: 0 });
   const isAnimatingRef = useRef(false);
   const hasPositionedRef = useRef(false);
-  const [isDisabled, setIsDisabled] = useState(
-    () => typeof window === 'undefined' || window.matchMedia(DISABLE_QUERY).matches
-  );
+  // Starts disabled on every render path, including the browser's first one:
+  // the prerendered HTML contains no cursor, so claiming otherwise before the
+  // effect runs would desync hydration. The effect enables it a tick later.
+  const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
     const media = window.matchMedia(DISABLE_QUERY);

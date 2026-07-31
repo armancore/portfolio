@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { motion, useReducedMotion } from 'motion/react';
+import useIsMobile from '../../hooks/useIsMobile';
 
 type SplitTextRevealProps = {
   text: string;
@@ -10,16 +11,8 @@ type SplitTextRevealProps = {
 
 const SplitTextReveal = ({ text, style, className, delay = 0 }: SplitTextRevealProps) => {
   const prefersReducedMotion = useReducedMotion();
-  const [isMobile, setIsMobile] = useState(
-    () => typeof window !== 'undefined' && window.innerWidth < 768
-  );
+  const isMobile = useIsMobile();
   const reduceAnimations = prefersReducedMotion || isMobile;
-
-  useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener('resize', onResize, { passive: true });
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
 
   if (reduceAnimations) {
     return (
