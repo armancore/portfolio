@@ -4,7 +4,7 @@ import { ExternalLink, Github, Star } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
 import ScrollReveal from '../components/ui/ScrollReveal';
 import PageMeta from '../components/seo/PageMeta';
-import { CATEGORY_ACCENTS, PROJECTS } from '../constants';
+import { ACCENT, PROJECTS } from '../constants';
 import { fadeUp, staggerContainer, blurIn } from '../lib/motion';
 
 // Derived so a filter button can never outlive the projects it filters for.
@@ -88,7 +88,6 @@ const Projects = () => {
           >
             <AnimatePresence mode="popLayout">
               {filtered.map((p, i) => {
-                const ca = CATEGORY_ACCENTS[p.category] || CATEGORY_ACCENTS.API;
                 const isFeatured = Boolean(p.featured);
                 return (
                   <ScrollReveal key={p.id} delay={i * 0.07}>
@@ -101,7 +100,10 @@ const Projects = () => {
                       transition={reduceAnimations ? undefined : { duration: 0.15, ease: 'easeOut' }}
                       style={{ position: 'relative', display: 'flex', flexDirection: 'column', overflow: 'hidden', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #1A1D23, #111317)', boxShadow: '0 0 0 1px rgba(46,143,255,0.06), 0 18px 40px rgba(46,143,255,0.05)', transition: 'border-color 0.15s ease-out, box-shadow 0.15s ease-out, filter 0.15s ease-out' }}
                     >
-                      <div style={{ height: '2px', background: `linear-gradient(90deg, ${ca.text}80, ${ca.text}30, transparent)`, flexShrink: 0 }} />
+                      {/* was `${ca.text}80` where ca.text is var(--color-accent);
+                          appending a hex alpha to a var() reference is invalid CSS
+                          and the gradient never painted. */}
+                      <div style={{ height: '2px', background: 'linear-gradient(90deg, color-mix(in srgb, var(--color-accent) 50%, transparent), color-mix(in srgb, var(--color-accent) 19%, transparent), transparent)', flexShrink: 0 }} />
 
                       <div style={{ position: 'absolute', top: '14px', right: '16px', fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: '72px', color: 'rgba(255,255,255,0.02)', lineHeight: 1, pointerEvents: 'none', userSelect: 'none' }}>
                         {p.num}
@@ -116,7 +118,7 @@ const Projects = () => {
                                 <Star size={10} fill="currentColor" /> Featured
                               </span>
                             ) : null}
-                            <span style={{ padding: '3px 10px', borderRadius: '6px', background: ca.bg, border: `1px solid ${ca.border}`, fontSize: '10px', color: ca.text, fontFamily: "'JetBrains Mono', monospace" }}>{p.category}</span>
+                            <span style={{ padding: '3px 10px', borderRadius: '6px', background: ACCENT.bg, border: `1px solid ${ACCENT.border}`, fontSize: '10px', color: ACCENT.text, fontFamily: "'JetBrains Mono', monospace" }}>{p.category}</span>
                             {p.status ? <span style={{ padding: '3px 10px', borderRadius: '6px', background: 'rgba(46,143,255,0.1)', border: '1px solid rgba(46,143,255,0.22)', fontSize: '10px', color: '#2E8FFF', fontFamily: "'JetBrains Mono', monospace" }}>{p.status}</span> : null}
                           </div>
                         </div>

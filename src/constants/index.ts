@@ -9,46 +9,14 @@ export const THEME_COLORS = {
   textMuted: "var(--color-text-muted)",
 };
 
-// Mono-blue tag system: every accent maps to the single electric-blue family,
-// varying only in opacity/shade so tags read as one cohesive palette.
-export const ACCENT_MAP = {
-  blue: {
-    bg: "rgba(46,143,255,0.10)",
-    border: "rgba(46,143,255,0.24)",
-    text: "var(--color-accent)",
-    glow: "rgba(46,143,255,0.24)",
-  },
-  purple: {
-    bg: "rgba(46,143,255,0.10)",
-    border: "rgba(46,143,255,0.24)",
-    text: "var(--color-accent-soft)",
-    glow: "rgba(46,143,255,0.24)",
-  },
-  teal: {
-    bg: "rgba(46,143,255,0.08)",
-    border: "rgba(46,143,255,0.20)",
-    text: "var(--color-accent)",
-    glow: "rgba(46,143,255,0.18)",
-  },
-  orange: {
-    bg: "rgba(46,143,255,0.10)",
-    border: "rgba(46,143,255,0.22)",
-    text: "var(--color-accent)",
-    glow: "rgba(46,143,255,0.20)",
-  },
-  pink: {
-    bg: "rgba(46,143,255,0.12)",
-    border: "rgba(46,143,255,0.26)",
-    text: "var(--color-accent-soft)",
-    glow: "rgba(46,143,255,0.20)",
-  },
-};
-
-export const CATEGORY_ACCENTS = {
-  API: { bg: "rgba(46,143,255,0.09)", border: "rgba(46,143,255,0.20)", text: "var(--color-accent)" },
-  Tool: { bg: "rgba(46,143,255,0.10)", border: "rgba(46,143,255,0.22)", text: "var(--color-accent)" },
-  Frontend: { bg: "rgba(46,143,255,0.09)", border: "rgba(46,143,255,0.20)", text: "var(--color-accent)" },
-  Social: { bg: "rgba(46,143,255,0.11)", border: "rgba(46,143,255,0.24)", text: "var(--color-accent-soft)" },
+// Single accent style for every tag, category chip and skill card. The five
+// former ACCENT_MAP keys and four CATEGORY_ACCENTS keys all resolved to the
+// same electric blue, so the per-item colour fields were pure indirection.
+export const ACCENT = {
+  bg: "rgba(46,143,255,0.10)",
+  border: "rgba(46,143,255,0.24)",
+  text: "var(--color-accent)",
+  glow: "rgba(46,143,255,0.24)",
 };
 
 export const PERSONAL_INFO = {
@@ -91,14 +59,13 @@ export const SKILLS = [
     icon: "💻",
     description: "Building responsive, performant user interfaces with modern frameworks.",
     tags: [
-      { label: "React 19", color: "blue" },
-      { label: "Vite", color: "blue" },
-      { label: "Tailwind CSS v4", color: "blue" },
-      { label: "JavaScript ES2024", color: "blue" },
-      { label: "HTML5/CSS3", color: "blue" },
-      { label: "Responsive Design", color: "blue" }
-    ],
-    accentColor: "blue"
+      { label: "React 19" },
+      { label: "Vite" },
+      { label: "Tailwind CSS v4" },
+      { label: "JavaScript ES2024" },
+      { label: "HTML5/CSS3" },
+      { label: "Responsive Design" }
+    ]
   },
   {
     id: 2,
@@ -106,14 +73,13 @@ export const SKILLS = [
     icon: "⚙️",
     description: "Building REST APIs with token-based auth, relational schemas, and request validation.",
     tags: [
-      { label: "Node.js", color: "purple" },
-      { label: "Express.js", color: "purple" },
-      { label: "Prisma 7", color: "purple" },
-      { label: "PostgreSQL", color: "purple" },
-      { label: "REST APIs", color: "purple" },
-      { label: "JWT Auth", color: "purple" }
-    ],
-    accentColor: "purple"
+      { label: "Node.js" },
+      { label: "Express.js" },
+      { label: "Prisma 7" },
+      { label: "PostgreSQL" },
+      { label: "REST APIs" },
+      { label: "JWT Auth" }
+    ]
   },
   {
     id: 3,
@@ -121,12 +87,11 @@ export const SKILLS = [
     icon: "🔤",
     description: "Multi-paradigm development across systems and application languages.",
     tags: [
-      { label: "C++ (OOP)", color: "orange" },
-      { label: "Java (OOP)", color: "orange" },
-      { label: "Python", color: "orange" },
-      { label: "JavaScript", color: "orange" }
-    ],
-    accentColor: "orange"
+      { label: "C++ (OOP)" },
+      { label: "Java (OOP)" },
+      { label: "Python" },
+      { label: "JavaScript" }
+    ]
   },
   {
     id: 4,
@@ -134,14 +99,13 @@ export const SKILLS = [
     icon: "🛠️",
     description: "Efficient development workflows with modern tooling and CI/CD.",
     tags: [
-      { label: "Git", color: "teal" },
-      { label: "GitHub", color: "teal" },
-      { label: "GitHub Actions", color: "teal" },
-      { label: "Vite", color: "teal" },
-      { label: "npm", color: "teal" },
-      { label: "ESLint", color: "teal" }
-    ],
-    accentColor: "teal"
+      { label: "Git" },
+      { label: "GitHub" },
+      { label: "GitHub Actions" },
+      { label: "Vite" },
+      { label: "npm" },
+      { label: "ESLint" }
+    ]
   },
   {
     id: 5,
@@ -149,13 +113,12 @@ export const SKILLS = [
     icon: "🌐",
     description: "IT infrastructure fundamentals, networking protocols, and security.",
     tags: [
-      { label: "TCP/IP", color: "pink" },
-      { label: "DNS/DHCP", color: "pink" },
-      { label: "Linux basics", color: "pink" },
-      { label: "Cybersecurity", color: "pink" },
-      { label: "Cloud intro", color: "pink" }
-    ],
-    accentColor: "pink"
+      { label: "TCP/IP" },
+      { label: "DNS/DHCP" },
+      { label: "Linux basics" },
+      { label: "Cybersecurity" },
+      { label: "Cloud intro" }
+    ]
   },
   {
     id: 6,
@@ -163,12 +126,11 @@ export const SKILLS = [
     icon: "📚",
     description: "Technical writing, data analysis, and academic research methodology.",
     tags: [
-      { label: "Academic writing", color: "blue" },
-      { label: "Data analysis", color: "blue" },
-      { label: "Technical docs", color: "blue" },
-      { label: "Literature review", color: "blue" }
-    ],
-    accentColor: "blue"
+      { label: "Academic writing" },
+      { label: "Data analysis" },
+      { label: "Technical docs" },
+      { label: "Literature review" }
+    ]
   }
 ];
 
@@ -180,13 +142,13 @@ export const PROJECTS = [
     description: "A full-stack student learning and management platform with three access levels for administrators, instructors, and students.",
     longDescription: "TriLearn is a student learning and management platform I am currently building for schools and colleges. It supports three core roles, administrators, instructors, and students, with a modern full-stack architecture using React, Vite, Node.js, Express, PostgreSQL, Prisma, JWT auth, Zod validation, and GitHub Actions for CI.",
     tags: [
-      { label: "React", color: "blue" },
-      { label: "Node.js", color: "teal" },
-      { label: "Express", color: "orange" },
-      { label: "PostgreSQL", color: "purple" },
-      { label: "Prisma", color: "purple" },
-      { label: "JWT Auth", color: "teal" },
-      { label: "EdTech", color: "blue" }
+      { label: "React" },
+      { label: "Node.js" },
+      { label: "Express" },
+      { label: "PostgreSQL" },
+      { label: "Prisma" },
+      { label: "JWT Auth" },
+      { label: "EdTech" }
     ],
     category: "Tool",
     status: "Featured Build",
@@ -201,10 +163,10 @@ export const PROJECTS = [
     description: "Real-time weather data with comprehensive metrics including temperature, humidity, UV index, and air quality. Features search history and multi-location forecasts.",
     longDescription: "A comprehensive weather application integrating WeatherAPI.com to deliver real-time meteorological data. Built with React and Axios, featuring dynamic search with history tracking, detailed forecasts including UV index and air quality metrics, and a fully responsive layout powered by Tailwind CSS.",
     tags: [
-      { label: "React", color: "blue" },
-      { label: "Axios", color: "blue" },
-      { label: "WeatherAPI", color: "teal" },
-      { label: "Tailwind CSS", color: "purple" }
+      { label: "React" },
+      { label: "Axios" },
+      { label: "WeatherAPI" },
+      { label: "Tailwind CSS" }
     ],
     category: "API",
     liveUrl: "https://weather-app-arman.vercel.app/",
@@ -218,9 +180,9 @@ export const PROJECTS = [
     description: "TMDB-powered movie discovery with a personal 5-star rating system, watchlist management, favorites collection, and advanced search filtering.",
     longDescription: "A feature-rich movie discovery platform leveraging the TMDB API. Users can search across thousands of films, apply personal 5-star ratings, manage watchlists and favorites, and explore advanced filters. Built with React and styled with Tailwind CSS for a cinematic browsing experience.",
     tags: [
-      { label: "React", color: "blue" },
-      { label: "TMDB API", color: "orange" },
-      { label: "Tailwind CSS", color: "purple" }
+      { label: "React" },
+      { label: "TMDB API" },
+      { label: "Tailwind CSS" }
     ],
     category: "API",
     liveUrl: "https://cinevault-arman.vercel.app/",
@@ -234,9 +196,9 @@ export const PROJECTS = [
     description: "WPM and accuracy tracking tool with configurable test durations from 30 seconds to 5 minutes, performance analytics, and history tracking.",
     longDescription: "A polished typing speed assessment tool built entirely with React Hooks. Features configurable test durations, real-time WPM calculation, accuracy tracking, and a performance history dashboard. No external dependencies — pure React state management for a snappy, responsive experience.",
     tags: [
-      { label: "React", color: "blue" },
-      { label: "React Hooks", color: "blue" },
-      { label: "Tailwind CSS", color: "purple" }
+      { label: "React" },
+      { label: "React Hooks" },
+      { label: "Tailwind CSS" }
     ],
     category: "Tool",
     liveUrl: "https://vibe-typer.vercel.app/",
@@ -250,10 +212,10 @@ export const PROJECTS = [
     description: "A Nepal-first news reader, built because general aggregators surface almost nothing from Nepal unless you go looking for it by name.",
     longDescription: "General news aggregators rank on global popularity, so Nepali headlines rarely surface on their own — you have to already know what to search for. Nepal Patra inverts that default: it opens on Nepal, pulls current headlines through TheNewsAPI, and sorts them by category so the country's news is the feed itself rather than a search result. Built with React and Axios, with a responsive card layout that stays readable on small screens.",
     tags: [
-      { label: "React", color: "blue" },
-      { label: "TheNewsAPI", color: "teal" },
-      { label: "Axios", color: "blue" },
-      { label: "Tailwind CSS", color: "purple" }
+      { label: "React" },
+      { label: "TheNewsAPI" },
+      { label: "Axios" },
+      { label: "Tailwind CSS" }
     ],
     category: "API",
     liveUrl: "https://nepal-patra.vercel.app/",
@@ -267,10 +229,10 @@ export const PROJECTS = [
     description: "Full-stack expense tracking application for recording transactions, organizing spending, and monitoring personal finances with a clean professional workflow.",
     longDescription: "A professional expense tracker built with React and Node.js for managing day-to-day finances in one place. It focuses on practical expense logging, category-based organization, and a streamlined dashboard experience that makes it easier to understand spending patterns over time.",
     tags: [
-      { label: "React", color: "blue" },
-      { label: "Node.js", color: "teal" },
-      { label: "Express.js", color: "orange" },
-      { label: "API Design", color: "purple" }
+      { label: "React" },
+      { label: "Node.js" },
+      { label: "Express.js" },
+      { label: "API Design" }
     ],
     category: "Tool",
     liveUrl: "https://expense-tracker-arman.vercel.app/",
@@ -284,11 +246,11 @@ export const PROJECTS = [
     description: "A blog and article posting platform built with Flask, Jinja, HTML, CSS, and JavaScript for publishing and browsing written content through a clean web interface.",
     longDescription: "ArticleHub is a content publishing web application built with Flask and server-rendered Jinja templates. It focuses on article and blog posting workflows, combining Python on the backend with HTML, CSS, and JavaScript on the frontend to deliver a straightforward reading and publishing experience.",
     tags: [
-      { label: "Flask", color: "teal" },
-      { label: "Jinja", color: "orange" },
-      { label: "HTML/CSS", color: "blue" },
-      { label: "JavaScript", color: "orange" },
-      { label: "Python", color: "purple" }
+      { label: "Flask" },
+      { label: "Jinja" },
+      { label: "HTML/CSS" },
+      { label: "JavaScript" },
+      { label: "Python" }
     ],
     category: "Social",
     liveUrl: "https://arman45678.pythonanywhere.com/",
@@ -302,11 +264,11 @@ export const PROJECTS = [
     description: "A simple Kanban-style task management app with drag-and-drop task movement across columns and priority-based organization for a smooth planning workflow.",
     longDescription: "TaskFlow is a task management application built with React, Vite, and Tailwind CSS. It uses a Kanban-style board layout to organize tasks visually and supports drag-and-drop interactions so tasks can be moved between workflow stages while keeping priority-focused planning simple and intuitive.",
     tags: [
-      { label: "React", color: "blue" },
-      { label: "Vite", color: "blue" },
-      { label: "Tailwind CSS", color: "purple" },
-      { label: "Kanban", color: "teal" },
-      { label: "Drag & Drop", color: "orange" }
+      { label: "React" },
+      { label: "Vite" },
+      { label: "Tailwind CSS" },
+      { label: "Kanban" },
+      { label: "Drag & Drop" }
     ],
     category: "Tool",
     liveUrl: "https://taskflow-arman.vercel.app/",
@@ -323,11 +285,11 @@ export const TIMELINE = [
     org: "Self-Study",
     description: "Currently building TriLearn, a student learning and management platform with separate administration, instructor, and student roles using React, Node.js, Express, PostgreSQL, Prisma, and JWT-based authentication.",
     tags: [
-      { label: "Prisma", color: "teal" },
-      { label: "Express", color: "orange" },
-      { label: "Node.js", color: "teal" },
-      { label: "PostgreSQL", color: "purple" },
-      { label: "React", color: "blue" }
+      { label: "Prisma" },
+      { label: "Express" },
+      { label: "Node.js" },
+      { label: "PostgreSQL" },
+      { label: "React" }
     ]
   },
   {
@@ -337,11 +299,11 @@ export const TIMELINE = [
     org: "Self-directed / Personal Projects",
     description: "Built and deployed production web applications while strengthening frontend architecture, API integration, authentication systems, and modern deployment workflows.",
     tags: [
-      { label: "React", color: "blue" },
-      { label: "Prisma", color: "purple" },
-      { label: "PostgreSQL", color: "purple" },
-      { label: "GitHub Actions", color: "teal" },
-      { label: "API Integration", color: "orange" }
+      { label: "React" },
+      { label: "Prisma" },
+      { label: "PostgreSQL" },
+      { label: "GitHub Actions" },
+      { label: "API Integration" }
     ]
   },
   {
@@ -351,10 +313,10 @@ export const TIMELINE = [
     org: "Texas College of Management and IT",
     description: "Studying software engineering, networking, cybersecurity, databases, and research methodology. Building a strong theoretical foundation alongside hands-on project work.",
     tags: [
-      { label: "Software Engineering", color: "blue" },
-      { label: "Networking", color: "teal" },
-      { label: "Cybersecurity", color: "pink" },
-      { label: "Databases", color: "purple" }
+      { label: "Software Engineering" },
+      { label: "Networking" },
+      { label: "Cybersecurity" },
+      { label: "Databases" }
     ]
   },
   {
@@ -364,9 +326,9 @@ export const TIMELINE = [
     org: "Damak Multiple Campus",
     description: "Completed my higher secondary science background with a focus on analytical thinking, academic discipline, and a stronger foundation for future IT studies.",
     tags: [
-      { label: "Science", color: "orange" },
-      { label: "Higher Secondary", color: "blue" },
-      { label: "Academic Foundation", color: "teal" }
+      { label: "Science" },
+      { label: "Higher Secondary" },
+      { label: "Academic Foundation" }
     ]
   },
   {
@@ -376,9 +338,9 @@ export const TIMELINE = [
     org: "Brighter Star English School",
     description: "Completed my SEE and built the study habits, curiosity, and confidence that later pushed me toward technology and software development.",
     tags: [
-      { label: "SEE", color: "purple" },
-      { label: "School Education", color: "blue" },
-      { label: "Early Foundation", color: "pink" }
+      { label: "SEE" },
+      { label: "School Education" },
+      { label: "Early Foundation" }
     ]
   },
 ];
