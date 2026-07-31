@@ -31,13 +31,15 @@ const setMeta = (html, attr, name, value) => {
 
 const applyMeta = (html, route, origin) => {
   const url = route.path === '/404' ? origin : `${origin}${route.path === '/' ? '/' : route.path}`;
+  // The tab label stays short; og/twitter carry the descriptive variant.
+  const shareTitle = route.shareTitle ?? route.title;
 
   let out = html.replace(/<title>[^<]*<\/title>/i, `<title>${escapeHtml(route.title)}</title>`);
   out = setMeta(out, 'name', 'description', route.description);
-  out = setMeta(out, 'property', 'og:title', route.title);
+  out = setMeta(out, 'property', 'og:title', shareTitle);
   out = setMeta(out, 'property', 'og:description', route.description);
   out = setMeta(out, 'property', 'og:url', url);
-  out = setMeta(out, 'name', 'twitter:title', route.title);
+  out = setMeta(out, 'name', 'twitter:title', shareTitle);
   out = setMeta(out, 'name', 'twitter:description', route.description);
   out = out.replace(
     /(<link\s+rel="canonical"[^>]*?href=")[^"]*(")/i,

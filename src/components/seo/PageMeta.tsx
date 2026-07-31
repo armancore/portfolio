@@ -20,22 +20,23 @@ const updateMeta = (selector: string, value: string) => {
  * this only matters once the router takes over.
  */
 const PageMeta = ({ path }: PageMetaProps): null => {
-  const { title, description } = routeMeta(path);
+  const { title, shareTitle, description } = routeMeta(path);
 
   useEffect(() => {
     const canonicalUrl = `${window.location.origin}${window.location.pathname}`;
 
+    // The tab gets the short title; link previews get the descriptive one.
     document.title = title;
     updateMeta('meta[name="description"]', description);
-    updateMeta('meta[property="og:title"]', title);
+    updateMeta('meta[property="og:title"]', shareTitle);
     updateMeta('meta[property="og:description"]', description);
     updateMeta('meta[property="og:url"]', canonicalUrl);
-    updateMeta('meta[name="twitter:title"]', title);
+    updateMeta('meta[name="twitter:title"]', shareTitle);
     updateMeta('meta[name="twitter:description"]', description);
 
     const canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
     if (canonical) canonical.setAttribute('href', canonicalUrl);
-  }, [title, description]);
+  }, [title, shareTitle, description]);
 
   return null;
 };
