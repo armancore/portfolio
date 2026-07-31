@@ -137,9 +137,11 @@ const About = () => {
                     </div>
                   )}
                   <div>
-                    <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '16px', color: '#ECEEF2', marginBottom: '3px' }}>Arman Khan</p>
-                    <p style={{ fontSize: '12px', color: '#9BA1AD', lineHeight: 1.5 }}>{PERSONAL_INFO.role}</p>
-                    <p style={{ fontSize: '10.5px', color: '#5C626E', lineHeight: 1.5, marginTop: '3px', marginBottom: '8px' }}>{PERSONAL_INFO.context}</p>
+                    {/* The page heading two columns over already states the
+                        role, and the Personal Info table below repeats degree,
+                        institution and location. Name and status is all this
+                        card needs to add. */}
+                    <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '16px', color: '#ECEEF2', letterSpacing: '-0.015em', marginBottom: '8px' }}>Arman Khan</p>
                     <motion.div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '3px 9px', background: 'rgba(22,163,74,0.08)', border: '1px solid rgba(22,163,74,0.1)', borderRadius: '20px' }}>
                       <motion.span
                         animate={reduceAnimations ? undefined : { scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
@@ -229,9 +231,12 @@ const About = () => {
 
                   <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '42%', background: 'linear-gradient(to top, rgba(10,11,13,0.95) 0%, transparent 100%)', zIndex: 1 }} />
                   <div style={{ position: 'absolute', bottom: '20px', left: '20px', right: '20px', zIndex: 2 }}>
-                    <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '19px', color: '#ECEEF2', marginBottom: '3px' }}>Arman Khan</p>
-                    <p style={{ fontSize: '12px', color: '#9BA1AD', lineHeight: 1.5 }}>{PERSONAL_INFO.role}</p>
-                    <p style={{ fontSize: '10.5px', color: '#5C626E', lineHeight: 1.5, marginTop: '3px' }}>{PERSONAL_INFO.context}</p>
+                    {/* A portrait caption, not a second bio. The role and the
+                        student line are already in the page heading above, so
+                        this carries the name over the same accent rule the
+                        section headings use. */}
+                    <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '19px', color: '#ECEEF2', letterSpacing: '-0.015em', marginBottom: '10px' }}>Arman Khan</p>
+                    <div style={{ width: '44px', height: '3px', borderRadius: '2px', background: 'linear-gradient(90deg, var(--color-accent), transparent)' }} />
                   </div>
 
                   <motion.div

@@ -323,7 +323,7 @@ const Home = () => {
               </motion.div>
 
               <motion.p variants={heroVariants} style={{ fontSize: '14.5px', color: '#9BA1AD', lineHeight: 1.85, maxWidth: '500px', marginBottom: '32px' }}>
-                {PERSONAL_INFO.bio[0]}
+                {PERSONAL_INFO.intro}
               </motion.p>
 
               <motion.div variants={heroVariants} style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginBottom: '32px' }}>
@@ -458,18 +458,17 @@ const Home = () => {
                   <div className="hidden md:block" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '50%', background: 'linear-gradient(to top, rgba(10,11,13,0.97) 0%, rgba(10,11,13,0.65) 50%, transparent 100%)', zIndex: 2 }} />
 
                   <div className="hidden md:block" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: 'clamp(20px, 4vw, 30px)', zIndex: 3 }}>
-                    <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(18px, 4vw, 21px)', color: '#ECEEF2', marginBottom: '4px' }}>Arman Khan</p>
-                    <p style={{ fontSize: '12px', color: '#9BA1AD', lineHeight: 1.5 }}>{PERSONAL_INFO.role}</p>
-                    <p style={{ fontSize: '10.5px', color: '#5C626E', lineHeight: 1.5, marginTop: '3px', marginBottom: '14px' }}>{PERSONAL_INFO.context}</p>
+                    {/* Name plate and stack only. The role and the student line
+                        sit in the hero column immediately to the left, so
+                        repeating them inside the portrait read as an echo. */}
+                    <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 'clamp(18px, 4vw, 21px)', color: '#ECEEF2', letterSpacing: '-0.015em', marginBottom: '12px' }}>Arman Khan</p>
                     <TechStrip reduceAnimations={reduceAnimations} />
                   </div>
 
                 </div>
 
                 <div className="block md:hidden" style={{ marginTop: '20px', textAlign: 'center' }}>
-                  <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '20px', color: '#ECEEF2', marginBottom: '4px' }}>Arman Khan</p>
-                  <p style={{ fontSize: '12px', color: '#9BA1AD', lineHeight: 1.5, maxWidth: '300px', marginLeft: 'auto', marginRight: 'auto' }}>{PERSONAL_INFO.role}</p>
-                  <p style={{ fontSize: '10.5px', color: '#5C626E', lineHeight: 1.5, marginTop: '3px', marginBottom: '14px' }}>{PERSONAL_INFO.context}</p>
+                  <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '20px', color: '#ECEEF2', letterSpacing: '-0.015em', marginBottom: '12px' }}>Arman Khan</p>
                   <TechStrip reduceAnimations={reduceAnimations} align="center" />
                 </div>
 
