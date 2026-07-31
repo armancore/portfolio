@@ -1,9 +1,17 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const INTERACTIVE_SELECTOR = 'a, button, [role="button"], input, textarea, label';
 const RING_SIZE = 32;
 const DOT_SIZE = 6;
 const LERP_FACTOR = 0.18;
+/** Sub-pixel distance at which the trailing ring is considered arrived. */
+const SETTLE_THRESHOLD = 0.5;
+
+// The cursor is a continuous rAF animation, so reduced-motion users must not
+// get it -- and a coarse pointer has nothing to track. Both are live queries:
+// hybrid devices switch pointer type, and the OS motion setting can change
+// mid-session.
+const DISABLE_QUERY = '(pointer: coarse), (prefers-reduced-motion: reduce)';
 
 const CustomCursor = () => {
   const dotRef = useRef<HTMLDivElement | null>(null);
@@ -13,10 +21,21 @@ const CustomCursor = () => {
   const mouseRef = useRef({ x: 0, y: 0 });
   const ringPositionRef = useRef({ x: 0, y: 0 });
   const isAnimatingRef = useRef(false);
+  const hasPositionedRef = useRef(false);
+  const [isDisabled, setIsDisabled] = useState(
+    () => typeof window === 'undefined' || window.matchMedia(DISABLE_QUERY).matches
+  );
 
   useEffect(() => {
-    const coarsePointerMedia = window.matchMedia('(pointer: coarse)');
-    if (coarsePointerMedia.matches) return undefined;
+    const media = window.matchMedia(DISABLE_QUERY);
+    const sync = () => setIsDisabled(media.matches);
+    sync();
+    media.addEventListener('change', sync);
+    return () => media.removeEventListener('change', sync);
+  }, []);
+
+  useEffect(() => {
+    if (isDisabled) return undefined;
 
     const dot = dotRef.current;
     const ring = ringRef.current;
@@ -31,8 +50,24 @@ const CustomCursor = () => {
       const ringPosition = ringPositionRef.current;
       const mouse = mouseRef.current;
 
-      ringPosition.x += (mouse.x - ringPosition.x) * LERP_FACTOR;
-      ringPosition.y += (mouse.y - ringPosition.y) * LERP_FACTOR;
+      const dx = mouse.x - ringPosition.x;
+      const dy = mouse.y - ringPosition.y;
+
+      // The lerp is asymptotic, so it never exactly arrives. Without this the
+      // loop re-queued itself forever and kept the compositor awake for the
+      // whole session after the first mouse move. Snap and stop once the ring
+      // is within half a pixel; the next mousemove restarts it.
+      if (Math.abs(dx) < SETTLE_THRESHOLD && Math.abs(dy) < SETTLE_THRESHOLD) {
+        ringPosition.x = mouse.x;
+        ringPosition.y = mouse.y;
+        moveElement(ring, ringPosition.x, ringPosition.y);
+        isAnimatingRef.current = false;
+        frameRef.current = null;
+        return;
+      }
+
+      ringPosition.x += dx * LERP_FACTOR;
+      ringPosition.y += dy * LERP_FACTOR;
       moveElement(ring, ringPosition.x, ringPosition.y);
 
       frameRef.current = window.requestAnimationFrame(animateRing);
@@ -41,9 +76,16 @@ const CustomCursor = () => {
     const handleMouseMove = (event: MouseEvent) => {
       mouseRef.current = { x: event.clientX, y: event.clientY };
 
+      if (!hasPositionedRef.current) {
+        // Seed the ring under the pointer on first sight so it does not fly in
+        // from the origin. Must be its own object: aliasing it to mouseRef
+        // would make the delta permanently zero and kill the trailing effect.
+        hasPositionedRef.current = true;
+        ringPositionRef.current = { x: event.clientX, y: event.clientY };
+      }
+
       if (!isAnimatingRef.current) {
         isAnimatingRef.current = true;
-        ringPositionRef.current = mouseRef.current;
         frameRef.current = window.requestAnimationFrame(animateRing);
       }
 
@@ -94,8 +136,18 @@ const CustomCursor = () => {
       if (pulseTimeoutRef.current) {
         window.clearTimeout(pulseTimeoutRef.current);
       }
+
+      // Reset so a re-enable (pointer type or motion preference changed)
+      // starts from a clean state rather than a stale position.
+      frameRef.current = null;
+      isAnimatingRef.current = false;
+      hasPositionedRef.current = false;
     };
-  }, []);
+  }, [isDisabled]);
+
+  // Unmount rather than hide: leaves no elements at z-index 2147483647 and
+  // lets the CSS hand the native cursor back.
+  if (isDisabled) return null;
 
   return (
     <>
