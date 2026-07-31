@@ -60,7 +60,16 @@ const bentoSkills = [
   { icon: Code2, title: 'Languages', desc: 'C++, Java, Python, JavaScript', color: '#2E8FFF', glow: 'rgba(46,143,255,0.15)' },
 ];
 
-const Particle = ({ style, index, active }) => (
+const Particle = ({
+  style,
+  index,
+  active,
+}: {
+  style: React.CSSProperties;
+  /** Position in the particle field; staggers duration and delay. */
+  index: number;
+  active: boolean;
+}) => (
   <motion.div
     style={style}
     animate={active ? { y: [0, -18, 0], opacity: [0.25, 0.65, 0.25] } : undefined}
@@ -121,7 +130,7 @@ const SocialButton = ({
   const { ref, style } = useMagnetic(0.45);
 
   return (
-    <motion.div ref={ref as React.RefObject<HTMLDivElement>} style={style}>
+    <motion.div ref={ref} style={style}>
       <motion.a
         href={href}
         target="_blank"
@@ -200,7 +209,7 @@ const Home = () => {
     };
   }, [reduceAnimations]);
 
-  const particles = useMemo(
+  const particles = useMemo<{ style: React.CSSProperties }[]>(
     () => (reduceAnimations ? [] :
       Array.from({ length: 12 }, (_, i) => ({
         style: {
@@ -208,7 +217,7 @@ const Home = () => {
           width: i % 3 === 0 ? '3px' : '2px',
           height: i % 3 === 0 ? '3px' : '2px',
           borderRadius: '50%',
-          background: i % 2 === 0 ? '#2E8FFF' : '#2E8FFF',
+          background: '#2E8FFF',
           left: `${10 + i * 7.5}%`,
           top: `${15 + ((i * 5.3) % 70)}%`,
           pointerEvents: 'none',
@@ -329,7 +338,7 @@ const Home = () => {
 
               <motion.div variants={heroVariants} style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginBottom: '32px' }}>
                 <motion.div
-                  ref={viewProjectsRef as React.RefObject<HTMLDivElement>}
+                  ref={viewProjectsRef}
                   style={viewProjectsStyle}
                   whileHover={{ scale: 1.03, y: -2 }}
                   whileTap={{ scale: 0.97 }}
@@ -342,7 +351,7 @@ const Home = () => {
                   </Link>
                 </motion.div>
                 <motion.div
-                  ref={contactMeRef as React.RefObject<HTMLDivElement>}
+                  ref={contactMeRef}
                   style={contactMeStyle}
                   whileHover={{ scale: 1.03, y: -2 }}
                   whileTap={{ scale: 0.97 }}

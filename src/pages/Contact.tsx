@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { Mail, Github, Linkedin, Facebook, Instagram, ArrowRight, ExternalLink } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
 import ScrollReveal from '../components/ui/ScrollReveal';
 import ContactForm from '../components/sections/ContactForm';
 import PageMeta from '../components/seo/PageMeta';
 import { PERSONAL_INFO, CONTACT_LINKS } from '../constants';
+import type { ContactIconName } from '../constants';
 import { fadeUp, staggerContainer, blurIn } from '../lib/motion';
 
-const iconMap = { Mail, Github, Linkedin, Facebook, Instagram };
+const iconMap: Record<ContactIconName, LucideIcon> = { Mail, Github, Linkedin, Facebook, Instagram };
 
-const accentForLink = (iconName) => {
-  const map = {
+const accentForLink = (iconName: ContactIconName) => {
+  const map: Record<ContactIconName, { icon: string; bg: string; border: string }> = {
     Mail: { icon: '#2E8FFF', bg: 'rgba(46,143,255,0.1)', border: 'rgba(46,143,255,0.22)' },
     Github: { icon: '#ECEEF2', bg: 'rgba(255,255,255,0.06)', border: 'rgba(255,255,255,0.12)' },
     Linkedin: { icon: '#38BDF8', bg: 'rgba(56,189,248,0.1)', border: 'rgba(56,189,248,0.22)' },
