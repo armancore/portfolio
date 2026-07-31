@@ -80,8 +80,8 @@ export const ACCENT = {
 
 export const PERSONAL_INFO = {
   name: "Arman Khan",
-  role: "Building full-stack web applications with React, Node.js, and PostgreSQL",
-  context: "IT student at Texas College of Management and IT, Kathmandu",
+  role: "Building full-stack web applications",
+  context: "IT student in Kathmandu",
   tagline: "Building things that live on the internet.",
   email: "contact@armankhan.com.np",
   location: "Tinkune, Kathmandu, Nepal",

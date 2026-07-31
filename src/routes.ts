@@ -9,7 +9,14 @@
 
 export type RouteMeta = {
   path: string;
+  /** The <title> tag, i.e. the browser tab. Keep these short. */
   title: string;
+  /**
+   * og:title and twitter:title. Link previews have room for context that a tab
+   * label does not, so this is allowed to be longer and more descriptive.
+   * Defaults to `title` when a route has nothing extra to add.
+   */
+  shareTitle?: string;
   description: string;
   /** Written to dist as <file>; Vercel's cleanUrls serves it at `path`. */
   file: string | null;
@@ -21,7 +28,8 @@ const SITE_DESCRIPTION =
 export const ROUTES: RouteMeta[] = [
   {
     path: '/',
-    title: 'Arman Khan — Building Full-Stack Web Applications | React, Node.js, PostgreSQL',
+    title: 'Arman Khan',
+    shareTitle: 'Arman Khan — Building Full-Stack Web Applications | React, Node.js, PostgreSQL',
     description: SITE_DESCRIPTION,
     file: 'index.html',
   },
@@ -56,10 +64,14 @@ export const ROUTES: RouteMeta[] = [
 
 const BY_PATH = new Map(ROUTES.map((r) => [r.path, r]));
 
-export const routeMeta = (path: string): RouteMeta => {
+export const routeMeta = (path: string): Required<Pick<RouteMeta, 'title' | 'shareTitle' | 'description'>> => {
   const match = BY_PATH.get(path);
   if (!match) throw new Error(`No route metadata registered for "${path}"`);
-  return match;
+  return {
+    title: match.title,
+    shareTitle: match.shareTitle ?? match.title,
+    description: match.description,
+  };
 };
 
 export const SITE_ORIGIN = 'https://armankhan.com.np';
