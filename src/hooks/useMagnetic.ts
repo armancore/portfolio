@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type React from 'react';
 import { useReducedMotion, useSpring } from 'motion/react';
+import useIsMobile from './useIsMobile';
 
 type UseMagneticResult<T extends HTMLElement> = {
   ref: React.RefObject<T | null>;
@@ -12,9 +13,7 @@ const useMagnetic = <T extends HTMLElement = HTMLDivElement>(
 ): UseMagneticResult<T> => {
   const ref = useRef<T>(null);
   const prefersReducedMotion = useReducedMotion();
-  const [isMobile, setIsMobile] = useState(
-    () => typeof window !== 'undefined' && window.innerWidth < 768
-  );
+  const isMobile = useIsMobile();
   const [isCoarsePointer, setIsCoarsePointer] = useState(false);
 
   const x = useSpring(0, { stiffness: 200, damping: 18, mass: 0.6 });
@@ -24,15 +23,9 @@ const useMagnetic = <T extends HTMLElement = HTMLDivElement>(
     const media = window.matchMedia('(pointer: coarse)');
     setIsCoarsePointer(media.matches);
     const onPointerChange = () => setIsCoarsePointer(media.matches);
-    const onResize = () => setIsMobile(window.innerWidth < 768);
 
     media.addEventListener('change', onPointerChange);
-    window.addEventListener('resize', onResize, { passive: true });
-
-    return () => {
-      media.removeEventListener('change', onPointerChange);
-      window.removeEventListener('resize', onResize);
-    };
+    return () => media.removeEventListener('change', onPointerChange);
   }, []);
 
   useEffect(() => {

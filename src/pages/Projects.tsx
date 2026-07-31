@@ -20,10 +20,7 @@ const Projects = () => {
 
   return (
     <div style={{ background: 'transparent', minHeight: '100vh' }}>
-      <PageMeta
-        title="Projects | Arman Khan"
-        description="Explore deployed React projects by Arman Khan, including API apps, frontend builds, tools, and full-stack experiments focused on practical problem solving."
-      />
+      <PageMeta path="/projects" />
 
       <section style={{ paddingTop: '110px', paddingBottom: '60px', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(46,143,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(46,143,255,0.03) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />

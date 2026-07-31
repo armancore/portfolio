@@ -30,6 +30,15 @@
   <meta name="twitter:image:alt" content="Social preview card for Arman Khan's developer portfolio" />
   <link rel="canonical" href="https://armankhan.com.np/" />
   <title>Arman Khan — Building Full-Stack Web Applications | React, Node.js, PostgreSQL</title>
+  <noscript>
+    <!-- Prerendered pages ship inside the route-transition wrapper, whose
+         entrance animation starts at opacity 0. Without JS nothing ever
+         animates it in, so reveal it up front. -->
+    <style>
+      [data-route-transition] { opacity: 1 !important; filter: none !important; transform: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+    </style>
+  </noscript>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",

@@ -63,10 +63,7 @@ const About = () => {
 
   return (
   <div style={{ background: 'transparent', minHeight: '100vh' }}>
-    <PageMeta
-      title="About | Arman Khan"
-      description="Arman Khan builds full-stack web applications with React, Node.js, and PostgreSQL. IT student from Damak, Jhapa, now based in Kathmandu, Nepal."
-    />
+    <PageMeta path="/about" />
 
     <section style={{ paddingTop: '110px', paddingBottom: '72px', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(46,143,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(46,143,255,0.035) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
