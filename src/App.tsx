@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useEffect, useRef } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
@@ -52,6 +52,28 @@ const Projects = lazy(() => import('./pages/Projects'));
 const Contact = lazy(() => import('./pages/Contact'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
+export type PageComponents = {
+  Home: React.ComponentType;
+  About: React.ComponentType;
+  Projects: React.ComponentType;
+  Contact: React.ComponentType;
+  NotFound: React.ComponentType;
+};
+
+export type AppProps = {
+  pages: PageComponents;
+  /**
+   * Whether the route tree needs a Suspense boundary. True for the lazy client
+   * pages. The prerenderer passes eagerly imported pages and false: a boundary
+   * that suspends makes React stream the resolved markup into a <template>
+   * after </footer> for a client script to relocate, which leaves <main> empty
+   * in the static HTML and defeats the point of prerendering.
+   */
+  suspend: boolean;
+};
+
+const lazyPages: PageComponents = { Home, About, Projects, Contact, NotFound };
+
 const RouteFallback = () => (
   <div
     aria-hidden="true"
@@ -64,8 +86,17 @@ const RouteFallback = () => (
 const MouseGlow = () => {
   const glowRef = useRef<HTMLDivElement | null>(null);
   const frameRef = useRef<number | null>(null);
-  const isPointerFine =
-    typeof window !== 'undefined' && window.matchMedia('(pointer: fine)').matches;
+  // Resolved after mount rather than during render: the prerendered HTML has
+  // no pointer to query, so reading it inline would desync hydration.
+  const [isPointerFine, setIsPointerFine] = React.useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia('(pointer: fine)');
+    const sync = () => setIsPointerFine(media.matches);
+    sync();
+    media.addEventListener('change', sync);
+    return () => media.removeEventListener('change', sync);
+  }, []);
 
   useEffect(() => {
     if (!isPointerFine) return undefined;
@@ -120,8 +151,22 @@ const ScrollToTop = () => {
   return null;
 };
 
-const AppContent = () => {
+const AppContent = ({ pages, suspend }: AppProps) => {
   const location = useLocation();
+  const routes = (
+    <Routes location={location}>
+      <Route path="/" element={<pages.Home />} />
+      <Route path="/about" element={<pages.About />} />
+      <Route path="/projects" element={<pages.Projects />} />
+      <Route path="/contact" element={<pages.Contact />} />
+      <Route path="*" element={<pages.NotFound />} />
+    </Routes>
+  );
+  const routeTree = suspend ? (
+    <Suspense fallback={<RouteFallback />}>{routes}</Suspense>
+  ) : (
+    routes
+  );
   const prefersReducedMotion = useReducedMotion();
   const [isConstrainedDevice, setIsConstrainedDevice] = React.useState(false);
 
@@ -158,34 +203,19 @@ const AppContent = () => {
         <main>
           <ErrorBoundary>
             {performanceMode ? (
-              <Suspense fallback={<RouteFallback />}>
-                <Routes location={location}>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/projects" element={<Projects />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </Suspense>
+              routeTree
             ) : (
               <AnimatePresence mode="wait" initial>
-                <Suspense fallback={<RouteFallback />}>
-                  <motion.div
-                    key={location.pathname}
-                    initial={{ opacity: 0, y: 28, filter: 'blur(4px)' }}
-                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                    exit={{ opacity: 0, y: -16, filter: 'blur(2px)' }}
-                    transition={{ duration: 0.36, ease: [0.16, 1, 0.3, 1] }}
-                  >
-                    <Routes location={location}>
-                      <Route path="/" element={<Home />} />
-                      <Route path="/about" element={<About />} />
-                      <Route path="/projects" element={<Projects />} />
-                      <Route path="/contact" element={<Contact />} />
-                      <Route path="*" element={<NotFound />} />
-                    </Routes>
-                  </motion.div>
-                </Suspense>
+                <motion.div
+                  key={location.pathname}
+                  data-route-transition
+                  initial={{ opacity: 0, y: 28, filter: 'blur(4px)' }}
+                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, y: -16, filter: 'blur(2px)' }}
+                  transition={{ duration: 0.36, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  {routeTree}
+                </motion.div>
               </AnimatePresence>
             )}
           </ErrorBoundary>
@@ -196,13 +226,15 @@ const AppContent = () => {
   );
 };
 
-const App = () => {
-  return (
-    <BrowserRouter>
-      <CustomCursor />
-      <AppContent />
-    </BrowserRouter>
-  );
-};
+/**
+ * The app below the router. main.tsx wraps this in a BrowserRouter;
+ * entry-server.tsx wraps it in a StaticRouter for prerendering.
+ */
+const App = ({ pages = lazyPages, suspend = true }: Partial<AppProps> = {}) => (
+  <>
+    <CustomCursor />
+    <AppContent pages={pages} suspend={suspend} />
+  </>
+);
 
 export default App;
