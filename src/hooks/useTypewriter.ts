@@ -1,4 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
+
+// useLayoutEffect warns when it runs during server rendering, where there is no
+// layout to read. On the server the typed-out text is simply left in place.
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 type UseTypewriterArgs = {
   text: string;
@@ -18,8 +22,16 @@ const useTypewriter = ({
   delay = 0,
   enabled = true,
 }: UseTypewriterArgs): UseTypewriterResult => {
-  const [displayed, setDisplayed] = useState(enabled ? '' : text);
+  // Starts as the complete string even when the animation is enabled, so the
+  // prerendered HTML carries the real sentence instead of an empty node and
+  // the client's first render matches it. The layout effect below empties it
+  // and starts typing before the browser paints, so nothing flashes.
+  const [displayed, setDisplayed] = useState(text);
   const [done, setDone] = useState(!enabled);
+
+  useIsomorphicLayoutEffect(() => {
+    if (enabled) setDisplayed('');
+  }, [enabled, text]);
 
   useEffect(() => {
     if (!enabled) {

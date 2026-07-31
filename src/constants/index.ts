@@ -90,8 +90,16 @@ export const PERSONAL_INFO = {
   degree: "Bachelor of Information Technology",
   status: "Open to Opportunities",
   responseTime: "Within 24 hours",
+  // Hero-only paragraph. Deliberately separate from bio[] so the landing page
+  // leads with the work instead of education history, and so the About page
+  // can carry the biography without the two drifting into paraphrases of
+  // each other.
+  intro:
+    "I build full-stack web applications — the interface people use and the systems behind it. What interests me most is the part nobody sees: authentication, data modeling, and APIs that still behave when the input is wrong.",
+  // Rendered only on the About page. The schools and dates live in TIMELINE
+  // ids 4 and 5, so this no longer repeats them.
   bio: [
-    "I'm a Bachelor of Information Technology student at Texas College of Management and IT, Kathmandu, originally from Damak, Jhapa. Before stepping into the world of software and technology, I completed my Secondary education at Brighter Star English School and my Intermediate level at Damak Multiple Campus.",
+    "I'm a Bachelor of Information Technology student at Texas College of Management and IT in Kathmandu, originally from Damak, Jhapa — a move that traded a small-town pace for a city with a lot more going on.",
     "I currently focus on frontend web development with React, Vite, and Tailwind CSS while actively learning backend development with Node.js, Express, Prisma, and PostgreSQL by building real projects from scratch. My technical foundation also includes Java, C++, Python, and a strong curiosity for how systems work under the hood.",
     "Beyond code, I study networking, cybersecurity fundamentals, and IT infrastructure as part of my degree. I am actively looking for internship and junior developer opportunities where I can contribute real value from day one and keep growing through real-world collaboration."
   ]
