@@ -7,7 +7,8 @@ import PageMeta from '../components/seo/PageMeta';
 import { CATEGORY_ACCENTS, PROJECTS } from '../constants';
 import { fadeUp, staggerContainer, blurIn } from '../lib/motion';
 
-const categories = ['All', 'API', 'Tool', 'Frontend', 'Social'];
+// Derived so a filter button can never outlive the projects it filters for.
+const categories = ['All', ...new Set(PROJECTS.map((p) => p.category))];
 const portfolioTechs = ['React 19', 'Vite 7', 'Tailwind CSS v4', 'React Router v7', 'Motion for React'];
 
 const Projects = () => {

@@ -146,7 +146,9 @@ const SocialButton = ({
 };
 
 const Home = () => {
-  const featured = PROJECTS.filter((p) => p.featured).slice(0, 2);
+  // Only TriLearn carries featured: true, so top the preview up with the next
+  // entries in order -- the two-card grid stretches badly with a single child.
+  const featured = [...PROJECTS].sort((a, b) => Number(b.featured) - Number(a.featured)).slice(0, 2);
   const heroRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
   const [isMobile, setIsMobile] = useState(
