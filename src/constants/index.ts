@@ -241,14 +241,14 @@ export const PROJECTS = [
     category: "Tool",
     liveUrl: "https://vibe-typer.vercel.app/",
     githubUrl: "https://github.com/armancore/VibeTyper.git",
-    featured: true
+    featured: false
   },
   {
     id: 5,
     num: "05",
-    title: "Nepal News Aggregator",
-    description: "Nepal-focused news app powered by TheNewsAPI with category-based browsing, fresh headline discovery, and a responsive card layout for smooth reading across devices.",
-    longDescription: "Nepal Patra is a Nepal-centric news application built with React that uses TheNewsAPI to fetch and display current headlines in a clean, mobile-friendly interface. It focuses on easy category exploration, fast headline browsing, and a responsive card-based layout that keeps the reading experience simple and accessible.",
+    title: "Nepal Patra",
+    description: "A Nepal-first news reader, built because general aggregators surface almost nothing from Nepal unless you go looking for it by name.",
+    longDescription: "General news aggregators rank on global popularity, so Nepali headlines rarely surface on their own — you have to already know what to search for. Nepal Patra inverts that default: it opens on Nepal, pulls current headlines through TheNewsAPI, and sorts them by category so the country's news is the feed itself rather than a search result. Built with React and Axios, with a responsive card layout that stays readable on small screens.",
     tags: [
       { label: "React", color: "blue" },
       { label: "TheNewsAPI", color: "teal" },
@@ -280,24 +280,6 @@ export const PROJECTS = [
   {
     id: 7,
     num: "07",
-    title: "Ecommerce Store Template",
-    description: "A frontend ecommerce template for modern online stores, built with React and Vite with responsive layouts, storefront UI sections, and reusable shopping experience components.",
-    longDescription: "A basic frontend ecommerce store template built as a foundation for future online shop projects. It focuses on clean storefront presentation, responsive product browsing layouts, and reusable UI patterns for building modern ecommerce experiences with React and Vite.",
-    tags: [
-      { label: "React", color: "blue" },
-      { label: "Vite", color: "blue" },
-      { label: "JavaScript", color: "orange" },
-      { label: "Responsive UI", color: "blue" },
-      { label: "Ecommerce", color: "purple" }
-    ],
-    category: "Frontend",
-    liveUrl: "https://ecommerce-arman.vercel.app/",
-    githubUrl: "https://github.com/armancore/ecommerce.git",
-    featured: false
-  },
-  {
-    id: 8,
-    num: "08",
     title: "ArticleHub",
     description: "A blog and article posting platform built with Flask, Jinja, HTML, CSS, and JavaScript for publishing and browsing written content through a clean web interface.",
     longDescription: "ArticleHub is a content publishing web application built with Flask and server-rendered Jinja templates. It focuses on article and blog posting workflows, combining Python on the backend with HTML, CSS, and JavaScript on the frontend to deliver a straightforward reading and publishing experience.",
@@ -314,8 +296,8 @@ export const PROJECTS = [
     featured: false
   },
   {
-    id: 9,
-    num: "09",
+    id: 8,
+    num: "08",
     title: "TaskFlow Kanban Manager",
     description: "A simple Kanban-style task management app with drag-and-drop task movement across columns and priority-based organization for a smooth planning workflow.",
     longDescription: "TaskFlow is a task management application built with React, Vite, and Tailwind CSS. It uses a Kanban-style board layout to organize tasks visually and supports drag-and-drop interactions so tasks can be moved between workflow stages while keeping priority-focused planning simple and intuitive.",
