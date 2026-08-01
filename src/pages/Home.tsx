@@ -97,7 +97,7 @@ const TechStrip = ({
       <motion.li
         key={label}
         initial={reduceAnimations ? false : { opacity: 0, y: 6 }}
-        animate={reduceAnimations ? undefined : { opacity: 1, y: 0, transition: { delay: 0.9 + i * 0.07 } }}
+        animate={{ opacity: 1, y: 0, transition: reduceAnimations ? { duration: 0 } : { delay: 0.9 + i * 0.07 } }}
         style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '4px 9px', borderRadius: '7px', background: 'rgba(46,143,255,0.08)', border: '1px solid rgba(46,143,255,0.18)' }}
       >
         <Icon size={11} style={{ color: '#2E8FFF', flexShrink: 0 }} aria-hidden="true" />
@@ -145,7 +145,7 @@ const SocialButton = ({
         }}
         whileTap={{ scale: 0.92 }}
         initial={reduceAnimations ? false : { opacity: 0, y: 10 }}
-        animate={reduceAnimations ? undefined : { opacity: 1, y: 0, transition: { delay: 0.8 + index * 0.08 } }}
+        animate={{ opacity: 1, y: 0, transition: reduceAnimations ? { duration: 0 } : { delay: 0.8 + index * 0.08 } }}
         className="hover-glow-crisp"
         style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '38px', height: '38px', borderRadius: '10px', border: `1px solid ${border}`, background: bg, color, textDecoration: 'none', backdropFilter: 'blur(4px)' }}
       >
@@ -277,9 +277,9 @@ const Home = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full" style={{ position: 'relative', zIndex: 2, paddingTop: '40px', paddingBottom: '96px' }}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <motion.div
-              variants={reduceAnimations ? undefined : staggerContainer(0.12, 0.1)}
+              variants={staggerContainer(0.12, 0.1)}
               initial={reduceAnimations ? false : 'hidden'}
-              animate={reduceAnimations ? undefined : 'show'}
+              animate="show"
               className="order-1 lg:order-1"
             >
               <motion.div variants={heroVariants} style={{ marginBottom: '28px' }}>
@@ -409,7 +409,7 @@ const Home = () => {
                 ))}
                 <motion.span
                   initial={reduceAnimations ? false : { opacity: 0 }}
-                  animate={reduceAnimations ? undefined : { opacity: 1, transition: { delay: 1.2 } }}
+                  animate={{ opacity: 1, transition: reduceAnimations ? { duration: 0 } : { delay: 1.2 } }}
                   style={{ color: '#5C626E', fontSize: '12px', marginLeft: '4px' }}
                 >
                   Based in Kathmandu, Nepal
@@ -417,11 +417,18 @@ const Home = () => {
               </motion.div>
             </motion.div>
 
+            {/* animate must stay pointed at 'show'. reduceAnimations starts
+                false so the prerendered markup hydrates cleanly, then flips
+                true on mobile a tick later; withdrawing animate at that moment
+                stranded this column at its 'hidden' values -- opacity 0 and
+                translateX(50px) -- which hid the whole photo card off-screen.
+                Gating initial and transition alone gives the same result
+                without the entrance ever being abandoned mid-flight. */}
             <motion.div
-              variants={reduceAnimations ? undefined : fadeRight}
+              variants={fadeRight}
               initial={reduceAnimations ? false : 'hidden'}
-              animate={reduceAnimations ? undefined : 'show'}
-              transition={reduceAnimations ? undefined : { delay: 0.4, duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+              animate="show"
+              transition={reduceAnimations ? { duration: 0 } : { delay: 0.4, duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
               className="order-2 lg:order-2 lg:justify-self-end"
             >
               <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
@@ -474,8 +481,8 @@ const Home = () => {
 
                   <motion.div
                     initial={reduceAnimations ? false : { opacity: 0, scale: 0.8 }}
-                    animate={reduceAnimations ? undefined : { opacity: 1, scale: 1 }}
-                    transition={reduceAnimations ? undefined : { delay: 1.1, type: 'spring', stiffness: 200 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={reduceAnimations ? { duration: 0 } : { delay: 1.1, type: 'spring', stiffness: 200 }}
                     style={{ position: 'absolute', top: '16px', right: '16px', zIndex: 4, display: 'flex', alignItems: 'center', gap: '5px', background: 'rgba(10,11,13,0.8)', border: '1px solid rgba(22,163,74,0.35)', borderRadius: '20px', padding: '5px 12px', backdropFilter: 'blur(12px)' }}
                   >
                     <motion.span
@@ -493,8 +500,8 @@ const Home = () => {
         <motion.div
           style={{ position: 'absolute', bottom: '28px', left: '50%', transform: 'translateX(-50%)', zIndex: 5, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', opacity: reduceAnimations ? 1 : heroOpacity }}
           initial={reduceAnimations ? false : { opacity: 0 }}
-          animate={reduceAnimations ? undefined : { opacity: 1 }}
-          transition={reduceAnimations ? undefined : { delay: 1.8 }}
+          animate={{ opacity: 1 }}
+          transition={reduceAnimations ? { duration: 0 } : { delay: 1.8 }}
         >
           <motion.div
             animate={reduceAnimations ? undefined : { y: [0, 6, 0] }}

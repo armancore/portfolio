@@ -84,7 +84,7 @@ const About = () => {
           <motion.div
             variants={staggerContainer(0.1, 0.05)}
             initial={reduceAnimations ? false : 'hidden'}
-            animate={reduceAnimations ? undefined : 'show'}
+            animate="show"
             style={{ gridColumn: 'span 12' }}
             className="lg:!col-span-7"
           >
@@ -98,7 +98,7 @@ const About = () => {
               I build full-stack web applications with React, Node.js, and PostgreSQL. Originally from Damak, Jhapa, now studying IT and building software in Kathmandu, Nepal.
             </motion.p>
 
-            <motion.div variants={staggerContainer(0.07)} initial={reduceAnimations ? false : 'hidden'} animate={reduceAnimations ? undefined : 'show'} style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+            <motion.div variants={staggerContainer(0.07)} initial={reduceAnimations ? false : 'hidden'} animate="show" style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
               {quickFacts.map(({ label, accent }) => (
                 <motion.span
                   key={label}
@@ -116,7 +116,7 @@ const About = () => {
           <div style={{ gridColumn: 'span 12' }} className="hidden lg:!col-span-5 lg:block">
             <motion.div
               initial={reduceAnimations ? false : { opacity: 0, x: 40 }}
-              animate={reduceAnimations ? undefined : { opacity: 1, x: 0 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={reduceAnimations ? undefined : { delay: 0.4, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             >
               <div style={{ background: 'linear-gradient(145deg, #1A1D23, #111317)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '20px', padding: '24px', position: 'relative', overflow: 'hidden' }}>
