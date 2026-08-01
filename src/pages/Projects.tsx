@@ -31,7 +31,7 @@ const Projects = () => {
         />
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" style={{ position: 'relative', zIndex: 1 }}>
-          <motion.div variants={staggerContainer(0.1, 0.05)} initial={reduceAnimations ? false : 'hidden'} animate={reduceAnimations ? undefined : 'show'}>
+          <motion.div variants={staggerContainer(0.1, 0.05)} initial={reduceAnimations ? false : 'hidden'} animate="show">
             <motion.p variants={fadeUp} style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#2E8FFF', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '12px' }}>
               My work
             </motion.p>
@@ -91,7 +91,7 @@ const Projects = () => {
                     <motion.div
                       layout
                       initial={reduceAnimations ? false : { opacity: 0, y: 30, scale: 0.96 }}
-                      animate={reduceAnimations ? undefined : { opacity: 1, y: 0, scale: 1, transition: { duration: 0.45, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] } }}
+                      animate={{ opacity: 1, y: 0, scale: 1, transition: reduceAnimations ? { duration: 0 } : { duration: 0.45, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] } }}
                       exit={reduceAnimations ? undefined : { opacity: 0, scale: 0.95, transition: { duration: 0.25 } }}
                       whileHover={reduceAnimations ? undefined : { y: -6, borderColor: 'rgba(46,143,255,0.38)', boxShadow: '0 0 0 1px rgba(46,143,255,0.09), 0 24px 52px rgba(0,0,0,0.42)', filter: 'saturate(1.1)' }}
                       transition={reduceAnimations ? undefined : { duration: 0.15, ease: 'easeOut' }}
