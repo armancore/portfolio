@@ -1,44 +1,84 @@
 // Shared animation variants for Motion for React.
+//
+// One curve for the entire site, and one rule: animate `transform` and
+// `opacity` only. Never `width`, `height`, `top`, `left`, `margin`, or
+// `box-shadow` -- those force layout or paint on every frame.
+//
+// The variants below are deliberately different per element class. A single
+// `fadeUp` reused on headings, rules, body copy and cards reads as one
+// undifferentiated drift; giving each class its own direction is what makes a
+// section resolve in a readable order instead of arriving all at once.
 
 import type { Variants, ViewportOptions } from 'motion/react';
 
-export const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 40 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+/** --ease-signal. Kept in sync with the token block in src/index.css. */
+export const EASE = [0.2, 0.85, 0.2, 1] as const;
+
+/** Token durations in seconds, which is the unit Motion expects. */
+export const DURATION = {
+  tap: 0.12,
+  move: 0.24,
+  enter: 0.32,
+  stage: 2.4,
+} as const;
+
+export const STAGGER = {
+  tight: 0.06,
+  loose: 0.09,
+} as const;
+
+/**
+ * Mask wipe. The element carrying this must sit inside a parent with
+ * `overflow: hidden` -- the child slides up from fully below the clip edge, so
+ * without the clip it simply translates into view from nowhere.
+ */
+export const revealHeading: Variants = {
+  hidden: { y: '110%' },
+  show: { y: 0, transition: { duration: DURATION.enter, ease: EASE } },
 };
 
-export const fadeRight: Variants = {
-  hidden: { opacity: 0, x: 50 },
-  show: { opacity: 1, x: 0, transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] } },
+/** Hairline rules and underscores, drawn left to right. */
+export const revealRule: Variants = {
+  hidden: { scaleX: 0 },
+  show: {
+    scaleX: 1,
+    transition: { duration: DURATION.enter, ease: EASE },
+  },
 };
 
-export const scaleIn: Variants = {
-  hidden: { opacity: 0, scale: 0.85 },
-  show: { opacity: 1, scale: 1, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
+/** Body copy and sub-headings. The shortest travel of the three. */
+export const revealBody: Variants = {
+  hidden: { opacity: 0, y: 12 },
+  show: { opacity: 1, y: 0, transition: { duration: DURATION.enter, ease: EASE } },
 };
 
-export const staggerContainer = (staggerChildren = 0.09, delayChildren = 0): Variants => ({
+/**
+ * Cards enter from the side the grid flows: odd columns drift in from the
+ * left, even columns from the right, so a two-column grid closes toward its
+ * centre rather than sliding as one block.
+ *
+ * `column` is the zero-based index within the row as authored. Grids that
+ * reflow to a single column at narrow widths still read correctly -- the
+ * horizontal offset is 12px, small enough to register as a settle rather than
+ * a slide when the visual column order no longer matches.
+ */
+export const revealCard = (column = 0): Variants => ({
+  hidden: { opacity: 0, y: 20, x: column % 2 === 0 ? -12 : 12 },
+  show: {
+    opacity: 1,
+    y: 0,
+    x: 0,
+    transition: { duration: DURATION.enter, ease: EASE },
+  },
+});
+
+export const staggerContainer = (
+  staggerChildren: number = STAGGER.tight,
+  delayChildren = 0
+): Variants => ({
   hidden: {},
   show: { transition: { staggerChildren, delayChildren } },
 });
 
-// For hero entrance (fires immediately, no scroll)
-export const heroVariants: Variants = {
-  hidden: { opacity: 0, y: 28 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
-};
-
-// Blur-in text reveal
-export const blurIn: Variants = {
-  hidden: { opacity: 0, filter: 'blur(12px)', y: 20 },
-  show: { opacity: 1, filter: 'blur(0px)', y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
-};
-
-// Card flip/reveal
-export const cardReveal: Variants = {
-  hidden: { opacity: 0, y: 32, rotateX: 8 },
-  show: { opacity: 1, y: 0, rotateX: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
-};
-
-// Viewport config used across all scroll-triggered sections
+/** Viewport config used across all scroll-triggered sections. */
 export const viewport: ViewportOptions = { once: true, amount: 0.1 };
