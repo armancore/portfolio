@@ -5,7 +5,7 @@ import RevealWrapper from '../components/ui/RevealWrapper';
 import ScrollReveal from '../components/ui/ScrollReveal';
 import PageMeta from '../components/seo/PageMeta';
 import { PROJECTS, PROJECTS_PAGE } from '../constants';
-import { fadeUp, staggerContainer } from '../lib/motion';
+import { DURATION, EASE, STAGGER, revealBody, revealHeading, staggerContainer } from '../lib/motion';
 
 // Derived so a filter button can never outlive the projects it filters for.
 const categories = ['All', ...new Set(PROJECTS.map((p) => p.category))];
@@ -40,12 +40,12 @@ const Projects = () => {
       <section style={{ paddingTop: '110px', paddingBottom: '60px', position: 'relative' }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" style={{ position: 'relative', zIndex: 1 }}>
           <motion.div
-            variants={staggerContainer(0.1, 0.05)}
+            variants={staggerContainer(STAGGER.loose, 0.05)}
             initial={reduceAnimations ? false : 'hidden'}
             animate="show"
           >
             <motion.p
-              variants={fadeUp}
+              variants={revealBody}
               style={{
                 ...monoLabel,
                 color: 'var(--color-signal)',
@@ -56,8 +56,10 @@ const Projects = () => {
             >
               {PROJECTS_PAGE.eyebrow}
             </motion.p>
-            <motion.h1
-              variants={fadeUp}
+            {/* The clip lives on the h1 and the wipe on an inner span: the
+                mask has to be the element the text slides out from under, and
+                a block child is what can carry a percentage y offset. */}
+            <h1
               style={{
                 fontFamily: 'var(--font-display)',
                 fontWeight: 700,
@@ -66,12 +68,15 @@ const Projects = () => {
                 letterSpacing: '-0.035em',
                 lineHeight: 1.03,
                 marginBottom: '16px',
+                overflow: 'hidden',
               }}
             >
-              {PROJECTS_PAGE.heading}
-            </motion.h1>
+              <motion.span variants={revealHeading} style={{ display: 'block' }}>
+                {PROJECTS_PAGE.heading}
+              </motion.span>
+            </h1>
             <motion.p
-              variants={fadeUp}
+              variants={revealBody}
               style={{
                 fontSize: 'clamp(var(--text-sm), 3.6vw, var(--text-base))',
                 color: 'var(--color-chalk-2)',
@@ -147,9 +152,9 @@ const Projects = () => {
                         y: 0,
                         transition: reduceAnimations
                           ? { duration: 0 }
-                          : { duration: 0.32, delay: i * 0.06, ease: [0.2, 0.85, 0.2, 1] },
+                          : { duration: DURATION.enter, delay: i * STAGGER.tight, ease: EASE },
                       }}
-                      exit={reduceAnimations ? undefined : { opacity: 0, transition: { duration: 0.24 } }}
+                      exit={reduceAnimations ? undefined : { opacity: 0, transition: { duration: DURATION.move, ease: EASE } }}
                       className="panel"
                       style={{
                         position: 'relative',

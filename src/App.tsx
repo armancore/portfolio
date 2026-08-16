@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
+import { DURATION, EASE } from './lib/motion';
 
 class ErrorBoundary extends React.Component<
   { children: React.ReactNode },
@@ -147,14 +148,26 @@ const AppContent = ({ pages, suspend }: AppProps) => {
             {performanceMode ? (
               routeTree
             ) : (
-              <AnimatePresence mode="wait" initial>
+              // initial={false} suppresses the enter animation on the very
+              // first mount only; navigating between routes still animates.
+              // With it set to true, every prerendered page shipped its whole
+              // body at opacity 0 and stayed invisible until hydration ran --
+              // the content was in the HTML but nobody could read it, which
+              // defeats the point of prerendering and delays LCP by the cost
+              // of the JS bundle.
+              <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={location.pathname}
                   data-route-transition
-                  initial={{ opacity: 0, y: 28, filter: 'blur(4px)' }}
-                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                  exit={{ opacity: 0, y: -16, filter: 'blur(2px)' }}
-                  transition={{ duration: 0.36, ease: [0.16, 1, 0.3, 1] }}
+                  // filter: blur() was animating paint on every frame, which
+                  // section 2 rules out alongside width/height/box-shadow.
+                  // Transform and opacity only. Section 5 retunes the exact
+                  // enter/exit timings; this commit brings it onto the shared
+                  // curve and off the paint-bound property.
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: DURATION.enter, ease: EASE }}
                 >
                   {routeTree}
                 </motion.div>

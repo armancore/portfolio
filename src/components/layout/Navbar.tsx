@@ -5,6 +5,7 @@ import { Menu, X } from 'lucide-react';
 import useScrolled from '../../hooks/useScrolled';
 import useIsMobile from '../../hooks/useIsMobile';
 import { NAV_LINKS } from '../../constants';
+import { DURATION, EASE } from '../../lib/motion';
 
 const Navbar = () => {
   const scrolled = useScrolled(20);
@@ -53,9 +54,11 @@ const Navbar = () => {
 
   return (
     <motion.header
-      initial={{ y: -80, opacity: 0 }}
+      // The bar is above the fold on every route, so it prerenders at its
+      // final position rather than sliding in after hydration.
+      initial={false}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.32, ease: [0.2, 0.85, 0.2, 1] }}
+      transition={{ duration: DURATION.enter, ease: EASE }}
       style={{
         position: 'fixed',
         top: 'calc(12px + env(safe-area-inset-top))',
@@ -120,7 +123,7 @@ const Navbar = () => {
                     background: 'var(--color-panel)',
                     border: `1px solid ${isActive(link.path) ? 'var(--color-signal)' : 'var(--color-rule)'}`,
                   }}
-                  transition={{ duration: 0.24, ease: [0.2, 0.85, 0.2, 1] }}
+                  transition={{ duration: DURATION.move, ease: EASE }}
                 />
               )}
               <span style={{ position: 'relative', zIndex: 2 }}>{link.label}</span>
@@ -180,7 +183,7 @@ const Navbar = () => {
             initial={lowPerfMode ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.24, ease: [0.2, 0.85, 0.2, 1] }}
+            transition={{ duration: DURATION.move, ease: EASE }}
             style={{
               overflow: 'hidden',
               background: 'var(--color-panel)',
