@@ -9,14 +9,19 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <!-- Only the two weights that render above-the-fold text: the hero headline
-       (700) and the sub-copy beneath it (400). The mono and semibold faces are
-       allowed to swap in. Paths are stable because scripts/fonts.mjs copies
-       these into public/ unhashed. -->
+  <!-- The three faces that render above-the-fold text: the hero headline (700),
+       the sub-copy beneath it (400), and the mono that sets the entire hero
+       structure layer. Swapping the mono would reflow the signature moment's
+       most important text on first paint, so it is preloaded rather than left
+       to swap. Archivo 600 is not here -- it appears below the fold only.
+       Paths are stable because scripts/fonts.mjs copies these into public/
+       unhashed; Vite would content-hash anything a stylesheet imports. -->
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="/fonts/archivo-latin-700-normal.woff2" />
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="/fonts/archivo-latin-400-normal.woff2" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="/fonts/ibm-plex-mono-latin-400-normal.woff2" />
   <meta name="description"
     content="I build full-stack web applications with React, Node.js, and PostgreSQL. IT student at Texas College of Management and IT, Kathmandu, Nepal." />
   <meta name="author" content="Arman Khan" />
