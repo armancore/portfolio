@@ -65,17 +65,16 @@ export interface ContactLink {
   sublabel: string;
   href: string;
   iconName: ContactIconName;
-  bgColor: string;
 }
 
-// Single accent style for every tag, category chip and skill card. The five
-// former ACCENT_MAP keys and four CATEGORY_ACCENTS keys all resolved to the
-// same electric blue, so the per-item colour fields were pure indirection.
+// Single chip style for every tag, category and skill card. Colour is not a
+// data concern -- this resolves to tokens so the palette can move without
+// touching content. The old per-item bgColor strings smuggled Tailwind classes
+// into the data layer and all pointed at the same deleted blue.
 export const ACCENT = {
-  bg: "rgba(46,143,255,0.10)",
-  border: "rgba(46,143,255,0.24)",
-  text: "var(--color-accent)",
-  glow: "rgba(46,143,255,0.24)",
+  bg: "var(--color-panel-2)",
+  border: "var(--color-rule)",
+  text: "var(--color-chalk-2)",
 };
 
 export const PERSONAL_INFO = {
@@ -103,6 +102,130 @@ export const PERSONAL_INFO = {
     "I currently focus on frontend web development with React, Vite, and Tailwind CSS while actively learning backend development with Node.js, Express, Prisma, and PostgreSQL by building real projects from scratch. My technical foundation also includes Java, C++, Python, and a strong curiosity for how systems work under the hood.",
     "Beyond code, I study networking, cybersecurity fundamentals, and IT infrastructure as part of my degree. I am actively looking for internship and junior developer opportunities where I can contribute real value from day one and keep growing through real-world collaboration."
   ]
+};
+
+// Footer prose. Previously inlined in Footer.tsx, which put user-facing copy
+// outside the one file that is supposed to hold it.
+export const FOOTER_COPY = {
+  blurb:
+    "Building things that live on the internet. Focused on polished web interfaces while steadily growing my backend development skills.",
+  navHeading: "Navigation",
+  connectHeading: "Connect",
+  connectBlurb:
+    "Open to internship and junior developer opportunities. Available for collaboration and project discussions.",
+  rights: "All rights reserved.",
+  credit: "Designed and developed by Arman Khan."
+};
+
+// Home-page content. These three arrays used to live as module-local consts
+// inside Home.tsx, which put content outside the one file that holds it.
+export const HOME_PAGE = {
+  badge: "shipping full-stack apps from schema to interface",
+  skillsEyebrow: "What I do",
+  skillsHeading: "Skills and expertise",
+  skillsCta: "Full skills breakdown",
+  workEyebrow: "Featured work",
+  workHeading: "Things I have built",
+  workCta: "All projects",
+  ctaEyebrow: "Let us work together",
+  ctaHeading: "Have a project in mind?",
+  ctaBody: "Open to internship and junior developer roles. Let us build something great together.",
+  ctaResponse: "Responds within 24 hours",
+  viewProjects: "View Projects",
+  contactMe: "Contact Me",
+  locationNote: "Based in Kathmandu, Nepal"
+};
+
+export const TECH_STACK: { icon: string; label: string }[] = [
+  { icon: "Atom", label: "React" },
+  { icon: "Hexagon", label: "Node.js" },
+  { icon: "Database", label: "PostgreSQL" },
+  { icon: "Triangle", label: "Prisma" },
+  { icon: "Server", label: "Express" },
+  { icon: "GitBranch", label: "Git" }
+];
+
+export const BENTO_SKILLS: { icon: string; title: string; desc: string }[] = [
+  { icon: "Layers", title: "Frontend", desc: "React, Tailwind, Vite pixel-perfect UIs" },
+  { icon: "Cpu", title: "Backend", desc: "Node.js, Express, Prisma, PostgreSQL" },
+  { icon: "Globe", title: "Networking", desc: "TCP/IP, DNS, Linux, Cybersecurity" },
+  { icon: "Code2", title: "Languages", desc: "C++, Java, Python, JavaScript" }
+];
+
+export const CONTACT_PAGE = {
+  eyebrow: "Contact",
+  heading: "Let's Connect",
+  availableLabel: "Available",
+  intro:
+    "Whether you have a job opportunity, a project to collaborate on, or just want to say hi — my inbox is always open.",
+  getInTouchHeading: "Get in touch",
+  availabilityHeading: "Currently Available",
+  availabilityBody:
+    "Open to internship and junior developer positions. I bring energy, curiosity, and a genuine drive to ship great software.",
+  gmailCta: "Open Gmail directly"
+};
+
+export const CONTACT_FORM_COPY = {
+  heading: "Send a message",
+  nameLabel: "Full Name",
+  namePlaceholder: "Arman Khan",
+  emailLabel: "Email Address",
+  emailPlaceholder: "you@example.com",
+  subjectLabel: "Subject",
+  subjectPlaceholder: "Internship opportunity / Project collaboration",
+  messageLabel: "Message",
+  messagePlaceholder: "Tell me about the opportunity, project, or just say hello...",
+  submit: "Send Message",
+  submitting: "Sending...",
+  responseNote: "Typical response time: within 24 hours",
+  successHeading: "Message sent!",
+  successBody: "Thanks for reaching out. I'll get back to you within 24 hours.",
+  unconfigured: "Contact form is not configured."
+};
+
+export const ABOUT_PAGE = {
+  eyebrow: "Who I am",
+  heading: "About Me",
+  intro:
+    "I build full-stack web applications with React, Node.js, and PostgreSQL. Originally from Damak, Jhapa, now studying IT and building software in Kathmandu, Nepal.",
+  storyEyebrow: "My story",
+  storyHeading: "Background and Motivation",
+  skillsEyebrow: "Technical skills",
+  skillsHeading: "Technical Expertise",
+  skillsAside: "Technologies I've worked with professionally and in personal projects.",
+  journeyEyebrow: "Journey",
+  journeyHeading: "Experience and Education",
+  journeyAside: "My path through academia and hands-on development.",
+  infoHeading: "Personal Info",
+  ctaContact: "Let's Connect",
+  ctaProjects: "View My Projects",
+  values: [
+    { title: "Goal-Oriented", desc: "I ship products, not just code." },
+    { title: "Fundamentals First", desc: "CS fundamentals meet modern stacks." },
+    { title: "Team Player", desc: "Communication is a core skill." }
+  ]
+};
+
+export const PROJECTS_PAGE = {
+  eyebrow: "My work",
+  heading: "Projects",
+  intro:
+    "Real applications I've designed, built, and deployed. Every project represents a problem I found interesting and a skill I wanted to sharpen.",
+  // The portfolio card at the foot of the list -- this site, described as one
+  // of the projects. Kept out of PROJECTS so it never lands in the filters.
+  selfLabel: "Portfolio",
+  selfTitle: "This Portfolio Website",
+  selfDescription:
+    "Built from scratch with React 19, Vite 7, and Tailwind CSS v4. Prerendered to static HTML per route, with a dark design system and no client-side framework overhead on first paint.",
+  selfTechs: ["React 19", "Vite 7", "Tailwind CSS v4", "React Router v7", "Motion for React"],
+  selfRepo: "https://github.com/armancore/portfolio"
+};
+
+export const NOT_FOUND_COPY = {
+  label: "404",
+  heading: "Page not found",
+  body: "The page you tried to open does not exist or the link is no longer valid.",
+  cta: "Back to home"
 };
 
 export const NAV_LINKS: NavLink[] = [
@@ -417,35 +540,30 @@ export const CONTACT_LINKS: ContactLink[] = [
     label: "contact@armankhan.com.np",
     sublabel: "Fastest response",
     href: "mailto:contact@armankhan.com.np",
-    iconName: "Mail",
-    bgColor: "bg-[var(--accent-glow)] border-accent/20 text-accent"
+    iconName: "Mail"
   },
   {
     label: "github.com/armancore",
     sublabel: "Code & projects",
     href: "https://github.com/armancore",
-    iconName: "Github",
-    bgColor: "bg-white/5 border-white/10 text-text-primary"
+    iconName: "Github"
   },
   {
     label: "linkedin.com/in/techiee-arman",
     sublabel: "Professional profile",
     href: "https://www.linkedin.com/in/techiee-arman/",
-    iconName: "Linkedin",
-    bgColor: "bg-sky-500/10 border-sky-500/20 text-sky-400"
+    iconName: "Linkedin"
   },
   {
     label: "facebook.com/techiee.arman",
     sublabel: "Social",
     href: "https://www.facebook.com/techiee.arman",
-    iconName: "Facebook",
-    bgColor: "bg-[var(--accent2-glow)] border-accent2/20 text-accent2"
+    iconName: "Facebook"
   },
   {
     label: "instagram.com/techiee.arman",
     sublabel: "Social",
     href: "https://www.instagram.com/techiee.arman",
-    iconName: "Instagram",
-    bgColor: "bg-pink-500/10 border-pink-500/20 text-pink-400"
+    iconName: "Instagram"
   }
 ];

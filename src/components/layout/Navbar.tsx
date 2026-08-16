@@ -35,89 +35,68 @@ const Navbar = () => {
     return location.pathname.startsWith(path);
   };
   const lowPerfMode = prefersReducedMotion || isMobile || isLowPowerDevice;
-  const ultraMobileMode = isMobile;
+
+  const linkBase: React.CSSProperties = {
+    position: 'relative',
+    padding: '10px 16px',
+    minWidth: '104px',
+    textAlign: 'center',
+    fontFamily: 'var(--font-mono)',
+    fontSize: 'var(--text-xs)',
+    letterSpacing: '0.07em',
+    textTransform: 'uppercase',
+    textDecoration: 'none',
+    borderRadius: 'var(--radius-sm)',
+    transition: 'color var(--duration-tap) var(--ease-signal)',
+    overflow: 'hidden',
+  };
 
   return (
     <motion.header
       initial={{ y: -80, opacity: 0 }}
-      animate={ultraMobileMode ? { y: 0, opacity: 1 } : { y: 0, opacity: 1 }}
-      transition={
-        ultraMobileMode
-          ? { duration: 0.22, ease: [0.22, 1, 0.36, 1] }
-          : { duration: 0.7, ease: [0.16, 1, 0.3, 1] }
-      }
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.32, ease: [0.2, 0.85, 0.2, 1] }}
       style={{
         position: 'fixed',
-        top: '12px',
+        top: 'calc(12px + env(safe-area-inset-top))',
         left: '50%',
         x: '-50%',
         width: 'min(1040px, calc(100% - 20px))',
         zIndex: 50,
-        borderRadius: '22px',
+        borderRadius: 'var(--radius-lg)',
         overflow: 'hidden',
-        border: scrolled ? '1px solid rgba(255,255,255,0.25)' : '1px solid rgba(255,255,255,0.14)',
-        background: scrolled
-          ? 'linear-gradient(140deg, rgba(10,11,13,0.95), rgba(17,19,23,0.9) 42%, rgba(26,29,35,0.95))'
-          : 'linear-gradient(140deg, rgba(10,11,13,0.8), rgba(17,19,23,0.75) 42%, rgba(26,29,35,0.84))',
+        // The bar separates from the page by surface and hairline only. It
+        // used to lift itself with a stack of blue glows, which section 1 rules
+        // out; scrolled state now reads as a solid panel instead of a brighter
+        // bloom.
+        border: '1px solid var(--color-rule)',
+        background: scrolled ? 'var(--color-panel)' : 'color-mix(in oklab, var(--color-panel) 82%, transparent)',
         backdropFilter: lowPerfMode ? 'none' : 'blur(20px)',
-        boxShadow: scrolled
-          ? lowPerfMode
-            ? '0 12px 24px rgba(0,0,0,0.42), 0 0 18px rgba(46,143,255,0.09), 0 0 0 1px rgba(46,143,255,0.06) inset'
-            : '0 30px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(46,143,255,0.08) inset'
-          : lowPerfMode
-            ? '0 10px 20px rgba(0,0,0,0.34), 0 0 14px rgba(46,143,255,0.075), 0 0 0 1px rgba(46,143,255,0.08) inset'
-            : '0 22px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(46,143,255,0.05) inset',
-        transition: ultraMobileMode ? 'none' : 'border-color 0.35s, box-shadow 0.35s, background 0.35s',
+        transition: 'background var(--duration-move) var(--ease-signal)',
       }}
     >
-      {!lowPerfMode && (
-        <motion.div
-          className="navbar-scanline"
-          aria-hidden
-          animate={{ x: ['-120%', '120%'], opacity: [0, 0.45, 0] }}
-          transition={{ duration: 6.2, repeat: Infinity, ease: 'linear', repeatDelay: 0.9 }}
-        />
-      )}
-      {lowPerfMode && <div className="navbar-mobile-aura" aria-hidden />}
-
-      <motion.div
-        className="px-3 md:px-4 lg:px-6 h-[66px] md:h-[72px] flex items-center justify-between gap-3 md:gap-4 relative"
-        initial={false}
-        animate={ultraMobileMode ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-        transition={ultraMobileMode ? { duration: 0.18, ease: 'easeOut' } : { duration: 0.2 }}
-      >
+      <div className="px-3 md:px-4 lg:px-6 h-16.5 md:h-18 flex items-center justify-between gap-3 md:gap-4 relative">
         <Link to="/" style={{ textDecoration: 'none', flexShrink: 0 }}>
-          <motion.div
-            whileHover={{ scale: 1.03 }}
-            whileTap={ultraMobileMode ? { scale: 0.98 } : { scale: 0.97 }}
-            className="flex items-center gap-2.5"
+          <span
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 'var(--text-lg)',
+              fontWeight: 700,
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              color: 'var(--color-chalk)',
+            }}
           >
-            <motion.span
-              className="navbar-brand-glyph"
-              animate={lowPerfMode ? undefined : { rotate: [0, 180, 360] }}
-              transition={lowPerfMode ? undefined : { duration: 14, repeat: Infinity, ease: 'linear' }}
-            />
-            <span
-              style={{
-                fontFamily: "'Poppins', sans-serif",
-                fontSize: '19px',
-                fontWeight: 800,
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-                color: '#ECEEF2',
-              }}
-            >
-              Arman
-            </span>
-          </motion.div>
+            Arman
+          </span>
         </Link>
 
         <nav
-          className="hidden md:flex items-center gap-1 p-1 rounded-2xl"
+          className="hidden md:flex items-center gap-1 p-1"
           style={{
-            background: 'linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015))',
-            border: '1px solid rgba(255,255,255,0.14)',
-            boxShadow: '0 12px 28px rgba(0,0,0,0.12)',
+            borderRadius: 'var(--radius-lg)',
+            background: 'var(--color-panel-2)',
+            border: '1px solid var(--color-rule)',
           }}
         >
           {NAV_LINKS.map((link) => (
@@ -126,20 +105,10 @@ const Navbar = () => {
               to={link.path}
               onMouseEnter={() => setHoveredPath(link.path)}
               onMouseLeave={() => setHoveredPath(null)}
+              aria-current={isActive(link.path) ? 'page' : undefined}
               style={{
-                position: 'relative',
-                padding: '10px 16px',
-                minWidth: '104px',
-                textAlign: 'center',
-                fontSize: '12px',
-                fontWeight: 600,
-                letterSpacing: '0.07em',
-                textTransform: 'uppercase',
-                textDecoration: 'none',
-                borderRadius: '12px',
-                color: isActive(link.path) ? '#ECEEF2' : '#9BA1AD',
-                transition: 'color 0.22s',
-                overflow: 'hidden',
+                ...linkBase,
+                color: isActive(link.path) ? 'var(--color-signal)' : 'var(--color-chalk-2)',
               }}
             >
               {(isActive(link.path) || hoveredPath === link.path) && (
@@ -147,284 +116,133 @@ const Navbar = () => {
                   layoutId="nav-pill"
                   className="absolute inset-0"
                   style={{
-                    borderRadius: '12px',
-                    border: `1px solid ${isActive(link.path) ? 'rgba(46,143,255,0.55)' : 'rgba(46,143,255,0.34)'}`,
-                    background: isActive(link.path)
-                      ? 'linear-gradient(120deg, rgba(46,143,255,0.24), rgba(46,143,255,0.2))'
-                      : 'linear-gradient(120deg, rgba(46,143,255,0.11), rgba(46,143,255,0.08))',
+                    borderRadius: 'var(--radius-sm)',
+                    background: 'var(--color-panel)',
+                    border: `1px solid ${isActive(link.path) ? 'var(--color-signal)' : 'var(--color-rule)'}`,
                   }}
-                  transition={{ type: 'spring', stiffness: 350, damping: 30, mass: 0.5 }}
+                  transition={{ duration: 0.24, ease: [0.2, 0.85, 0.2, 1] }}
                 />
               )}
               <span style={{ position: 'relative', zIndex: 2 }}>{link.label}</span>
-              {isActive(link.path) && (
-                <motion.span
-                  layoutId="nav-underline"
-                  style={{
-                    position: 'absolute',
-                    bottom: '3px',
-                    left: '24px',
-                    right: '24px',
-                    height: '2px',
-                    background: 'linear-gradient(90deg, #2E8FFF, #2E8FFF 45%, #1E6FD9)',
-                    borderRadius: '999px',
-                    zIndex: 2,
-                  }}
-                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                />
-              )}
-              {hoveredPath === link.path && !isActive(link.path) && (
-                <motion.span
-                  layoutId="nav-hover-line"
-                  style={{
-                    position: 'absolute',
-                    bottom: '3px',
-                    left: '24px',
-                    right: '24px',
-                    height: '1px',
-                    background: 'rgba(255,255,255,0.25)',
-                    borderRadius: '999px',
-                    zIndex: 2,
-                  }}
-                  transition={{ type: 'spring', stiffness: 480, damping: 32 }}
-                />
-              )}
             </Link>
           ))}
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
-          <motion.div whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}>
-            <Link
-              to="/contact"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '10px 16px',
-                fontSize: '12px',
-                fontWeight: 700,
-                letterSpacing: '0.07em',
-                textTransform: 'uppercase',
-                textDecoration: 'none',
-                borderRadius: '12px',
-                background: 'linear-gradient(130deg, rgba(46,143,255,0.12), rgba(46,143,255,0.11), rgba(46,143,255,0.115))',
-                border: '1px solid rgba(46,143,255,0.42)',
-                color: '#ECEEF2',
-                boxShadow: lowPerfMode
-                  ? '0 0 0 1px rgba(255,255,255,0.08) inset'
-                  : '0 10px 24px rgba(46,143,255,0.1), 0 0 0 1px rgba(255,255,255,0.08) inset',
-              }}
-            >
-              <span className="navbar-hire-dot" />
-              Hire Me
-            </Link>
-          </motion.div>
+          <Link
+            to="/contact"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '10px 16px',
+              fontFamily: 'var(--font-mono)',
+              fontSize: 'var(--text-xs)',
+              letterSpacing: '0.07em',
+              textTransform: 'uppercase',
+              textDecoration: 'none',
+              borderRadius: 'var(--radius-sm)',
+              background: 'var(--color-signal)',
+              color: 'var(--color-void)',
+              fontWeight: 600,
+            }}
+          >
+            <span className="status-dot" style={{ background: 'var(--color-void)' }} />
+            Hire Me
+          </Link>
         </div>
 
-        <motion.button
+        <button
           onClick={() => setIsMenuOpen((v) => !v)}
-          whileTap={ultraMobileMode ? undefined : { scale: 0.9 }}
           style={{
-            padding: '8px',
-            color: '#7DB8FF',
-            background: 'rgba(46,143,255,0.08)',
-            border: '1px solid rgba(46,143,255,0.24)',
+            display: 'grid',
+            placeItems: 'center',
+            width: '44px',
+            height: '44px',
+            color: 'var(--color-signal)',
+            background: 'var(--color-panel-2)',
+            border: '1px solid var(--color-rule)',
             cursor: 'pointer',
-            borderRadius: '12px',
+            borderRadius: 'var(--radius-sm)',
             flexShrink: 0,
           }}
           className="md:hidden"
           aria-label="Toggle menu"
+          aria-expanded={isMenuOpen}
         >
-          {ultraMobileMode ? (
-            isMenuOpen ? <X size={20} /> : <Menu size={20} />
-          ) : (
-            <AnimatePresence mode="wait">
-              {isMenuOpen ? (
-                <motion.div
-                  key="x"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <X size={20} />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="menu"
-                  initial={{ rotate: 90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Menu size={20} />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          )}
-        </motion.button>
-      </motion.div>
+          {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
+      </div>
 
-      {ultraMobileMode ? (
-        isMenuOpen && (
-          <div
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={lowPerfMode ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.24, ease: [0.2, 0.85, 0.2, 1] }}
             style={{
               overflow: 'hidden',
-              background: 'linear-gradient(165deg, rgba(10,11,13,0.98), rgba(17,19,23,0.96) 50%, rgba(26,29,35,0.98))',
-              borderTop: '1px solid rgba(255,255,255,0.14)',
+              background: 'var(--color-panel)',
+              borderTop: '1px solid var(--color-rule)',
             }}
             className="md:hidden"
           >
-            <nav style={{ padding: '10px 12px 14px' }}>
+            <nav style={{ padding: '10px 12px calc(14px + env(safe-area-inset-bottom))' }}>
               {NAV_LINKS.map((link) => (
-                <div key={link.path}>
-                  <Link
-                    to={link.path}
-                    onClick={() => setIsMenuOpen(false)}
-                    style={{
-                      display: 'block',
-                      padding: '13px 14px',
-                      fontSize: '14px',
-                      fontWeight: 600,
-                      letterSpacing: '0.07em',
-                      textTransform: 'uppercase',
-                      textDecoration: 'none',
-                      borderRadius: '12px',
-                      color: isActive(link.path) ? '#ECEEF2' : '#9BA1AD',
-                      border: isActive(link.path) ? '1px solid rgba(46,143,255,0.5)' : '1px solid rgba(255,255,255,0.16)',
-                      background: isActive(link.path)
-                        ? 'linear-gradient(120deg, rgba(46,143,255,0.2), rgba(46,143,255,0.18))'
-                        : 'linear-gradient(120deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015))',
-                      marginBottom: '8px',
-                    }}
-                  >
-                    {link.label}
-                  </Link>
-                </div>
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  onClick={() => setIsMenuOpen(false)}
+                  aria-current={isActive(link.path) ? 'page' : undefined}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    minHeight: '44px',
+                    padding: '13px 14px',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: 'var(--text-sm)',
+                    letterSpacing: '0.07em',
+                    textTransform: 'uppercase',
+                    textDecoration: 'none',
+                    borderRadius: 'var(--radius-sm)',
+                    color: isActive(link.path) ? 'var(--color-signal)' : 'var(--color-chalk-2)',
+                    border: `1px solid ${isActive(link.path) ? 'var(--color-signal)' : 'var(--color-rule)'}`,
+                    background: 'var(--color-panel-2)',
+                    marginBottom: '8px',
+                  }}
+                >
+                  {link.label}
+                </Link>
               ))}
-              <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', marginTop: '4px', paddingTop: '12px' }}>
+              <div style={{ borderTop: '1px solid var(--color-rule)', marginTop: '4px', paddingTop: '12px' }}>
                 <Link
                   to="/contact"
                   onClick={() => setIsMenuOpen(false)}
                   style={{
-                    display: 'block',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    minHeight: '44px',
                     padding: '13px 16px',
-                    fontSize: '14px',
-                    fontWeight: 700,
-                    textAlign: 'center',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: 'var(--text-sm)',
+                    fontWeight: 600,
                     textDecoration: 'none',
-                    borderRadius: '12px',
-                    background: 'linear-gradient(135deg, #2E8FFF, #2E8FFF 45%, #1E6FD9)',
-                    color: 'white',
+                    borderRadius: 'var(--radius-sm)',
+                    background: 'var(--color-signal)',
+                    color: 'var(--color-void)',
                     letterSpacing: '0.06em',
+                    textTransform: 'uppercase',
                   }}
                 >
                   Hire Me
                 </Link>
               </div>
             </nav>
-          </div>
-        )
-      ) : (
-        <AnimatePresence>
-          {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -8, height: 0 }}
-            animate={ultraMobileMode ? { opacity: 1, y: 0, height: 'auto' } : { opacity: 1, y: 0, height: 'auto' }}
-            exit={ultraMobileMode ? { opacity: 0, y: 0, height: 0 } : { opacity: 0, y: -10, height: 0 }}
-            transition={ultraMobileMode ? { duration: 0.2, ease: [0.22, 1, 0.36, 1] } : { duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            style={{
-              overflow: 'hidden',
-              background: 'linear-gradient(165deg, rgba(10,11,13,0.98), rgba(17,19,23,0.96) 50%, rgba(26,29,35,0.98))',
-              backdropFilter: lowPerfMode ? 'none' : 'blur(20px)',
-              borderTop: '1px solid rgba(255,255,255,0.14)',
-            }}
-            className="md:hidden"
-          >
-            <motion.nav
-              style={{ padding: '10px 12px 14px' }}
-              initial="hidden"
-              animate="show"
-              variants={{
-                hidden: {},
-                show: { transition: { staggerChildren: ultraMobileMode ? 0 : lowPerfMode ? 0 : 0.05 } },
-              }}
-            >
-              {NAV_LINKS.map((link) => (
-                <motion.div
-                  key={link.path}
-                  variants={{
-                    hidden: ultraMobileMode ? { opacity: 0, y: 4 } : lowPerfMode ? { opacity: 0 } : { opacity: 0, x: -16 },
-                    show: {
-                      opacity: 1,
-                      y: 0,
-                      x: 0,
-                      transition: { duration: ultraMobileMode ? 0.18 : lowPerfMode ? 0.15 : 0.3, ease: 'easeOut' },
-                    },
-                  }}
-                >
-                  <Link
-                    to={link.path}
-                    onClick={() => setIsMenuOpen(false)}
-                    style={{
-                      display: 'block',
-                      padding: '13px 14px',
-                      fontSize: '14px',
-                      fontWeight: 600,
-                      letterSpacing: '0.07em',
-                      textTransform: 'uppercase',
-                      textDecoration: 'none',
-                      borderRadius: '12px',
-                      color: isActive(link.path) ? '#ECEEF2' : '#9BA1AD',
-                      border: isActive(link.path) ? '1px solid rgba(46,143,255,0.5)' : '1px solid rgba(255,255,255,0.16)',
-                      background: isActive(link.path)
-                        ? 'linear-gradient(120deg, rgba(46,143,255,0.2), rgba(46,143,255,0.18))'
-                        : 'linear-gradient(120deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015))',
-                      marginBottom: '8px',
-                    }}
-                  >
-                    {link.label}
-                  </Link>
-                </motion.div>
-              ))}
-              <motion.div
-                variants={{
-                  hidden: ultraMobileMode ? { opacity: 0, y: 4 } : lowPerfMode ? { opacity: 0 } : { opacity: 0, x: -16 },
-                  show: {
-                    opacity: 1,
-                    y: 0,
-                    x: 0,
-                    transition: { duration: ultraMobileMode ? 0.18 : lowPerfMode ? 0.15 : 0.3, ease: 'easeOut' },
-                  },
-                }}
-                style={{ borderTop: '1px solid rgba(255,255,255,0.08)', marginTop: '4px', paddingTop: '12px' }}
-              >
-                <Link
-                  to="/contact"
-                  onClick={() => setIsMenuOpen(false)}
-                  style={{
-                    display: 'block',
-                    padding: '13px 16px',
-                    fontSize: '14px',
-                    fontWeight: 700,
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    borderRadius: '12px',
-                    background: 'linear-gradient(135deg, #2E8FFF, #2E8FFF 45%, #1E6FD9)',
-                    color: 'white',
-                    letterSpacing: '0.06em',
-                  }}
-                >
-                  Hire Me
-                </Link>
-              </motion.div>
-            </motion.nav>
           </motion.div>
-          )}
-        </AnimatePresence>
-      )}
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 };

@@ -1,49 +1,80 @@
 @import "tailwindcss";
-@import '@fontsource/poppins/600.css';
-@import '@fontsource/poppins/700.css';
-@import '@fontsource/poppins/800.css';
-@import '@fontsource/plus-jakarta-sans/300.css';
-@import '@fontsource/plus-jakarta-sans/400.css';
-@import '@fontsource/plus-jakarta-sans/500.css';
-@import '@fontsource/plus-jakarta-sans/600.css';
-@import '@fontsource/plus-jakarta-sans/700.css';
-@import '@fontsource/jetbrains-mono/400.css';
-@import '@fontsource/jetbrains-mono/600.css';
 
-@theme {
-  --font-display: 'Poppins', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  --color-bg-primary: #0A0B0D;
-  --color-bg-secondary: #111317;
-  --color-bg-tertiary: #1A1D23;
-  --color-accent: #2E8FFF;
-  --color-accent-soft: #7DB8FF;
-  --color-accent-deep: #1E6FD9;
-  --color-accent2: #7DB8FF;
-  --color-accent3: #7DB8FF;
-  --color-status: #16A34A;
-  --color-text-primary: #ECEEF2;
-  --color-text-secondary: #9BA1AD;
-  --color-text-muted: #5C626E;
+/* Self-hosted, latin subset, copied into public/fonts by scripts/fonts.mjs.
+   Declared by hand rather than imported from @fontsource so the two
+   above-the-fold weights can be preloaded from index.html by a stable path. */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/archivo-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/archivo-latin-600-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/archivo-latin-700-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-mono-latin-500-normal.woff2') format('woff2');
 }
 
-:root {
-  --border: rgba(255, 255, 255, 0.08);
-  --border-hover: rgba(255, 255, 255, 0.14);
-  --accent-glow: rgba(46, 143, 255, 0.10);
-  --accent2-glow: rgba(46, 143, 255, 0.10);
-  --accent3-glow: rgba(46, 143, 255, 0.08);
-  --status-glow: rgba(22, 163, 74, 0.12);
-  --hover-glow-ring: color-mix(in srgb, var(--color-accent) 18%, transparent);
-  --hover-glow-boost: saturate(1.08) brightness(1.04);
-  --panel-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
-  --card-bg: linear-gradient(145deg, #1A1D23, #111317);
-  --bg-gradient:
-    radial-gradient(circle at top, rgba(255, 255, 255, 0.025), transparent 28%),
-    radial-gradient(circle at 80% 20%, rgba(46, 143, 255, 0.09), transparent 22%),
-    radial-gradient(circle at 10% 80%, rgba(46, 143, 255, 0.06), transparent 25%),
-    radial-gradient(900px 480px at 12% 8%, rgba(46, 143, 255, 0.07), transparent 55%),
-    linear-gradient(180deg, #0A0B0D 0%, #111317 45%, #0A0B0D 100%);
+@theme {
+  --font-display: 'Archivo', system-ui, sans-serif;
+  --font-body:    'Archivo', system-ui, sans-serif;
+  --font-mono:    'IBM Plex Mono', ui-monospace, monospace;
+
+  /* base — true black, lifting only where surfaces must separate */
+  --color-void:    oklch(0 0 0);            /* page background, #000 */
+  --color-panel:   oklch(0.16 0.004 75);    /* cards, hero surface layer */
+  --color-panel-2: oklch(0.21 0.005 75);    /* hover, pressed, inputs */
+  --color-rule:    oklch(0.30 0.005 75);    /* hairlines, borders, table rules */
+
+  /* text */
+  --color-chalk:   oklch(0.96 0.006 85);    /* headings, primary */
+  --color-chalk-2: oklch(0.72 0.008 80);    /* body, secondary */
+  --color-chalk-3: oklch(0.55 0.008 78);    /* labels, captions, muted */
+
+  /* three signals, one chroma band */
+  --color-signal:   oklch(0.78 0.145 66);   /* amber — structure, links, focus */
+  --color-verified: oklch(0.76 0.135 158);  /* phosphor — live, available, 2xx */
+  --color-reject:   oklch(0.63 0.170 28);   /* red — 4xx and form errors ONLY */
+
+  /* type scale, 1.25 from 16 */
+  --text-xs: 0.75rem;  --text-sm: 0.875rem; --text-base: 1rem;
+  --text-lg: 1.25rem;  --text-xl: 1.563rem; --text-2xl: 1.953rem;
+  --text-3xl: 2.441rem; --text-4xl: 3.052rem; --text-5xl: 3.815rem;
+
+  --spacing: 0.25rem;
+
+  --radius-xs: 2px; --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px;
+
+  --ease-signal: cubic-bezier(0.2, 0.85, 0.2, 1);
+
+  --duration-tap: 120ms;     /* state flips, focus rings */
+  --duration-move: 240ms;    /* hover reveals, card content */
+  --duration-enter: 320ms;   /* section reveals, page transitions */
+  --duration-stage: 2400ms;  /* hero sweep only */
 }
 
 * { box-sizing: border-box; }
@@ -51,269 +82,167 @@
 html {
   scroll-behavior: smooth;
   scrollbar-gutter: stable;
+  /* Nothing may sit under the mobile browser's bottom UI. */
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 body {
   margin: 0;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body);
   font-weight: 400;
-  background-color: #0A0B0D;
-  background-image: var(--bg-gradient);
-  background-attachment: fixed;
-  color: #ECEEF2;
+  /* Flat. Depth comes from --color-panel surfaces and --color-rule hairlines,
+     never from glow, gradient, or noise. */
+  background-color: var(--color-void);
+  color: var(--color-chalk-2);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   letter-spacing: -0.01em;
-  min-height: 100vh;
+  min-height: 100svh;
 }
 
-#root { min-height: 100vh; }
+#root { min-height: 100svh; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--color-chalk);
+}
+
 a { color: inherit; }
 
-.custom-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  --cursor-x: -100px;
-  --cursor-y: -100px;
-  transform: translate3d(var(--cursor-x), var(--cursor-y), 0) translate(-50%, -50%);
-  z-index: 2147483647;
-  will-change: transform;
+/* Amber is the only accent, and it carries links. */
+a:not([class]) { color: var(--color-signal); }
+
+/* --- Focus -------------------------------------------------------------- */
+
+/* 2px offset so the ring reads against --color-void and --color-panel both. */
+:focus-visible {
+  outline: 2px solid var(--color-signal);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
 }
 
-.custom-cursor__ring {
-  pointer-events: none;
+.skip-link {
+  position: absolute;
+  left: var(--spacing);
+  top: var(--spacing);
+  z-index: 100;
+  padding: calc(var(--spacing) * 3) calc(var(--spacing) * 4);
+  background: var(--color-panel-2);
+  color: var(--color-chalk);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-md);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  text-decoration: none;
+  /* Offscreen until focused, but never display:none -- it has to stay in the
+     tab order to be the first focusable element. */
+  transform: translateY(-200%);
 }
 
-.custom-cursor__ring span {
-  display: block;
-  width: 100%;
-  height: 100%;
-  border: 1.5px solid rgba(255, 255, 255, 0.7);
-  border-radius: 999px;
-  background: transparent;
-  transition: border-color 160ms ease, transform 160ms ease;
+.skip-link:focus-visible { transform: translateY(0); }
+
+/* --- Surfaces ----------------------------------------------------------- */
+
+.panel {
+  background: var(--color-panel);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-lg);
 }
 
-.custom-cursor__ring--interactive span {
-  border-color: var(--color-accent);
-  transform: scale(1.5);
+.rule {
+  border: 0;
+  border-top: 1px solid var(--color-rule);
 }
 
-.custom-cursor__dot {
-  pointer-events: none;
-  display: grid;
-  place-items: center;
-}
+/* --- Reveal ------------------------------------------------------------- */
 
-.custom-cursor__dot span {
-  width: 100%;
-  height: 100%;
-  border-radius: 999px;
-  background: #FFFFFF;
-}
-
-.custom-cursor__dot--pulse span {
-  animation: custom-cursor-dot-pulse 220ms ease-out;
-}
-
-@keyframes custom-cursor-dot-pulse {
-  0% { transform: scale(1); }
-  45% { transform: scale(1.8); }
-  100% { transform: scale(1); }
-}
-
-/* Only surrender the native cursor where the custom one actually renders.
-   CustomCursor returns null under reduced motion and coarse pointers, so
-   without the second condition those users would get no cursor at all. */
-@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  body,
-  body * {
-    cursor: none !important;
-  }
-}
-
-@media (pointer: coarse), (prefers-reduced-motion: reduce) {
-  .custom-cursor {
-    display: none;
-  }
-}
-
-/* Improves hover clarity on low-quality displays with a sharper edge + stronger color pop */
-@media (hover: hover) {
-  .hover-glow-crisp:hover {
-    box-shadow: 0 0 0 1px var(--hover-glow-ring), var(--tw-shadow, 0 10px 26px color-mix(in srgb, var(--color-accent) 11%, transparent));
-    filter: var(--hover-glow-boost);
-  }
-}
-
-::selection {
-  background: rgba(46, 143, 255, 0.28);
-  color: #ECEEF2;
-}
-
-/* Scrollbar */
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #0A0B0D; }
-::-webkit-scrollbar-thumb { background: #1A1D23; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #2E8FFF; }
-
-/* Reveal */
-.reveal { opacity: 0; transform: translateY(28px); }
+.reveal { opacity: 0; transform: translateY(12px); }
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.72s cubic-bezier(0.16, 1, 0.3, 1), transform 0.72s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    opacity var(--duration-enter) var(--ease-signal),
+    transform var(--duration-enter) var(--ease-signal);
 }
 
-/* Gradient text */
-.gradient-text {
-  color: var(--color-accent);
-  -webkit-text-fill-color: var(--color-accent);
+/* --- Status ------------------------------------------------------------- */
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: inline-block;
+  background: var(--color-verified);
 }
 
-/* Section heading accent underline */
-.heading-accent { position: relative; }
-.heading-accent::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -14px;
-  width: 44px;
-  height: 3px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, var(--color-accent), transparent);
+.status-dot--idle { background: var(--color-chalk-3); }
+
+/* --- Selection and scrollbar -------------------------------------------- */
+
+::selection {
+  background: var(--color-signal);
+  color: var(--color-void);
 }
 
-/* Tech panel */
-.tech-panel {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  box-shadow: var(--panel-shadow);
-  backdrop-filter: blur(18px);
-}
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--color-void); }
+::-webkit-scrollbar-thumb { background: var(--color-rule); border-radius: var(--radius-sm); }
+::-webkit-scrollbar-thumb:hover { background: var(--color-signal); }
 
-/* Pulse dot */
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.8); }
-}
-.pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+/* --- Input and interaction ---------------------------------------------- */
 
-/* Shimmer line */
-@keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-
-/* Float */
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
-}
-.float { animation: float 4s ease-in-out infinite; }
-
-/* Navbar FX */
-.navbar-scanline {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 34%;
-  pointer-events: none;
-  z-index: 0;
-  background: linear-gradient(
-    95deg,
-    rgba(46, 143, 255, 0) 0%,
-    rgba(46, 143, 255, 0.08) 40%,
-    rgba(46, 143, 255, 0.08) 55%,
-    rgba(46, 143, 255, 0.08) 68%,
-    rgba(46, 143, 255, 0) 100%
-  );
-  filter: blur(12px);
-}
-
-.navbar-brand-glyph {
-  width: 16px;
-  height: 16px;
-  border-radius: 5px;
-  background: linear-gradient(135deg, #7DB8FF, #2E8FFF 45%, #1E6FD9);
-  box-shadow: 0 0 14px rgba(46, 143, 255, 0.22);
-  position: relative;
-}
-
-.navbar-brand-glyph::after {
-  content: '';
-  position: absolute;
-  inset: 4px;
-  border-radius: 3px;
-  border: 1px solid rgba(255, 255, 255, 0.45);
-}
-
-@keyframes navbar-dot {
-  0%, 100% { transform: scale(1); opacity: 0.85; }
-  50% { transform: scale(0.72); opacity: 0.45; }
-}
-
-.navbar-hire-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 999px;
-  background: #16A34A;
-  box-shadow: 0 0 12px rgba(22, 163, 74, 0.50);
-  animation: navbar-dot 1.9s ease-in-out infinite;
-}
-
-.navbar-mobile-aura {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background:
-    radial-gradient(280px 120px at 15% 0%, rgba(46, 143, 255, 0.045), transparent 70%),
-    radial-gradient(240px 130px at 85% 0%, rgba(46, 143, 255, 0.05), transparent 72%);
-}
-
-/* Hero profile image crop control */
-.hero-profile-image {
-  object-position: center 12%;
-}
-
-@media (max-width: 767px) {
-  body { background-attachment: scroll; }
-  .tech-panel { backdrop-filter: none; }
-  .navbar-scanline { display: none; }
-  .navbar-brand-glyph { box-shadow: 0 0 10px rgba(46, 143, 255, 0.22); }
-
-  .hero-profile-image {
-    object-position: center 20%;
-    height: auto !important;
-    min-height: 0 !important;
-    aspect-ratio: 3 / 4;
+/* No :hover styling on coarse pointers -- it sticks after a tap, and any
+   content behind it would be unreachable by touch. Every hover reveal in the
+   codebase carries a :focus-within twin for exactly this reason. */
+@media (pointer: coarse) {
+  a:hover, button:hover, [role="button"]:hover {
+    background-color: inherit;
+    color: inherit;
   }
-}
 
-@media (min-width: 400px) and (max-width: 500px) {
-  .hero-profile-image {
-    object-position: center 22%;
+  /* Touch targets >= 44x44. */
+  a, button, [role="button"], input, textarea, select {
+    min-height: 44px;
   }
+
+  /* Inline links inside prose are not tap targets and must not be stretched. */
+  p a, li a { min-height: 0; }
 }
 
-/* Reduced motion */
+/* --- Capability and preference ------------------------------------------ */
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .reveal { transition: none !important; }
   .reveal, .reveal.visible { opacity: 1; transform: none; transition: none; }
-  .pulse-dot, .animate-spin, .navbar-hire-dot { animation: none !important; }
-  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
-/* Noise overlay */
-.noise-overlay::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 0;
+@media (prefers-reduced-transparency: reduce) {
+  * { backdrop-filter: none !important; }
+}
+
+/* Raise the two lowest-contrast tokens to 7:1 against --color-void. */
+@media (prefers-contrast: more) {
+  :root {
+    --color-rule: oklch(0.52 0.005 75);
+    --color-chalk-3: oklch(0.78 0.008 78);
+  }
+}
+
+@media (forced-colors: active) {
+  .panel, .rule { border-color: CanvasText; }
+  :focus-visible { outline-color: Highlight; }
+  .status-dot { background: CanvasText; }
+}
+
+@media print {
+  /* Navigation and playback controls carry no meaning on paper. */
+  nav, footer, .skip-link, [data-motion-control] { display: none !important; }
+  body { background: #fff; color: #000; }
+  .panel { border: 1px solid #000; }
 }
