@@ -19,6 +19,7 @@ import RevealWrapper from '../components/ui/RevealWrapper';
 import ScrollReveal from '../components/ui/ScrollReveal';
 import PageMeta from '../components/seo/PageMeta';
 import { ABOUT_PAGE, PERSONAL_INFO, PHOTO_MODE, PROJECTS, SKILLS, TIMELINE } from '../constants';
+import { chip, eyebrow, sectionHeading } from '../lib/styles';
 
 const profileImg = '/profile.webp';
 
@@ -44,37 +45,11 @@ const quickFacts = [
   { label: 'From Damak, Jhapa' },
 ];
 
-const eyebrow: React.CSSProperties = {
-  fontFamily: 'var(--font-mono)',
-  fontSize: 'var(--text-xs)',
-  color: 'var(--color-signal)',
-  letterSpacing: '0.14em',
-  textTransform: 'uppercase',
-  marginBottom: '10px',
-};
-
-const sectionHeading: React.CSSProperties = {
-  fontFamily: 'var(--font-display)',
-  fontWeight: 700,
-  fontSize: 'clamp(var(--text-xl), 4vw, var(--text-3xl))',
-  color: 'var(--color-chalk)',
-};
-
 const asideCopy: React.CSSProperties = {
   fontSize: 'var(--text-sm)',
   color: 'var(--color-chalk-2)',
   maxWidth: '280px',
   lineHeight: 1.6,
-};
-
-const chip: React.CSSProperties = {
-  padding: '3px 9px',
-  borderRadius: 'var(--radius-sm)',
-  background: 'var(--color-panel-2)',
-  border: '1px solid var(--color-rule)',
-  fontSize: 'var(--text-xs)',
-  color: 'var(--color-chalk-2)',
-  fontFamily: 'var(--font-mono)',
 };
 
 const About = () => {

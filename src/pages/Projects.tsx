@@ -6,25 +6,10 @@ import ScrollReveal from '../components/ui/ScrollReveal';
 import PageMeta from '../components/seo/PageMeta';
 import { PROJECTS, PROJECTS_PAGE } from '../constants';
 import { DURATION, EASE, STAGGER, revealBody, revealHeading, staggerContainer } from '../lib/motion';
+import { chip, monoLabel } from '../lib/styles';
 
 // Derived so a filter button can never outlive the projects it filters for.
 const categories = ['All', ...new Set(PROJECTS.map((p) => p.category))];
-
-const chip: React.CSSProperties = {
-  padding: '3px 10px',
-  borderRadius: 'var(--radius-sm)',
-  background: 'var(--color-panel-2)',
-  border: '1px solid var(--color-rule)',
-  fontSize: 'var(--text-xs)',
-  color: 'var(--color-chalk-2)',
-  fontFamily: 'var(--font-mono)',
-};
-
-const monoLabel: React.CSSProperties = {
-  fontFamily: 'var(--font-mono)',
-  fontSize: 'var(--text-xs)',
-  color: 'var(--color-chalk-3)',
-};
 
 const Projects = () => {
   const [active, setActive] = useState('All');
