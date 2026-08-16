@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "npm run fonts && vite",
+    "fonts": "node scripts/fonts.mjs",
+    "prebuild": "npm run fonts",
     "build": "vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
     "build:client": "vite build",
     "typecheck": "tsc --noEmit",
@@ -12,9 +14,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fontsource/jetbrains-mono": "^5.2.8",
-    "@fontsource/plus-jakarta-sans": "^5.2.8",
-    "@fontsource/poppins": "^5.2.7",
+    "@fontsource/archivo": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
     "@formspree/react": "^3.0.0",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",

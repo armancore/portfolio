@@ -3,33 +3,72 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, Compass } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
 import PageMeta from '../components/seo/PageMeta';
+import { NOT_FOUND_COPY } from '../constants';
 
 const NotFound = () => {
   return (
-    <div style={{ background: 'transparent', minHeight: '100vh' }}>
+    <div style={{ minHeight: '100svh' }}>
       <PageMeta path="/404" />
-      <section style={{ paddingTop: '130px', paddingBottom: '90px', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)', backgroundSize: '80px 80px' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 50% 60% at 50% 35%, rgba(46,143,255,0.08) 0%, transparent 65%)' }} />
-
+      <section style={{ paddingTop: '130px', paddingBottom: '90px', position: 'relative' }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8" style={{ position: 'relative', zIndex: 1 }}>
           <RevealWrapper>
-            <div style={{ background: '#111317', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '24px', padding: 'clamp(32px, 7vw, 64px)', textAlign: 'center', overflow: 'hidden', position: 'relative' }}>
-              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(46,143,255,0.55), rgba(46,143,255,0.55), transparent)' }} />
-              <div style={{ width: '68px', height: '68px', margin: '0 auto 20px', borderRadius: '18px', background: 'rgba(46,143,255,0.1)', border: '1px solid rgba(46,143,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Compass size={28} style={{ color: '#2E8FFF' }} />
+            <div className="panel" style={{ padding: 'clamp(32px, 7vw, 64px)', textAlign: 'center' }}>
+              <div
+                style={{
+                  width: '68px',
+                  height: '68px',
+                  margin: '0 auto 20px',
+                  borderRadius: 'var(--radius-lg)',
+                  background: 'var(--color-panel-2)',
+                  border: '1px solid var(--color-rule)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Compass size={28} style={{ color: 'var(--color-signal)' }} />
               </div>
-              <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', color: '#2E8FFF', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '10px' }}>404</p>
-              <h1 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: 'clamp(34px, 7vw, 58px)', color: '#ECEEF2', lineHeight: 1.05, marginBottom: '14px' }}>Page not found</h1>
-              <p style={{ fontSize: '15px', color: '#9BA1AD', lineHeight: 1.8, maxWidth: '500px', margin: '0 auto 28px' }}>
-                The page you tried to open does not exist or the link is no longer valid.
+              <p
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: 'var(--text-xs)',
+                  color: 'var(--color-signal)',
+                  letterSpacing: '0.14em',
+                  textTransform: 'uppercase',
+                  marginBottom: '10px',
+                }}
+              >
+                {NOT_FOUND_COPY.label}
+              </p>
+              <h1
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontWeight: 700,
+                  fontSize: 'clamp(var(--text-2xl), 7vw, var(--text-5xl))',
+                  color: 'var(--color-chalk)',
+                  lineHeight: 1.05,
+                  marginBottom: '14px',
+                }}
+              >
+                {NOT_FOUND_COPY.heading}
+              </h1>
+              <p
+                style={{
+                  fontSize: 'var(--text-base)',
+                  color: 'var(--color-chalk-2)',
+                  lineHeight: 1.8,
+                  maxWidth: '500px',
+                  margin: '0 auto 28px',
+                }}
+              >
+                {NOT_FOUND_COPY.body}
               </p>
               <Link
                 to="/"
-                className="inline-flex items-center justify-center gap-2 rounded-[10px] bg-[#2E8FFF] px-[22px] py-3 text-sm font-medium text-white no-underline transition-all duration-200 hover:bg-[#1E6FD9] hover:shadow-[0_0_0_1px_rgba(255,255,255,0.1),0_12px_30px_rgba(46,143,255,0.46)] hover-glow-crisp"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-signal px-6 py-3 text-sm font-semibold text-void no-underline transition-colors duration-tap ease-signal hover:bg-signal/90"
               >
                 <ArrowLeft size={15} />
-                Back to home
+                {NOT_FOUND_COPY.cta}
               </Link>
             </div>
           </RevealWrapper>

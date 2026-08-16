@@ -1,165 +1,237 @@
 import React from 'react';
-import { motion, useReducedMotion } from 'motion/react';
 import { Mail, Github, Linkedin, Facebook, Instagram, ArrowRight, ExternalLink } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import RevealWrapper from '../components/ui/RevealWrapper';
 import ScrollReveal from '../components/ui/ScrollReveal';
 import ContactForm from '../components/sections/ContactForm';
 import PageMeta from '../components/seo/PageMeta';
-import { PERSONAL_INFO, CONTACT_LINKS } from '../constants';
+import { PERSONAL_INFO, CONTACT_LINKS, CONTACT_PAGE } from '../constants';
 import type { ContactIconName } from '../constants';
-import { fadeUp, staggerContainer, blurIn } from '../lib/motion';
-import useIsMobile from '../hooks/useIsMobile';
 
 const iconMap: Record<ContactIconName, LucideIcon> = { Mail, Github, Linkedin, Facebook, Instagram };
 
-const accentForLink = (iconName: ContactIconName) => {
-  const map: Record<ContactIconName, { icon: string; bg: string; border: string }> = {
-    Mail: { icon: '#2E8FFF', bg: 'rgba(46,143,255,0.1)', border: 'rgba(46,143,255,0.22)' },
-    Github: { icon: '#ECEEF2', bg: 'rgba(255,255,255,0.06)', border: 'rgba(255,255,255,0.12)' },
-    Linkedin: { icon: '#38BDF8', bg: 'rgba(56,189,248,0.1)', border: 'rgba(56,189,248,0.22)' },
-    Facebook: { icon: '#1E6FD9', bg: 'rgba(46,143,255,0.1)', border: 'rgba(46,143,255,0.22)' },
-    Instagram: { icon: '#EC4899', bg: 'rgba(236,72,153,0.1)', border: 'rgba(236,72,153,0.22)' },
-  };
-  return map[iconName] || map.Mail;
-};
-
 const RECIPIENT_EMAIL = PERSONAL_INFO.email;
 
+const chip: React.CSSProperties = {
+  padding: '6px 13px',
+  borderRadius: 'var(--radius-sm)',
+  background: 'var(--color-panel-2)',
+  border: '1px solid var(--color-rule)',
+  fontSize: 'var(--text-xs)',
+  fontFamily: 'var(--font-mono)',
+  color: 'var(--color-chalk-2)',
+};
+
 const Contact = () => {
-  const prefersReducedMotion = useReducedMotion();
-  const isMobile = useIsMobile();
-  const reduceAnimations = prefersReducedMotion || isMobile;
-
   return (
-  <div style={{ background: 'transparent', minHeight: '100vh' }}>
-    <PageMeta path="/contact" />
+    <div style={{ minHeight: '100svh' }}>
+      <PageMeta path="/contact" />
 
-    <section style={{ paddingTop: '110px', paddingBottom: '60px', position: 'relative', overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(46,143,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(46,143,255,0.03) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
-
-      <motion.div
-        animate={reduceAnimations ? undefined : { opacity: [0.4, 0.9, 0.4], scale: [1, 1.12, 1] }}
-        transition={reduceAnimations ? undefined : { duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-        style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 50% 60% at 80% 50%, rgba(22,163,74,0.07) 0%, transparent 65%)', pointerEvents: 'none' }}
-      />
-      <motion.div
-        animate={reduceAnimations ? undefined : { opacity: [0.3, 0.7, 0.3], scale: [1, 1.08, 1] }}
-        transition={reduceAnimations ? undefined : { duration: 11, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-        style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 45% 55% at 20% 50%, rgba(46,143,255,0.06) 0%, transparent 65%)', pointerEvents: 'none' }}
-      />
-
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" style={{ position: 'relative', zIndex: 1 }}>
-        <motion.div variants={staggerContainer(0.1, 0.05)} initial={reduceAnimations ? false : 'hidden'} animate="show">
-          <motion.p variants={fadeUp} style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#2E8FFF', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '12px' }}>
-            Contact
-          </motion.p>
-          <motion.div variants={blurIn} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '16px', marginBottom: '16px' }}>
-            <h1 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: 'clamp(44px, 7vw, 78px)', color: '#ECEEF2', letterSpacing: '-0.035em', lineHeight: 1.05 }}>
-              Let&apos;s Connect
-            </h1>
-            <motion.div
-              animate={reduceAnimations ? undefined : { boxShadow: ['0 0 0px rgba(22,163,74,0)', '0 0 16px rgba(22,163,74,0.15)', '0 0 0px rgba(22,163,74,0)'] }}
-              transition={reduceAnimations ? undefined : { duration: 3, repeat: Infinity }}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 14px', background: 'rgba(22,163,74,0.08)', border: '1px solid rgba(22,163,74,0.22)', borderRadius: '100px' }}
+      <section style={{ paddingTop: '110px', paddingBottom: '60px', position: 'relative' }}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" style={{ position: 'relative', zIndex: 1 }}>
+          <p
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 'var(--text-xs)',
+              color: 'var(--color-signal)',
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              marginBottom: '12px',
+            }}
+          >
+            {CONTACT_PAGE.eyebrow}
+          </p>
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              alignItems: 'center',
+              gap: '16px',
+              marginBottom: '16px',
+            }}
+          >
+            <h1
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontWeight: 700,
+                fontSize: 'clamp(var(--text-3xl), 7vw, var(--text-5xl))',
+                color: 'var(--color-chalk)',
+                letterSpacing: '-0.035em',
+                lineHeight: 1.05,
+              }}
             >
-              <motion.span
-                animate={reduceAnimations ? undefined : { scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
-                transition={reduceAnimations ? undefined : { duration: 2, repeat: Infinity }}
-                style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#16A34A', display: 'inline-block' }}
-              />
-              <span style={{ color: '#16A34A', fontSize: '11px', fontFamily: "'JetBrains Mono', monospace" }}>Available</span>
-            </motion.div>
-          </motion.div>
-          <motion.p variants={fadeUp} style={{ fontSize: 'clamp(14px, 3.6vw, 16.5px)', color: '#9BA1AD', maxWidth: '500px', lineHeight: 1.82 }}>
-            Whether you have a job opportunity, a project to collaborate on, or just want to say hi my inbox is always open.
-          </motion.p>
-        </motion.div>
-      </div>
-    </section>
+              {CONTACT_PAGE.heading}
+            </h1>
+            <span
+              style={{
+                ...chip,
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                color: 'var(--color-verified)',
+              }}
+            >
+              <span className="status-dot" />
+              {CONTACT_PAGE.availableLabel}
+            </span>
+          </div>
+          <p
+            style={{
+              fontSize: 'clamp(var(--text-sm), 3.6vw, var(--text-base))',
+              color: 'var(--color-chalk-2)',
+              maxWidth: '500px',
+              lineHeight: 1.82,
+            }}
+          >
+            {CONTACT_PAGE.intro}
+          </p>
+        </div>
+      </section>
 
-    <section style={{ padding: '36px 0 88px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))', gap: '44px' }}>
-          <div>
-            <RevealWrapper>
-              <h2 className="heading-accent" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '23px', color: '#ECEEF2', marginBottom: '28px' }}>Get in touch</h2>
-              <p style={{ fontSize: '14.5px', color: '#9BA1AD', lineHeight: 1.9, marginBottom: '32px' }}>
-                {PERSONAL_INFO.bio[2]}
-              </p>
-            </RevealWrapper>
+      <section style={{ padding: '36px 0 88px', borderTop: '1px solid var(--color-rule)' }}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))',
+              gap: '44px',
+            }}
+          >
+            <div>
+              <RevealWrapper>
+                <h2
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    fontWeight: 700,
+                    fontSize: 'var(--text-xl)',
+                    color: 'var(--color-chalk)',
+                    marginBottom: '28px',
+                  }}
+                >
+                  {CONTACT_PAGE.getInTouchHeading}
+                </h2>
+                <p
+                  style={{
+                    fontSize: 'var(--text-sm)',
+                    color: 'var(--color-chalk-2)',
+                    lineHeight: 1.9,
+                    marginBottom: '32px',
+                  }}
+                >
+                  {PERSONAL_INFO.bio[2]}
+                </p>
+              </RevealWrapper>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '28px' }}>
-              {CONTACT_LINKS.map((link, i) => {
-                const Icon = iconMap[link.iconName];
-                const ac = accentForLink(link.iconName);
-                return (
-                  <ScrollReveal key={link.label} delay={i * 0.06}>
-                    <motion.a
-                    href={link.href}
-                    target={link.href.startsWith('http') ? '_blank' : undefined}
-                    rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    whileHover={reduceAnimations ? undefined : { x: 5, borderColor: ac.border, background: 'rgba(255,255,255,0.05)', boxShadow: `0 0 0 1px ${ac.border}, 0 14px 28px rgba(0,0,0,0.36)`, filter: 'saturate(1.1)' }}
-                    style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '14px', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(145deg, #1A1D23, #111317)', padding: '14px 16px', textDecoration: 'none', transition: 'border-color 0.2s, background 0.2s, transform 0.2s' }}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '28px' }}>
+                {CONTACT_LINKS.map((link, i) => {
+                  const Icon = iconMap[link.iconName];
+                  return (
+                    <ScrollReveal key={link.label} delay={i * 0.06}>
+                      <a
+                        href={link.href}
+                        target={link.href.startsWith('http') ? '_blank' : undefined}
+                        rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                        className="panel"
+                        style={{
+                          display: 'flex',
+                          flexWrap: 'wrap',
+                          alignItems: 'center',
+                          gap: '14px',
+                          padding: '14px 16px',
+                          textDecoration: 'none',
+                          transition: 'border-color var(--duration-tap) var(--ease-signal)',
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: '40px',
+                            height: '40px',
+                            borderRadius: 'var(--radius-sm)',
+                            background: 'var(--color-panel-2)',
+                            border: '1px solid var(--color-rule)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexShrink: 0,
+                          }}
+                        >
+                          {Icon && <Icon size={17} style={{ color: 'var(--color-signal)' }} aria-hidden="true" />}
+                        </div>
+                        <div style={{ minWidth: 0, flex: 1 }}>
+                          <p
+                            style={{
+                              fontSize: 'var(--text-sm)',
+                              color: 'var(--color-chalk)',
+                              marginBottom: '2px',
+                              overflowWrap: 'anywhere',
+                            }}
+                          >
+                            {link.label}
+                          </p>
+                          <p
+                            style={{
+                              fontSize: 'var(--text-xs)',
+                              color: 'var(--color-chalk-3)',
+                              fontFamily: 'var(--font-mono)',
+                            }}
+                          >
+                            {link.sublabel}
+                          </p>
+                        </div>
+                        <ArrowRight size={13} style={{ color: 'var(--color-chalk-3)', flexShrink: 0 }} />
+                      </a>
+                    </ScrollReveal>
+                  );
+                })}
+              </div>
+
+              <RevealWrapper delay={380}>
+                <div className="panel" style={{ padding: '20px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
+                    <span className="status-dot" />
+                    <span style={{ color: 'var(--color-verified)', fontSize: 'var(--text-sm)', fontWeight: 600 }}>
+                      {CONTACT_PAGE.availabilityHeading}
+                    </span>
+                  </div>
+                  <p style={{ fontSize: 'var(--text-sm)', color: 'var(--color-chalk-2)', lineHeight: 1.78 }}>
+                    {CONTACT_PAGE.availabilityBody}
+                  </p>
+                </div>
+              </RevealWrapper>
+
+              <RevealWrapper delay={440}>
+                <div style={{ marginTop: '16px' }}>
+                  <a
+                    href={`https://mail.google.com/mail/?view=cm&to=${RECIPIENT_EMAIL}&su=Hello%20Arman`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '7px',
+                      borderRadius: 'var(--radius-sm)',
+                      border: '1px solid var(--color-rule)',
+                      padding: '10px 18px',
+                      minHeight: '44px',
+                      fontSize: 'var(--text-xs)',
+                      color: 'var(--color-signal)',
+                      textDecoration: 'none',
+                      fontFamily: 'var(--font-mono)',
+                    }}
                   >
-                      <div style={{ width: '40px', height: '40px', borderRadius: '11px', background: ac.bg, border: `1px solid ${ac.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                        {Icon && <Icon size={17} style={{ color: ac.icon }} />}
-                      </div>
-                      <div style={{ minWidth: 0, flex: 1 }}>
-                        <p style={{ fontSize: '13.5px', color: '#ECEEF2', fontWeight: 500, marginBottom: '2px', overflowWrap: 'anywhere' }}>{link.label}</p>
-                        <p style={{ fontSize: '11px', color: '#5C626E', fontFamily: "'JetBrains Mono', monospace" }}>{link.sublabel}</p>
-                      </div>
-                      <ArrowRight size={13} style={{ color: '#5C626E', flexShrink: 0 }} />
-                    </motion.a>
-                  </ScrollReveal>
-                );
-              })}
+                    <Mail size={12} />
+                    {CONTACT_PAGE.gmailCta}
+                    <ExternalLink size={11} />
+                  </a>
+                </div>
+              </RevealWrapper>
             </div>
 
-            <RevealWrapper delay={380}>
-              <motion.div
-                animate={reduceAnimations ? undefined : { borderColor: ['rgba(22,163,74,0.18)', 'rgba(22,163,74,0.4)', 'rgba(22,163,74,0.18)'] }}
-                transition={reduceAnimations ? undefined : { duration: 4, repeat: Infinity }}
-                style={{ background: 'linear-gradient(145deg, rgba(22,163,74,0.05), rgba(22,163,74,0.02))', border: '1px solid rgba(22,163,74,0.18)', borderRadius: '14px', padding: '20px', position: 'relative', overflow: 'hidden' }}
-              >
-                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(22,163,74,0.6), transparent)' }} />
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-                  <motion.span
-                    animate={reduceAnimations ? undefined : { scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
-                    transition={reduceAnimations ? undefined : { duration: 2, repeat: Infinity }}
-                    style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#16A34A', display: 'inline-block' }}
-                  />
-                  <span style={{ color: '#16A34A', fontSize: '13px', fontWeight: 600 }}>Currently Available</span>
-                </div>
-                <p style={{ fontSize: '13.5px', color: '#9BA1AD', lineHeight: 1.78 }}>
-                  Open to internship and junior developer positions. I bring energy, curiosity, and a genuine drive to ship great software.
-                </p>
-              </motion.div>
-            </RevealWrapper>
-
-            <RevealWrapper delay={440}>
-              <div style={{ marginTop: '16px' }}>
-                <motion.a
-                  href={`https://mail.google.com/mail/?view=cm&to=${RECIPIENT_EMAIL}&su=Hello%20Arman`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={reduceAnimations ? undefined : { scale: 1.04, y: -1 }}
-                  whileTap={reduceAnimations ? undefined : { scale: 0.97 }}
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', borderRadius: '10px', border: '1px solid rgba(46,143,255,0.25)', background: 'rgba(46,143,255,0.07)', padding: '10px 18px', fontSize: '12px', color: '#2E8FFF', textDecoration: 'none', fontFamily: "'JetBrains Mono', monospace", boxShadow: '0 0 0 1px rgba(46,143,255,0.06)' }}
-                >
-                  <Mail size={12} />
-                  Open Gmail directly
-                  <ExternalLink size={11} />
-                </motion.a>
-              </div>
-            </RevealWrapper>
+            <ContactForm />
           </div>
-
-          <ContactForm />
         </div>
-      </div>
-    </section>
-  </div>
+      </section>
+    </div>
   );
 };
 

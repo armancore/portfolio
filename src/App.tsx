@@ -1,9 +1,8 @@
-import React, { Suspense, lazy, useEffect, useRef } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
-import CustomCursor from './components/ui/CustomCursor';
 
 class ErrorBoundary extends React.Component<
   { children: React.ReactNode },
@@ -27,15 +26,15 @@ class ErrorBoundary extends React.Component<
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#9BA1AD',
-            fontFamily: "'Plus Jakarta Sans', sans-serif",
-            fontSize: '14px',
+            color: 'var(--color-chalk-2)',
+            fontFamily: 'var(--font-body)',
+            fontSize: 'var(--text-sm)',
             textAlign: 'center',
             padding: '48px 24px',
           }}
         >
           <div>
-            <p style={{ color: '#ECEEF2', fontWeight: 500, marginBottom: '8px' }}>
+            <p style={{ color: 'var(--color-chalk)', fontWeight: 500, marginBottom: '8px' }}>
               Something went wrong.
             </p>
             <p>Please refresh the page or try again later.</p>
@@ -82,65 +81,6 @@ const RouteFallback = () => (
     }}
   />
 );
-
-const MouseGlow = () => {
-  const glowRef = useRef<HTMLDivElement | null>(null);
-  const frameRef = useRef<number | null>(null);
-  // Resolved after mount rather than during render: the prerendered HTML has
-  // no pointer to query, so reading it inline would desync hydration.
-  const [isPointerFine, setIsPointerFine] = React.useState(false);
-
-  useEffect(() => {
-    const media = window.matchMedia('(pointer: fine)');
-    const sync = () => setIsPointerFine(media.matches);
-    sync();
-    media.addEventListener('change', sync);
-    return () => media.removeEventListener('change', sync);
-  }, []);
-
-  useEffect(() => {
-    if (!isPointerFine) return undefined;
-
-    const handleMouseMove = (event: MouseEvent) => {
-      if (!glowRef.current) return;
-      if (frameRef.current) cancelAnimationFrame(frameRef.current);
-
-      frameRef.current = window.requestAnimationFrame(() => {
-        glowRef.current?.style.setProperty('--glow-x', `${event.clientX}px`);
-        glowRef.current?.style.setProperty('--glow-y', `${event.clientY}px`);
-      });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      if (frameRef.current) cancelAnimationFrame(frameRef.current);
-    };
-  }, [isPointerFine]);
-
-  if (!isPointerFine) return null;
-
-  return (
-    <div
-      ref={glowRef}
-      className="pointer-events-none"
-      style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 1,
-        opacity: 0.74,
-        mixBlendMode: 'screen',
-        '--glow-x': '50vw',
-        '--glow-y': '30vh',
-        background: `
-          radial-gradient(170px circle at var(--glow-x) var(--glow-y), color-mix(in srgb, var(--color-accent) 13%, transparent) 0%, color-mix(in srgb, var(--color-accent) 5.5%, transparent) 35%, transparent 72%),
-          radial-gradient(480px circle at var(--glow-x) var(--glow-y), color-mix(in srgb, var(--color-accent) 10%, transparent) 0%, color-mix(in srgb, var(--color-accent) 4.8%, transparent) 42%, transparent 78%),
-          radial-gradient(780px circle at var(--glow-x) var(--glow-y), color-mix(in srgb, var(--color-accent) 4.5%, transparent) 0%, transparent 82%)
-        `,
-      } as React.CSSProperties}
-    />
-  );
-};
 
 // Scroll to top on every route change
 const ScrollToTop = () => {
@@ -195,12 +135,14 @@ const AppContent = ({ pages, suspend }: AppProps) => {
   const performanceMode = prefersReducedMotion || isConstrainedDevice;
 
   return (
-    <div className="min-h-screen bg-bg-primary text-text-primary relative">
+    <div className="min-h-svh bg-void text-chalk-2 relative">
       <ScrollToTop />
-      {!performanceMode && <MouseGlow />}
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
       <div style={{ position: 'relative', zIndex: 2 }}>
         <Navbar />
-        <main>
+        <main id="main">
           <ErrorBoundary>
             {performanceMode ? (
               routeTree
@@ -231,10 +173,7 @@ const AppContent = ({ pages, suspend }: AppProps) => {
  * entry-server.tsx wraps it in a StaticRouter for prerendering.
  */
 const App = ({ pages = lazyPages, suspend = true }: Partial<AppProps> = {}) => (
-  <>
-    <CustomCursor />
-    <AppContent pages={pages} suspend={suspend} />
-  </>
+  <AppContent pages={pages} suspend={suspend} />
 );
 
 export default App;
