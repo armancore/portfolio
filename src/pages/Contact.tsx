@@ -7,20 +7,11 @@ import ContactForm from '../components/sections/ContactForm';
 import PageMeta from '../components/seo/PageMeta';
 import { PERSONAL_INFO, CONTACT_LINKS, CONTACT_PAGE } from '../constants';
 import type { ContactIconName } from '../constants';
+import { chip } from '../lib/styles';
 
 const iconMap: Record<ContactIconName, LucideIcon> = { Mail, Github, Linkedin, Facebook, Instagram };
 
 const RECIPIENT_EMAIL = PERSONAL_INFO.email;
-
-const chip: React.CSSProperties = {
-  padding: '6px 13px',
-  borderRadius: 'var(--radius-sm)',
-  background: 'var(--color-panel-2)',
-  border: '1px solid var(--color-rule)',
-  fontSize: 'var(--text-xs)',
-  fontFamily: 'var(--font-mono)',
-  color: 'var(--color-chalk-2)',
-};
 
 const Contact = () => {
   return (
@@ -62,15 +53,9 @@ const Contact = () => {
             >
               {CONTACT_PAGE.heading}
             </h1>
-            <span
-              style={{
-                ...chip,
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                color: 'var(--color-verified)',
-              }}
-            >
+            {/* Sits beside a display-size h1 rather than in a tag list, so it
+                carries more padding than the shared chip. */}
+            <span style={{ ...chip, padding: '6px 13px', color: 'var(--color-verified)' }}>
               <span className="status-dot" />
               {CONTACT_PAGE.availableLabel}
             </span>
