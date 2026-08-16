@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion } from 'motion/react';
 import {
   ArrowRight,
   Github,
@@ -28,7 +28,7 @@ import {
   SOCIAL_LINKS,
   TECH_STACK,
 } from '../constants';
-import { fadeUp, staggerContainer, heroVariants, viewport, cardReveal } from '../lib/motion';
+import { STAGGER, revealBody, revealCard, revealHeading, staggerContainer, viewport } from '../lib/motion';
 
 const profileImg640 = '/profile-640.webp';
 const profileImg960 = '/profile-960.webp';
@@ -111,8 +111,6 @@ const Home = () => {
   // Only TriLearn carries featured: true, so top the preview up with the next
   // entries in order -- the two-card grid stretches badly with a single child.
   const featured = [...PROJECTS].sort((a, b) => Number(b.featured) - Number(a.featured)).slice(0, 2);
-  const prefersReducedMotion = useReducedMotion();
-  const reduceAnimations = Boolean(prefersReducedMotion);
 
   return (
     <div style={{ minHeight: '100svh' }}>
@@ -133,20 +131,30 @@ const Home = () => {
           style={{ position: 'relative', zIndex: 2, paddingTop: '40px', paddingBottom: '96px' }}
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-            <motion.div
-              variants={staggerContainer(0.09, 0.05)}
-              initial={reduceAnimations ? false : 'hidden'}
-              animate="show"
-            >
-              <motion.div variants={heroVariants} style={{ marginBottom: '28px' }}>
+            {/* initial={false} on purpose: this column is the LCP element.
+                Section 4 requires the headline, sub-copy and card to sit in
+                the prerendered HTML at their final position and be readable at
+                first paint, so the hero must not ship hidden and wait for
+                hydration to reveal itself. It previously prerendered at
+                opacity 0 with the headline clipped by its own mask, which also
+                left it permanently invisible with JS disabled.
+
+                The hero therefore has no entrance animation in this step.
+                Step 4 rebuilds it as HeroXray, where section 4 specifies the
+                real behaviour: a static hold frame in the HTML, with motion
+                taking over only after requestIdleCallback and
+                document.fonts.ready. */}
+            <motion.div variants={staggerContainer(STAGGER.loose, 0.05)} initial={false} animate="show">
+              <motion.div variants={revealBody} style={{ marginBottom: '28px' }}>
                 <span style={{ ...chip, padding: '6px 14px' }}>
                   <span className="status-dot" />
                   {HOME_PAGE.badge}
                 </span>
               </motion.div>
 
-              <motion.h1
-                variants={heroVariants}
+              {/* Mask wipe, not a per-character typewriter. The clip lives on
+                  the h1 and the travel on the span inside it. */}
+              <h1
                 style={{
                   fontFamily: 'var(--font-display)',
                   fontWeight: 700,
@@ -155,13 +163,16 @@ const Home = () => {
                   marginBottom: '4px',
                   fontSize: 'clamp(var(--text-4xl), 12vw, var(--text-5xl))',
                   color: 'var(--color-chalk)',
+                  overflow: 'hidden',
                 }}
               >
-                {PERSONAL_INFO.name}
-              </motion.h1>
+                <motion.span variants={revealHeading} style={{ display: 'block' }}>
+                  {PERSONAL_INFO.name}
+                </motion.span>
+              </h1>
 
               <motion.div
-                variants={heroVariants}
+                variants={revealBody}
                 style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginTop: '16px', marginBottom: '18px' }}
               >
                 <div
@@ -195,7 +206,7 @@ const Home = () => {
               </motion.div>
 
               <motion.p
-                variants={heroVariants}
+                variants={revealBody}
                 style={{
                   fontSize: 'var(--text-sm)',
                   color: 'var(--color-chalk-2)',
@@ -208,7 +219,7 @@ const Home = () => {
               </motion.p>
 
               <motion.div
-                variants={heroVariants}
+                variants={revealBody}
                 style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginBottom: '32px' }}
               >
                 <Link
@@ -249,7 +260,7 @@ const Home = () => {
               </motion.div>
 
               <motion.div
-                variants={heroVariants}
+                variants={revealBody}
                 style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}
               >
                 {SOCIAL_LINKS.map((social) => {
@@ -284,12 +295,8 @@ const Home = () => {
               </motion.div>
             </motion.div>
 
-            <motion.div
-              variants={heroVariants}
-              initial={reduceAnimations ? false : 'hidden'}
-              animate="show"
-              className="lg:justify-self-end"
-            >
+            {/* Same reasoning as the text column: this is the hero card. */}
+            <motion.div variants={revealBody} initial={false} animate="show" className="lg:justify-self-end">
               <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div
                   style={{
@@ -383,13 +390,13 @@ const Home = () => {
 
       <section style={{ padding: '88px 0', borderTop: '1px solid var(--color-rule)' }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={viewport}>
+          <motion.div variants={revealBody} initial="hidden" whileInView="show" viewport={viewport}>
             <p style={eyebrow}>{HOME_PAGE.skillsEyebrow}</p>
             <h2 style={{ ...sectionHeading, marginBottom: '52px' }}>{HOME_PAGE.skillsHeading}</h2>
           </motion.div>
 
           <motion.div
-            variants={staggerContainer(0.08)}
+            variants={staggerContainer(STAGGER.tight)}
             initial="hidden"
             whileInView="show"
             viewport={viewport}
@@ -399,10 +406,10 @@ const Home = () => {
               gap: '14px',
             }}
           >
-            {BENTO_SKILLS.map((s) => {
+            {BENTO_SKILLS.map((s, i) => {
               const Icon = iconMap[s.icon as keyof typeof iconMap];
               return (
-                <motion.div key={s.title} variants={cardReveal} className="panel" style={{ padding: '28px' }}>
+                <motion.div key={s.title} variants={revealCard(i)} className="panel" style={{ padding: '28px' }}>
                   <div
                     style={{
                       width: '46px',
@@ -436,7 +443,7 @@ const Home = () => {
           </motion.div>
 
           <motion.div
-            variants={fadeUp}
+            variants={revealBody}
             initial="hidden"
             whileInView="show"
             viewport={viewport}
@@ -465,7 +472,7 @@ const Home = () => {
 
       <section style={{ padding: '88px 0', borderTop: '1px solid var(--color-rule)' }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={viewport}>
+          <motion.div variants={revealBody} initial="hidden" whileInView="show" viewport={viewport}>
             <div
               style={{
                 display: 'flex',
@@ -497,7 +504,7 @@ const Home = () => {
           </motion.div>
 
           <motion.div
-            variants={staggerContainer(0.08)}
+            variants={staggerContainer(STAGGER.tight)}
             initial="hidden"
             whileInView="show"
             viewport={viewport}
@@ -507,10 +514,10 @@ const Home = () => {
               gap: '20px',
             }}
           >
-            {featured.map((p) => (
+            {featured.map((p, i) => (
               <motion.div
                 key={p.id}
-                variants={cardReveal}
+                variants={revealCard(i)}
                 className="panel"
                 style={{ display: 'flex', flexDirection: 'column', padding: '30px' }}
               >
@@ -613,7 +620,7 @@ const Home = () => {
 
       <section style={{ padding: '88px 0', borderTop: '1px solid var(--color-rule)' }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={viewport}>
+          <motion.div variants={revealBody} initial="hidden" whileInView="show" viewport={viewport}>
             <div className="panel" style={{ padding: 'clamp(52px, 6vw, 88px)', textAlign: 'center' }}>
               <p style={eyebrow}>{HOME_PAGE.ctaEyebrow}</p>
               <h2

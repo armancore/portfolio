@@ -50,6 +50,13 @@
     <style>
       [data-route-transition] { opacity: 1 !important; filter: none !important; transform: none !important; }
       .reveal { opacity: 1 !important; transform: none !important; }
+      /* Scroll-triggered sections are prerendered at their variant's hidden
+         values, because that is the state Motion renders on the server. With
+         JS they animate in on scroll; without it nothing ever would, leaving
+         most of every page invisible. An !important rule in a stylesheet beats
+         a plain inline style, so this reveals them without needing to know
+         which elements Motion touched. */
+      #root [style*="opacity:0"] { opacity: 1 !important; transform: none !important; }
     </style>
   </noscript>
   <script type="application/ld+json">

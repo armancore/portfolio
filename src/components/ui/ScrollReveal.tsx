@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, useReducedMotion } from 'motion/react';
+import { DURATION, EASE, viewport } from '../../lib/motion';
 
 type ScrollRevealProps = {
   children: React.ReactNode;
@@ -27,12 +28,15 @@ const ScrollReveal = ({
     );
   }
 
+  // Travel distances match revealBody/revealCard in lib/motion rather than the
+  // 40-44px the old variants used. At this duration the longer throw read as a
+  // slide rather than a settle.
   const hidden =
     direction === 'left'
-      ? { x: -40, opacity: 0 }
+      ? { x: -12, opacity: 0 }
       : direction === 'right'
-        ? { x: 40, opacity: 0 }
-        : { y: 44, opacity: 0 };
+        ? { x: 12, opacity: 0 }
+        : { y: 12, opacity: 0 };
 
   return (
     <motion.div
@@ -40,8 +44,8 @@ const ScrollReveal = ({
       style={style}
       initial={hidden}
       whileInView={{ x: 0, y: 0, opacity: 1 }}
-      viewport={{ once: true, amount: 0.1 }}
-      transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1], delay }}
+      viewport={viewport}
+      transition={{ duration: DURATION.enter, ease: EASE, delay }}
     >
       {children}
     </motion.div>

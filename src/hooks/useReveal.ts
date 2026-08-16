@@ -1,5 +1,13 @@
 import { useEffect, useRef } from 'react';
 
+/**
+ * Adds `.visible` to an element once it enters the viewport.
+ *
+ * Fires **once**. The observer unobserves the target on its first
+ * intersection and the class is never removed, so scrolling back past an
+ * element does not replay its entrance -- content that has already been read
+ * should not animate again.
+ */
 const useReveal = (delay = 0, disabled = false) => {
   const ref = useRef<HTMLDivElement | null>(null);
 
