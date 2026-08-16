@@ -289,8 +289,14 @@ and are SSR-safe.
 - Motion starts after `requestIdleCallback` (200ms fallback) **and** after fonts
   settle via `document.fonts.ready`.
 - Nothing that animates in changes layout. Target CLS < 0.02.
-- Self-host Archivo and IBM Plex Mono with `font-display: swap` and preload only
-  the two weights used above the fold. Subset to latin.
+- Self-host Archivo and IBM Plex Mono with `font-display: swap`, subset to
+  latin, and preload the **three** faces that set above-the-fold text: Archivo
+  400, Archivo 700, and IBM Plex Mono 400. (This was originally capped at two,
+  which was an arbitrary number rather than a measured budget. The mono carries
+  the hero's entire structure layer, so letting it swap would reflow the
+  signature moment's most important text on first paint. Three subsetted latin
+  woff2 files cost a few KB; the correctness is worth more.) Archivo 600 is not
+  preloaded — it appears below the fold only.
 - No WebGL, no canvas, no particles. DOM + CSS `clip-path` only.
 - Client JS ≤ 180KB gzipped. Report the number before and after.
 - Serve the avatar as AVIF with WebP fallback, correct `width`/`height`
