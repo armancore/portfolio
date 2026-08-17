@@ -1,358 +1,370 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
-import { ExternalLink, Github, Star } from 'lucide-react';
-import RevealWrapper from '../components/ui/RevealWrapper';
-import ScrollReveal from '../components/ui/ScrollReveal';
+import React, { useMemo, useState } from 'react';
+import { motion } from 'motion/react';
+import { ExternalLink, Github } from 'lucide-react';
 import PageMeta from '../components/seo/PageMeta';
 import { PROJECTS, PROJECTS_PAGE } from '../constants';
-import { DURATION, EASE, STAGGER, revealBody, revealHeading, staggerContainer } from '../lib/motion';
-import { chip, monoLabel } from '../lib/styles';
+import type { Project, ProjectStatus, ProjectType } from '../constants';
+import {
+  DURATION,
+  EASE,
+  STAGGER,
+  revealBody,
+  revealHeading,
+  revealRule,
+  staggerContainer,
+  viewport,
+} from '../lib/motion';
+import { chip, eyebrow, monoLabel } from '../lib/styles';
 
-// Derived so a filter button can never outlive the projects it filters for.
-const categories = ['All', ...new Set(PROJECTS.map((p) => p.category))];
+/** How many stack toggles the bar will show. */
+const STACK_AXIS_SIZE = 5;
+/** Chips shown on a card before the rest become a "+N". */
+const VISIBLE_TAGS = 3;
+
+const typeAxis = [...new Set(PROJECTS.map((p) => p.type))] as ProjectType[];
+
+/**
+ * Only rendered when it has more than one reachable option. Everything is live
+ * or in progress today; the axis appears on its own once the values actually
+ * separate something.
+ */
+const statusAxis = [...new Set(PROJECTS.map((p) => p.status))] as ProjectStatus[];
+
+/**
+ * The stack axis, derived from the tags that actually exist.
+ *
+ * A tag carried by almost every project cannot separate anything, so anything
+ * appearing on all-but-one is dropped before the top five are taken. Ties break
+ * alphabetically so the bar is stable across builds.
+ */
+const stackAxis = (() => {
+  const counts = new Map<string, number>();
+  PROJECTS.forEach((p) => p.tags.forEach((t) => counts.set(t.label, (counts.get(t.label) ?? 0) + 1)));
+  return [...counts.entries()]
+    .filter(([, n]) => n > 1 && n < PROJECTS.length - 1)
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .slice(0, STACK_AXIS_SIZE)
+    .map(([label]) => label);
+})();
+
+/** Toggles a value in a set, returning a new set. */
+const toggle = <T,>(set: Set<T>, value: T) => {
+  const next = new Set(set);
+  if (next.has(value)) next.delete(value);
+  else next.add(value);
+  return next;
+};
+
+const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
+  const extra = project.tags.length - VISIBLE_TAGS;
+  const href = project.liveUrl ?? project.githubUrl;
+  const isLive = project.status === 'live';
+
+  const body = (
+    <>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'calc(var(--spacing) * 3)' }}>
+        <span style={monoLabel}>{project.num}</span>
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 'calc(var(--spacing) * 2)' }}>
+          {/* The page's only amber, on the only project that earns emphasis. */}
+          {project.badge ? (
+            <span style={{ ...chip, color: 'var(--color-signal)', borderColor: 'var(--color-signal)' }}>
+              {project.badge}
+            </span>
+          ) : null}
+          <span
+            className={isLive ? 'status-dot' : 'status-dot status-dot--idle'}
+            title={project.status}
+          />
+        </span>
+      </div>
+
+      <h2
+        className="pj-clamp-2"
+        style={{
+          fontFamily: 'var(--font-display)',
+          fontWeight: 700,
+          fontSize: 'var(--text-lg)',
+          color: 'var(--color-chalk)',
+          lineHeight: 1.3,
+          // Two lines reserved whether the title needs them or not, so a
+          // one-line title does not make its whole row shorter than the next.
+          minHeight: '2.6em',
+          margin: 'calc(var(--spacing) * 4) 0 calc(var(--spacing) * 2)',
+        }}
+      >
+        {project.title}
+      </h2>
+
+      <p
+        className="pj-clamp-4"
+        style={{ fontSize: 'var(--text-sm)', color: 'var(--color-chalk-2)', lineHeight: 1.7, margin: 0 }}
+      >
+        {project.description}
+      </p>
+
+      {/* Pushes the footer to a common baseline across every card in the row. */}
+      <div style={{ flex: 1, minHeight: 'calc(var(--spacing) * 5)' }} />
+
+      <div className="pj-tags">
+        {project.tags.slice(0, VISIBLE_TAGS).map((t) => (
+          <span key={t.label} style={chip}>
+            {t.label}
+          </span>
+        ))}
+        {extra > 0 ? <span style={{ ...chip, color: 'var(--color-chalk-3)' }}>+{extra}</span> : null}
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 'calc(var(--spacing) * 3)',
+          borderTop: '1px solid var(--color-rule)',
+          paddingTop: 'calc(var(--spacing) * 4)',
+          marginTop: 'calc(var(--spacing) * 4)',
+        }}
+      >
+        {/* Phosphor is a live-state signal, so "Live demo" carries it. A project
+            that has not shipped says so in muted text instead. */}
+        {project.liveUrl ? (
+          <span
+            style={{
+              ...monoLabel,
+              color: 'var(--color-verified)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 'calc(var(--spacing) * 1.5)',
+            }}
+          >
+            {PROJECTS_PAGE.viewLive} <ExternalLink size={11} />
+          </span>
+        ) : (
+          <span style={monoLabel}>{PROJECTS_PAGE.viewPending}</span>
+        )}
+        {project.githubUrl ? (
+          <span style={{ ...monoLabel, display: 'inline-flex', alignItems: 'center', gap: 'calc(var(--spacing))' }}>
+            <Github size={12} />
+          </span>
+        ) : null}
+      </div>
+    </>
+  );
+
+  const motionProps = {
+    initial: { opacity: 0, y: 20 },
+    // whileInView rather than a plain `animate`: the cards sit below the fold
+    // and this is the pattern the rest of the site uses.
+    whileInView: {
+      opacity: 1,
+      y: 0,
+      // Capped so a late card in a long list is not left waiting.
+      transition: { duration: DURATION.enter, ease: EASE, delay: Math.min(index, 5) * STAGGER.tight },
+    },
+    viewport,
+    className: 'panel pj-card',
+  };
+
+  // A project with neither a deployment nor a public repo has nowhere to go, so
+  // it renders as an article rather than as a link to nothing.
+  return href ? (
+    <motion.a {...motionProps} href={href} target="_blank" rel="noopener noreferrer">
+      {body}
+    </motion.a>
+  ) : (
+    <motion.article {...motionProps}>{body}</motion.article>
+  );
+};
 
 const Projects = () => {
-  const [active, setActive] = useState('All');
-  const prefersReducedMotion = useReducedMotion();
-  const reduceAnimations = prefersReducedMotion;
-  const filtered = active === 'All' ? PROJECTS : PROJECTS.filter((p) => p.category === active);
-  const portfolioProjectNum = String(PROJECTS.length + 1).padStart(2, '0');
+  const [types, setTypes] = useState<Set<ProjectType>>(new Set());
+  const [stacks, setStacks] = useState<Set<string>>(new Set());
+  const [statuses, setStatuses] = useState<Set<ProjectStatus>>(new Set());
+
+  const active = types.size + stacks.size + statuses.size > 0;
+
+  // OR within an axis, AND across axes. An empty axis means "no constraint",
+  // which is what makes the first click narrow rather than widen.
+  const filtered = useMemo(
+    () =>
+      PROJECTS.filter((p) => {
+        if (types.size && !types.has(p.type)) return false;
+        if (statuses.size && !statuses.has(p.status)) return false;
+        if (stacks.size && !p.tags.some((t) => stacks.has(t.label))) return false;
+        return true;
+      }),
+    [types, stacks, statuses]
+  );
+
+  const reset = () => {
+    setTypes(new Set());
+    setStacks(new Set());
+    setStatuses(new Set());
+  };
 
   return (
     <div style={{ minHeight: '100svh' }}>
       <PageMeta path="/projects" />
 
-      <section style={{ paddingTop: '110px', paddingBottom: '60px', position: 'relative' }}>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" style={{ position: 'relative', zIndex: 1 }}>
-          <motion.div
-            variants={staggerContainer(STAGGER.loose, 0.05)}
-            initial={reduceAnimations ? false : 'hidden'}
-            animate="show"
-          >
-            <motion.p
-              variants={revealBody}
-              style={{
-                ...monoLabel,
-                color: 'var(--color-signal)',
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                marginBottom: '12px',
-              }}
-            >
-              {PROJECTS_PAGE.eyebrow}
-            </motion.p>
-            {/* The clip lives on the h1 and the wipe on an inner span: the
-                mask has to be the element the text slides out from under, and
-                a block child is what can carry a percentage y offset. */}
-            <h1
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontWeight: 700,
-                fontSize: 'clamp(var(--text-3xl), 7vw, var(--text-5xl))',
-                color: 'var(--color-chalk)',
-                letterSpacing: '-0.035em',
-                lineHeight: 1.03,
-                marginBottom: '16px',
-                overflow: 'hidden',
-              }}
-            >
-              <motion.span variants={revealHeading} style={{ display: 'block' }}>
-                {PROJECTS_PAGE.heading}
-              </motion.span>
-            </h1>
-            <motion.p
-              variants={revealBody}
-              style={{
-                fontSize: 'clamp(var(--text-sm), 3.6vw, var(--text-base))',
-                color: 'var(--color-chalk-2)',
-                maxWidth: '520px',
-                lineHeight: 1.75,
-              }}
-            >
-              {PROJECTS_PAGE.intro}
-            </motion.p>
-          </motion.div>
-        </div>
-      </section>
-
-      <section style={{ padding: '24px 0 88px', borderTop: '1px solid var(--color-rule)' }}>
+      {/* Header */}
+      <motion.section
+        variants={staggerContainer(STAGGER.loose, 0.05)}
+        initial="hidden"
+        animate="show"
+        style={{ paddingTop: 'calc(var(--spacing) * 28)', paddingBottom: 'calc(var(--spacing) * 10)' }}
+      >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <RevealWrapper>
-            <div
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                alignItems: 'center',
-                gap: '8px',
-                marginBottom: '12px',
-                paddingTop: '36px',
-              }}
-            >
-              {categories.map((cat) => (
+          <motion.p variants={revealBody} style={{ ...eyebrow, marginBottom: 'calc(var(--spacing) * 3)' }}>
+            {PROJECTS_PAGE.eyebrow}
+          </motion.p>
+          <h1
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontWeight: 700,
+              fontSize: 'clamp(2.4rem, 5vw, 3.8rem)',
+              color: 'var(--color-chalk)',
+              letterSpacing: '-0.035em',
+              lineHeight: 1.03,
+              margin: '0 0 calc(var(--spacing) * 4)',
+              overflow: 'hidden',
+            }}
+          >
+            <motion.span variants={revealHeading} style={{ display: 'block' }}>
+              {PROJECTS_PAGE.heading}
+            </motion.span>
+          </h1>
+          <motion.p
+            variants={revealBody}
+            style={{
+              fontSize: 'clamp(var(--text-sm), 3.6vw, var(--text-base))',
+              color: 'var(--color-chalk-2)',
+              maxWidth: '62ch',
+              lineHeight: 1.75,
+              margin: 0,
+            }}
+          >
+            {PROJECTS_PAGE.intro}
+          </motion.p>
+        </div>
+      </motion.section>
+
+      {/* Filters and grid.
+          Deliberately plain: the survivors are rendered and the rest are not.
+          No AnimatePresence, no `layout`, no `layoutId` -- all three are what
+          broke this before. Cards appear and disappear without an exit
+          animation, and each keeps its own initial/whileInView, so nothing
+          inherits a variant that could strand it at opacity 0. */}
+      <section style={{ paddingBottom: 'calc(var(--spacing) * 25)' }}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            aria-hidden="true"
+            variants={revealRule}
+            initial="hidden"
+            whileInView="show"
+            viewport={viewport}
+            style={{
+              height: '1px',
+              background: 'var(--color-rule)',
+              transformOrigin: 'left',
+              margin: '0 0 calc(var(--spacing) * 7)',
+            }}
+          />
+
+          <div className="pj-filters">
+            <div className="pj-axis">
+              <span className="pj-axis__label">{PROJECTS_PAGE.typeAxisLabel}</span>
+              {typeAxis.map((t) => (
                 <button
-                  key={cat}
-                  onClick={() => setActive(cat)}
+                  key={t}
                   type="button"
-                  aria-pressed={active === cat}
-                  style={{
-                    borderRadius: 'var(--radius-sm)',
-                    padding: '8px 18px',
-                    minHeight: '44px',
-                    fontSize: 'var(--text-sm)',
-                    cursor: 'pointer',
-                    fontFamily: 'var(--font-mono)',
-                    border: `1px solid ${active === cat ? 'var(--color-signal)' : 'var(--color-rule)'}`,
-                    background: active === cat ? 'var(--color-panel-2)' : 'transparent',
-                    color: active === cat ? 'var(--color-signal)' : 'var(--color-chalk-2)',
-                    transition: 'color var(--duration-tap) var(--ease-signal), border-color var(--duration-tap) var(--ease-signal)',
-                  }}
+                  className="pj-toggle"
+                  aria-pressed={types.has(t)}
+                  onClick={() => setTypes((prev) => toggle(prev, t))}
                 >
-                  {cat}
+                  {t}
                 </button>
               ))}
             </div>
-            <p style={{ ...monoLabel, marginBottom: '36px' }} aria-live="polite">
-              {filtered.length} project{filtered.length !== 1 ? 's' : ''} found
-            </p>
-          </RevealWrapper>
 
-          <motion.div
-            layout
+            <div className="pj-axis">
+              <span className="pj-axis__label">{PROJECTS_PAGE.stackAxisLabel}</span>
+              {stackAxis.map((s) => (
+                <button
+                  key={s}
+                  type="button"
+                  className="pj-toggle"
+                  aria-pressed={stacks.has(s)}
+                  onClick={() => setStacks((prev) => toggle(prev, s))}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+
+            {statusAxis.length > 1 ? (
+              <div className="pj-axis">
+                <span className="pj-axis__label">{PROJECTS_PAGE.statusAxisLabel}</span>
+                {statusAxis.map((s) => (
+                  <button
+                    key={s}
+                    type="button"
+                    className="pj-toggle"
+                    aria-pressed={statuses.has(s)}
+                    onClick={() => setStatuses((prev) => toggle(prev, s))}
+                  >
+                    {s}
+                  </button>
+                ))}
+              </div>
+            ) : null}
+          </div>
+
+          <div
             style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))',
-              gap: '18px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 'calc(var(--spacing) * 4)',
+              margin: 'calc(var(--spacing) * 6) 0 calc(var(--spacing) * 8)',
             }}
           >
-            <AnimatePresence mode="popLayout">
-              {filtered.map((p, i) => {
-                const isFeatured = Boolean(p.featured);
-                return (
-                  <ScrollReveal key={p.id} delay={i * 0.07}>
-                    <motion.div
-                      layout
-                      initial={reduceAnimations ? false : { opacity: 0, y: 20 }}
-                      animate={{
-                        opacity: 1,
-                        y: 0,
-                        transition: reduceAnimations
-                          ? { duration: 0 }
-                          : { duration: DURATION.enter, delay: i * STAGGER.tight, ease: EASE },
-                      }}
-                      exit={reduceAnimations ? undefined : { opacity: 0, transition: { duration: DURATION.move, ease: EASE } }}
-                      className="panel"
-                      style={{
-                        position: 'relative',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        overflow: 'hidden',
-                        height: '100%',
-                      }}
-                    >
-                      <div style={{ padding: 'clamp(18px, 4vw, 26px)', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                        <div
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            marginBottom: '16px',
-                            gap: '8px',
-                          }}
-                        >
-                          <span style={monoLabel}>{p.num}</span>
-                          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-end', gap: '6px' }}>
-                            {isFeatured ? (
-                              <span
-                                style={{
-                                  ...chip,
-                                  display: 'inline-flex',
-                                  alignItems: 'center',
-                                  gap: '4px',
-                                  color: 'var(--color-signal)',
-                                  borderColor: 'var(--color-signal)',
-                                }}
-                              >
-                                <Star size={10} fill="currentColor" /> Featured
-                              </span>
-                            ) : null}
-                            <span style={chip}>{p.category}</span>
-                            {p.status ? <span style={chip}>{p.status}</span> : null}
-                          </div>
-                        </div>
+            <p style={monoLabel} aria-live="polite">
+              {filtered.length} {PROJECTS_PAGE.countSuffix}
+            </p>
+            {/* Only offered when there is something to reset. */}
+            {active ? (
+              <button type="button" className="pj-toggle" onClick={reset}>
+                {PROJECTS_PAGE.resetLabel}
+              </button>
+            ) : null}
+          </div>
 
-                        <h3
-                          style={{
-                            fontFamily: 'var(--font-display)',
-                            fontWeight: 700,
-                            fontSize: 'var(--text-lg)',
-                            color: 'var(--color-chalk)',
-                            lineHeight: 1.3,
-                            marginBottom: '10px',
-                          }}
-                        >
-                          {p.title}
-                        </h3>
-                        <p
-                          style={{
-                            fontSize: 'var(--text-sm)',
-                            color: 'var(--color-chalk-2)',
-                            lineHeight: 1.78,
-                            marginBottom: '18px',
-                            flex: 1,
-                          }}
-                        >
-                          {p.description}
-                        </p>
-
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '18px' }}>
-                          {p.tags.map((t) => (
-                            <span key={t.label} style={chip}>
-                              {t.label}
-                            </span>
-                          ))}
-                        </div>
-
-                        <div
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            borderTop: '1px solid var(--color-rule)',
-                            paddingTop: '16px',
-                            gap: '12px',
-                            flexWrap: 'wrap',
-                          }}
-                        >
-                          {p.liveUrl ? (
-                            <a
-                              href={p.liveUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              style={{
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                gap: '5px',
-                                borderRadius: 'var(--radius-sm)',
-                                border: '1px solid var(--color-rule)',
-                                padding: '7px 14px',
-                                fontSize: 'var(--text-sm)',
-                                color: 'var(--color-verified)',
-                                textDecoration: 'none',
-                              }}
-                            >
-                              <span className="status-dot" />
-                              Live Demo <ExternalLink size={11} />
-                            </a>
-                          ) : (
-                            <span
-                              style={{
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                gap: '5px',
-                                padding: '7px 14px',
-                                border: '1px solid var(--color-rule)',
-                                borderRadius: 'var(--radius-sm)',
-                                fontSize: 'var(--text-sm)',
-                                color: 'var(--color-chalk-3)',
-                              }}
-                            >
-                              <span className="status-dot status-dot--idle" />
-                              {p.status || 'In Progress'}
-                            </span>
-                          )}
-                          {p.githubUrl ? (
-                            <a
-                              href={p.githubUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              style={{ ...monoLabel, display: 'inline-flex', alignItems: 'center', gap: '4px', textDecoration: 'none' }}
-                            >
-                              <Github size={13} /> Source
-                            </a>
-                          ) : (
-                            <span style={{ ...monoLabel, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                              <Github size={13} /> Soon
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    </motion.div>
-                  </ScrollReveal>
-                );
-              })}
-            </AnimatePresence>
-          </motion.div>
-
-          <RevealWrapper delay={200}>
-            <div className="panel" style={{ marginTop: '48px', overflow: 'hidden' }}>
-              <div
+          {filtered.length > 0 ? (
+            <div className="pj-grid">
+              {filtered.map((p, i) => (
+                <ProjectCard key={p.id} project={p} index={i} />
+              ))}
+            </div>
+          ) : (
+            <div className="pj-empty">
+              <p style={{ ...monoLabel, color: 'var(--color-chalk)', marginBottom: 'calc(var(--spacing) * 3)' }}>
+                {PROJECTS_PAGE.emptyHeading}
+              </p>
+              <p
                 style={{
-                  padding: 'clamp(18px, 4vw, 28px)',
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  alignItems: 'center',
-                  gap: '20px',
-                  justifyContent: 'space-between',
+                  fontSize: 'var(--text-sm)',
+                  color: 'var(--color-chalk-2)',
+                  maxWidth: '46ch',
+                  margin: '0 auto calc(var(--spacing) * 6)',
+                  lineHeight: 1.7,
                 }}
               >
-                <div style={{ flex: 1, minWidth: '240px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-                    <span style={monoLabel}>{portfolioProjectNum}</span>
-                    <span style={chip}>{PROJECTS_PAGE.selfLabel}</span>
-                  </div>
-                  <h3
-                    style={{
-                      fontFamily: 'var(--font-display)',
-                      fontWeight: 700,
-                      fontSize: 'var(--text-lg)',
-                      color: 'var(--color-chalk)',
-                      marginBottom: '8px',
-                    }}
-                  >
-                    {PROJECTS_PAGE.selfTitle}
-                  </h3>
-                  <p
-                    style={{
-                      fontSize: 'var(--text-sm)',
-                      color: 'var(--color-chalk-2)',
-                      marginBottom: '14px',
-                      lineHeight: 1.75,
-                    }}
-                  >
-                    {PROJECTS_PAGE.selfDescription}
-                  </p>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
-                    {PROJECTS_PAGE.selfTechs.map((t) => (
-                      <span key={t} style={chip}>
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <a
-                  href={PROJECTS_PAGE.selfRepo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '6px',
-                    borderRadius: 'var(--radius-sm)',
-                    border: '1px solid var(--color-rule)',
-                    padding: '10px 20px',
-                    minHeight: '44px',
-                    fontSize: 'var(--text-sm)',
-                    color: 'var(--color-chalk)',
-                    textDecoration: 'none',
-                    flexShrink: 0,
-                  }}
-                >
-                  <Github size={14} /> View on GitHub
-                </a>
-              </div>
+                {PROJECTS_PAGE.emptyBody}
+              </p>
+              <button type="button" className="pj-toggle" onClick={reset}>
+                {PROJECTS_PAGE.resetLabel}
+              </button>
             </div>
-          </RevealWrapper>
+          )}
         </div>
       </section>
     </div>
