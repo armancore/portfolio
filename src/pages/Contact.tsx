@@ -7,7 +7,7 @@ import ContactForm from '../components/sections/ContactForm';
 import PageMeta from '../components/seo/PageMeta';
 import { PERSONAL_INFO, CONTACT_LINKS, CONTACT_PAGE } from '../constants';
 import type { ContactIconName } from '../constants';
-import { chip } from '../lib/styles';
+import { chip, eyebrow } from '../lib/styles';
 
 const iconMap: Record<ContactIconName, LucideIcon> = { Mail, Github, Linkedin, Facebook, Instagram };
 
@@ -20,18 +20,7 @@ const Contact = () => {
 
       <section style={{ paddingTop: '110px', paddingBottom: '60px', position: 'relative' }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" style={{ position: 'relative', zIndex: 1 }}>
-          <p
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: 'var(--text-xs)',
-              color: 'var(--color-signal)',
-              letterSpacing: '0.14em',
-              textTransform: 'uppercase',
-              marginBottom: '12px',
-            }}
-          >
-            {CONTACT_PAGE.eyebrow}
-          </p>
+          <p style={{ ...eyebrow, marginBottom: 'calc(var(--spacing) * 3)' }}>{CONTACT_PAGE.eyebrow}</p>
           <div
             style={{
               display: 'flex',
