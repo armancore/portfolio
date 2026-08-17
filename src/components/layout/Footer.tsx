@@ -46,7 +46,9 @@ const Footer = () => {
               className="inline-flex items-center gap-2 font-display text-2xl font-bold tracking-[-0.03em] text-chalk"
             >
               <span>{PERSONAL_INFO.name}</span>
-              <span className="text-signal">.</span>
+              {/* Muted, not amber. One accent per viewport, and the footer sits
+                  below whichever CTA the page has already spent it on. */}
+              <span className="text-chalk-3">.</span>
             </Link>
 
             <p className="text-chalk-2 text-sm leading-7 mt-5 max-w-md">{FOOTER_COPY.blurb}</p>

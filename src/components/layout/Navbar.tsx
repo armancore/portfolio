@@ -79,7 +79,9 @@ const Navbar = () => {
       }}
     >
       <div className="px-3 md:px-4 lg:px-6 h-16.5 md:h-18 flex items-center justify-between gap-3 md:gap-4 relative">
-        <Link to="/" style={{ textDecoration: 'none', flexShrink: 0 }}>
+        {/* color: inherit so the unclassed-anchor amber rule does not reach the
+            brand mark. */}
+        <Link to="/" style={{ textDecoration: 'none', color: 'inherit', flexShrink: 0 }}>
           <span
             style={{
               fontFamily: 'var(--font-display)',
@@ -109,9 +111,10 @@ const Navbar = () => {
               onMouseEnter={() => setHoveredPath(link.path)}
               onMouseLeave={() => setHoveredPath(null)}
               aria-current={isActive(link.path) ? 'page' : undefined}
+              className="nav-link"
               style={{
                 ...linkBase,
-                color: isActive(link.path) ? 'var(--color-signal)' : 'var(--color-chalk-2)',
+                color: isActive(link.path) ? 'var(--color-chalk)' : 'var(--color-chalk-2)',
               }}
             >
               {(isActive(link.path) || hoveredPath === link.path) && (
@@ -121,7 +124,7 @@ const Navbar = () => {
                   style={{
                     borderRadius: 'var(--radius-sm)',
                     background: 'var(--color-panel)',
-                    border: `1px solid ${isActive(link.path) ? 'var(--color-signal)' : 'var(--color-rule)'}`,
+                    border: '1px solid var(--color-rule)',
                   }}
                   transition={{ duration: DURATION.move, ease: EASE }}
                 />
@@ -132,44 +135,21 @@ const Navbar = () => {
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
-          <Link
-            to="/contact"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '10px 16px',
-              fontFamily: 'var(--font-mono)',
-              fontSize: 'var(--text-xs)',
-              letterSpacing: '0.07em',
-              textTransform: 'uppercase',
-              textDecoration: 'none',
-              borderRadius: 'var(--radius-sm)',
-              background: 'var(--color-signal)',
-              color: 'var(--color-void)',
-              fontWeight: 600,
-            }}
-          >
-            <span className="status-dot" style={{ background: 'var(--color-void)' }} />
+          {/* Not the primary CTA of any screen -- the page's own CTA is. It
+              stays a quiet panel button and only picks up amber on hover and
+              focus. */}
+          <Link to="/contact" className="nav-cta">
+            <span className="status-dot" />
             Hire Me
           </Link>
         </div>
 
+        {/* Display lives in the stylesheet, not inline. An inline
+            `display: grid` outranks Tailwind's `md:hidden`, which is why the
+            hamburger was still showing on desktop. */}
         <button
           onClick={() => setIsMenuOpen((v) => !v)}
-          style={{
-            display: 'grid',
-            placeItems: 'center',
-            width: '44px',
-            height: '44px',
-            color: 'var(--color-signal)',
-            background: 'var(--color-panel-2)',
-            border: '1px solid var(--color-rule)',
-            cursor: 'pointer',
-            borderRadius: 'var(--radius-sm)',
-            flexShrink: 0,
-          }}
-          className="md:hidden"
+          className="nav-toggle"
           aria-label="Toggle menu"
           aria-expanded={isMenuOpen}
         >
@@ -209,8 +189,7 @@ const Navbar = () => {
                     textTransform: 'uppercase',
                     textDecoration: 'none',
                     borderRadius: 'var(--radius-sm)',
-                    color: isActive(link.path) ? 'var(--color-signal)' : 'var(--color-chalk-2)',
-                    border: `1px solid ${isActive(link.path) ? 'var(--color-signal)' : 'var(--color-rule)'}`,
+                    
                     background: 'var(--color-panel-2)',
                     marginBottom: '8px',
                   }}
@@ -222,22 +201,8 @@ const Navbar = () => {
                 <Link
                   to="/contact"
                   onClick={() => setIsMenuOpen(false)}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    minHeight: '44px',
-                    padding: '13px 16px',
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: 'var(--text-sm)',
-                    fontWeight: 600,
-                    textDecoration: 'none',
-                    borderRadius: 'var(--radius-sm)',
-                    background: 'var(--color-signal)',
-                    color: 'var(--color-void)',
-                    letterSpacing: '0.06em',
-                    textTransform: 'uppercase',
-                  }}
+                  className="nav-cta"
+                  style={{ justifyContent: 'center', minHeight: '44px', padding: '13px 16px' }}
                 >
                   Hire Me
                 </Link>

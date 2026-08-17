@@ -4,9 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "npm run fonts && vite",
+    "dev": "npm run assets && vite",
     "fonts": "node scripts/fonts.mjs",
-    "prebuild": "npm run fonts",
+    "images": "node scripts/images.mjs",
+    "assets": "npm run fonts && npm run images",
+    "prebuild": "npm run assets",
     "build": "vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
     "build:client": "vite build",
     "typecheck": "tsc --noEmit",

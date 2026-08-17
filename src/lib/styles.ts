@@ -27,14 +27,20 @@ export const chip: React.CSSProperties = {
   color: 'var(--color-chalk-2)',
 };
 
-/** The small amber mono label that introduces a section. */
+/**
+ * The small mono label that introduces a section.
+ *
+ * Muted, not amber. One accent per viewport is a site-wide rule, and a page
+ * with five sections would otherwise spend five ambers on labels before
+ * reaching the one CTA that is supposed to be the accent.
+ */
 export const eyebrow: React.CSSProperties = {
   fontFamily: 'var(--font-mono)',
   fontSize: 'var(--text-xs)',
-  color: 'var(--color-signal)',
+  color: 'var(--color-chalk-3)',
   letterSpacing: '0.14em',
   textTransform: 'uppercase',
-  marginBottom: '10px',
+  marginBottom: 'calc(var(--spacing) * 2.5)',
 };
 
 /** Section-level h2. */
@@ -43,6 +49,14 @@ export const sectionHeading: React.CSSProperties = {
   fontWeight: 700,
   fontSize: 'clamp(var(--text-xl), 4vw, var(--text-3xl))',
   color: 'var(--color-chalk)',
+};
+
+/** The short secondary line that sits opposite a section heading. */
+export const asideCopy: React.CSSProperties = {
+  fontSize: 'var(--text-sm)',
+  color: 'var(--color-chalk-2)',
+  maxWidth: '34ch',
+  lineHeight: 1.6,
 };
 
 /** Muted mono, for indices, counts and captions. */

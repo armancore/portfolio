@@ -10,9 +10,17 @@ export type SkillIconName = "Monitor" | "Server" | "Code2" | "Wrench" | "Network
 export type SocialIconName = "Github" | "Linkedin" | "Facebook" | "Instagram";
 export type ContactIconName = "Mail" | SocialIconName;
 
-/** The vocabulary of project categories. The Projects filter bar derives its
- *  buttons from the projects that actually exist, not from this union. */
-export type ProjectCategory = "Tool" | "API" | "Social" | "Frontend";
+/** The type axis. Three values because two collapsed API work and tooling
+ *  into one bucket, which made the axis nearly useless at nine projects. */
+export type ProjectType = "full-stack" | "API" | "tooling";
+
+/**
+ * Deployment state.
+ *
+ * "in-progress" is distinct from "archived": one has not shipped yet, the other
+ * has stopped being maintained. Only "live" earns the phosphor dot.
+ */
+export type ProjectStatus = "live" | "in-progress" | "archived";
 
 export interface Skill {
   id: number;
@@ -30,9 +38,14 @@ export interface Project {
   description: string;
   longDescription: string;
   tags: Tag[];
-  category: ProjectCategory;
-  /** Shown as a chip, and as the fallback when liveUrl is absent. */
-  status?: string;
+  type: ProjectType;
+  status: ProjectStatus;
+  /**
+   * The one mark of emphasis in the grid. Only the flagship carries it, and it
+   * renders in --color-signal -- the page's single amber. TriLearn gets no
+   * other special treatment: no separate section, no larger card.
+   */
+  badge?: string;
   /** Absent for projects with no public deployment. */
   liveUrl?: string;
   /** Absent for projects with no public repository. */
@@ -117,10 +130,61 @@ export const FOOTER_COPY = {
   credit: "Designed and developed by Arman Khan."
 };
 
+export interface HeroRow {
+  id: string;
+  label: string;
+  value: string;
+  /**
+   * Vertical centre of the row as a percentage of the box. The reveal stagger
+   * is derived from this rather than from array index, so reordering the rows
+   * or changing their rhythm keeps the cascade physically meaningful.
+   */
+  ry: number;
+  /** Renders the value as a link when present. */
+  href?: string;
+}
+
+/**
+ * The hero's two layers.
+ *
+ * SURFACE is the portrait. STRUCTURE is the same box filled with these rows as
+ * plain mono text on --color-void. The sweep crosses, and where it has passed
+ * the photo is gone and the text is there. That dissolve is the entire effect:
+ * there is no filter, no grid, no ruler and no second image copy.
+ *
+ * Every value here is true. Counts were verified against this file: SKILLS id 3
+ * lists 4 languages, SKILLS id 4 lists 6 tools, and PROJECTS has 8 entries, all
+ * of which carry a liveUrl.
+ */
+export const HERO_XRAY = {
+  photoAlt: "Arman Khan",
+
+  // Six rows. There is deliberately no SKILLS row and no college name: skills
+  // belong to the skills section further down the page, where the stack is
+  // already shown, and repeating them here would be the echo this layer exists
+  // to avoid.
+  rows: [
+    { id: "name", label: "NAME", value: "Arman Khan", ry: 8 },
+    { id: "edu", label: "EDU", value: "Bachelor of (Hons.) in Information Technology", ry: 24 },
+    { id: "focus", label: "FOCUS", value: "the part nobody sees: logins, data, APIs", ry: 40 },
+    { id: "tz", label: "TZ", value: "UTC+05:45 — the world's only 45-minute timezone", ry: 57 },
+    { id: "status", label: "STATUS", value: "open to internships · replies within 24 hours", ry: 73 },
+    {
+      id: "contact",
+      label: "CONTACT",
+      value: "contact@armankhan.com.np",
+      href: "mailto:contact@armankhan.com.np",
+      ry: 89
+    }
+  ] satisfies HeroRow[],
+
+  pauseLabel: "Pause the hero animation",
+  playLabel: "Play the hero animation"
+};
+
 // Home-page content. These three arrays used to live as module-local consts
 // inside Home.tsx, which put content outside the one file that holds it.
 export const HOME_PAGE = {
-  badge: "shipping full-stack apps from schema to interface",
   skillsEyebrow: "What I do",
   skillsHeading: "Skills and expertise",
   skillsCta: "Full skills breakdown",
@@ -130,7 +194,12 @@ export const HOME_PAGE = {
   ctaEyebrow: "Let us work together",
   ctaHeading: "Have a project in mind?",
   ctaBody: "Open to internship and junior developer roles. Let us build something great together.",
-  ctaResponse: "Responds within 24 hours",
+  // The CTA points at /contact rather than a mailto: the hero's structure layer
+  // already carries the address and the footer carries it again, and a third
+  // copy on one page spends the reader's attention without adding anything.
+  // "Responds within 24 hours" is gone for the same reason -- the hero's STATUS
+  // row already says it.
+  ctaAction: "Get in touch",
   viewProjects: "View Projects",
   contactMe: "Contact Me",
   locationNote: "Based in Kathmandu, Nepal"
@@ -183,27 +252,81 @@ export const CONTACT_FORM_COPY = {
   unconfigured: "Contact form is not configured."
 };
 
+/**
+ * The About page.
+ *
+ * Its job is narrative and skills. Anything the hero's structure layer already
+ * states -- name, education, timezone, status, contact -- is deliberately
+ * absent as a *fact block*; where those details appear here they are carried by
+ * the prose, not restated as rows or chips. There is no photograph on this
+ * page: the hero portrait is the site's signature image and a second one
+ * halfway down dilutes it.
+ */
 export const ABOUT_PAGE = {
+  // 1 -- Who I am
   eyebrow: "Who I am",
-  heading: "About Me",
+  heading: "About",
+  // Deliberately does not name the college or explain the move: section 2
+  // opens with both, and this is the standfirst, not the story.
   intro:
-    "I build full-stack web applications with React, Node.js, and PostgreSQL. Originally from Damak, Jhapa, now studying IT and building software in Kathmandu, Nepal.",
-  storyEyebrow: "My story",
-  storyHeading: "Background and Motivation",
-  skillsEyebrow: "Technical skills",
-  skillsHeading: "Technical Expertise",
-  skillsAside: "Technologies I've worked with professionally and in personal projects.",
-  journeyEyebrow: "Journey",
-  journeyHeading: "Experience and Education",
-  journeyAside: "My path through academia and hands-on development.",
-  infoHeading: "Personal Info",
-  ctaContact: "Let's Connect",
-  ctaProjects: "View My Projects",
+    "I'm Arman Khan, from Damak and now building software in Kathmandu. Full-stack web applications — React, Node.js, PostgreSQL. The interface people use, and the systems behind it.",
+
+  // 2 -- How I got here. The centrepiece: prose, no cards, no callouts, no
+  // icons. Index 2 is the bug paragraph and carries the weight, so it renders
+  // in --color-chalk while the rest sit in --color-chalk-2.
+  storyEyebrow: "How I got here",
+  storyHeading: "From +2 Science to the invisible half",
+  /** The paragraph that breaks the column. Everything else stays at 62ch. */
+  storyEmphasisIndex: 2,
+  storyEmphasisMarker: "01 — the week that changed how I build",
+  story: [
+    "I finished +2 Science at Damak Multiple Campus, then moved to Kathmandu in 2024 for a Bachelor of (Hons.) in Information Technology at Texas College of Management and IT. My degree covers software engineering, networking, cybersecurity, databases and research methodology, and I've kept the networking and security side alongside the web work rather than dropping it.",
+    "I started on the frontend with React, Vite and Tailwind, shipped my first project in 2025, and went full-stack that December — Node, Express, Prisma, PostgreSQL — by building real projects rather than following tutorials. Eight are live now. The largest is TriLearn, a student learning platform with separate admin, instructor and student roles, which sounded simple until I had to decide what each of them was allowed to do.",
+    "One bug there took me a week to find. My password reset let anyone reset anyone's password, because the reset token wasn't tied to the account that requested it. Nothing crashed and no test failed. It worked exactly as written, and what was written was wrong. Deployment taught me the same lesson from the other side: code that runs on my machine is not the same as code that runs.",
+    "That's why I care about the invisible half — authentication, data modelling, APIs that hold up when the input is wrong. The interface is what people see; the reasons it doesn't break are what interest me."
+  ],
+
+  // 3 -- What I work with. Grouped mono lists rather than icon cards: Home
+  // links here promising the fuller breakdown, so this has to be denser than
+  // Home's four-area bento, not a second rendering of it.
+  skillsEyebrow: "What I work with",
+  skillsHeading: "The stack, in full",
+  skillsAside: "The fuller breakdown behind the four areas on the home page.",
+
+  // 4 -- How I work
+  workEyebrow: "How I work",
+  workHeading: "Three things I hold to",
   values: [
-    { title: "Goal-Oriented", desc: "I ship products, not just code." },
-    { title: "Fundamentals First", desc: "CS fundamentals meet modern stacks." },
-    { title: "Team Player", desc: "Communication is a core skill." }
-  ]
+    { title: "Goal-oriented", desc: "I ship products, not just code." },
+    { title: "Fundamentals first", desc: "CS fundamentals meet modern stacks." },
+    { title: "Team player", desc: "Communication is a core skill." }
+  ],
+
+  // 5 -- Where I'm going
+  aheadEyebrow: "Where I'm going",
+  aheadHeading: "The backend half, seriously",
+  ahead:
+    "I'm working toward a full-stack role, with the backend as the half I want to get seriously good at. I'm looking for an internship or junior position where someone more experienced reviews my work — I've learned more from one broken thing than from any tutorial.",
+
+  // 6 -- Timeline. An axis with a tick per stop rather than a row of floating
+  // fragments: the year carries the weight in --color-chalk and the label sits
+  // under it in --color-chalk-3, so the eye reads a progression instead of five
+  // disconnected phrases. Years match TIMELINE; the +2 Science date comes from
+  // its 2022-2024 range.
+  timelineLabel: "Timeline",
+  timeline: [
+    { year: "2022", label: "+2 Science, Damak" },
+    { year: "2024", label: "BIT, Kathmandu" },
+    { year: "2025", label: "First shipped project" },
+    { year: "Dec 2025", label: "Full Stack Started" },
+    { year: "2026", label: "Backend systems", now: true }
+  ],
+
+  // 7 -- Close
+  ctaEyebrow: "Next",
+  ctaHeading: "Tell me what you're building",
+  ctaContact: "Get in touch",
+  ctaProjects: "See the projects"
 };
 
 export const PROJECTS_PAGE = {
@@ -211,14 +334,21 @@ export const PROJECTS_PAGE = {
   heading: "Projects",
   intro:
     "Real applications I've designed, built, and deployed. Every project represents a problem I found interesting and a skill I wanted to sharpen.",
-  // The portfolio card at the foot of the list -- this site, described as one
-  // of the projects. Kept out of PROJECTS so it never lands in the filters.
-  selfLabel: "Portfolio",
-  selfTitle: "This Portfolio Website",
-  selfDescription:
-    "Built from scratch with React 19, Vite 7, and Tailwind CSS v4. Prerendered to static HTML per route, with a dark design system and no client-side framework overhead on first paint.",
-  selfTechs: ["React 19", "Vite 7", "Tailwind CSS v4", "React Router v7", "Motion for React"],
-  selfRepo: "https://github.com/armancore/portfolio"
+
+  viewLive: "Live demo",
+  /** Shown in place of the live link for anything not yet deployed. */
+  viewPending: "Live demo coming soon",
+
+  // Filters. No heading and no eyebrow: a control should not announce itself
+  // louder than the content it filters, so the axis labels carry the job.
+  typeAxisLabel: "Type",
+  stackAxisLabel: "Stack",
+  statusAxisLabel: "Status",
+  resetLabel: "Reset",
+  countSuffix: "shown",
+
+  emptyHeading: "No match",
+  emptyBody: "Nothing matches every filter at once. Loosen one, or reset."
 };
 
 export const NOT_FOUND_COPY = {
@@ -340,8 +470,9 @@ export const PROJECTS: Project[] = [
       { label: "JWT Auth" },
       { label: "EdTech" }
     ],
-    category: "Tool",
-    status: "Featured Build",
+    type: "full-stack",
+    status: "live",
+    badge: "Featured Build",
     liveUrl: "https://trilearn-arman.vercel.app/",
     githubUrl: "https://github.com/armancore/TriLearn.git",
     featured: true
@@ -358,7 +489,8 @@ export const PROJECTS: Project[] = [
       { label: "WeatherAPI" },
       { label: "Tailwind CSS" }
     ],
-    category: "API",
+    type: "API",
+    status: "live",
     liveUrl: "https://weather-app-arman.vercel.app/",
     githubUrl: "https://github.com/armancore/Weather-App.git",
     featured: false
@@ -374,7 +506,8 @@ export const PROJECTS: Project[] = [
       { label: "TMDB API" },
       { label: "Tailwind CSS" }
     ],
-    category: "API",
+    type: "API",
+    status: "live",
     liveUrl: "https://cinevault-arman.vercel.app/",
     githubUrl: "https://github.com/armancore/movie-app.git",
     featured: false
@@ -390,7 +523,8 @@ export const PROJECTS: Project[] = [
       { label: "React Hooks" },
       { label: "Tailwind CSS" }
     ],
-    category: "Tool",
+    type: "tooling",
+    status: "live",
     liveUrl: "https://vibe-typer.vercel.app/",
     githubUrl: "https://github.com/armancore/VibeTyper.git",
     featured: false
@@ -407,7 +541,8 @@ export const PROJECTS: Project[] = [
       { label: "Axios" },
       { label: "Tailwind CSS" }
     ],
-    category: "API",
+    type: "API",
+    status: "live",
     liveUrl: "https://nepal-patra.vercel.app/",
     githubUrl: "https://github.com/armancore/Nepal-Patra.git",
     featured: false
@@ -421,10 +556,11 @@ export const PROJECTS: Project[] = [
     tags: [
       { label: "React" },
       { label: "Node.js" },
-      { label: "Express.js" },
-      { label: "API Design" }
+      { label: "local storage" },
+
     ],
-    category: "Tool",
+    type: "tooling",
+    status: "live",
     liveUrl: "https://expense-tracker-arman.vercel.app/",
     githubUrl: "https://github.com/armancore/expense-tracker",
     featured: false
@@ -442,7 +578,8 @@ export const PROJECTS: Project[] = [
       { label: "JavaScript" },
       { label: "Python" }
     ],
-    category: "Social",
+    type: "full-stack",
+    status: "live",
     liveUrl: "https://arman45678.pythonanywhere.com/",
     githubUrl: "https://github.com/armancore/ArticleHub.git",
     featured: false
@@ -460,9 +597,49 @@ export const PROJECTS: Project[] = [
       { label: "Kanban" },
       { label: "Drag & Drop" }
     ],
-    category: "Tool",
+    type: "tooling",
+    status: "live",
     liveUrl: "https://taskflow-arman.vercel.app/",
     githubUrl: "https://github.com/armancore/task-manager.git",
+    featured: false
+  }
+,
+  {
+    id: 9,
+    num: "09",
+    title: "This Portfolio Website",
+    description:
+      "The site you are reading. Prerendered to static HTML per route, so every page is readable before any JavaScript runs.",
+    longDescription:
+      "Built from scratch with React 19, Vite 7 and Tailwind CSS v4. Every route is prerendered to static HTML through a custom SSR pass, so the content is present at first paint rather than after hydration. Dark-only design system driven entirely by design tokens, with a single motion curve across the site.",
+    tags: [
+      { label: "React 19" },
+      { label: "Vite 7" },
+      { label: "Tailwind CSS v4" },
+      { label: "React Router v7" },
+      { label: "Motion" }
+    ],
+    type: "tooling",
+    status: "live",
+    liveUrl: "https://armankhan.com.np",
+    githubUrl: "https://github.com/armancore/portfolio",
+    featured: false
+  }
+,
+  {
+    id: 10,
+    num: "10",
+    title: "Sajilo Bus Ticketing System",
+    description:
+      "A bus ticketing system with a Django backend and a React frontend. Currently in development.",
+    longDescription:
+      "A bus ticketing system, currently in development. Django on the backend, React on the frontend. Not yet deployed.",
+    tags: [{ label: "Django" }, { label: "React" }, { label: "Python" }],
+    type: "full-stack",
+    status: "in-progress",
+    // No liveUrl: not deployed yet, so the card shows "Live demo coming soon"
+    // in place of the phosphor link and points at the repo instead.
+    githubUrl: "https://github.com/armancore/bus_ticket",
     featured: false
   }
 ];
@@ -484,7 +661,7 @@ export const TIMELINE: TimelineEntry[] = [
   },
   {
     id: 2,
-    year: "2025–Present",
+    year: "Dec 2025–Present",
     title: "Full-Stack Project Development",
     org: "Self-directed / Personal Projects",
     description: "Built and deployed production web applications while strengthening frontend architecture, API integration, authentication systems, and modern deployment workflows.",

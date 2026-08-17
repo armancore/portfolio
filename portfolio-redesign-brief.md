@@ -132,56 +132,73 @@ Animate `transform` and `opacity` only. Never animate `width`, `height`, `top`,
 
 ## 3. `src/components/sections/HeroXray.tsx` — the signature moment
 
-**Concept.** A finished, ordinary profile card. A plotter head crosses it, the
-paint drops away, and the data layer is exposed — drawn exactly under the
-elements it supports. Then it crosses back. Tagline: *"from schema to interface"*.
+**Concept.** My portrait dissolving into pure information. A plotter head
+crosses the photo; where it has passed, the photo is gone and my details are
+there as clean mono text. Then it crosses back.
 
-Two absolutely-positioned layers in one box, sharing identical internal row
-geometry so every annotation aligns to the row it describes.
+That dissolve **is** the whole idea. Nothing decorative is layered on top of
+it: no SVG filter, no contour lines, no duotone, no second image copy, no
+dotted grid, no tick ruler, no leader lines, no anchor dots, no annotation
+gutter, and no "from schema to interface" headline. The `<h1>` is my name,
+**Arman Khan**, and it sits in the left column.
 
-### SURFACE layer — on `--color-panel`, rendered as a normal UI
+### Two layers, one box
 
-| Row | Content |
+**SURFACE** — the portrait, rendered normally, at its **natural framing**. Use
+the full frame (`profile-960`), not a tight crop and not a CSS zoom: the source
+is 3:4 and the box is 4:5, so `object-fit: cover` trims roughly 6% of the
+height and nothing more. `--radius-lg`, on `--color-panel` with a 1px
+`--color-rule` hairline.
+
+**STRUCTURE** — my details as mono text on `--color-void`. Nothing else.
+Identical dimensions, same position, stacked in the same grid cell.
+
+Both layers are responsive, never fixed:
+
+```css
+width: clamp(280px, 28vw, 420px);
+aspect-ratio: 4 / 5;
+```
+
+They must stay dimensionally identical or the sweep desyncs. The aspect ratio
+is a floor rather than a cap: the two layers share one grid cell, so if the
+structure text needs more height than the photo the box grows and nothing is
+truncated.
+
+### Structure content
+
+A left-aligned stack of label/value pairs with generous vertical rhythm,
+filling the same box the photo occupied. **Six rows:**
+
+| Label | Value |
 |---|---|
-| avatar | `public/profile-640.webp` |
-| name | **Arman Khan** |
-| role | Full-stack developer |
-| location | Kathmandu, Nepal |
-| status | phosphor dot + "Available for internships" |
-| stack | React · Node.js · PostgreSQL · Prisma |
-| action | primary button "Get in touch" |
+| `NAME` | Arman Khan |
+| `EDU` | Bachelor of (Hons.) in Information Technology |
+| `FOCUS` | the part nobody sees: logins, data, APIs |
+| `TZ` | UTC+05:45 — the world's only 45-minute timezone |
+| `STATUS` | open to internships · replies within 24 hours |
+| `CONTACT` | contact@armankhan.com.np |
 
-### STRUCTURE layer — mono, `--color-signal`, dotted grid, tick ruler down the left edge
+There is deliberately **no SKILLS row and no college name**. Skills belong to
+the skills section further down the page, where the stack is already shown;
+repeating them here would be the echo this layer exists to avoid.
 
-**Rule: every annotation adds something the surface did not say.** The surface
-already shows the name, role, and stack — restating those in SQL is a costume
-change, not a reveal. Each line must be readable at a glance by someone with no
-technical background. Short, plain, human. The mono/amber/grid treatment
-supplies the "hidden systems layer" feeling; the words do not have to.
-
-| Aligned to | Annotation | Max |
-|---|---|---|
-| avatar | `github.com/armancore` | 1 line |
-| name | `IT student · Texas College, Kathmandu` | 1 line |
-| role | `interested in the part nobody sees: logins, data, APIs` | 2 lines |
-| location | `UTC+05:45 — the world's only 45-minute timezone` | 1 line |
-| status | `open to internships · replies within 24 hours` | 1 line |
-| stack | `4 languages · 6 tools · 8 live projects` | 1 line |
-| action | `contact@armankhan.com.np` | 1 line |
-
-Constraints on this text:
-
-- No SQL, no code syntax, no jargon a non-developer would have to decode.
-- Each line ≤ 8 words where possible, hard cap 2 lines at any breakpoint.
-- Small mono caps label to the left of each value in `--color-chalk-3`
-  (`SOURCE`, `EDU`, `FOCUS`, `TZ`, `STATUS`, `SKILLS`, `CONTACT`) so the layer
-  reads as a data readout without needing technical literacy.
-- Every value must be **true of me**. Do not invent counts, metrics, or facts —
-  ask instead. The seven values in the table above are confirmed accurate and
-  may be used verbatim. The `UTC+05:45` line is the most memorable line in the
-  hero; give it prominence rather than burying it.
-- Below 768px, drop the `role` line to one clause and keep all others; never
-  truncate with an ellipsis.
+- Labels: mono caps, `--text-sm`, `--color-chalk-3`.
+- Values: mono, `--text-base`, `--color-chalk`.
+- **Nothing in the structure layer is amber.** The sweep line and its square
+  head are the only `--color-signal` in the hero. (The pause control picks up
+  amber on hover and focus, but it is a control, not structure text.)
+- Every value is the **same size**. `FOCUS` was briefly larger and amber; with
+  the colour gone, the size bump alone read as an inconsistency, so the rows are
+  uniform and that line earns its weight from its position and its wording.
+- Six rows leave more room than seven did, so take it in vertical gap rather
+  than letting the block float in empty space.
+- All six must fit at the 320px minimum without truncating. If they do not,
+  reduce the gap — never the font size below `--text-sm`.
+- Each row fades in as the sweep passes its position. The stagger derives from
+  vertical position, not index. The cascade is gated on the card actually
+  animating: these rows are content, so the static hold frame shows all six.
+- Every value must be **true of me**. Do not invent counts, metrics or facts.
 
 ### Reveal mechanism
 
@@ -193,6 +210,41 @@ ONE clock via `useAnimationFrame` from `motion/react`, driving:
 
 Write `P` to CSS custom properties with `ref.current.style.setProperty('--p', …)`.
 **Do not re-render React at 60fps.**
+
+**Which side ends up which.** These clip-paths put the *already-passed* side on
+the left: at P=50 the structure text occupies the left half and the photo the
+right. That follows from the concept — "where it has passed, the photo is gone
+and the text is there", and the head travels left to right. Earlier drafts of
+this brief described the hold frame the other way round ("photo left of the
+split, text right"); that was a slip, and the mechanism above is what governs.
+Swapping the two `clip-path` declarations is a one-line change if the other
+orientation is wanted.
+
+### Layout
+
+The section is `min-height: min(88svh, 780px)`, grid-centred, with padding from
+the spacing scale. Nothing fixed in px.
+
+```css
+grid-template-columns: minmax(0, 1fr) clamp(280px, 28vw, 420px);
+gap: clamp(32px, 5vw, 80px);
+```
+
+The image column is not a narrow sidebar. The left column keeps the `<h1>`, the
+intro paragraph, the CTAs and the social icons, vertically centred against the
+portrait; the dead space above the `<h1>` goes.
+
+- `<h1>` caps at `clamp(2.4rem, 5vw, 3.8rem)` — confident, not shouty.
+- Intro paragraph caps at `52ch`.
+
+Below 768px the sweep runs vertically and the structure text stacks — label
+above value rather than in a fixed-width column. Never truncate a value.
+
+### Pause control
+
+Top-right of the image box, not beneath it — under the photo it reads as a
+caption. Small, icon-only, with an accessible name; `--color-chalk-3`, amber on
+hover and focus. Present but quiet.
 
 ### Timeline — one 9.2s pass
 
@@ -213,12 +265,6 @@ back into view (`IntersectionObserver`). Pauses on
 visible pause/play control as a real `<button>` with a `--color-signal`
 `:focus-visible` ring; its state persists for the session.
 
-### Headline
-
-Per-word mask wipe on the same clock. Explicitly **not** character-by-character
-typewriter. "schema" in `--color-signal`; "from"/"to" in mono at 60% size;
-"interface" in display weight.
-
 ---
 
 ## 4. Device and environment matrix
@@ -235,7 +281,7 @@ row as a requirement, not a nice-to-have.
 | 768–1023px | two-column card, sweep horizontal, reduced annotation verbosity if it would wrap past two lines |
 | 1024–1439px | full 512×364 hero as specified |
 | ≥ 1440px | hero scales with a `clamp()` cap; never exceeds 720px wide — do not stretch to fill ultrawide |
-| landscape phone, height < 500px | hero collapses to headline + static hold frame; no full-height section |
+| landscape phone, height < 500px | hero collapses to the static hold frame; no full-height section |
 
 Use container queries for the hero card's internal layout so it responds to its
 own box, not the viewport. Use `clamp()` for hero type. No fixed pixel heights on
@@ -263,7 +309,7 @@ any section.
 
 | Condition | Behaviour |
 |---|---|
-| `prefers-reduced-motion: reduce` | render the 4.6s hold frame statically — surface left of the split, structure right, both fully readable. Never a blank box, never just `animation: none`. All page transitions and reveals become instant. |
+| `prefers-reduced-motion: reduce` | render the hold frame statically: the sweep parked at 50%, both layers fully readable. Never a blank box, never just `animation: none`. All page transitions and reveals become instant. |
 | `prefers-reduced-transparency` | no backdrop blur anywhere |
 | `prefers-contrast: more` | raise `--color-rule` and `--color-chalk-3` to meet 7:1 |
 | `forced-colors: active` (Windows High Contrast) | borders and focus rings use system colors; the structure layer stays legible |
@@ -406,3 +452,39 @@ Final report must include:
   ```
 
 Ask before inventing any value, metric, or design decision not specified here.
+
+---
+
+## Deferred: legacy motion call sites
+
+`RevealWrapper` and `ScrollReveal` predate the §2 directional variants. Home
+and About are fully migrated; these **23 call sites across 4 files** are not,
+and are deliberately left for a later pass:
+
+| File | Call sites |
+|---|---|
+| `src/pages/Contact.tsx` | 8 |
+| `src/components/sections/ContactForm.tsx` | 7 |
+| `src/pages/Projects.tsx` | 6 |
+| `src/pages/NotFound.tsx` | 2 |
+
+Find them with:
+
+```sh
+grep -rn "RevealWrapper\|ScrollReveal" src/ --include=*.tsx | grep -v "components/ui/"
+```
+
+Migrating means: `revealHeading` (mask wipe) on every `h1`/`h2`, `revealRule` on
+section rules, `revealCard(index)` on cards, `revealBody` on everything else,
+with a `staggerContainer` on the section. `src/components/ui/RevealWrapper.tsx`
+and `ScrollReveal.tsx` can be deleted once the count reaches zero.
+
+### Also deferred
+
+- **Site-wide `88px` section padding.** Used identically on Home, About,
+  Projects and Contact. It is the one raw pixel value left in the section
+  rhythm; every other value is on the `--spacing` scale. To be fixed globally
+  rather than per page.
+- **Remaining non-eyebrow amber**, all decorative rather than CTAs:
+  `Contact.tsx` contact-link icons and the Gmail link, `NotFound.tsx` compass
+  glyph and 404 label.
