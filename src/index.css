@@ -72,8 +72,8 @@
   --ease-signal: cubic-bezier(0.2, 0.85, 0.2, 1);
 
   --duration-tap: 120ms;     /* state flips, focus rings */
-  --duration-move: 240ms;    /* hover reveals, card content */
-  --duration-enter: 320ms;   /* section reveals, page transitions */
+  --duration-move: 240ms;    /* hover reveals, card content, page transitions */
+  --duration-enter: 320ms;   /* section reveals */
   --duration-stage: 2400ms;  /* hero sweep only */
 }
 
@@ -942,27 +942,52 @@ a:not([class]) { color: var(--color-signal); }
 /* Below 768px the sweep runs vertically and the label stacks above its value
    rather than sitting in a fixed-width column. Nothing is truncated to fit:
    the gap tightens instead, and font sizes never drop below --text-sm. */
-@media (max-width: 767px) {
-  .xray-card {
-    width: 100%;
-  }
+/* Everything that is a property of the card's own box is a container query, so
+   the component holds up wherever it is placed and not only in the one slot the
+   hero grid gives it today. What is left on the viewport below is page
+   composition, not internal layout.
 
+   The row template and the sweep axis cannot join them, and the reason is that
+   the two regimes overlap in inline size: beside the copy the card is
+   clamp(280px, 28vw, 420px), and stacked above it the card is full-width, which
+   at 360-767px viewports is 328-735px. A 340px card is both regimes at once, so
+   no container threshold can tell them apart -- only the viewport can, because
+   the thing being asked is "is the card beside the text or above it". */
+@container xray (max-width: 360px) {
   .xray-layer--structure {
     gap: calc(var(--spacing) * 3);
     padding: calc(var(--spacing) * 4);
   }
 
-  .xray-row {
-    grid-template-columns: 1fr;
-    gap: calc(var(--spacing));
-  }
-
+  /* One step down, never below --text-sm. */
   .xray-row__label {
     font-size: var(--text-xs);
   }
 
   .xray-row__value {
     font-size: var(--text-sm);
+  }
+}
+
+/* A label column costs 6.5ch plus a gap. Below this the value has too little
+   left to hold a line, so the label moves above it. */
+@container xray (max-width: 300px) {
+  .xray-row {
+    grid-template-columns: 1fr;
+    gap: calc(var(--spacing));
+  }
+}
+
+@media (max-width: 767px) {
+  .xray-card {
+    width: 100%;
+  }
+
+  /* Stacked above the copy, the card is wide and short on travel across, so
+     the sweep runs down it and the rows resolve top to bottom. */
+  .xray-row {
+    grid-template-columns: 1fr;
+    gap: calc(var(--spacing));
   }
 
   .xray-layer--surface {
