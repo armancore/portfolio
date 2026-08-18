@@ -544,6 +544,7 @@ export const PROJECTS: Project[] = [
   {
     id: 9,
     num: "09",
+    slug: "portfolio",
     title: "This Portfolio Website",
     description:
       "The site you are reading. Prerendered to static HTML per route, so every page is readable before any JavaScript runs.",
