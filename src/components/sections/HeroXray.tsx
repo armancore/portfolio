@@ -5,8 +5,19 @@ import { HERO_XRAY } from '../../constants';
 import useDeviceProfile from '../../hooks/useDeviceProfile';
 import { BEAT, HOLD_FRAME_SWEEP, sweepAt, sweepOpacityAt } from '../../lib/heroTimeline';
 
-const PHOTO_AVIF = '/profile-960.avif';
 const PHOTO_WEBP = '/profile-960.webp';
+
+const PHOTO_AVIF_SRCSET =
+  '/profile-320.avif 320w, /profile-480.avif 480w, /profile-640.avif 640w, /profile-768.avif 768w, /profile-960.avif 960w';
+const PHOTO_WEBP_SRCSET = '/profile-640.webp 640w, /profile-960.webp 960w';
+
+const PHOTO_SIZES = [
+  '(max-width: 639px) calc(100vw - 32px)',
+  '(max-width: 767px) calc(100vw - 48px)',
+  '(max-width: 1153px) 300px',
+  '(max-width: 1537px) 26vw',
+  '400px',
+].join(', ');
 
 const PAUSE_KEY = 'hero-xray-paused';
 
@@ -154,10 +165,13 @@ const HeroXray = () => {
       >
         <div className="xray-layer xray-layer--surface">
           <picture>
-            <source srcSet={PHOTO_AVIF} type="image/avif" />
+            <source srcSet={PHOTO_AVIF_SRCSET} sizes={PHOTO_SIZES} type="image/avif" />
+            <source srcSet={PHOTO_WEBP_SRCSET} sizes={PHOTO_SIZES} type="image/webp" />
             <img
               className="xray-photo"
               src={PHOTO_WEBP}
+              srcSet={PHOTO_WEBP_SRCSET}
+              sizes={PHOTO_SIZES}
               alt={HERO_XRAY.photoAlt}
               width={BOX_W}
               height={BOX_H}

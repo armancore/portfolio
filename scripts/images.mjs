@@ -10,7 +10,9 @@ const SOURCE = join(publicDir, 'profile.webp');
 
 const TARGETS = [
   ['profile-320.avif', 320],
+  ['profile-480.avif', 480],
   ['profile-640.avif', 640],
+  ['profile-768.avif', 768],
   ['profile-960.avif', 960],
 ];
 
