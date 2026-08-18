@@ -220,8 +220,7 @@ export const HOME_PAGE = {
   // row already says it.
   ctaAction: "Get in touch",
   viewProjects: "View Projects",
-  contactMe: "Contact Me",
-  locationNote: "Based in Kathmandu, Nepal"
+  contactMe: "Contact Me"
 };
 
 export const TECH_STACK: { icon: string; label: string }[] = [
