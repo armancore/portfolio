@@ -1,225 +1,197 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import useScrolled from '../../hooks/useScrolled';
-import useDeviceProfile from '../../hooks/useDeviceProfile';
-import { NAV_LINKS } from '../../constants';
+import { NAV_LINKS, NAV_COPY } from '../../constants';
 import { DURATION, EASE } from '../../lib/motion';
 
+const SHEET_ID = 'nav-sheet';
+
+/**
+ * The bar is sticky rather than fixed, so it takes part in the flow and no page
+ * has to reserve room for it. It carries no radius, no blur, no nested pills
+ * and no boxed control: the wordmark, the routes and one action are all plain
+ * type on the page's own grid, separated by space rather than by borders.
+ */
 const Navbar = () => {
-  const scrolled = useScrolled(20);
+  const scrolled = useScrolled(80);
   const location = useLocation();
-  // Section 4 says every capability and preference check lives in one hook.
-  // This component used to re-implement the saveData / deviceMemory / cores
-  // trio inline, which meant two definitions of "low power" that could drift.
-  const { motionAllowed, coarsePointer } = useDeviceProfile();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [hoveredPath, setHoveredPath] = useState<string | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location.pathname]);
 
-  const isActive = (path: string) => {
-    if (path === '/') return location.pathname === '/';
-    return location.pathname.startsWith(path);
-  };
-  // A coarse pointer stands in for the old viewport-width check: a 20px blur
-  // behind a fixed bar is expensive on the devices that actually have one,
-  // and that is a property of the device, not of the window's width.
-  const lowPerfMode = !motionAllowed || coarsePointer;
+  /**
+   * Scroll lock. Without it the page scrolls behind the open sheet, so closing
+   * the menu returns the reader somewhere they never chose to be.
+   *
+   * The lock goes on the documentElement, not the body: <html> is the scrolling
+   * element here, and hiding the body's overflow leaves the page scrolling
+   * exactly as before. The body is locked too for the browsers that disagree
+   * about which of the two owns the viewport scroll. `scrollbar-gutter: stable`
+   * is already set on <html>, so removing the scrollbar shifts nothing.
+   */
+  useEffect(() => {
+    if (!isMenuOpen) return undefined;
 
-  const linkBase: React.CSSProperties = {
-    position: 'relative',
-    padding: 'calc(var(--spacing) * 2.5) calc(var(--spacing) * 4)',
-    minWidth: 'calc(var(--spacing) * 26)',
-    textAlign: 'center',
-    fontFamily: 'var(--font-mono)',
-    fontSize: 'var(--text-xs)',
-    letterSpacing: '0.07em',
-    textTransform: 'uppercase',
-    textDecoration: 'none',
-    borderRadius: 'var(--radius-sm)',
-    transition: 'color var(--duration-tap) var(--ease-signal)',
-    overflow: 'hidden',
-  };
+    const root = document.documentElement;
+    const previousRoot = root.style.overflow;
+    const previousBody = document.body.style.overflow;
+    // Hiding the overflow makes the document unscrollable, which clamps its
+    // scroll position to 0. The sheet covers the viewport so nobody sees that
+    // happen -- but without restoring it, closing the menu would leave the
+    // reader at the top of a page they were halfway down.
+    const restoreTo = window.scrollY;
+
+    root.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      root.style.overflow = previousRoot;
+      document.body.style.overflow = previousBody;
+      window.scrollTo({ top: restoreTo, behavior: 'instant' });
+    };
+  }, [isMenuOpen]);
+
+  /**
+   * Focus trap and Escape. The trap spans the whole header, not just the sheet,
+   * because the close control lives in the bar -- trapping inside the sheet
+   * alone would put the only way out beyond reach of the keyboard.
+   *
+   * Focusables are read on every keystroke rather than cached: the desktop
+   * links are display:none at this breakpoint, and offsetParent is what tells
+   * them apart from the sheet's own links.
+   */
+  useEffect(() => {
+    if (!isMenuOpen) return undefined;
+
+    const header = headerRef.current;
+    if (!header) return undefined;
+
+    const focusables = () =>
+      Array.from(
+        header.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')
+      ).filter((element) => element.offsetParent !== null);
+
+    // Focus lands on the first route in the sheet, not on the close control --
+    // the reader opened the menu to go somewhere.
+    const sheet = header.querySelector<HTMLElement>(`#${SHEET_ID}`);
+    const firstInSheet = sheet?.querySelector<HTMLElement>('a[href]');
+    (firstInSheet ?? toggleRef.current)?.focus();
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        setIsMenuOpen(false);
+        // Return focus to the control that opened it, not to the document.
+        toggleRef.current?.focus();
+        return;
+      }
+
+      if (event.key !== 'Tab') return;
+
+      const items = focusables();
+      if (items.length === 0) return;
+
+      const first = items[0];
+      const last = items[items.length - 1];
+      const active = document.activeElement;
+
+      if (event.shiftKey && (active === first || !header.contains(active))) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (active === last || !header.contains(active))) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [isMenuOpen]);
+
+  const isActive = (path: string) =>
+    path === '/' ? location.pathname === '/' : location.pathname.startsWith(path);
 
   return (
-    <motion.header
-      // The bar is above the fold on every route, so it prerenders at its
-      // final position rather than sliding in after hydration.
-      initial={false}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: DURATION.enter, ease: EASE }}
-      style={{
-        position: 'fixed',
-        top: 'calc(var(--spacing) * 3 + env(safe-area-inset-top))',
-        left: '50%',
-        x: '-50%',
-        width: 'min(1040px, calc(100% - var(--spacing) * 5))',
-        zIndex: 50,
-        borderRadius: 'var(--radius-lg)',
-        overflow: 'hidden',
-        // The bar separates from the page by surface and hairline only. It
-        // used to lift itself with a stack of blue glows, which section 1 rules
-        // out; scrolled state now reads as a solid panel instead of a brighter
-        // bloom.
-        border: '1px solid var(--color-rule)',
-        background: scrolled ? 'var(--color-panel)' : 'color-mix(in oklab, var(--color-panel) 82%, transparent)',
-        backdropFilter: lowPerfMode ? 'none' : 'blur(20px)',
-        transition: 'background var(--duration-move) var(--ease-signal)',
-      }}
-    >
-      <div className="px-3 md:px-4 lg:px-6 h-16.5 md:h-18 flex items-center justify-between gap-3 md:gap-4 relative">
-        {/* color: inherit so the unclassed-anchor amber rule does not reach the
-            brand mark. */}
-        <Link to="/" style={{ textDecoration: 'none', color: 'inherit', flexShrink: 0 }}>
-          <span
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'var(--text-lg)',
-              fontWeight: 700,
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-              color: 'var(--color-chalk)',
-            }}
-          >
-            Arman
-          </span>
-        </Link>
-
-        <nav
-          className="hidden md:flex items-center gap-1 p-1"
-          style={{
-            borderRadius: 'var(--radius-lg)',
-            background: 'var(--color-panel-2)',
-            border: '1px solid var(--color-rule)',
-          }}
-        >
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              onMouseEnter={() => setHoveredPath(link.path)}
-              onMouseLeave={() => setHoveredPath(null)}
-              aria-current={isActive(link.path) ? 'page' : undefined}
-              className="nav-link"
-              style={{
-                ...linkBase,
-                color: isActive(link.path) ? 'var(--color-chalk)' : 'var(--color-chalk-2)',
-              }}
-            >
-              {(isActive(link.path) || hoveredPath === link.path) && (
-                <motion.span
-                  layoutId="nav-pill"
-                  className="absolute inset-0"
-                  style={{
-                    borderRadius: 'var(--radius-sm)',
-                    background: 'var(--color-panel)',
-                    border: '1px solid var(--color-rule)',
-                  }}
-                  transition={{ duration: DURATION.move, ease: EASE }}
-                />
-              )}
-              <span style={{ position: 'relative', zIndex: 2 }}>{link.label}</span>
-            </Link>
-          ))}
-        </nav>
-
-        <div className="hidden md:flex items-center gap-3">
-          {/* Not the primary CTA of any screen -- the page's own CTA is. It
-              stays a quiet panel button and only picks up amber on hover and
-              focus. */}
-          <Link to="/contact" className="nav-cta">
-            <span className="status-dot" />
-            Hire Me
+    <header ref={headerRef} className="nav-bar" data-scrolled={scrolled || undefined}>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="nav-row">
+          <Link to="/" className="nav-wordmark">
+            {NAV_COPY.wordmark}
           </Link>
-        </div>
 
-        {/* Display lives in the stylesheet, not inline. An inline
-            `display: grid` outranks Tailwind's `md:hidden`, which is why the
-            hamburger was still showing on desktop. */}
-        <button
-          onClick={() => setIsMenuOpen((v) => !v)}
-          className="nav-toggle"
-          aria-label="Toggle menu"
-          aria-expanded={isMenuOpen}
-        >
-          {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
+          <nav className="nav-links" aria-label={NAV_COPY.primaryLabel}>
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className="nav-link"
+                data-active={isActive(link.path) || undefined}
+                aria-current={isActive(link.path) ? 'page' : undefined}
+              >
+                {link.label}
+              </Link>
+            ))}
+
+            <Link to="/contact" className="nav-cta">
+              {NAV_COPY.cta}
+            </Link>
+          </nav>
+
+          <button
+            ref={toggleRef}
+            type="button"
+            className="nav-toggle"
+            onClick={() => setIsMenuOpen((open) => !open)}
+            aria-label={isMenuOpen ? NAV_COPY.closeMenu : NAV_COPY.openMenu}
+            aria-expanded={isMenuOpen}
+            aria-controls={SHEET_ID}
+          >
+            {isMenuOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            initial={lowPerfMode ? false : { opacity: 0 }}
+            id={SHEET_ID}
+            className="nav-sheet"
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: DURATION.move, ease: EASE }}
-            style={{
-              overflow: 'hidden',
-              background: 'var(--color-panel)',
-              borderTop: '1px solid var(--color-rule)',
-            }}
-            className="md:hidden"
           >
-            <nav
-              style={{
-                padding:
-                  'calc(var(--spacing) * 2.5) calc(var(--spacing) * 3) calc(var(--spacing) * 3.5 + env(safe-area-inset-bottom))',
-              }}
-            >
-              {NAV_LINKS.map((link) => (
+            <nav aria-label={NAV_COPY.mobileLabel}>
+              {NAV_LINKS.map((link, index) => (
                 <Link
                   key={link.path}
                   to={link.path}
-                  onClick={() => setIsMenuOpen(false)}
+                  className="nav-sheet__link"
+                  data-active={isActive(link.path) || undefined}
                   aria-current={isActive(link.path) ? 'page' : undefined}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    minHeight: 'calc(var(--spacing) * 11)',
-                    padding: 'calc(var(--spacing) * 3.25) calc(var(--spacing) * 3.5)',
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: 'var(--text-sm)',
-                    letterSpacing: '0.07em',
-                    textTransform: 'uppercase',
-                    textDecoration: 'none',
-                    borderRadius: 'var(--radius-sm)',
-                    color: isActive(link.path) ? 'var(--color-chalk)' : 'var(--color-chalk-2)',
-                    background: 'var(--color-panel-2)',
-                    marginBottom: 'calc(var(--spacing) * 2)',
-                  }}
+                  onClick={() => setIsMenuOpen(false)}
                 >
-                  {link.label}
+                  <span>{link.label}</span>
+                  <span className="nav-sheet__index" aria-hidden="true">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
                 </Link>
               ))}
-              <div
-                style={{
-                  borderTop: '1px solid var(--color-rule)',
-                  marginTop: 'var(--spacing)',
-                  paddingTop: 'calc(var(--spacing) * 3)',
-                }}
-              >
-                <Link
-                  to="/contact"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="nav-cta"
-                  style={{
-                    justifyContent: 'center',
-                    minHeight: 'calc(var(--spacing) * 11)',
-                    padding: 'calc(var(--spacing) * 3.25) calc(var(--spacing) * 4)',
-                  }}
-                >
-                  Hire Me
-                </Link>
-              </div>
             </nav>
+
+            <Link to="/contact" className="nav-sheet__cta" onClick={() => setIsMenuOpen(false)}>
+              {NAV_COPY.cta}
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
   );
 };
 
