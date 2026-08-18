@@ -455,7 +455,7 @@ Report gzipped client JS after **each** step, not only at the end. Baseline is
 Final report must include:
 
 - client bundle size before and after, plus the per-step trail
-- confirmation all thirteen routes prerender with correct titles
+- confirmation all fourteen routes prerender with correct titles
 - the list of device/preference conditions from §4 actually tested, and how
 - **Lighthouse:** do not produce scores that cannot be trusted. This
   environment has no throttled Chrome runner, so hand over the exact command
@@ -474,38 +474,26 @@ Ask before inventing any value, metric, or design decision not specified here.
 
 ---
 
-## Deferred: legacy motion call sites
+## Deferred
 
-`RevealWrapper` and `ScrollReveal` predate the §2 directional variants. Home,
-About, Projects, Contact and ContactForm are all migrated. **Two call sites
-remain**, both in `src/pages/NotFound.tsx`.
+One item is open, and it is a contradiction in this brief rather than a task.
 
-Find them with:
-
-```sh
-grep -rn "RevealWrapper|ScrollReveal" src/ --include=*.tsx | grep -v "components/ui/"
-```
-
-Migrating means: `revealHeading` (mask wipe) on every `h1`/`h2`, `revealRule` on
-section rules, `revealCard(index)` on cards, `revealBody` on everything else,
-with a `staggerContainer` on the section — except where the children are also
-`AnimatePresence` children, in which case they must drive their own
-`initial`/`whileInView` instead (see §5). `src/components/ui/RevealWrapper.tsx`
-and `ScrollReveal.tsx` can be deleted once the count reaches zero.
-
-### Also deferred
-
-- **Remaining non-eyebrow amber** in `NotFound.tsx`: the compass glyph and the
-  404 label. Decorative rather than CTAs.
 - **Page transition total.** §5 asks for a 140ms exit, `--duration-enter` in,
   and a total under 400ms. With `mode="wait"` the phases are sequential, so
   140 + 320 = 460ms. The exit is now 140ms as specified; hitting the 400ms cap
   as well would mean dropping the entrance to `--duration-move` (240ms), which
   contradicts the explicit token instruction. Flagged rather than chosen.
+- **Expense Tracker’s type axis.** Carried as `frontend`. It has a persistence
+  layer but no backend of its own, so `fullstack` would overstate it. Flagged
+  rather than chosen.
 
 ### Cleared
 
-- Contact and ContactForm legacy motion — 15 sites, done.
-- Projects legacy motion — 6 sites, done.
+- Legacy motion call sites — zero remain. Home, About, Projects, Contact,
+  ContactForm and NotFound are all on the §2 directional variants;
+  `RevealWrapper.tsx`, `ScrollReveal.tsx`, the orphaned `useReveal` hook, the
+  `.reveal` CSS pair and its `<noscript>` override are deleted.
+- Non-eyebrow amber in `NotFound.tsx` — the compass glyph is removed and the
+  404 label now uses the muted shared `eyebrow`. One accent, the CTA.
 - Site-wide `88px` section padding — now `calc(var(--spacing) * 22)` in Skills,
   FeaturedWork and ContactCta. No raw pixel remains in the section rhythm.
