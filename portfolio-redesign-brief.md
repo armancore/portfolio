@@ -73,6 +73,11 @@ hairlines, never from glow.
 **Signal discipline**
 
 - Amber is the only accent: structure layer, links, focus rings, sweep line.
+- **One amber call to action per viewport.** Wayfinding marks and transient
+  motion are exempt: the navbar's active-route rule says where the reader is
+  rather than asking them to go somewhere, and the hero sweep is a moment that
+  passes. Both may share a viewport with the page's one amber CTA. What the rule
+  forbids is two things competing to be clicked.
 - Phosphor green **only** for live / available / 2xx states.
 - Red **only** for 422 and Formspree validation errors. Never decorative.
 - Never set amber body text on `--color-void` at `--text-sm` or below. Amber is
