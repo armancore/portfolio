@@ -20,7 +20,7 @@ const Skills = () => (
     initial="hidden"
     whileInView="show"
     viewport={viewport}
-    style={{ padding: '88px 0', borderTop: '1px solid var(--color-rule)' }}
+    style={{ padding: 'calc(var(--spacing) * 22) 0', borderTop: '1px solid var(--color-rule)' }}
   >
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <motion.p variants={revealBody} style={eyebrow}>

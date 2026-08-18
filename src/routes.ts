@@ -7,6 +7,8 @@
  * into each route's static HTML. Both paths therefore agree by construction.
  */
 
+import { PROJECTS } from './constants';
+
 export type RouteMeta = {
   path: string;
   /** The <title> tag, i.e. the browser tab. Keep these short. */
@@ -25,7 +27,7 @@ export type RouteMeta = {
 const SITE_DESCRIPTION =
   'I build full-stack web applications with React, Node.js, and PostgreSQL. IT student at Texas College of Management and IT, Kathmandu, Nepal.';
 
-export const ROUTES: RouteMeta[] = [
+const PAGE_ROUTES: RouteMeta[] = [
   {
     path: '/',
     title: 'Arman Khan',
@@ -61,6 +63,24 @@ export const ROUTES: RouteMeta[] = [
     file: '404.html',
   },
 ];
+
+/**
+ * One prerendered detail page per project that has a slug.
+ *
+ * Derived from PROJECTS rather than hand-listed, so adding a project with a
+ * slug adds its route, its meta and its static file in one edit. The
+ * portfolio site itself has no slug and therefore no detail page.
+ */
+export const PROJECT_ROUTES: RouteMeta[] = PROJECTS.filter((p) => p.slug).map((p) => ({
+  path: `/projects/${p.slug}`,
+  title: `${p.title} | Arman Khan`,
+  shareTitle: `${p.title} — ${p.type} project by Arman Khan`,
+  description: p.description,
+  file: `projects/${p.slug}.html`,
+}));
+
+/** Every route the prerenderer walks: the five pages plus the detail pages. */
+export const ROUTES: RouteMeta[] = [...PAGE_ROUTES, ...PROJECT_ROUTES];
 
 const BY_PATH = new Map(ROUTES.map((r) => [r.path, r]));
 

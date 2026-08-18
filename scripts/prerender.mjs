@@ -75,6 +75,20 @@ const main = async () => {
     console.log(`  prerendered ${route.path.padEnd(10)} -> dist/${route.file} (${kb} kB)`);
   }
 
+  // The sitemap is generated from the same route table, not hand-maintained.
+  // It listed four URLs while the build emitted fourteen, so every project
+  // detail page was invisible to a crawler that trusted it.
+  const indexable = ROUTES.filter((r) => r.file && r.path !== '/404');
+  const sitemap = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ...indexable.map((r) => `  <url><loc>${SITE_ORIGIN}${r.path === '/' ? '/' : r.path}</loc></url>`),
+    '</urlset>',
+    '',
+  ].join(String.fromCharCode(10));
+  await writeFile(join(dist, 'sitemap.xml'), sitemap, 'utf8');
+  console.log(`  sitemap    -> dist/sitemap.xml (${indexable.length} urls)`);
+
   await rm(ssrDist, { recursive: true, force: true });
 };
 

@@ -6,6 +6,7 @@ import type { PageComponents } from './App';
 import Home from './pages/Home';
 import About from './pages/About';
 import Projects from './pages/Projects';
+import ProjectDetail from './pages/ProjectDetail';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
 
@@ -14,7 +15,7 @@ export { ROUTES, SITE_ORIGIN } from './routes';
 
 // Eager on purpose. These static imports live only in the SSR bundle, so the
 // client keeps its lazy() route splitting untouched.
-const pages: PageComponents = { Home, About, Projects, Contact, NotFound };
+const pages: PageComponents = { Home, About, Projects, ProjectDetail, Contact, NotFound };
 
 const RENDER_TIMEOUT_MS = 15000;
 
