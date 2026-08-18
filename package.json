@@ -10,7 +10,6 @@
     "assets": "npm run fonts && npm run images && npm run favicon",
     "prebuild": "npm run assets",
     "build": "vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
-    "build:client": "vite build",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "preview": "vite preview",
