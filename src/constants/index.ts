@@ -492,7 +492,7 @@ export const PROJECTS: Project[] = [
     tags: [
       { label: "React" },
       { label: "Node.js" },
-      { label: "local storage" },
+      { label: "Vite" },
     ],
     type: "tooling",
     status: "live",
