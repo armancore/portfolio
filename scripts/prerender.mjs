@@ -19,7 +19,7 @@ const setMeta = (html, attr, name, value) => {
 };
 
 const applyMeta = (html, route, origin) => {
-  const url = route.path === '/404' ? origin : `${origin}${route.path === '/' ? '/' : route.path}`;
+  const url = `${origin}${route.path === '/' ? '/' : route.path}`;
   const shareTitle = route.shareTitle ?? route.title;
 
   let out = html.replace(/<title>[^<]*<\/title>/i, `<title>${escapeHtml(route.title)}</title>`);
@@ -29,10 +29,27 @@ const applyMeta = (html, route, origin) => {
   out = setMeta(out, 'property', 'og:url', url);
   out = setMeta(out, 'name', 'twitter:title', shareTitle);
   out = setMeta(out, 'name', 'twitter:description', route.description);
-  out = out.replace(
-    /(<link\s+rel="canonical"[^>]*?href=")[^"]*(")/i,
-    `$1${escapeAttr(url)}$2`
-  );
+
+  if (route.noindex) {
+    // An error page must not claim to be another URL. It previously
+    // canonicalised to the origin, which told crawlers the 404 was the
+    // homepage. The tag goes entirely, and noindex says what is actually true.
+    out = out.replace(/\s*<link\s+rel="canonical"[^>]*>/i, '');
+    out = out.replace(/<title>/i, '<meta name="robots" content="noindex, follow" />\n  <title>');
+  } else {
+    out = out.replace(
+      /(<link\s+rel="canonical"[^>]*?href=")[^"]*(")/i,
+      `$1${escapeAttr(url)}$2`
+    );
+  }
+
+  if (route.jsonLd) {
+    out = out.replace(
+      /(<script type="application\/ld\+json">)[\s\S]*?(<\/script>)/i,
+      `$1\n${JSON.stringify(route.jsonLd, null, 2)}\n  $2`
+    );
+  }
+
   return out;
 };
 
