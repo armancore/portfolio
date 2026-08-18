@@ -485,13 +485,20 @@ Final report must include:
   for Arman to run locally instead of reporting numbers:
 
   ```
-  npm run build && npx serve dist -l 5000
-  npx lighthouse http://localhost:5000 \
-    --preset=perf --form-factor=mobile \
-    --throttling-method=simulate \
+  npm run build && npx vite preview --port 4173
+  npx lighthouse http://localhost:4173/ \
     --only-categories=performance,accessibility,best-practices,seo \
+    --chrome-flags="--headless=new" \
     --view
   ```
+
+  Two traps, both hit on the first real run. `--preset=perf` loads a config
+  carrying only the performance category, so pairing it with
+  `--only-categories` silently drops the other three; mobile form factor and
+  simulated throttling are already the defaults, so neither flag was needed.
+  And on Windows, Lighthouse's own Chrome dies at launch if a normal Chrome
+  is already running -- it surfaces as `Target closed` during setup, before
+  any page loads. `--headless=new` avoids the collision.
 
 Ask before inventing any value, metric, or design decision not specified here.
 
