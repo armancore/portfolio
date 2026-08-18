@@ -64,7 +64,6 @@ export type PageComponents = {
 
 export type AppProps = {
   pages: PageComponents;
-  suspend: boolean;
 };
 
 const lazyPages: PageComponents = { Home, About, Projects, ProjectDetail, Contact, NotFound };
@@ -86,7 +85,7 @@ const ScrollToTop = () => {
   return null;
 };
 
-const AppContent = ({ pages, suspend }: AppProps) => {
+const AppContent = ({ pages }: AppProps) => {
   const location = useLocation();
   const routes = (
     <Routes location={location}>
@@ -98,11 +97,15 @@ const AppContent = ({ pages, suspend }: AppProps) => {
       <Route path="*" element={<pages.NotFound />} />
     </Routes>
   );
-  const routeTree = suspend ? (
-    <Suspense fallback={<RouteFallback />}>{routes}</Suspense>
-  ) : (
-    routes
-  );
+  // The boundary is unconditional. It used to be omitted during prerendering,
+  // which made the server tree one element shallower than the client's and cost
+  // every page a hydration mismatch -- React discarded the prerendered markup
+  // and re-rendered it, which is exactly the work prerendering exists to avoid.
+  //
+  // Rendering it on the server is safe because entry-server passes eagerly
+  // imported pages: the boundary is present but never suspends, so nothing is
+  // streamed into a <template> and onAllReady still fires on the first pass.
+  const routeTree = <Suspense fallback={<RouteFallback />}>{routes}</Suspense>;
   const prefersReducedMotion = useReducedMotion();
   const [isConstrainedDevice, setIsConstrainedDevice] = React.useState(false);
 
@@ -164,8 +167,8 @@ const AppContent = ({ pages, suspend }: AppProps) => {
   );
 };
 
-const App = ({ pages = lazyPages, suspend = true }: Partial<AppProps> = {}) => (
-  <AppContent pages={pages} suspend={suspend} />
+const App = ({ pages = lazyPages }: Partial<AppProps> = {}) => (
+  <AppContent pages={pages} />
 );
 
 export default App;
