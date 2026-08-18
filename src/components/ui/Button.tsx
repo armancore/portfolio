@@ -26,8 +26,6 @@ const Button = ({
     xl: 'px-8 py-4 text-sm',
   };
 
-  // Amber on void is the primary fill. Its label is --color-void rather than
-  // white: amber is light enough that white text on it fails AA outright.
   const variants = {
     primary: 'bg-signal text-void hover:bg-signal/90',
     outline: 'border border-rule text-chalk hover:border-signal hover:text-signal',

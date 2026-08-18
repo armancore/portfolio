@@ -6,14 +6,6 @@ import { BENTO_SKILLS, HOME_PAGE } from '../../constants';
 import { STAGGER, revealBody, revealCard, revealHeading, revealRule, staggerContainer, viewport } from '../../lib/motion';
 import { eyebrow, sectionHeading } from '../../lib/styles';
 
-/**
- * A four-across band, not a grid of cards.
- *
- * The hero above is a two-column split and the featured work below is an
- * asymmetric pair, so this reads as a strip: an index, a name and a line per
- * area, divided by hairlines. The icons are gone with the cards -- four amber
- * glyphs were four accents on a page allowed one.
- */
 const Skills = () => (
   <motion.section
     variants={staggerContainer(STAGGER.tight)}

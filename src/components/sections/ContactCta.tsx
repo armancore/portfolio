@@ -6,13 +6,6 @@ import { HOME_PAGE } from '../../constants';
 import { STAGGER, revealBody, revealHeading, revealRule, staggerContainer, viewport } from '../../lib/motion';
 import { eyebrow, primaryAction } from '../../lib/styles';
 
-/**
- * A full-bleed statement, not a boxed card.
- *
- * The panel made the close look like one more component in a stack of
- * components. Rules above and below and nothing behind the type lets it read as
- * an ending. This CTA is the page's single amber below the hero.
- */
 const ContactCta = () => (
   <motion.section
     variants={staggerContainer(STAGGER.loose)}

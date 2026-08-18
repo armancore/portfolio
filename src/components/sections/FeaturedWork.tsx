@@ -6,17 +6,7 @@ import { HOME_PAGE, PROJECTS } from '../../constants';
 import { STAGGER, revealBody, revealCard, revealHeading, staggerContainer, viewport } from '../../lib/motion';
 import { chip, eyebrow, monoLabel, sectionHeading } from '../../lib/styles';
 
-/**
- * An asymmetric pair, not two equal cards.
- *
- * The lead project takes seven columns and states its case at full measure; the
- * second takes five and stays compact. Two equal panels said the two projects
- * were equally important, which is not what "featured" means, and repeated the
- * shape of the band above.
- */
 const FeaturedWork = () => {
-  // Only TriLearn carries featured: true, so top the preview up with the next
-  // entry in order -- the pair needs a second child to be a pair at all.
   const [lead, second] = [...PROJECTS]
     .sort((a, b) => Number(b.featured) - Number(a.featured))
     .slice(0, 2);
@@ -112,7 +102,6 @@ const FeaturedWork = () => {
         </div>
 
         <div className="home-pair">
-          {/* Lead — seven columns, description at full measure. */}
           <motion.article variants={revealCard(0)} className="home-pair__lead panel">
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: 'calc(var(--spacing) * 2)' }}>
               <span style={monoLabel}>{lead.num}</span>
@@ -122,10 +111,6 @@ const FeaturedWork = () => {
               </div>
             </div>
 
-            {/* Same type scale as the second card. The asymmetry is in the
-                column widths and the extra detail, not in the type size --
-                oversized headings made the pair look like two different
-                components rather than two projects. */}
             <h3
               style={{
                 fontFamily: 'var(--font-display)',
@@ -161,7 +146,6 @@ const FeaturedWork = () => {
             {renderLinks(lead)}
           </motion.article>
 
-          {/* Second — five columns, compact. */}
           <motion.article variants={revealCard(1)} className="home-pair__second panel">
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: 'calc(var(--spacing) * 2)' }}>
               <span style={monoLabel}>{second.num}</span>
