@@ -48,7 +48,7 @@
 
   --color-chalk:   oklch(0.96 0.006 85);
   --color-chalk-2: oklch(0.72 0.008 80);
-  --color-chalk-3: oklch(0.55 0.008 78);
+  --color-chalk-3: oklch(0.60 0.008 78);
 
   --color-signal:   oklch(0.78 0.145 66);
   --color-verified: oklch(0.76 0.135 158);

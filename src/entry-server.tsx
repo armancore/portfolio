@@ -34,7 +34,7 @@ export function render(url: string): Promise<string> {
 
     const { pipe, abort } = renderToPipeableStream(
       <StaticRouter location={url}>
-        <App pages={pages} suspend={false} />
+        <App pages={pages} />
       </StaticRouter>,
       {
         onAllReady() {
