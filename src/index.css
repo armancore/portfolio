@@ -1047,6 +1047,74 @@ a:not([class]) { color: var(--color-signal); }
   }
 }
 
+/* --- Hero actions -------------------------------------------------------- */
+
+/* The last boxed surface on the site. Three bordered buttons and four bordered
+   icon squares sat under a hero whose whole argument is that structure shows
+   through without decoration. Nothing here is boxed now, and the two actions
+   differ by treatment rather than by label alone. */
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(var(--spacing) * 8);
+}
+
+.hero-action {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 2);
+  min-height: calc(var(--spacing) * 11);
+  padding-block: calc(var(--spacing) * 2);
+  font-size: var(--text-sm);
+  text-decoration: none;
+  transition: color var(--duration-tap) var(--ease-signal);
+}
+
+/* Primary. The rule is what carries the priority -- it is the only persistent
+   amber in this column. */
+.hero-action--primary {
+  color: var(--color-chalk);
+  font-weight: 600;
+}
+
+.hero-action--primary::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--spacing) * 2);
+  height: 1px;
+  background: var(--color-signal);
+}
+
+/* Secondary. No rule at all: the difference has to be visible before either
+   label is read. */
+.hero-action--secondary {
+  color: var(--color-chalk-2);
+  font-weight: 400;
+}
+
+.hero-action__arrow {
+  transition: transform var(--duration-tap) var(--ease-signal);
+}
+
+@media (hover: hover) {
+  /* The primary already has the accent, so it moves rather than recolours. */
+  .hero-action--primary:hover .hero-action__arrow {
+    transform: translateX(calc(var(--spacing) * 0.5));
+  }
+
+  .hero-action--secondary:hover {
+    color: var(--color-signal);
+  }
+}
+
+.hero-action--secondary:focus-visible {
+  color: var(--color-signal);
+}
+
 /* --- Hero x-ray --------------------------------------------------------- */
 
 .xray-section {
