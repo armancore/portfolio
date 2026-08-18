@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import useScrolled from '../../hooks/useScrolled';
-import useIsMobile from '../../hooks/useIsMobile';
+import useDeviceProfile from '../../hooks/useDeviceProfile';
 import { NAV_LINKS } from '../../constants';
 import { DURATION, EASE } from '../../lib/motion';
 
 const Navbar = () => {
   const scrolled = useScrolled(20);
   const location = useLocation();
-  const prefersReducedMotion = useReducedMotion();
-  const isMobile = useIsMobile();
-  const [isLowPowerDevice, setIsLowPowerDevice] = useState(false);
+  // Section 4 says every capability and preference check lives in one hook.
+  // This component used to re-implement the saveData / deviceMemory / cores
+  // trio inline, which meant two definitions of "low power" that could drift.
+  const { motionAllowed, coarsePointer } = useDeviceProfile();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hoveredPath, setHoveredPath] = useState<string | null>(null);
 
@@ -20,27 +21,19 @@ const Navbar = () => {
     setIsMenuOpen(false);
   }, [location.pathname]);
 
-  useEffect(() => {
-    const memory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
-    const cores = navigator.hardwareConcurrency;
-    const saveData = (
-      navigator as Navigator & { connection?: { saveData?: boolean } }
-    ).connection?.saveData;
-    const lowMemory = typeof memory === 'number' && memory <= 4;
-    const lowCores = typeof cores === 'number' && cores <= 4;
-    setIsLowPowerDevice(Boolean(saveData || lowMemory || lowCores));
-  }, []);
-
   const isActive = (path: string) => {
     if (path === '/') return location.pathname === '/';
     return location.pathname.startsWith(path);
   };
-  const lowPerfMode = prefersReducedMotion || isMobile || isLowPowerDevice;
+  // A coarse pointer stands in for the old viewport-width check: a 20px blur
+  // behind a fixed bar is expensive on the devices that actually have one,
+  // and that is a property of the device, not of the window's width.
+  const lowPerfMode = !motionAllowed || coarsePointer;
 
   const linkBase: React.CSSProperties = {
     position: 'relative',
-    padding: '10px 16px',
-    minWidth: '104px',
+    padding: 'calc(var(--spacing) * 2.5) calc(var(--spacing) * 4)',
+    minWidth: 'calc(var(--spacing) * 26)',
     textAlign: 'center',
     fontFamily: 'var(--font-mono)',
     fontSize: 'var(--text-xs)',
@@ -61,10 +54,10 @@ const Navbar = () => {
       transition={{ duration: DURATION.enter, ease: EASE }}
       style={{
         position: 'fixed',
-        top: 'calc(12px + env(safe-area-inset-top))',
+        top: 'calc(var(--spacing) * 3 + env(safe-area-inset-top))',
         left: '50%',
         x: '-50%',
-        width: 'min(1040px, calc(100% - 20px))',
+        width: 'min(1040px, calc(100% - var(--spacing) * 5))',
         zIndex: 50,
         borderRadius: 'var(--radius-lg)',
         overflow: 'hidden',
@@ -171,7 +164,12 @@ const Navbar = () => {
             }}
             className="md:hidden"
           >
-            <nav style={{ padding: '10px 12px calc(14px + env(safe-area-inset-bottom))' }}>
+            <nav
+              style={{
+                padding:
+                  'calc(var(--spacing) * 2.5) calc(var(--spacing) * 3) calc(var(--spacing) * 3.5 + env(safe-area-inset-bottom))',
+              }}
+            >
               {NAV_LINKS.map((link) => (
                 <Link
                   key={link.path}
@@ -181,28 +179,38 @@ const Navbar = () => {
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    minHeight: '44px',
-                    padding: '13px 14px',
+                    minHeight: 'calc(var(--spacing) * 11)',
+                    padding: 'calc(var(--spacing) * 3.25) calc(var(--spacing) * 3.5)',
                     fontFamily: 'var(--font-mono)',
                     fontSize: 'var(--text-sm)',
                     letterSpacing: '0.07em',
                     textTransform: 'uppercase',
                     textDecoration: 'none',
                     borderRadius: 'var(--radius-sm)',
-                    
+                    color: isActive(link.path) ? 'var(--color-chalk)' : 'var(--color-chalk-2)',
                     background: 'var(--color-panel-2)',
-                    marginBottom: '8px',
+                    marginBottom: 'calc(var(--spacing) * 2)',
                   }}
                 >
                   {link.label}
                 </Link>
               ))}
-              <div style={{ borderTop: '1px solid var(--color-rule)', marginTop: '4px', paddingTop: '12px' }}>
+              <div
+                style={{
+                  borderTop: '1px solid var(--color-rule)',
+                  marginTop: 'var(--spacing)',
+                  paddingTop: 'calc(var(--spacing) * 3)',
+                }}
+              >
                 <Link
                   to="/contact"
                   onClick={() => setIsMenuOpen(false)}
                   className="nav-cta"
-                  style={{ justifyContent: 'center', minHeight: '44px', padding: '13px 16px' }}
+                  style={{
+                    justifyContent: 'center',
+                    minHeight: 'calc(var(--spacing) * 11)',
+                    padding: 'calc(var(--spacing) * 3.25) calc(var(--spacing) * 4)',
+                  }}
                 >
                   Hire Me
                 </Link>
