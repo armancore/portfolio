@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Github, Linkedin, Facebook, Instagram, ArrowUpRight, Mail, MapPin } from 'lucide-react';
+import { Github, Linkedin, Facebook, Instagram } from 'lucide-react';
+import { motion } from 'motion/react';
 import { NAV_LINKS, SOCIAL_LINKS, PERSONAL_INFO, FOOTER_COPY } from '../../constants';
-import GlowLine from '../ui/GlowLine';
+import { STAGGER, revealBody, staggerContainer, viewport } from '../../lib/motion';
 
 const iconMap = {
   Github,
@@ -11,102 +12,87 @@ const iconMap = {
   Instagram,
 };
 
-// Every social mark used to carry its own brand colour and matching glow.
-// Section 1 allows one accent, so they now share the neutral surface treatment
-// and identify themselves by glyph and label alone.
-const FooterSocialIcon = ({ social }: { social: { label: string; url: string; icon: string } }) => {
-  const Icon = iconMap[social.icon as keyof typeof iconMap];
-  if (!Icon) return null;
-
-  return (
-    <a
-      href={social.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={social.label}
-      className="w-11 h-11 rounded-md flex items-center justify-center border border-rule bg-panel text-chalk-2 transition-colors duration-tap ease-signal hover:text-signal hover:border-signal"
-    >
-      <Icon size={17} />
-    </a>
-  );
-};
-
+/**
+ * The footer is a masthead, not three equal columns: a wide identity block, a
+ * narrow pair of link stacks, then the contact line spanning both.
+ *
+ * Nothing here is boxed. The email, the location and the social marks used to
+ * be bordered panels, which made plain text look like four rows of buttons and
+ * gave the footer more visual weight than the page above it. Type and hairlines
+ * carry the structure instead.
+ *
+ * No amber. The navbar's active-route rule is the one accent these two share,
+ * and every link here settles on --color-chalk.
+ */
 const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative border-t border-rule bg-void">
-      <GlowLine />
-
-      <div className="relative max-w-6xl mx-auto px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_0.8fr_1fr] gap-10 lg:gap-14">
-          <div>
-            <Link
-              to="/"
-              className="inline-flex items-center gap-2 font-display text-2xl font-bold tracking-[-0.03em] text-chalk"
-            >
-              <span>{PERSONAL_INFO.name}</span>
-              {/* Muted, not amber. One accent per viewport, and the footer sits
-                  below whichever CTA the page has already spent it on. */}
-              <span className="text-chalk-3">.</span>
+    <footer className="footer">
+      <motion.div
+        className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"
+        variants={staggerContainer(STAGGER.tight)}
+        initial="hidden"
+        whileInView="show"
+        viewport={viewport}
+      >
+        <div className="footer-top">
+          <motion.div variants={revealBody} className="footer-identity">
+            <Link to="/" className="footer-wordmark">
+              {PERSONAL_INFO.name}
+              {/* Muted, not amber. */}
+              <span className="footer-wordmark__stop">.</span>
             </Link>
 
-            <p className="text-chalk-2 text-sm leading-7 mt-5 max-w-md">{FOOTER_COPY.blurb}</p>
+            <p className="footer-blurb">{FOOTER_COPY.blurb}</p>
+          </motion.div>
 
-            <div className="flex flex-wrap gap-3 mt-6">
-              <a
-                href={`mailto:${PERSONAL_INFO.email}`}
-                className="inline-flex items-center gap-2 rounded-md border border-rule bg-panel px-4 py-2 text-sm text-chalk-2 transition-colors duration-tap ease-signal hover:text-signal hover:border-signal"
-              >
-                <Mail size={14} />
-                <span>{PERSONAL_INFO.email}</span>
-              </a>
-              <div className="inline-flex items-center gap-2 rounded-md border border-rule bg-panel px-4 py-2 text-sm text-chalk-2">
-                <MapPin size={14} />
-                <span>{PERSONAL_INFO.location}</span>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <p className="font-mono text-xs uppercase tracking-[0.18em] text-chalk-3 mb-5">
-              {FOOTER_COPY.navHeading}
-            </p>
-            <nav className="flex flex-col gap-3">
+          <motion.div variants={revealBody} className="footer-stacks">
+            <nav className="footer-stack" aria-label={FOOTER_COPY.navLabel}>
               {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  className="inline-flex items-center gap-2 text-sm text-chalk-2 transition-colors duration-tap ease-signal hover:text-signal w-fit"
-                >
-                  <span>{link.label}</span>
-                  <ArrowUpRight size={13} />
+                <Link key={link.path} to={link.path} className="footer-link">
+                  {link.label}
                 </Link>
               ))}
             </nav>
-          </div>
 
-          <div>
-            <p className="font-mono text-xs uppercase tracking-[0.18em] text-chalk-3 mb-5">
-              {FOOTER_COPY.connectHeading}
-            </p>
-            <p className="text-sm text-chalk-2 leading-7 max-w-sm mb-5">{FOOTER_COPY.connectBlurb}</p>
+            <nav className="footer-stack" aria-label={FOOTER_COPY.socialLabel}>
+              {SOCIAL_LINKS.map((social) => {
+                const Icon = iconMap[social.icon as keyof typeof iconMap];
 
-            <div className="flex items-center gap-3">
-              {SOCIAL_LINKS.map((social) => (
-                <FooterSocialIcon key={social.label} social={social} />
-              ))}
-            </div>
-          </div>
+                return (
+                  <a
+                    key={social.label}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="footer-link"
+                  >
+                    {Icon ? <Icon size={14} strokeWidth={1.5} aria-hidden="true" /> : null}
+                    {social.label}
+                  </a>
+                );
+              })}
+            </nav>
+          </motion.div>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-rule flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
-          <p className="text-xs text-chalk-3">
-            © {year} {PERSONAL_INFO.name}. {FOOTER_COPY.rights}
+        <motion.p variants={revealBody} className="footer-contact">
+          <a href={`mailto:${PERSONAL_INFO.email}`} className="footer-email">
+            {PERSONAL_INFO.email}
+          </a>
+          <span aria-hidden="true" className="footer-contact__sep">
+            ·
+          </span>
+          <span>{PERSONAL_INFO.location}</span>
+        </motion.p>
+
+        <motion.div variants={revealBody} className="footer-baseline">
+          <p>
+            © {year} {PERSONAL_INFO.name}
           </p>
-          <p className="text-xs text-chalk-3">{FOOTER_COPY.credit}</p>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </footer>
   );
 };
