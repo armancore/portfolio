@@ -316,6 +316,43 @@ a:not([class]) { color: var(--color-signal); }
   }
 }
 
+/* --- Contact ------------------------------------------------------------ */
+
+/* The form is the page: seven columns to five, and first in source order so it
+   is also first on a phone. A 50/50 grid gave a list of profiles the same
+   weight as the thing the page exists to do. */
+.contact-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: calc(var(--spacing) * 10);
+}
+
+@media (min-width: 1024px) {
+  .contact-split {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: calc(var(--spacing) * 12);
+  }
+
+  .contact-split__form {
+    grid-column: span 7;
+  }
+
+  .contact-split__direct {
+    grid-column: 9 / span 4;
+  }
+}
+
+/* Hairline-separated rows rather than bordered panels -- the panels made each
+   profile look like a card of equal importance to the form. */
+.contact-row {
+  padding: calc(var(--spacing) * 4) 0;
+  border-top: 1px solid var(--color-rule);
+}
+
+.contact-row:last-child {
+  border-bottom: 1px solid var(--color-rule);
+}
+
 /* --- Projects ----------------------------------------------------------- */
 
 /* Secondary grid. Equal tracks and equal internal rhythm, so footers align on

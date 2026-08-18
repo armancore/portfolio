@@ -34,6 +34,13 @@ export interface Project {
   id: number;
   /** Zero-padded display index, e.g. "01". Kept in sync with id. */
   num: string;
+  /**
+   * URL segment for /projects/<slug>. Stored rather than derived: a slug is a
+   * URL, and it must not change silently because a title was reworded. Absent
+   * where there is no detail page -- the portfolio site itself, since a detail
+   * page about the page you are already on says nothing.
+   */
+  slug?: string;
   title: string;
   description: string;
   longDescription: string;
@@ -223,33 +230,44 @@ export const BENTO_SKILLS: { icon: string; title: string; desc: string }[] = [
 
 export const CONTACT_PAGE = {
   eyebrow: "Contact",
-  heading: "Let's Connect",
-  availableLabel: "Available",
+  heading: "Get in touch",
+  // Not a biography. The About page carries that; this page has one job.
   intro:
-    "Whether you have a job opportunity, a project to collaborate on, or just want to say hi — my inbox is always open.",
-  getInTouchHeading: "Get in touch",
-  availabilityHeading: "Currently Available",
-  availabilityBody:
-    "Open to internship and junior developer positions. I bring energy, curiosity, and a genuine drive to ship great software.",
-  gmailCta: "Open Gmail directly"
+    "The form goes straight to my inbox and I reply within a day. If you'd rather email me directly, the address is on the right.",
+  directHeading: "Direct",
+  // Facebook and Instagram are demoted to one quiet line rather than being
+  // peers of the email address -- both previously read "Social", which told a
+  // reader nothing and gave them equal weight to the inbox.
+  alsoOn: "Also on"
 };
 
 export const CONTACT_FORM_COPY = {
   heading: "Send a message",
-  nameLabel: "Full Name",
-  namePlaceholder: "Arman Khan",
-  emailLabel: "Email Address",
+  nameLabel: "Full name",
+  namePlaceholder: "Your name",
+  emailLabel: "Email address",
   emailPlaceholder: "you@example.com",
   subjectLabel: "Subject",
-  subjectPlaceholder: "Internship opportunity / Project collaboration",
+  subjectPlaceholder: "Internship, project, or something else",
   messageLabel: "Message",
-  messagePlaceholder: "Tell me about the opportunity, project, or just say hello...",
-  submit: "Send Message",
+  messagePlaceholder: "Tell me about the opportunity, project, or just say hello",
+  submit: "Send message",
   submitting: "Sending...",
   responseNote: "Typical response time: within 24 hours",
-  successHeading: "Message sent!",
+
+  successHeading: "Message sent",
   successBody: "Thanks for reaching out. I'll get back to you within 24 hours.",
-  unconfigured: "Contact form is not configured."
+  sendAnother: "Send another",
+
+  // Non-422 failures used to be entirely silent: the button re-enabled and
+  // nothing else happened. These cover network loss, 5xx and a bad form ID.
+  errorHeading: "Message not sent",
+  errorBody:
+    "Something went wrong on the way to my inbox. Try again, or email me directly at",
+  retry: "Try again",
+
+  unconfiguredHeading: "Form unavailable",
+  unconfiguredBody: "The contact form is not configured right now. Email me directly at"
 };
 
 /**
@@ -349,6 +367,18 @@ export const PROJECTS_PAGE = {
 
   emptyHeading: "No match",
   emptyBody: "Nothing matches every filter at once. Loosen one, or reset."
+};
+
+
+/** The project detail template. Only labels -- the values come from PROJECTS. */
+export const PROJECT_DETAIL = {
+  back: "All projects",
+  typeLabel: "Type",
+  statusLabel: "Status",
+  stackLabel: "Stack",
+  viewLive: "Live demo",
+  viewSource: "Source",
+  notDeployed: "Not deployed yet"
 };
 
 export const NOT_FOUND_COPY = {
@@ -458,6 +488,7 @@ export const PROJECTS: Project[] = [
   {
     id: 1,
     num: "01",
+    slug: "trilearn",
     title: "TriLearn",
     description: "A full-stack student learning and management platform with three access levels for administrators, instructors, and students.",
     longDescription: "TriLearn is a student learning and management platform I am currently building for schools and colleges. It supports three core roles, administrators, instructors, and students, with a modern full-stack architecture using React, Vite, Node.js, Express, PostgreSQL, Prisma, JWT auth, Zod validation, and GitHub Actions for CI.",
@@ -480,6 +511,7 @@ export const PROJECTS: Project[] = [
   {
     id: 2,
     num: "02",
+    slug: "weather-intelligence-platform",
     title: "Weather Intelligence Platform",
     description: "Real-time weather data with comprehensive metrics including temperature, humidity, UV index, and air quality. Features search history and multi-location forecasts.",
     longDescription: "A comprehensive weather application integrating WeatherAPI.com to deliver real-time meteorological data. Built with React and Axios, featuring dynamic search with history tracking, detailed forecasts including UV index and air quality metrics, and a fully responsive layout powered by Tailwind CSS.",
@@ -498,6 +530,7 @@ export const PROJECTS: Project[] = [
   {
     id: 3,
     num: "03",
+    slug: "movie-rating-discovery-app",
     title: "Movie Rating & Discovery App",
     description: "TMDB-powered movie discovery with a personal 5-star rating system, watchlist management, favorites collection, and advanced search filtering.",
     longDescription: "A feature-rich movie discovery platform leveraging the TMDB API. Users can search across thousands of films, apply personal 5-star ratings, manage watchlists and favorites, and explore advanced filters. Built with React and styled with Tailwind CSS for a cinematic browsing experience.",
@@ -515,6 +548,7 @@ export const PROJECTS: Project[] = [
   {
     id: 4,
     num: "04",
+    slug: "typing-test",
     title: "Professional Typing Test",
     description: "WPM and accuracy tracking tool with configurable test durations from 30 seconds to 5 minutes, performance analytics, and history tracking.",
     longDescription: "A polished typing speed assessment tool built entirely with React Hooks. Features configurable test durations, real-time WPM calculation, accuracy tracking, and a performance history dashboard. No external dependencies — pure React state management for a snappy, responsive experience.",
@@ -532,6 +566,7 @@ export const PROJECTS: Project[] = [
   {
     id: 5,
     num: "05",
+    slug: "nepal-patra",
     title: "Nepal Patra",
     description: "A Nepal-first news reader, built because general aggregators surface almost nothing from Nepal unless you go looking for it by name.",
     longDescription: "General news aggregators rank on global popularity, so Nepali headlines rarely surface on their own — you have to already know what to search for. Nepal Patra inverts that default: it opens on Nepal, pulls current headlines through TheNewsAPI, and sorts them by category so the country's news is the feed itself rather than a search result. Built with React and Axios, with a responsive card layout that stays readable on small screens.",
@@ -550,6 +585,7 @@ export const PROJECTS: Project[] = [
   {
     id: 6,
     num: "06",
+    slug: "expense-tracker",
     title: "Professional Expense Tracker",
     description: "Full-stack expense tracking application for recording transactions, organizing spending, and monitoring personal finances with a clean professional workflow.",
     longDescription: "A professional expense tracker built with React and Node.js for managing day-to-day finances in one place. It focuses on practical expense logging, category-based organization, and a streamlined dashboard experience that makes it easier to understand spending patterns over time.",
@@ -568,6 +604,7 @@ export const PROJECTS: Project[] = [
   {
     id: 7,
     num: "07",
+    slug: "articlehub",
     title: "ArticleHub",
     description: "A blog and article posting platform built with Flask, Jinja, HTML, CSS, and JavaScript for publishing and browsing written content through a clean web interface.",
     longDescription: "ArticleHub is a content publishing web application built with Flask and server-rendered Jinja templates. It focuses on article and blog posting workflows, combining Python on the backend with HTML, CSS, and JavaScript on the frontend to deliver a straightforward reading and publishing experience.",
@@ -587,6 +624,7 @@ export const PROJECTS: Project[] = [
   {
     id: 8,
     num: "08",
+    slug: "taskflow-kanban-manager",
     title: "TaskFlow Kanban Manager",
     description: "A simple Kanban-style task management app with drag-and-drop task movement across columns and priority-based organization for a smooth planning workflow.",
     longDescription: "TaskFlow is a task management application built with React, Vite, and Tailwind CSS. It uses a Kanban-style board layout to organize tasks visually and supports drag-and-drop interactions so tasks can be moved between workflow stages while keeping priority-focused planning simple and intuitive.",
@@ -629,6 +667,7 @@ export const PROJECTS: Project[] = [
   {
     id: 10,
     num: "10",
+    slug: "sajilo-bus-ticketing",
     title: "Sajilo Bus Ticketing System",
     description:
       "A bus ticketing system with a Django backend and a React frontend. Currently in development.",
@@ -721,26 +760,20 @@ export const CONTACT_LINKS: ContactLink[] = [
   },
   {
     label: "github.com/armancore",
-    sublabel: "Code & projects",
+    sublabel: "Code and commits",
     href: "https://github.com/armancore",
     iconName: "Github"
   },
   {
     label: "linkedin.com/in/techiee-arman",
-    sublabel: "Professional profile",
+    sublabel: "Work history",
     href: "https://www.linkedin.com/in/techiee-arman/",
     iconName: "Linkedin"
-  },
-  {
-    label: "facebook.com/techiee.arman",
-    sublabel: "Social",
-    href: "https://www.facebook.com/techiee.arman",
-    iconName: "Facebook"
-  },
-  {
-    label: "instagram.com/techiee.arman",
-    sublabel: "Social",
-    href: "https://www.instagram.com/techiee.arman",
-    iconName: "Instagram"
   }
+];
+
+/** Demoted to one quiet line beneath the list. */
+export const CONTACT_SECONDARY: { label: string; href: string }[] = [
+  { label: "Facebook", href: "https://www.facebook.com/techiee.arman" },
+  { label: "Instagram", href: "https://www.instagram.com/techiee.arman" }
 ];

@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { ExternalLink, Github } from 'lucide-react';
 import PageMeta from '../components/seo/PageMeta';
@@ -15,6 +16,10 @@ import {
   viewport,
 } from '../lib/motion';
 import { chip, eyebrow, monoLabel } from '../lib/styles';
+
+/** Hoisted: motion.create() inside render would mint a new component type on
+ *  every render, remounting the card and throwing away its animation state. */
+const MotionLink = motion.create(Link);
 
 /** How many stack toggles the bar will show. */
 const STACK_AXIS_SIZE = 5;
@@ -57,7 +62,11 @@ const toggle = <T,>(set: Set<T>, value: T) => {
 
 const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
   const extra = project.tags.length - VISIBLE_TAGS;
-  const href = project.liveUrl ?? project.githubUrl;
+  // The card now leads to the detail page rather than straight off-site. The
+  // live and source links live on that page, so a click no longer leaves the
+  // site before the reader has seen what the project is.
+  const detailHref = project.slug ? `/projects/${project.slug}` : null;
+  const externalHref = project.liveUrl ?? project.githubUrl;
   const isLive = project.status === 'live';
 
   const body = (
@@ -167,8 +176,16 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
 
   // A project with neither a deployment nor a public repo has nowhere to go, so
   // it renders as an article rather than as a link to nothing.
-  return href ? (
-    <motion.a {...motionProps} href={href} target="_blank" rel="noopener noreferrer">
+  if (detailHref) {
+    return (
+      <MotionLink {...motionProps} to={detailHref}>
+        {body}
+      </MotionLink>
+    );
+  }
+
+  return externalHref ? (
+    <motion.a {...motionProps} href={externalHref} target="_blank" rel="noopener noreferrer">
       {body}
     </motion.a>
   ) : (
