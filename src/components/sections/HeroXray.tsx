@@ -154,7 +154,8 @@ const HeroXray = () => {
     });
   };
 
-  const sweep = ready ? 0 : HOLD_FRAME_SWEEP;
+ 
+  const sweep = !profile.resolved || profile.motionAllowed ? 0 : HOLD_FRAME_SWEEP;
 
   return (
     <div
