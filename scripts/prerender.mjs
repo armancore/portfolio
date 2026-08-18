@@ -48,6 +48,11 @@ const applyMeta = (html, route, origin) => {
       /(<script type="application\/ld\+json">)[\s\S]*?(<\/script>)/i,
       `$1\n${JSON.stringify(route.jsonLd, null, 2)}\n  $2`
     );
+  } else {
+    out = out.replace(
+      /\s*<script type="application\/ld\+json">[\s\S]*?<\/script>/i,
+      ''
+    );
   }
 
   return out;
