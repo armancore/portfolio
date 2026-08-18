@@ -30,9 +30,9 @@ export const chip: React.CSSProperties = {
 /**
  * The small mono label that introduces a section.
  *
- * Muted, not amber. One accent per viewport is a site-wide rule, and a page
- * with five sections would otherwise spend five ambers on labels before
- * reaching the one CTA that is supposed to be the accent.
+ * Muted, not amber. One amber call to action per viewport is a site-wide rule,
+ * and a page with five sections would otherwise spend five ambers on labels
+ * before reaching the one CTA that is supposed to be the accent.
  */
 export const eyebrow: React.CSSProperties = {
   fontFamily: 'var(--font-mono)',

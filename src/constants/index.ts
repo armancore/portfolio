@@ -114,7 +114,7 @@ export const PERSONAL_INFO = {
   // can carry the biography without the two drifting into paraphrases of
   // each other.
   intro:
-    "I build full-stack web applications — the interface people use and the systems behind it. What interests me most is the part nobody sees: authentication, data modeling, and APIs that still behave when the input is wrong.",
+    "I build full-stack web applications — the interface people use and the systems behind it. The interesting part is making both hold up when someone uses them in a way you didn't plan for.",
   // Rendered only on the About page. The schools and dates live in TIMELINE
   // ids 4 and 5, so this no longer repeats them.
   bio: [

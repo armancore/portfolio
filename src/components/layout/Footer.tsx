@@ -21,8 +21,10 @@ const iconMap = {
  * gave the footer more visual weight than the page above it. Type and hairlines
  * carry the structure instead.
  *
- * No amber. The navbar's active-route rule is the one accent these two share,
- * and every link here settles on --color-chalk.
+ * No amber. The navbar's active-route rule is the only one these two share,
+ * and it is wayfinding rather than a call to action, so it never competes with
+ * whichever CTA the page above has spent its accent on. Every link here settles
+ * on --color-chalk.
  */
 const Footer = () => {
   const year = new Date().getFullYear();

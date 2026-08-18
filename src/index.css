@@ -178,8 +178,7 @@ a:not([class]) { color: var(--color-signal); }
 
 /* A quiet action: panel surface, hairline border, chalk label, reaching for
    amber only on hover and focus. Used where a button is important but is not
-   the one accent its viewport is allowed -- the hero pair sits beneath the
-   sweep line, which is the signature moment's amber. */
+   its viewport's one amber call to action. */
 .btn-quiet {
   transition:
     color var(--duration-tap) var(--ease-signal),
