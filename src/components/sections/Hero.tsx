@@ -1,15 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { ArrowRight, Github, Linkedin, Facebook, Instagram } from 'lucide-react';
-import { HOME_PAGE, PERSONAL_INFO, SOCIAL_LINKS } from '../../constants';
+import { ArrowRight } from 'lucide-react';
+import { HOME_PAGE, PERSONAL_INFO } from '../../constants';
 import { STAGGER, revealBody, staggerContainer } from '../../lib/motion';
-import { secondaryAction } from '../../lib/styles';
 import HeroXray from './HeroXray';
-
-// Scoped to this file rather than shared, so a page that renders no icons does
-// not pull the whole set into its chunk.
-const iconMap = { Github, Linkedin, Facebook, Instagram };
 
 const Hero = () => (
   // Section height, grid and padding all live in .xray-section / .xray-grid, so
@@ -51,56 +46,18 @@ const Hero = () => (
             {PERSONAL_INFO.intro}
           </motion.p>
 
-          <motion.div
-            variants={revealBody}
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: 'calc(var(--spacing) * 3)',
-              marginBottom: 'calc(var(--spacing) * 8)',
-            }}
-          >
-            {/* Both quiet. The sweep line is the hero's amber, and a filled
-                button beside it would be a second accent competing with the
-                signature moment. */}
-            <Link to="/projects" className="btn-quiet" style={secondaryAction}>
-              {HOME_PAGE.viewProjects} <ArrowRight size={15} />
+          {/* Two actions, one destination each, and no third row beneath them:
+              the four social marks that used to sit here are on every page in
+              the footer, this one included. */}
+          <motion.div variants={revealBody} className="hero-actions">
+            <Link to="/projects" className="hero-action hero-action--primary">
+              {HOME_PAGE.viewProjects}
+              <ArrowRight className="hero-action__arrow" size={15} aria-hidden="true" />
             </Link>
-            <Link to="/contact" className="btn-quiet" style={secondaryAction}>
+
+            <Link to="/contact" className="hero-action hero-action--secondary">
               {HOME_PAGE.contactMe}
             </Link>
-          </motion.div>
-
-          <motion.div variants={revealBody} style={{ display: 'flex', alignItems: 'center', gap: 'calc(var(--spacing) * 2.5)', flexWrap: 'wrap' }}>
-            {SOCIAL_LINKS.map((social) => {
-              const Icon = iconMap[social.icon as keyof typeof iconMap];
-              return (
-                <a
-                  key={social.url}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.label}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '44px',
-                    height: '44px',
-                    borderRadius: 'var(--radius-sm)',
-                    border: '1px solid var(--color-rule)',
-                    background: 'var(--color-panel)',
-                    color: 'var(--color-chalk-2)',
-                    textDecoration: 'none',
-                  }}
-                >
-                  {Icon ? <Icon size={15} /> : null}
-                </a>
-              );
-            })}
-            <span style={{ color: 'var(--color-chalk-3)', fontSize: 'var(--text-xs)', marginLeft: 'var(--spacing)' }}>
-              {HOME_PAGE.locationNote}
-            </span>
           </motion.div>
         </motion.div>
 
