@@ -41,7 +41,7 @@ blue glows on `.gradient-text`, `.noise-overlay`, `navbar-scanline`.
   /* text */
   --color-chalk:   oklch(0.96 0.006 85);    /* headings, primary */
   --color-chalk-2: oklch(0.72 0.008 80);    /* body, secondary */
-  --color-chalk-3: oklch(0.55 0.008 78);    /* labels, captions, muted */
+  --color-chalk-3: oklch(0.60 0.008 78);    /* labels, captions, muted */
 
   /* three signals, one chroma band */
   --color-signal:   oklch(0.78 0.145 66);   /* amber — structure, links, focus */
