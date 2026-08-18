@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Github, Linkedin, Facebook, Instagram } from 'lucide-react';
+import { ArrowUpRight, Github, Linkedin, Facebook, Instagram } from 'lucide-react';
 import { motion } from 'motion/react';
 import { NAV_LINKS, SOCIAL_LINKS, PERSONAL_INFO, FOOTER_COPY } from '../../constants';
 import { STAGGER, revealBody, staggerContainer, viewport } from '../../lib/motion';
@@ -72,6 +72,14 @@ const Footer = () => {
                   >
                     {Icon ? <Icon size={14} strokeWidth={1.5} aria-hidden="true" /> : null}
                     {social.label}
+                    {/* These four leave the site and the nav four do not. At
+                        rest the two stacks were indistinguishable. */}
+                    <ArrowUpRight
+                      className="footer-link__out"
+                      size={12}
+                      strokeWidth={1.5}
+                      aria-hidden="true"
+                    />
                   </a>
                 );
               })}
