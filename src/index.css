@@ -370,6 +370,33 @@ a:not([class]) { color: var(--color-signal); }
   .pj-card:hover {
     border-color: var(--color-chalk-3);
   }
+
+  .pj-card:hover .pj-card__go {
+    color: var(--color-chalk);
+    transform: translateX(calc(var(--spacing) * 0.5));
+  }
+}
+
+/* The card is one big link, so the keyboard needs the same answer the mouse
+   gets. Without this the only feedback was the global focus ring. */
+.pj-card:focus-visible {
+  border-color: var(--color-chalk-3);
+}
+
+.pj-card:focus-visible .pj-card__go {
+  color: var(--color-chalk);
+  transform: translateX(calc(var(--spacing) * 0.5));
+}
+
+/* The resting cue. Nothing on the card said it led anywhere -- the live-demo
+   and repo marks describe the project, not the card's own destination, and on
+   a touch screen the hover border never arrives at all. */
+.pj-card__go {
+  display: inline-flex;
+  color: var(--color-chalk-3);
+  transition:
+    color var(--duration-tap) var(--ease-signal),
+    transform var(--duration-tap) var(--ease-signal);
 }
 
 /* Hard clamps. Without these the descriptions run 125-163 characters and the
@@ -774,6 +801,10 @@ a:not([class]) { color: var(--color-signal); }
   color: var(--color-chalk);
 }
 
+.nav-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
 .nav-link[data-active] {
   color: var(--color-chalk);
   font-weight: 500;
@@ -827,6 +858,10 @@ a:not([class]) { color: var(--color-signal); }
   .nav-cta:hover::after {
     transform: scaleX(1);
   }
+}
+
+.nav-cta:focus-visible::after {
+  transform: scaleX(1);
 }
 
 .nav-toggle {
@@ -977,6 +1012,16 @@ a:not([class]) { color: var(--color-signal); }
   gap: calc(var(--spacing) * 3);
 }
 
+.footer-link__out {
+  color: var(--color-chalk-3);
+  transition: color var(--duration-tap) var(--ease-signal);
+}
+
+.footer-link:hover .footer-link__out,
+.footer-link:focus-visible .footer-link__out {
+  color: var(--color-chalk);
+}
+
 .footer-link {
   display: inline-flex;
   align-items: center;
@@ -1023,6 +1068,10 @@ a:not([class]) { color: var(--color-signal); }
   .footer-email:hover {
     text-decoration-color: var(--color-chalk);
   }
+}
+
+.footer-email:focus-visible {
+  text-decoration-color: var(--color-chalk);
 }
 
 .footer-contact__sep {
@@ -1114,6 +1163,10 @@ a:not([class]) { color: var(--color-signal); }
   .hero-action--secondary:hover {
     color: var(--color-signal);
   }
+}
+
+.hero-action--primary:focus-visible .hero-action__arrow {
+  transform: translateX(calc(var(--spacing) * 0.5));
 }
 
 .hero-action--secondary:focus-visible {
@@ -1329,6 +1382,10 @@ a:not([class]) { color: var(--color-signal); }
   .xray-row__link:hover {
     text-decoration-color: var(--color-chalk);
   }
+}
+
+.xray-row__link:focus-visible {
+  text-decoration-color: var(--color-chalk);
 }
 
 /* Below 768px the sweep runs vertically and the label stacks above its value

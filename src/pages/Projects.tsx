@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { ExternalLink, Github } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, ExternalLink, Github } from 'lucide-react';
 import PageMeta from '../components/seo/PageMeta';
 import { PROJECTS, PROJECTS_PAGE } from '../constants';
 import type { Project, ProjectStatus, ProjectType } from '../constants';
@@ -151,11 +151,23 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
         ) : (
           <span style={monoLabel}>{PROJECTS_PAGE.viewPending}</span>
         )}
-        {project.githubUrl ? (
-          <span style={{ ...monoLabel, display: 'inline-flex', alignItems: 'center', gap: 'calc(var(--spacing))' }}>
-            <Github size={12} />
-          </span>
-        ) : null}
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 'calc(var(--spacing) * 2)' }}>
+          {project.githubUrl ? (
+            <span style={{ ...monoLabel, display: 'inline-flex', alignItems: 'center' }}>
+              <Github size={12} />
+            </span>
+          ) : null}
+          {/* The card's own destination, stated at rest. The live-demo and repo
+              marks beside it describe the project; neither says the card is a
+              link, and the hover border that used to be the only cue never
+              arrives on a touch screen. The glyph distinguishes a detail page
+              from a jump off-site. */}
+          {detailHref ? (
+            <ArrowRight className="pj-card__go" size={13} aria-hidden="true" />
+          ) : (
+            <ArrowUpRight className="pj-card__go" size={13} aria-hidden="true" />
+          )}
+        </span>
       </div>
     </>
   );
