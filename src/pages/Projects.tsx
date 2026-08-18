@@ -228,7 +228,7 @@ const Projects = () => {
         variants={staggerContainer(STAGGER.loose, 0.05)}
         initial="hidden"
         animate="show"
-        style={{ paddingTop: 'calc(var(--spacing) * 28)', paddingBottom: 'calc(var(--spacing) * 10)' }}
+        style={{ paddingTop: 'calc(var(--spacing) * 16)', paddingBottom: 'calc(var(--spacing) * 10)' }}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.p variants={revealBody} style={{ ...eyebrow, marginBottom: 'calc(var(--spacing) * 3)' }}>

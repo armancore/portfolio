@@ -68,7 +68,7 @@ const Section = ({
     // until they are scrolled to.
     {...(first ? { animate: 'show' } : { whileInView: 'show', viewport })}
     style={{
-      paddingTop: first ? 'calc(var(--spacing) * 28)' : `calc(var(--spacing) * ${pad})`,
+      paddingTop: first ? 'calc(var(--spacing) * 16)' : `calc(var(--spacing) * ${pad})`,
       paddingBottom: `calc(var(--spacing) * ${pad})`,
       ...(first ? {} : { borderTop: '1px solid var(--color-rule)' }),
     }}

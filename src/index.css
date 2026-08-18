@@ -81,6 +81,9 @@
 
 html {
   scroll-behavior: smooth;
+  /* The bar is sticky, so an anchor target would otherwise land underneath
+     it. One bar height of scroll padding puts the heading below the rule. */
+  scroll-padding-top: calc(var(--spacing) * 16);
   scrollbar-gutter: stable;
   /* Nothing may sit under the mobile browser's bottom UI. */
   padding-bottom: env(safe-area-inset-bottom);
@@ -122,7 +125,10 @@ a:not([class]) { color: var(--color-signal); }
 }
 
 .skip-link {
-  position: absolute;
+  /* fixed, not absolute: with a sticky bar the reader can be anywhere in the
+     document when they tab, and an absolute link would be scrolled out of
+     view -- forcing the browser to jump the page to reveal it. */
+  position: fixed;
   left: var(--spacing);
   top: var(--spacing);
   z-index: 100;
@@ -664,67 +670,380 @@ a:not([class]) { color: var(--color-signal); }
 
 /* --- Navbar ------------------------------------------------------------- */
 
-/* One amber accent per viewport: the page's own primary CTA. Everything in the
-   chrome -- the active nav pill, the hamburger, HIRE ME -- is a quiet panel
-   surface that only reaches for --color-signal on hover and focus. */
+/* Sticky, not fixed. The bar occupies flow space, so no page has to reserve
+   room for it with top padding, the skip link's target lands exactly where it
+   reads, and a :focus-visible ring can never be clipped -- nothing here sets
+   overflow.
 
-/* Mobile only. Kept here rather than on a Tailwind `md:hidden` because these
-   rules are unlayered and Tailwind's utilities sit in @layer utilities --
-   unlayered CSS wins, so a utility could never turn this off. */
-.nav-toggle {
-  display: none;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  flex-shrink: 0;
-  color: var(--color-chalk);
-  background: var(--color-panel);
-  border: 1px solid var(--color-rule);
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition:
-    color var(--duration-tap) var(--ease-signal),
-    border-color var(--duration-tap) var(--ease-signal);
+   Flat: no radius, no blur, no floating pill. The one thing that changes on
+   scroll is the bottom hairline, which is transparent while the page is at rest
+   and fades in past 80px. No height change, no shadow, no hide-on-scroll. */
+.nav-bar {
+  position: sticky;
+  top: 0;
+  /* Above the mobile sheet, so the wordmark and the close control stay
+     readable and clickable over it. */
+  z-index: 70;
+  background: var(--color-void);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--duration-move) var(--ease-signal);
+  padding-top: env(safe-area-inset-top);
 }
 
-.nav-cta {
-  display: inline-flex;
+.nav-bar[data-scrolled='true'] {
+  border-bottom-color: var(--color-rule);
+}
+
+.nav-row {
+  display: flex;
   align-items: center;
-  gap: calc(var(--spacing) * 2);
-  padding: 10px 16px;
+  justify-content: space-between;
+  gap: calc(var(--spacing) * 4);
+  min-height: calc(var(--spacing) * 16);
+}
+
+.nav-wordmark {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  /* color: inherit so the unclassed-anchor amber rule does not reach it. */
+  color: var(--color-chalk);
+  flex-shrink: 0;
+}
+
+/* Display switching lives here rather than on a Tailwind `md:hidden`: these
+   rules are unlayered and Tailwind's utilities sit in @layer utilities, so
+   unlayered CSS wins and a utility could never turn them off. */
+.nav-links {
+  display: none;
+  align-items: center;
+  gap: calc(var(--spacing) * 7);
+}
+
+.nav-link {
+  position: relative;
+  padding: calc(var(--spacing) * 2) 0;
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.07em;
   text-transform: uppercase;
   text-decoration: none;
-  border-radius: var(--radius-sm);
-  background: var(--color-panel);
-  border: 1px solid var(--color-rule);
-  color: var(--color-chalk);
+  color: var(--color-chalk-2);
+  transition: color var(--duration-tap) var(--ease-signal);
+}
+
+/* The active state is a rule and a weight, never a filled box -- and never
+   colour alone, which WCAG 1.4.1 rules out. IBM Plex Mono is monospaced, so
+   400 and 500 share an advance width and the weight change costs no layout
+   shift. */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--color-rule);
+  transform: scaleX(0);
+  transform-origin: left;
   transition:
-    color var(--duration-tap) var(--ease-signal),
-    border-color var(--duration-tap) var(--ease-signal);
+    transform var(--duration-tap) var(--ease-signal),
+    background-color var(--duration-tap) var(--ease-signal);
 }
 
 @media (hover: hover) {
-  .nav-toggle:hover,
-  .nav-cta:hover,
   .nav-link:hover {
-    color: var(--color-signal);
-    border-color: var(--color-signal);
+    color: var(--color-chalk);
+  }
+
+  .nav-link:hover::after {
+    transform: scaleX(1);
   }
 }
 
-.nav-toggle:focus-visible,
-.nav-cta:focus-visible,
 .nav-link:focus-visible {
-  color: var(--color-signal);
+  color: var(--color-chalk);
+}
+
+.nav-link[data-active] {
+  color: var(--color-chalk);
+  font-weight: 500;
+}
+
+/* The single amber across the navbar and footer combined. It marks where the
+   reader is, which is wayfinding, not a second call to action -- the page's own
+   CTA keeps the accent's other meaning. */
+.nav-link[data-active]::after {
+  background: var(--color-signal);
+  transform: scaleX(1);
+}
+
+/* Quiet, deliberately. This bar is above the fold on every route, and Home,
+   About and 404 each spend their amber on a primaryAction CTA; an amber button
+   here would compete with three of them. */
+.nav-cta {
+  display: none;
+  position: relative;
+  align-items: center;
+  /* The one gap that is not the link rhythm: it is what separates the routes
+     from the action now that no divider does. */
+  margin-left: calc(var(--spacing) * 4);
+  padding: calc(var(--spacing) * 2) 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  /* Wider than the 0.07em the routes carry. Without a border this is what
+     keeps it reading as an action rather than a fifth link. */
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-chalk);
+}
+
+/* Same underline reveal as the routes, so the bar has one hover behaviour. */
+.nav-cta::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--color-rule);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration-tap) var(--ease-signal);
+}
+
+@media (hover: hover) {
+  .nav-cta:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+.nav-toggle {
+  display: grid;
+  place-items: center;
+  width: calc(var(--spacing) * 11);
+  height: calc(var(--spacing) * 11);
+  margin-right: calc(var(--spacing) * -2);
+  flex-shrink: 0;
+  color: var(--color-chalk);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: color var(--duration-tap) var(--ease-signal);
+}
+
+@media (min-width: 768px) {
+  .nav-links {
+    display: flex;
+  }
+
+  .nav-cta {
+    display: inline-flex;
+  }
+
+  .nav-toggle {
+    display: none;
+  }
+}
+
+/* Mobile sheet ------------------------------------------------------------ */
+
+/* Full height rather than a dropdown: at --text-xl the four routes need the
+   room, and a sheet that covers the page makes the scroll lock legible instead
+   of mysterious. */
+.nav-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-void);
+  padding: calc(var(--spacing) * 20 + env(safe-area-inset-top))
+    calc(var(--spacing) * 4)
+    calc(var(--spacing) * 6 + env(safe-area-inset-bottom));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.nav-sheet__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--spacing) * 4);
+  min-height: calc(var(--spacing) * 14);
+  padding: calc(var(--spacing) * 3) 0;
+  border-bottom: 1px solid var(--color-rule);
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  color: var(--color-chalk-2);
+}
+
+/* Same two signals as the bar: the rule takes the accent, the label takes the
+   weight. Only one of the two navigations is ever on screen, so this is the
+   same single amber and not a second one. */
+.nav-sheet__link[data-active] {
+  color: var(--color-chalk);
+  border-bottom-color: var(--color-signal);
+}
+
+.nav-sheet__index {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--color-chalk-3);
+}
+
+.nav-sheet__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+  padding-top: calc(var(--spacing) * 6);
+  min-height: calc(var(--spacing) * 11);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-chalk);
+}
+
+/* --- Footer ------------------------------------------------------------- */
+
+.footer {
+  border-top: 1px solid var(--color-rule);
+  background: var(--color-void);
+  padding-block: calc(var(--spacing) * 16) calc(var(--spacing) * 8);
+}
+
+/* Asymmetric on purpose: identity wide on the left, links narrow on the right.
+   Three equal columns is the shape the rest of the site moved away from. */
+.footer-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: calc(var(--spacing) * 12);
+}
+
+.footer-wordmark {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-decoration: none;
+  color: var(--color-chalk);
+}
+
+.footer-wordmark__stop {
+  color: var(--color-chalk-3);
+}
+
+.footer-blurb {
+  margin: calc(var(--spacing) * 4) 0 0;
+  max-width: 46ch;
+  font-size: var(--text-sm);
+  line-height: 1.75;
+  color: var(--color-chalk-2);
+}
+
+/* Two stacks, no headings. "Navigation" and "Connect" over four items each was
+   scaffolding for a shape that already reads. */
+.footer-stacks {
+  display: grid;
+  grid-template-columns: minmax(0, 0.6fr) minmax(0, 1fr);
+  gap: calc(var(--spacing) * 12);
+  align-content: start;
+}
+
+.footer-stack {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 3);
+}
+
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 2);
+  width: fit-content;
+  font-size: var(--text-sm);
+  text-decoration: none;
+  color: var(--color-chalk-2);
+  transition: color var(--duration-tap) var(--ease-signal);
+}
+
+@media (hover: hover) {
+  .footer-link:hover {
+    color: var(--color-chalk);
+  }
+}
+
+.footer-link:focus-visible {
+  color: var(--color-chalk);
+}
+
+/* Spans both columns beneath them. The address is the only underlined thing in
+   the footer, which is how it signals itself without spending the accent. */
+.footer-contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: calc(var(--spacing) * 2);
+  margin: calc(var(--spacing) * 12) 0 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-chalk-3);
+}
+
+.footer-email {
+  color: var(--color-chalk);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--color-chalk-3);
+  transition: text-decoration-color var(--duration-tap) var(--ease-signal);
+}
+
+@media (hover: hover) {
+  .footer-email:hover {
+    text-decoration-color: var(--color-chalk);
+  }
+}
+
+.footer-contact__sep {
+  color: var(--color-rule);
+}
+
+.footer-baseline {
+  margin-top: calc(var(--spacing) * 8);
+  padding-top: calc(var(--spacing) * 6);
+  border-top: 1px solid var(--color-rule);
+  font-size: var(--text-xs);
+  color: var(--color-chalk-3);
+}
+
+.footer-baseline p {
+  margin: 0;
 }
 
 @media (max-width: 767px) {
-  .nav-toggle {
-    display: grid;
+  .footer-top {
+    grid-template-columns: minmax(0, 1fr);
+    gap: calc(var(--spacing) * 10);
+  }
+
+  .footer-contact {
+    margin-top: calc(var(--spacing) * 10);
   }
 }
 
@@ -734,7 +1053,7 @@ a:not([class]) { color: var(--color-signal); }
   min-height: min(88svh, 780px);
   display: grid;
   align-content: center;
-  padding-block: calc(var(--spacing) * 24) calc(var(--spacing) * 12);
+  padding-block: calc(var(--spacing) * 12) calc(var(--spacing) * 12);
   padding-bottom: calc(var(--spacing) * 12 + env(safe-area-inset-bottom));
 }
 

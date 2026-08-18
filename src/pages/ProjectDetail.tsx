@@ -41,7 +41,7 @@ const ProjectDetail = () => {
         initial="hidden"
         animate="show"
         style={{
-          paddingTop: 'calc(var(--spacing) * 28)',
+          paddingTop: 'calc(var(--spacing) * 16)',
           paddingBottom: 'calc(var(--spacing) * 20)',
         }}
       >

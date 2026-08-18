@@ -127,14 +127,26 @@ export const PERSONAL_INFO = {
 // Footer prose. Previously inlined in Footer.tsx, which put user-facing copy
 // outside the one file that is supposed to hold it.
 export const FOOTER_COPY = {
+  // The old line led with "polished web interfaces" and called backend a skill
+  // being "steadily grown", which is the opposite of what the hero now says.
   blurb:
-    "Building things that live on the internet. Focused on polished web interfaces while steadily growing my backend development skills.",
-  navHeading: "Navigation",
-  connectHeading: "Connect",
-  connectBlurb:
-    "Open to internship and junior developer opportunities. Available for collaboration and project discussions.",
-  rights: "All rights reserved.",
-  credit: "Designed and developed by Arman Khan."
+    "Full-stack web applications — the interface people use, and the authentication, data models and APIs behind it.",
+  // The two stacks are labelled for assistive tech only; the visible headings
+  // are gone.
+  navLabel: "Footer navigation",
+  socialLabel: "Social profiles"
+};
+
+// The bar's own strings. Both toggle labels exist because a static
+// "Toggle menu" never tells a screen reader which way the control is about to
+// go.
+export const NAV_COPY = {
+  wordmark: "Arman",
+  cta: "Hire Me",
+  primaryLabel: "Primary",
+  mobileLabel: "Site",
+  openMenu: "Open menu",
+  closeMenu: "Close menu"
 };
 
 export interface HeroRow {
@@ -179,8 +191,8 @@ export const HERO_XRAY = {
     {
       id: "contact",
       label: "CONTACT",
-      value: "contact@armankhan.com.np",
-      href: "mailto:contact@armankhan.com.np",
+      value: PERSONAL_INFO.email,
+      href: `mailto:${PERSONAL_INFO.email}`,
       ry: 89
     }
   ] satisfies HeroRow[],
@@ -753,9 +765,9 @@ export const TIMELINE: TimelineEntry[] = [
 
 export const CONTACT_LINKS: ContactLink[] = [
   {
-    label: "contact@armankhan.com.np",
+    label: PERSONAL_INFO.email,
     sublabel: "Fastest response",
-    href: "mailto:contact@armankhan.com.np",
+    href: `mailto:${PERSONAL_INFO.email}`,
     iconName: "Mail"
   },
   {

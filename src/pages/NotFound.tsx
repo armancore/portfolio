@@ -23,7 +23,7 @@ const NotFound = () => (
       initial="hidden"
       animate="show"
       style={{
-        paddingTop: 'calc(var(--spacing) * 32)',
+        paddingTop: 'calc(var(--spacing) * 20)',
         paddingBottom: 'calc(var(--spacing) * 25)',
       }}
     >
