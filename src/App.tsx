@@ -164,13 +164,17 @@ const AppContent = ({ pages, suspend }: AppProps) => {
                   data-route-transition
                   // filter: blur() was animating paint on every frame, which
                   // section 2 rules out alongside width/height/box-shadow.
-                  // Transform and opacity only. Section 5 retunes the exact
-                  // enter/exit timings; this commit brings it onto the shared
-                  // curve and off the paint-bound property.
+                  // Transform and opacity only.
+                  //
+                  // mode="wait" runs the two phases in sequence, so the route
+                  // change costs exit + enter, not max(exit, enter). At
+                  // --duration-enter that totalled 460ms against section 5's
+                  // 400ms cap; the cap wins, so the entrance is --duration-move
+                  // and a route change lands in 380ms.
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8, transition: { duration: DURATION.exit, ease: EASE } }}
-                  transition={{ duration: DURATION.enter, ease: EASE }}
+                  transition={{ duration: DURATION.move, ease: EASE }}
                 >
                   {routeTree}
                 </motion.div>
