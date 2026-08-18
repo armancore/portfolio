@@ -1,13 +1,3 @@
-/**
- * Writes a static HTML file per route into dist/.
- *
- * Runs after both Vite builds: the client build produces dist/index.html with
- * hashed asset tags, and the SSR build produces dist-ssr/entry-server.js. This
- * renders each route through the SSR bundle, injects the markup into the client
- * template, and rewrites the head tags from the shared route table so a cold
- * load and a link-preview bot both see the right title and description.
- */
-
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -22,7 +12,6 @@ const escapeAttr = (value) =>
 const escapeHtml = (value) =>
   value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-/** Replaces the content="" of a meta tag matched by its identifying attribute. */
 const setMeta = (html, attr, name, value) => {
   const pattern = new RegExp(`(<meta\\s+${attr}="${name}"[^>]*?content=")[^"]*(")`, 'i');
   if (!pattern.test(html)) throw new Error(`No <meta ${attr}="${name}"> in the template`);
@@ -31,7 +20,6 @@ const setMeta = (html, attr, name, value) => {
 
 const applyMeta = (html, route, origin) => {
   const url = route.path === '/404' ? origin : `${origin}${route.path === '/' ? '/' : route.path}`;
-  // The tab label stays short; og/twitter carry the descriptive variant.
   const shareTitle = route.shareTitle ?? route.title;
 
   let out = html.replace(/<title>[^<]*<\/title>/i, `<title>${escapeHtml(route.title)}</title>`);
@@ -75,9 +63,6 @@ const main = async () => {
     console.log(`  prerendered ${route.path.padEnd(10)} -> dist/${route.file} (${kb} kB)`);
   }
 
-  // The sitemap is generated from the same route table, not hand-maintained.
-  // It listed four URLs while the build emitted fourteen, so every project
-  // detail page was invisible to a crawler that trusted it.
   const indexable = ROUTES.filter((r) => r.file && r.path !== '/404');
   const sitemap = [
     '<?xml version="1.0" encoding="UTF-8"?>',

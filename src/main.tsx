@@ -17,9 +17,6 @@ const tree = (
   </StrictMode>
 )
 
-// Every route is prerendered to static HTML, so the container normally arrives
-// already populated and we attach to it. createRoot is the fallback for a dev
-// server or any route that was not prerendered.
 if (rootElement.hasChildNodes()) {
   hydrateRoot(rootElement, tree)
 } else {

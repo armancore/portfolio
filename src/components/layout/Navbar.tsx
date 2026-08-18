@@ -8,12 +8,6 @@ import { DURATION, EASE } from '../../lib/motion';
 
 const SHEET_ID = 'nav-sheet';
 
-/**
- * The bar is sticky rather than fixed, so it takes part in the flow and no page
- * has to reserve room for it. It carries no radius, no blur, no nested pills
- * and no boxed control: the wordmark, the routes and one action are all plain
- * type on the page's own grid, separated by space rather than by borders.
- */
 const Navbar = () => {
   const scrolled = useScrolled(80);
   const location = useLocation();
@@ -25,26 +19,12 @@ const Navbar = () => {
     setIsMenuOpen(false);
   }, [location.pathname]);
 
-  /**
-   * Scroll lock. Without it the page scrolls behind the open sheet, so closing
-   * the menu returns the reader somewhere they never chose to be.
-   *
-   * The lock goes on the documentElement, not the body: <html> is the scrolling
-   * element here, and hiding the body's overflow leaves the page scrolling
-   * exactly as before. The body is locked too for the browsers that disagree
-   * about which of the two owns the viewport scroll. `scrollbar-gutter: stable`
-   * is already set on <html>, so removing the scrollbar shifts nothing.
-   */
   useEffect(() => {
     if (!isMenuOpen) return undefined;
 
     const root = document.documentElement;
     const previousRoot = root.style.overflow;
     const previousBody = document.body.style.overflow;
-    // Hiding the overflow makes the document unscrollable, which clamps its
-    // scroll position to 0. The sheet covers the viewport so nobody sees that
-    // happen -- but without restoring it, closing the menu would leave the
-    // reader at the top of a page they were halfway down.
     const restoreTo = window.scrollY;
 
     root.style.overflow = 'hidden';
@@ -57,15 +37,6 @@ const Navbar = () => {
     };
   }, [isMenuOpen]);
 
-  /**
-   * Focus trap and Escape. The trap spans the whole header, not just the sheet,
-   * because the close control lives in the bar -- trapping inside the sheet
-   * alone would put the only way out beyond reach of the keyboard.
-   *
-   * Focusables are read on every keystroke rather than cached: the desktop
-   * links are display:none at this breakpoint, and offsetParent is what tells
-   * them apart from the sheet's own links.
-   */
   useEffect(() => {
     if (!isMenuOpen) return undefined;
 
@@ -77,8 +48,6 @@ const Navbar = () => {
         header.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')
       ).filter((element) => element.offsetParent !== null);
 
-    // Focus lands on the first route in the sheet, not on the close control --
-    // the reader opened the menu to go somewhere.
     const sheet = header.querySelector<HTMLElement>(`#${SHEET_ID}`);
     const firstInSheet = sheet?.querySelector<HTMLElement>('a[href]');
     (firstInSheet ?? toggleRef.current)?.focus();
@@ -87,7 +56,6 @@ const Navbar = () => {
       if (event.key === 'Escape') {
         event.preventDefault();
         setIsMenuOpen(false);
-        // Return focus to the control that opened it, not to the document.
         toggleRef.current?.focus();
         return;
       }

@@ -15,15 +15,10 @@ import {
 } from '../lib/motion';
 import { eyebrow, monoLabel, primaryAction, secondaryAction, sectionHeading } from '../lib/styles';
 
-/** The measure for prose. */
 const PROSE = '62ch';
 
 const sectionInner = 'max-w-6xl mx-auto px-4 sm:px-6 lg:px-8';
 
-/**
- * The mask wipe needs a clipping parent and a block child that can carry a
- * percentage offset, so every heading on this page is built from the pair.
- */
 const Heading = ({ children }: { children: React.ReactNode }) => (
   <h2 style={{ ...sectionHeading, overflow: 'hidden', margin: 0 }}>
     <motion.span variants={revealHeading} style={{ display: 'block' }}>
@@ -32,8 +27,6 @@ const Heading = ({ children }: { children: React.ReactNode }) => (
   </h2>
 );
 
-/** Animated hairline. transformOrigin lives here because revealRule only drives
- *  scaleX -- the origin is a layout decision, not a motion one. */
 const Rule = () => (
   <motion.div
     aria-hidden="true"
@@ -47,11 +40,6 @@ const Rule = () => (
   />
 );
 
-/**
- * `pad` is the vertical rhythm in spacing units, varied per section on purpose:
- * the narrative and the closing statement get room, the reference sections are
- * tighter. Uniform padding is most of why the page used to scroll flat.
- */
 const Section = ({
   children,
   pad,
@@ -64,8 +52,6 @@ const Section = ({
   <motion.section
     variants={staggerContainer(STAGGER.loose)}
     initial="hidden"
-    // The header is above the fold, so it animates on mount; the rest wait
-    // until they are scrolled to.
     {...(first ? { animate: 'show' } : { whileInView: 'show', viewport })}
     style={{
       paddingTop: first ? 'calc(var(--spacing) * 16)' : `calc(var(--spacing) * ${pad})`,
@@ -81,7 +67,6 @@ const About = () => (
   <div style={{ minHeight: '100svh' }}>
     <PageMeta path="/about" />
 
-    {/* 1 — Asymmetric split. Breaks the stacked pattern immediately. */}
     <Section first pad={18}>
       <motion.p variants={revealBody} style={{ ...eyebrow, marginBottom: 'calc(var(--spacing) * 6)' }}>
         {ABOUT_PAGE.eyebrow}
@@ -119,8 +104,6 @@ const About = () => (
       </div>
     </Section>
 
-    {/* 2 — The centrepiece, and the page's widest vertical rhythm. Prose only:
-        no card, no callout, no icon, and no anchor wrapping any of it. */}
     <Section pad={28}>
       <motion.p variants={revealBody} style={eyebrow}>
         {ABOUT_PAGE.storyEyebrow}
@@ -130,7 +113,6 @@ const About = () => (
 
       {ABOUT_PAGE.story.map((para, i) =>
         i === ABOUT_PAGE.storyEmphasisIndex ? (
-          // Out of the column: full container width, larger, against a rule.
           <motion.div key={i} variants={revealBody} className="about-breakout">
             <span className="about-breakout__marker">{ABOUT_PAGE.storyEmphasisMarker}</span>
             <p className="about-breakout__text">{para}</p>
@@ -153,7 +135,6 @@ const About = () => (
       )}
     </Section>
 
-    {/* 3 — A specification sheet. Tighter rhythm than the narrative sections. */}
     <Section pad={18}>
       <motion.p variants={revealBody} style={eyebrow}>
         {ABOUT_PAGE.skillsEyebrow}
@@ -185,7 +166,6 @@ const About = () => (
       </dl>
     </Section>
 
-    {/* 4 — A numbered list. Three equal cards was the most generic shape here. */}
     <Section pad={18}>
       <motion.p variants={revealBody} style={eyebrow}>
         {ABOUT_PAGE.workEyebrow}
@@ -220,7 +200,6 @@ const About = () => (
       </div>
     </Section>
 
-    {/* 5 — The closing statement, and the only centred section on the page. */}
     <Section pad={32}>
       <div style={{ textAlign: 'center' }}>
         <motion.p variants={revealBody} style={{ ...eyebrow, marginBottom: 'calc(var(--spacing) * 4)' }}>
@@ -246,7 +225,6 @@ const About = () => (
       </div>
     </Section>
 
-    {/* 6 — A measuring tape across the page. Tightest rhythm on the page. */}
     <Section pad={14}>
       <motion.p variants={revealBody} style={{ ...eyebrow, marginBottom: 'calc(var(--spacing) * 4)' }}>
         {ABOUT_PAGE.timelineLabel}
@@ -264,7 +242,6 @@ const About = () => (
       </motion.ol>
     </Section>
 
-    {/* 7 — Close. The Contact CTA is the only amber on the page. */}
     <Section pad={22}>
       <motion.p variants={revealBody} style={eyebrow}>
         {ABOUT_PAGE.ctaEyebrow}

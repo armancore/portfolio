@@ -1,25 +1,15 @@
 export const PHOTO_MODE = "photo";
 
-/** A technology or topic chip rendered beside a skill, project or timeline entry. */
 export interface Tag {
   label: string;
 }
 
-/** lucide-react export names. Consumers map these to components via a lookup. */
 export type SkillIconName = "Monitor" | "Server" | "Code2" | "Wrench" | "Network" | "FileText";
 export type SocialIconName = "Github" | "Linkedin" | "Facebook" | "Instagram";
 export type ContactIconName = "Mail" | SocialIconName;
 
-/** The type axis. Three values because two collapsed API work and tooling
- *  into one bucket, which made the axis nearly useless at nine projects. */
 export type ProjectType = "full-stack" | "API" | "tooling";
 
-/**
- * Deployment state.
- *
- * "in-progress" is distinct from "archived": one has not shipped yet, the other
- * has stopped being maintained. Only "live" earns the phosphor dot.
- */
 export type ProjectStatus = "live" | "in-progress" | "archived";
 
 export interface Skill {
@@ -32,14 +22,7 @@ export interface Skill {
 
 export interface Project {
   id: number;
-  /** Zero-padded display index, e.g. "01". Kept in sync with id. */
   num: string;
-  /**
-   * URL segment for /projects/<slug>. Stored rather than derived: a slug is a
-   * URL, and it must not change silently because a title was reworded. Absent
-   * where there is no detail page -- the portfolio site itself, since a detail
-   * page about the page you are already on says nothing.
-   */
   slug?: string;
   title: string;
   description: string;
@@ -47,15 +30,8 @@ export interface Project {
   tags: Tag[];
   type: ProjectType;
   status: ProjectStatus;
-  /**
-   * The one mark of emphasis in the grid. Only the flagship carries it, and it
-   * renders in --color-signal -- the page's single amber. TriLearn gets no
-   * other special treatment: no separate section, no larger card.
-   */
   badge?: string;
-  /** Absent for projects with no public deployment. */
   liveUrl?: string;
-  /** Absent for projects with no public repository. */
   githubUrl?: string;
   featured: boolean;
 }
@@ -87,10 +63,6 @@ export interface ContactLink {
   iconName: ContactIconName;
 }
 
-// Single chip style for every tag, category and skill card. Colour is not a
-// data concern -- this resolves to tokens so the palette can move without
-// touching content. The old per-item bgColor strings smuggled Tailwind classes
-// into the data layer and all pointed at the same deleted blue.
 export const ACCENT = {
   bg: "var(--color-panel-2)",
   border: "var(--color-rule)",
@@ -109,14 +81,8 @@ export const PERSONAL_INFO = {
   degree: "Bachelor of Information Technology",
   status: "Open to Opportunities",
   responseTime: "Within 24 hours",
-  // Hero-only paragraph. Deliberately separate from bio[] so the landing page
-  // leads with the work instead of education history, and so the About page
-  // can carry the biography without the two drifting into paraphrases of
-  // each other.
   intro:
     "I build full-stack web applications — the interface people use and the systems behind it. The interesting part is making both hold up when someone uses them in a way you didn't plan for.",
-  // Rendered only on the About page. The schools and dates live in TIMELINE
-  // ids 4 and 5, so this no longer repeats them.
   bio: [
     "I'm a Bachelor of Information Technology student at Texas College of Management and IT in Kathmandu, originally from Damak, Jhapa — a move that traded a small-town pace for a city with a lot more going on.",
     "I currently focus on frontend web development with React, Vite, and Tailwind CSS while actively learning backend development with Node.js, Express, Prisma, and PostgreSQL by building real projects from scratch. My technical foundation also includes Java, C++, Python, and a strong curiosity for how systems work under the hood.",
@@ -124,22 +90,13 @@ export const PERSONAL_INFO = {
   ]
 };
 
-// Footer prose. Previously inlined in Footer.tsx, which put user-facing copy
-// outside the one file that is supposed to hold it.
 export const FOOTER_COPY = {
-  // The old line led with "polished web interfaces" and called backend a skill
-  // being "steadily grown", which is the opposite of what the hero now says.
   blurb:
     "Full-stack web applications — the interface people use, and the authentication, data models and APIs behind it.",
-  // The two stacks are labelled for assistive tech only; the visible headings
-  // are gone.
   navLabel: "Footer navigation",
   socialLabel: "Social profiles"
 };
 
-// The bar's own strings. Both toggle labels exist because a static
-// "Toggle menu" never tells a screen reader which way the control is about to
-// go.
 export const NAV_COPY = {
   wordmark: "Arman",
   cta: "Hire Me",
@@ -153,35 +110,13 @@ export interface HeroRow {
   id: string;
   label: string;
   value: string;
-  /**
-   * Vertical centre of the row as a percentage of the box. The reveal stagger
-   * is derived from this rather than from array index, so reordering the rows
-   * or changing their rhythm keeps the cascade physically meaningful.
-   */
   ry: number;
-  /** Renders the value as a link when present. */
   href?: string;
 }
 
-/**
- * The hero's two layers.
- *
- * SURFACE is the portrait. STRUCTURE is the same box filled with these rows as
- * plain mono text on --color-void. The sweep crosses, and where it has passed
- * the photo is gone and the text is there. That dissolve is the entire effect:
- * there is no filter, no grid, no ruler and no second image copy.
- *
- * Every value here is true. Counts were verified against this file: SKILLS id 3
- * lists 4 languages, SKILLS id 4 lists 6 tools, and PROJECTS has 8 entries, all
- * of which carry a liveUrl.
- */
 export const HERO_XRAY = {
   photoAlt: "Arman Khan",
 
-  // Six rows. There is deliberately no SKILLS row and no college name: skills
-  // belong to the skills section further down the page, where the stack is
-  // already shown, and repeating them here would be the echo this layer exists
-  // to avoid.
   rows: [
     { id: "name", label: "NAME", value: "Arman Khan", ry: 8 },
     { id: "edu", label: "EDU", value: "Bachelor of (Hons.) in Information Technology", ry: 24 },
@@ -201,8 +136,6 @@ export const HERO_XRAY = {
   playLabel: "Play the hero animation"
 };
 
-// Home-page content. These three arrays used to live as module-local consts
-// inside Home.tsx, which put content outside the one file that holds it.
 export const HOME_PAGE = {
   skillsEyebrow: "What I do",
   skillsHeading: "Skills and expertise",
@@ -213,11 +146,6 @@ export const HOME_PAGE = {
   ctaEyebrow: "Let us work together",
   ctaHeading: "Have a project in mind?",
   ctaBody: "Open to internship and junior developer roles. Let us build something great together.",
-  // The CTA points at /contact rather than a mailto: the hero's structure layer
-  // already carries the address and the footer carries it again, and a third
-  // copy on one page spends the reader's attention without adding anything.
-  // "Responds within 24 hours" is gone for the same reason -- the hero's STATUS
-  // row already says it.
   ctaAction: "Get in touch",
   viewProjects: "View Projects",
   contactMe: "Contact Me"
@@ -242,13 +170,9 @@ export const BENTO_SKILLS: { icon: string; title: string; desc: string }[] = [
 export const CONTACT_PAGE = {
   eyebrow: "Contact",
   heading: "Get in touch",
-  // Not a biography. The About page carries that; this page has one job.
   intro:
     "The form goes straight to my inbox and I reply within a day. If you'd rather email me directly, the address is on the right.",
   directHeading: "Direct",
-  // Facebook and Instagram are demoted to one quiet line rather than being
-  // peers of the email address -- both previously read "Social", which told a
-  // reader nothing and gave them equal weight to the inbox.
   alsoOn: "Also on"
 };
 
@@ -270,8 +194,6 @@ export const CONTACT_FORM_COPY = {
   successBody: "Thanks for reaching out. I'll get back to you within 24 hours.",
   sendAnother: "Send another",
 
-  // Non-422 failures used to be entirely silent: the button re-enabled and
-  // nothing else happened. These cover network loss, 5xx and a bad form ID.
   errorHeading: "Message not sent",
   errorBody:
     "Something went wrong on the way to my inbox. Try again, or email me directly at",
@@ -281,31 +203,14 @@ export const CONTACT_FORM_COPY = {
   unconfiguredBody: "The contact form is not configured right now. Email me directly at"
 };
 
-/**
- * The About page.
- *
- * Its job is narrative and skills. Anything the hero's structure layer already
- * states -- name, education, timezone, status, contact -- is deliberately
- * absent as a *fact block*; where those details appear here they are carried by
- * the prose, not restated as rows or chips. There is no photograph on this
- * page: the hero portrait is the site's signature image and a second one
- * halfway down dilutes it.
- */
 export const ABOUT_PAGE = {
-  // 1 -- Who I am
   eyebrow: "Who I am",
   heading: "About",
-  // Deliberately does not name the college or explain the move: section 2
-  // opens with both, and this is the standfirst, not the story.
   intro:
     "I'm Arman Khan, from Damak and now building software in Kathmandu. Full-stack web applications — React, Node.js, PostgreSQL. The interface people use, and the systems behind it.",
 
-  // 2 -- How I got here. The centrepiece: prose, no cards, no callouts, no
-  // icons. Index 2 is the bug paragraph and carries the weight, so it renders
-  // in --color-chalk while the rest sit in --color-chalk-2.
   storyEyebrow: "How I got here",
   storyHeading: "From +2 Science to the invisible half",
-  /** The paragraph that breaks the column. Everything else stays at 62ch. */
   storyEmphasisIndex: 2,
   storyEmphasisMarker: "01 — the week that changed how I build",
   story: [
@@ -315,14 +220,10 @@ export const ABOUT_PAGE = {
     "That's why I care about the invisible half — authentication, data modelling, APIs that hold up when the input is wrong. The interface is what people see; the reasons it doesn't break are what interest me."
   ],
 
-  // 3 -- What I work with. Grouped mono lists rather than icon cards: Home
-  // links here promising the fuller breakdown, so this has to be denser than
-  // Home's four-area bento, not a second rendering of it.
   skillsEyebrow: "What I work with",
   skillsHeading: "The stack, in full",
   skillsAside: "The fuller breakdown behind the four areas on the home page.",
 
-  // 4 -- How I work
   workEyebrow: "How I work",
   workHeading: "Three things I hold to",
   values: [
@@ -331,17 +232,11 @@ export const ABOUT_PAGE = {
     { title: "Team player", desc: "Communication is a core skill." }
   ],
 
-  // 5 -- Where I'm going
   aheadEyebrow: "Where I'm going",
   aheadHeading: "The backend half, seriously",
   ahead:
     "I'm working toward a full-stack role, with the backend as the half I want to get seriously good at. I'm looking for an internship or junior position where someone more experienced reviews my work — I've learned more from one broken thing than from any tutorial.",
 
-  // 6 -- Timeline. An axis with a tick per stop rather than a row of floating
-  // fragments: the year carries the weight in --color-chalk and the label sits
-  // under it in --color-chalk-3, so the eye reads a progression instead of five
-  // disconnected phrases. Years match TIMELINE; the +2 Science date comes from
-  // its 2022-2024 range.
   timelineLabel: "Timeline",
   timeline: [
     { year: "2022", label: "+2 Science, Damak" },
@@ -351,7 +246,6 @@ export const ABOUT_PAGE = {
     { year: "2026", label: "Backend systems", now: true }
   ],
 
-  // 7 -- Close
   ctaEyebrow: "Next",
   ctaHeading: "Tell me what you're building",
   ctaContact: "Get in touch",
@@ -365,11 +259,8 @@ export const PROJECTS_PAGE = {
     "Real applications I've designed, built, and deployed. Every project represents a problem I found interesting and a skill I wanted to sharpen.",
 
   viewLive: "Live demo",
-  /** Shown in place of the live link for anything not yet deployed. */
   viewPending: "Live demo coming soon",
 
-  // Filters. No heading and no eyebrow: a control should not announce itself
-  // louder than the content it filters, so the axis labels carry the job.
   typeAxisLabel: "Type",
   stackAxisLabel: "Stack",
   statusAxisLabel: "Status",
@@ -380,8 +271,6 @@ export const PROJECTS_PAGE = {
   emptyBody: "Nothing matches every filter at once. Loosen one, or reset."
 };
 
-
-/** The project detail template. Only labels -- the values come from PROJECTS. */
 export const PROJECT_DETAIL = {
   back: "All projects",
   typeLabel: "Type",
@@ -604,7 +493,6 @@ export const PROJECTS: Project[] = [
       { label: "React" },
       { label: "Node.js" },
       { label: "local storage" },
-
     ],
     type: "tooling",
     status: "live",
@@ -687,8 +575,6 @@ export const PROJECTS: Project[] = [
     tags: [{ label: "Django" }, { label: "React" }, { label: "Python" }],
     type: "full-stack",
     status: "in-progress",
-    // No liveUrl: not deployed yet, so the card shows "Live demo coming soon"
-    // in place of the phosphor link and points at the repo instead.
     githubUrl: "https://github.com/armancore/bus_ticket",
     featured: false
   }
@@ -783,7 +669,6 @@ export const CONTACT_LINKS: ContactLink[] = [
   }
 ];
 
-/** Demoted to one quiet line beneath the list. */
 export const CONTACT_SECONDARY: { label: string; href: string }[] = [
   { label: "Facebook", href: "https://www.facebook.com/techiee.arman" },
   { label: "Instagram", href: "https://www.instagram.com/techiee.arman" }
