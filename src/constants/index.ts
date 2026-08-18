@@ -413,7 +413,7 @@ export const PROJECTS: Project[] = [
     num: "02",
     slug: "weather-intelligence-platform",
     title: "Weather Intelligence Platform",
-    description: "Real-time weather data with comprehensive metrics including temperature, humidity, UV index, and air quality. Features search history and multi-location forecasts.",
+    description: "Real-time weather with temperature, humidity, UV index and air quality, plus search history and forecasts across multiple saved locations.",
     longDescription: "A comprehensive weather application integrating WeatherAPI.com to deliver real-time meteorological data. Built with React and Axios, featuring dynamic search with history tracking, detailed forecasts including UV index and air quality metrics, and a fully responsive layout powered by Tailwind CSS.",
     tags: [
       { label: "React" },
@@ -505,7 +505,7 @@ export const PROJECTS: Project[] = [
     num: "07",
     slug: "articlehub",
     title: "ArticleHub",
-    description: "A blog and article posting platform built with Flask, Jinja, HTML, CSS, and JavaScript for publishing and browsing written content through a clean web interface.",
+    description: "A blog and article platform built with Flask and Jinja, for publishing, editing and browsing written content through a clean web interface.",
     longDescription: "ArticleHub is a content publishing web application built with Flask and server-rendered Jinja templates. It focuses on article and blog posting workflows, combining Python on the backend with HTML, CSS, and JavaScript on the frontend to deliver a straightforward reading and publishing experience.",
     tags: [
       { label: "Flask" },

@@ -35,6 +35,7 @@ const PAGE_ROUTES: RouteMeta[] = [
   {
     path: '/about',
     title: 'About | Arman Khan',
+    shareTitle: 'Arman Khan — full-stack developer and IT student in Kathmandu',
     description:
       'Arman Khan builds full-stack web applications with React, Node.js, and PostgreSQL. IT student from Damak, Jhapa, now based in Kathmandu, Nepal.',
     file: 'about.html',
@@ -43,6 +44,7 @@ const PAGE_ROUTES: RouteMeta[] = [
   {
     path: '/projects',
     title: 'Projects | Arman Khan',
+    shareTitle: 'Projects by Arman Khan — full-stack, API and tooling builds in React and Node.js',
     description:
       'Explore deployed React projects by Arman Khan, including API apps, frontend builds, tools, and full-stack experiments focused on practical problem solving.',
     file: 'projects.html',
@@ -51,6 +53,7 @@ const PAGE_ROUTES: RouteMeta[] = [
   {
     path: '/contact',
     title: 'Contact | Arman Khan',
+    shareTitle: 'Contact Arman Khan — open to internships and junior developer roles',
     description:
       'Get in touch with Arman Khan for internship opportunities, junior developer roles, collaborations, or project discussions.',
     file: 'contact.html',
