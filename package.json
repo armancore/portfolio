@@ -7,13 +7,14 @@
     "dev": "npm run assets && vite",
     "fonts": "node scripts/fonts.mjs",
     "images": "node scripts/images.mjs",
-    "assets": "npm run fonts && npm run images",
+    "assets": "npm run fonts && npm run images && npm run favicon",
     "prebuild": "npm run assets",
     "build": "vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
     "build:client": "vite build",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "favicon": "node scripts/favicon.mjs"
   },
   "dependencies": {
     "@fontsource/archivo": "^5.3.0",
