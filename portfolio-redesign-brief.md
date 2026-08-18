@@ -60,8 +60,8 @@ blue glows on `.gradient-text`, `.noise-overlay`, `navbar-scanline`.
   --ease-signal: cubic-bezier(0.2, 0.85, 0.2, 1);
 
   --duration-tap: 120ms;     /* state flips, focus rings */
-  --duration-move: 240ms;    /* hover reveals, card content */
-  --duration-enter: 320ms;   /* section reveals, page transitions */
+  --duration-move: 240ms;    /* hover reveals, card content, page transitions */
+  --duration-enter: 320ms;   /* section reveals */
   --duration-stage: 2400ms;  /* hero sweep only */
 }
 ```
@@ -287,6 +287,17 @@ Use container queries for the hero card's internal layout so it responds to its
 own box, not the viewport. Use `clamp()` for hero type. No fixed pixel heights on
 any section.
 
+`.xray-card` is the named container (`xray`). Its padding, gap, type step and
+row template all query it, and `cqi` drives the fluid values in between.
+
+**Two rules stay on the viewport, deliberately:** the card's own width, and the
+sweep axis with the row template that follows it. A container cannot size itself
+from its own query, and the two layout regimes overlap in inline size -- beside
+the copy the card is `clamp(280px, 28vw, 420px)`, stacked above it it is
+full-width, which at 360-767px comes to 328-735px. A 340px card is both at once.
+The question those rules answer is "is the card beside the copy or above it",
+which is a property of the page, not of the box.
+
 ### Viewport units and safe areas
 
 - Use `dvh`/`svh`, never bare `vh` — iOS Safari's collapsing toolbar breaks `vh`.
@@ -403,7 +414,14 @@ opacity 0. Cards appear and disappear without an exit animation. Empty-filter
 state is designed, not blank.
 
 **Page transitions.** `AnimatePresence mode="wait"`, exit `opacity → 0` +
-`y: -8` at 140ms, enter reverse at `--duration-enter`. Total under 400ms.
+`y: -8` at 140ms, enter reverse at `--duration-move`. **Total 380ms.**
+
+This clause originally paired a `--duration-enter` entrance with a 400ms cap.
+`mode="wait"` runs the phases in sequence, so that came to 140 + 320 = 460ms and
+the two halves of the sentence could not both hold. The cap wins: a route change
+is a state flip the reader is waiting through, not a section reveal they are
+reading into, and 380ms keeps it under the threshold where navigation starts to
+feel weighted.
 
 **Project detail route.** New template with room for an architecture write-up —
 prose column, schema/diagram blocks, decision log.
@@ -476,16 +494,7 @@ Ask before inventing any value, metric, or design decision not specified here.
 
 ## Deferred
 
-One item is open, and it is a contradiction in this brief rather than a task.
-
-- **Page transition total.** §5 asks for a 140ms exit, `--duration-enter` in,
-  and a total under 400ms. With `mode="wait"` the phases are sequential, so
-  140 + 320 = 460ms. The exit is now 140ms as specified; hitting the 400ms cap
-  as well would mean dropping the entrance to `--duration-move` (240ms), which
-  contradicts the explicit token instruction. Flagged rather than chosen.
-- **Expense Tracker’s type axis.** Carried as `frontend`. It has a persistence
-  layer but no backend of its own, so `fullstack` would overstate it. Flagged
-  rather than chosen.
+Nothing open.
 
 ### Cleared
 
@@ -495,5 +504,14 @@ One item is open, and it is a contradiction in this brief rather than a task.
   `.reveal` CSS pair and its `<noscript>` override are deleted.
 - Non-eyebrow amber in `NotFound.tsx` — the compass glyph is removed and the
   404 label now uses the muted shared `eyebrow`. One accent, the CTA.
+- Page transition total — the brief contradicted itself, pairing a
+  `--duration-enter` entrance with a 400ms cap that `mode="wait"` made
+  unreachable. Resolved in favour of the cap: 140 + 240 = 380ms. §5 and
+  the token comments now agree.
+- Expense Tracker's type axis — stays `frontend`. It has a persistence layer
+  but no backend of its own, and `fullstack` would overstate it.
+- Hero container queries — internal layout now queries the card, not the
+  window. The two viewport rules that remain are documented in §4 with the
+  overlap that forces them.
 - Site-wide `88px` section padding — now `calc(var(--spacing) * 22)` in Skills,
   FeaturedWork and ContactCta. No raw pixel remains in the section rhythm.
