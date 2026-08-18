@@ -80,7 +80,7 @@ const RouteFallback = () => (
   <div
     aria-hidden="true"
     style={{
-      minHeight: '100vh',
+      minHeight: '100svh',
     }}
   />
 );
