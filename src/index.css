@@ -694,6 +694,12 @@ a:not([class]) { color: var(--color-signal); }
 }
 
 .nav-row {
+  /* The sheet is a descendant of .nav-bar, so raising the bar above it does
+     nothing -- they share the bar's stacking context, and the sheet's z-index
+     paints over a row that has none. The row has to outrank the sheet here,
+     or the close control disappears the moment the menu opens. */
+  position: relative;
+  z-index: 80;
   display: flex;
   align-items: center;
   justify-content: space-between;
