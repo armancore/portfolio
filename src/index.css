@@ -1039,8 +1039,8 @@ a:not([class]) { color: var(--color-signal); }
 
 .xray-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) clamp(280px, 28vw, 420px);
-  gap: clamp(32px, 5vw, 80px);
+  grid-template-columns: minmax(0, 1.2fr) clamp(300px, 26vw, 400px);
+  gap: clamp(calc(var(--spacing) * 8), 5vw, calc(var(--spacing) * 20));
   align-items: center;
 }
 
@@ -1055,7 +1055,7 @@ a:not([class]) { color: var(--color-signal); }
   position: relative;
   container-type: inline-size;
   container-name: xray;
-  width: clamp(280px, 28vw, 420px);
+  width: clamp(300px, 26vw, 400px);
   max-width: 100%;
   border: 1px solid var(--color-rule);
   border-radius: var(--radius-lg);

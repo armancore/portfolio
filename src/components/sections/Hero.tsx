@@ -16,11 +16,11 @@ const Hero = () => (
             style={{
               fontFamily: 'var(--font-display)',
               fontWeight: 700,
-              fontSize: 'clamp(2.4rem, 5vw, 3.8rem)',
+              fontSize: 'clamp(3rem, 6vw, 4.5rem)',
               letterSpacing: '-0.035em',
               lineHeight: 1.0,
               color: 'var(--color-chalk)',
-              margin: '0 0 calc(var(--spacing) * 5)',
+              margin: '0 0 calc(var(--spacing) * 8)',
             }}
           >
             {PERSONAL_INFO.name}
@@ -29,11 +29,11 @@ const Hero = () => (
           <motion.p
             variants={revealBody}
             style={{
-              fontSize: 'var(--text-base)',
+              fontSize: 'var(--text-lg)',
               color: 'var(--color-chalk-2)',
-              lineHeight: 1.8,
-              maxWidth: '52ch',
-              marginBottom: 'calc(var(--spacing) * 8)',
+              lineHeight: 1.7,
+              maxWidth: '46ch',
+              marginBottom: 'calc(var(--spacing) * 12)',
             }}
           >
             {PERSONAL_INFO.intro}
