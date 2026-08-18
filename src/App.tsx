@@ -64,13 +64,6 @@ export type PageComponents = {
 
 export type AppProps = {
   pages: PageComponents;
-  /**
-   * Whether the route tree needs a Suspense boundary. True for the lazy client
-   * pages. The prerenderer passes eagerly imported pages and false: a boundary
-   * that suspends makes React stream the resolved markup into a <template>
-   * after </footer> for a client script to relocate, which leaves <main> empty
-   * in the static HTML and defeats the point of prerendering.
-   */
   suspend: boolean;
 };
 
@@ -85,7 +78,6 @@ const RouteFallback = () => (
   />
 );
 
-// Scroll to top on every route change
 const ScrollToTop = () => {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -151,26 +143,10 @@ const AppContent = ({ pages, suspend }: AppProps) => {
             {performanceMode ? (
               routeTree
             ) : (
-              // initial={false} suppresses the enter animation on the very
-              // first mount only; navigating between routes still animates.
-              // With it set to true, every prerendered page shipped its whole
-              // body at opacity 0 and stayed invisible until hydration ran --
-              // the content was in the HTML but nobody could read it, which
-              // defeats the point of prerendering and delays LCP by the cost
-              // of the JS bundle.
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={location.pathname}
                   data-route-transition
-                  // filter: blur() was animating paint on every frame, which
-                  // section 2 rules out alongside width/height/box-shadow.
-                  // Transform and opacity only.
-                  //
-                  // mode="wait" runs the two phases in sequence, so the route
-                  // change costs exit + enter, not max(exit, enter). At
-                  // --duration-enter that totalled 460ms against section 5's
-                  // 400ms cap; the cap wins, so the entrance is --duration-move
-                  // and a route change lands in 380ms.
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8, transition: { duration: DURATION.exit, ease: EASE } }}
@@ -188,10 +164,6 @@ const AppContent = ({ pages, suspend }: AppProps) => {
   );
 };
 
-/**
- * The app below the router. main.tsx wraps this in a BrowserRouter;
- * entry-server.tsx wraps it in a StaticRouter for prerendering.
- */
 const App = ({ pages = lazyPages, suspend = true }: Partial<AppProps> = {}) => (
   <AppContent pages={pages} suspend={suspend} />
 );

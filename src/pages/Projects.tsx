@@ -17,31 +17,15 @@ import {
 } from '../lib/motion';
 import { chip, eyebrow, monoLabel } from '../lib/styles';
 
-/** Hoisted: motion.create() inside render would mint a new component type on
- *  every render, remounting the card and throwing away its animation state. */
 const MotionLink = motion.create(Link);
 
-/** How many stack toggles the bar will show. */
 const STACK_AXIS_SIZE = 5;
-/** Chips shown on a card before the rest become a "+N". */
 const VISIBLE_TAGS = 3;
 
 const typeAxis = [...new Set(PROJECTS.map((p) => p.type))] as ProjectType[];
 
-/**
- * Only rendered when it has more than one reachable option. Everything is live
- * or in progress today; the axis appears on its own once the values actually
- * separate something.
- */
 const statusAxis = [...new Set(PROJECTS.map((p) => p.status))] as ProjectStatus[];
 
-/**
- * The stack axis, derived from the tags that actually exist.
- *
- * A tag carried by almost every project cannot separate anything, so anything
- * appearing on all-but-one is dropped before the top five are taken. Ties break
- * alphabetically so the bar is stable across builds.
- */
 const stackAxis = (() => {
   const counts = new Map<string, number>();
   PROJECTS.forEach((p) => p.tags.forEach((t) => counts.set(t.label, (counts.get(t.label) ?? 0) + 1)));
@@ -52,7 +36,6 @@ const stackAxis = (() => {
     .map(([label]) => label);
 })();
 
-/** Toggles a value in a set, returning a new set. */
 const toggle = <T,>(set: Set<T>, value: T) => {
   const next = new Set(set);
   if (next.has(value)) next.delete(value);
@@ -62,9 +45,6 @@ const toggle = <T,>(set: Set<T>, value: T) => {
 
 const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
   const extra = project.tags.length - VISIBLE_TAGS;
-  // The card now leads to the detail page rather than straight off-site. The
-  // live and source links live on that page, so a click no longer leaves the
-  // site before the reader has seen what the project is.
   const detailHref = project.slug ? `/projects/${project.slug}` : null;
   const externalHref = project.liveUrl ?? project.githubUrl;
   const isLive = project.status === 'live';
@@ -74,7 +54,6 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'calc(var(--spacing) * 3)' }}>
         <span style={monoLabel}>{project.num}</span>
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 'calc(var(--spacing) * 2)' }}>
-          {/* The page's only amber, on the only project that earns emphasis. */}
           {project.badge ? (
             <span style={{ ...chip, color: 'var(--color-signal)', borderColor: 'var(--color-signal)' }}>
               {project.badge}
@@ -95,8 +74,6 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
           fontSize: 'var(--text-lg)',
           color: 'var(--color-chalk)',
           lineHeight: 1.3,
-          // Two lines reserved whether the title needs them or not, so a
-          // one-line title does not make its whole row shorter than the next.
           minHeight: '2.6em',
           margin: 'calc(var(--spacing) * 4) 0 calc(var(--spacing) * 2)',
         }}
@@ -111,7 +88,6 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
         {project.description}
       </p>
 
-      {/* Pushes the footer to a common baseline across every card in the row. */}
       <div style={{ flex: 1, minHeight: 'calc(var(--spacing) * 5)' }} />
 
       <div className="pj-tags">
@@ -134,8 +110,6 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
           marginTop: 'calc(var(--spacing) * 4)',
         }}
       >
-        {/* Phosphor is a live-state signal, so "Live demo" carries it. A project
-            that has not shipped says so in muted text instead. */}
         {project.liveUrl ? (
           <span
             style={{
@@ -157,11 +131,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
               <Github size={12} />
             </span>
           ) : null}
-          {/* The card's own destination, stated at rest. The live-demo and repo
-              marks beside it describe the project; neither says the card is a
-              link, and the hover border that used to be the only cue never
-              arrives on a touch screen. The glyph distinguishes a detail page
-              from a jump off-site. */}
+
           {detailHref ? (
             <ArrowRight className="pj-card__go" size={13} aria-hidden="true" />
           ) : (
@@ -174,20 +144,15 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
 
   const motionProps = {
     initial: { opacity: 0, y: 20 },
-    // whileInView rather than a plain `animate`: the cards sit below the fold
-    // and this is the pattern the rest of the site uses.
     whileInView: {
       opacity: 1,
       y: 0,
-      // Capped so a late card in a long list is not left waiting.
       transition: { duration: DURATION.enter, ease: EASE, delay: Math.min(index, 5) * STAGGER.tight },
     },
     viewport,
     className: 'panel pj-card',
   };
 
-  // A project with neither a deployment nor a public repo has nowhere to go, so
-  // it renders as an article rather than as a link to nothing.
   if (detailHref) {
     return (
       <MotionLink {...motionProps} to={detailHref}>
@@ -212,8 +177,6 @@ const Projects = () => {
 
   const active = types.size + stacks.size + statuses.size > 0;
 
-  // OR within an axis, AND across axes. An empty axis means "no constraint",
-  // which is what makes the first click narrow rather than widen.
   const filtered = useMemo(
     () =>
       PROJECTS.filter((p) => {
@@ -235,7 +198,6 @@ const Projects = () => {
     <div style={{ minHeight: '100svh' }}>
       <PageMeta path="/projects" />
 
-      {/* Header */}
       <motion.section
         variants={staggerContainer(STAGGER.loose, 0.05)}
         initial="hidden"
@@ -277,12 +239,6 @@ const Projects = () => {
         </div>
       </motion.section>
 
-      {/* Filters and grid.
-          Deliberately plain: the survivors are rendered and the rest are not.
-          No AnimatePresence, no `layout`, no `layoutId` -- all three are what
-          broke this before. Cards appear and disappear without an exit
-          animation, and each keeps its own initial/whileInView, so nothing
-          inherits a variant that could strand it at opacity 0. */}
       <section style={{ paddingBottom: 'calc(var(--spacing) * 25)' }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -359,7 +315,7 @@ const Projects = () => {
             <p style={monoLabel} aria-live="polite">
               {filtered.length} {PROJECTS_PAGE.countSuffix}
             </p>
-            {/* Only offered when there is something to reset. */}
+
             {active ? (
               <button type="button" className="pj-toggle" onClick={reset}>
                 {PROJECTS_PAGE.resetLabel}

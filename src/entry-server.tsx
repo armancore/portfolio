@@ -10,23 +10,12 @@ import ProjectDetail from './pages/ProjectDetail';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
 
-// Re-exported so the prerender script has a single module to load.
 export { ROUTES, SITE_ORIGIN } from './routes';
 
-// Eager on purpose. These static imports live only in the SSR bundle, so the
-// client keeps its lazy() route splitting untouched.
 const pages: PageComponents = { Home, About, Projects, ProjectDetail, Contact, NotFound };
 
 const RENDER_TIMEOUT_MS = 15000;
 
-/**
- * Renders one route to complete HTML for scripts/prerender.mjs.
- *
- * Uses renderToPipeableStream rather than renderToString because the routes are
- * React.lazy: renderToString would suspend and emit the fallback, which is an
- * empty div. onAllReady fires only once every boundary has resolved, so the
- * pages keep their client-side code splitting and still prerender in full.
- */
 export function render(url: string): Promise<string> {
   return new Promise((resolve, reject) => {
     const chunks: Buffer[] = [];

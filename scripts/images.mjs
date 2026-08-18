@@ -1,14 +1,3 @@
-/**
- * Generates the AVIF derivatives of the profile photo.
- *
- * Committed as a script rather than as output files: the source photo is in
- * the repo, so the derivatives are reproducible, and a checked-in binary would
- * quietly drift from its source the first time the photo is replaced.
- *
- * Runs from `prebuild` alongside scripts/fonts.mjs. Existing files are left
- * alone, so a normal build does not pay the encode cost twice.
- */
-
 import { mkdir, stat } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -19,7 +8,6 @@ const publicDir = join(root, 'public');
 
 const SOURCE = join(publicDir, 'profile.webp');
 
-/** [output name, width]. */
 const TARGETS = [
   ['profile-320.avif', 320],
   ['profile-640.avif', 640],
@@ -57,7 +45,6 @@ const main = async () => {
     const { size } = await stat(target);
     console.log(`  images    -> public/${name} (${(size / 1024).toFixed(1)} kB)`);
   }
-
 };
 
 main().catch((error) => {

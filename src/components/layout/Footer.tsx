@@ -12,20 +12,6 @@ const iconMap = {
   Instagram,
 };
 
-/**
- * The footer is a masthead, not three equal columns: a wide identity block, a
- * narrow pair of link stacks, then the contact line spanning both.
- *
- * Nothing here is boxed. The email, the location and the social marks used to
- * be bordered panels, which made plain text look like four rows of buttons and
- * gave the footer more visual weight than the page above it. Type and hairlines
- * carry the structure instead.
- *
- * No amber. The navbar's active-route rule is the only one these two share,
- * and it is wayfinding rather than a call to action, so it never competes with
- * whichever CTA the page above has spent its accent on. Every link here settles
- * on --color-chalk.
- */
 const Footer = () => {
   const year = new Date().getFullYear();
 
@@ -42,7 +28,7 @@ const Footer = () => {
           <motion.div variants={revealBody} className="footer-identity">
             <Link to="/" className="footer-wordmark">
               {PERSONAL_INFO.name}
-              {/* Muted, not amber. */}
+
               <span className="footer-wordmark__stop">.</span>
             </Link>
 
@@ -72,8 +58,7 @@ const Footer = () => {
                   >
                     {Icon ? <Icon size={14} strokeWidth={1.5} aria-hidden="true" /> : null}
                     {social.label}
-                    {/* These four leave the site and the nav four do not. At
-                        rest the two stacks were indistinguishable. */}
+
                     <ArrowUpRight
                       className="footer-link__out"
                       size={12}

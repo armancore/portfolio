@@ -14,19 +14,6 @@ import {
 } from '../lib/motion';
 import { eyebrow, monoLabel } from '../lib/styles';
 
-/**
- * The form is the page.
- *
- * It used to sit in a 50/50 grid opposite a five-row link list, which gave a
- * list of profiles the same weight as the thing the page exists to do. It now
- * takes seven columns and comes first in the DOM, so it is also first on
- * mobile.
- *
- * One amber (the send button), one green (the form's success state), and the
- * email address appears exactly once. The "Available" chip and the "Currently
- * Available" panel are gone -- the hero, About and the footer all say it
- * already.
- */
 const Contact = () => (
   <div style={{ minHeight: '100svh' }}>
     <PageMeta path="/contact" />
@@ -92,7 +79,6 @@ const Contact = () => (
         />
 
         <div className="contact-split">
-          {/* Seven columns, and first in the DOM. */}
           <div className="contact-split__form">
             <ContactForm />
           </div>
@@ -108,9 +94,6 @@ const Contact = () => (
               {CONTACT_PAGE.directHeading}
             </motion.p>
 
-            {/* Mono labels, no icons. Five icons in amber were five accents
-                competing with the send button, and two of the rows both read
-                "Social", which told a reader nothing. */}
             <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
               {CONTACT_LINKS.map((link, i) => (
                 <motion.li
@@ -147,7 +130,6 @@ const Contact = () => (
               ))}
             </ul>
 
-            {/* Demoted: reachable, but no longer a peer of the inbox. */}
             <motion.p
               variants={revealBody}
               initial="hidden"

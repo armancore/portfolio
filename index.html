@@ -10,13 +10,6 @@
   <link rel="manifest" href="/site.webmanifest" />
   <meta name="theme-color" content="#000000" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <!-- The three faces that render above-the-fold text: the hero headline (700),
-       the sub-copy beneath it (400), and the mono that sets the entire hero
-       structure layer. Swapping the mono would reflow the signature moment's
-       most important text on first paint, so it is preloaded rather than left
-       to swap. Archivo 600 is not here -- it appears below the fold only.
-       Paths are stable because scripts/fonts.mjs copies these into public/
-       unhashed; Vite would content-hash anything a stylesheet imports. -->
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="/fonts/archivo-latin-700-normal.woff2" />
   <link rel="preload" as="font" type="font/woff2" crossorigin
@@ -45,17 +38,8 @@
   <link rel="canonical" href="https://armankhan.com.np/" />
   <title>Arman Khan</title>
   <noscript>
-    <!-- Prerendered pages ship inside the route-transition wrapper, whose
-         entrance animation starts at opacity 0. Without JS nothing ever
-         animates it in, so reveal it up front. -->
     <style>
       [data-route-transition] { opacity: 1 !important; filter: none !important; transform: none !important; }
-      /* Scroll-triggered sections are prerendered at their variant's hidden
-         values, because that is the state Motion renders on the server. With
-         JS they animate in on scroll; without it nothing ever would, leaving
-         most of every page invisible. An !important rule in a stylesheet beats
-         a plain inline style, so this reveals them without needing to know
-         which elements Motion touched. */
       #root [style*="opacity:0"] { opacity: 1 !important; transform: none !important; }
     </style>
   </noscript>

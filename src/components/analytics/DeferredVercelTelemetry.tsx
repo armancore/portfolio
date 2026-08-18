@@ -18,9 +18,6 @@ const DeferredVercelTelemetry = () => {
     const hasIdleCallback =
       typeof window !== 'undefined' && typeof window.requestIdleCallback === 'function';
 
-    // Both branches are keyed by an opaque numeric handle, but requestIdleCallback
-    // and setTimeout hand back ids from different pools -- so the canceller has to
-    // be chosen alongside the scheduler, never mixed.
     const schedule = (callback: () => void): number =>
       hasIdleCallback ? window.requestIdleCallback(callback) : window.setTimeout(callback, 1800);
     const cancel = (id: number): void =>

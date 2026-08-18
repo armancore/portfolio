@@ -8,19 +8,10 @@ import { PROJECTS, PROJECT_DETAIL } from '../constants';
 import { STAGGER, revealBody, revealHeading, revealRule, staggerContainer } from '../lib/motion';
 import { chip, eyebrow, monoLabel, secondaryAction } from '../lib/styles';
 
-/**
- * A project's detail page.
- *
- * Renders only the fields that exist in PROJECTS today -- title, description,
- * stack, type, status and links. There is deliberately no architecture
- * write-up, schema block or decision log: those need real copy, and empty
- * scaffolding for them would ship nine pages of visible placeholder.
- */
 const ProjectDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const project = PROJECTS.find((p) => p.slug === slug);
 
-  // An unknown slug is a 404, not an empty template.
   if (!project) return <NotFound />;
 
   const rows: { label: string; value: React.ReactNode }[] = [
@@ -108,8 +99,6 @@ const ProjectDetail = () => {
             }}
           />
 
-          {/* The same spec-sheet shape the site uses elsewhere, so a detail page
-              reads as part of the system rather than a one-off. */}
           <motion.dl variants={revealBody} style={{ margin: 0, maxWidth: '62ch' }}>
             {rows.map((row) => (
               <div key={row.label} className="about-spec-row">

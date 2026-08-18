@@ -15,13 +15,6 @@ const inputErrorClass =
 
 const labelClass = 'block text-xs text-chalk-3 font-mono uppercase tracking-wider mb-1.5';
 
-/**
- * Errors are never colour alone.
- *
- * --color-reject carries the message, but an icon and the word itself carry it
- * too, and the input is marked aria-invalid with aria-describedby pointing
- * here. Red text on its own fails WCAG 1.4.1 for anyone who cannot see it.
- */
 const FieldError = ({ id, messages }: { id: string; messages: string[] }) => {
   if (messages.length === 0) return null;
   return (
@@ -36,7 +29,6 @@ const FieldError = ({ id, messages }: { id: string; messages: string[] }) => {
   );
 };
 
-/** Panel used for both the hard failure and the unconfigured case. */
 const FormNotice = ({ heading, body }: { heading: string; body: string }) => (
   <div className="panel p-6 lg:p-8">
     <p className="text-reject text-sm font-semibold flex items-center gap-2 mb-2">
@@ -57,21 +49,12 @@ const ContactFormFields = ({ formId }: { formId: string }) => {
   const [state, handleSubmit] = useForm(formId);
   const formRef = useRef<HTMLFormElement | null>(null);
 
-  /**
-   * Formspree only populates `state.errors` on a 422. A network failure, a 5xx
-   * or a bad form ID resolved with the button quietly re-enabling and nothing
-   * shown -- the user had no way to know the message never arrived. This holds
-   * that case.
-   */
   const [hardFailure, setHardFailure] = useState(false);
-  /** Lets the success banner be dismissed without losing what was typed. */
   const [dismissed, setDismissed] = useState(false);
 
   const fieldErrors = (field: string): string[] => {
     const errors = state.errors as unknown;
     if (!errors) return [];
-    // v3 exposes a helper; older shapes are a plain array. Handle both rather
-    // than assuming, since getting this wrong silently hides errors.
     if (typeof (errors as { getFieldErrors?: unknown }).getFieldErrors === 'function') {
       const found = (errors as { getFieldErrors: (f: string) => { message: string }[] }).getFieldErrors(field);
       return (found ?? []).map((e) => e.message);
@@ -88,12 +71,6 @@ const ContactFormFields = ({ formId }: { formId: string }) => {
     setHardFailure(false);
     setDismissed(false);
     try {
-      // handleSubmit resolves to SubmissionSuccess | SubmissionError, a union
-      // discriminated by `kind` -- it is not an object carrying a Response.
-      // Form-level errors (FORM_NOT_FOUND on a bad id, BLOCKED, INACTIVE,
-      // EMPTY) live in getFormErrors(); field errors from a 422 flow through
-      // state.errors and are rendered per input. Only the former is the silent
-      // case this guards.
       const result = (await handleSubmit(event)) as
         | { kind: 'success' }
         | { kind: 'error'; getFormErrors: () => readonly { message: string }[] }
@@ -104,7 +81,6 @@ const ContactFormFields = ({ formId }: { formId: string }) => {
         if (formErrors.length > 0) setHardFailure(true);
       }
     } catch {
-      // Network loss and anything else that rejects.
       setHardFailure(true);
     }
   };
@@ -138,9 +114,6 @@ const ContactFormFields = ({ formId }: { formId: string }) => {
 
   return (
     <motion.div variants={revealBody} initial="hidden" whileInView="show" viewport={viewport}>
-      {/* Sits above the form rather than replacing it. Replacing it destroyed
-          whatever had been typed, so a later failure had nothing to fall back
-          on. */}
       {showSuccess ? (
         <div className="panel p-6 mb-4" role="status">
           <p className="text-verified text-sm font-semibold flex items-center gap-2 mb-2">
@@ -170,8 +143,6 @@ const ContactFormFields = ({ formId }: { formId: string }) => {
       <div className="panel p-6 lg:p-8">
         <h2 className="font-display text-xl font-bold text-chalk mb-6">{CONTACT_FORM_COPY.heading}</h2>
 
-        {/* noValidate is gone: native constraint validation is the free first
-            line of defence, and Formspree's 422 is the second. */}
         <form ref={formRef} onSubmit={onSubmit} aria-busy={state.submitting || undefined}>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             {field('name', CONTACT_FORM_COPY.nameLabel, CONTACT_FORM_COPY.namePlaceholder)}
@@ -201,7 +172,6 @@ const ContactFormFields = ({ formId }: { formId: string }) => {
 
           <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
 
-          {/* The page's single amber. */}
           <button
             type="submit"
             disabled={state.submitting}
