@@ -49,6 +49,7 @@ class ErrorBoundary extends React.Component<
 const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
 const Projects = lazy(() => import('./pages/Projects'));
+const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
 const Contact = lazy(() => import('./pages/Contact'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
@@ -56,6 +57,7 @@ export type PageComponents = {
   Home: React.ComponentType;
   About: React.ComponentType;
   Projects: React.ComponentType;
+  ProjectDetail: React.ComponentType;
   Contact: React.ComponentType;
   NotFound: React.ComponentType;
 };
@@ -72,7 +74,7 @@ export type AppProps = {
   suspend: boolean;
 };
 
-const lazyPages: PageComponents = { Home, About, Projects, Contact, NotFound };
+const lazyPages: PageComponents = { Home, About, Projects, ProjectDetail, Contact, NotFound };
 
 const RouteFallback = () => (
   <div
@@ -99,6 +101,7 @@ const AppContent = ({ pages, suspend }: AppProps) => {
       <Route path="/" element={<pages.Home />} />
       <Route path="/about" element={<pages.About />} />
       <Route path="/projects" element={<pages.Projects />} />
+      <Route path="/projects/:slug" element={<pages.ProjectDetail />} />
       <Route path="/contact" element={<pages.Contact />} />
       <Route path="*" element={<pages.NotFound />} />
     </Routes>
@@ -166,7 +169,7 @@ const AppContent = ({ pages, suspend }: AppProps) => {
                   // curve and off the paint-bound property.
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
+                  exit={{ opacity: 0, y: -8, transition: { duration: DURATION.exit, ease: EASE } }}
                   transition={{ duration: DURATION.enter, ease: EASE }}
                 >
                   {routeTree}

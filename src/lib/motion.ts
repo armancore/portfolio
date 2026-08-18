@@ -17,6 +17,9 @@ export const EASE = [0.2, 0.85, 0.2, 1] as const;
 /** Token durations in seconds, which is the unit Motion expects. */
 export const DURATION = {
   tap: 0.12,
+  /** Route exit. Deliberately faster than the entrance: the outgoing page has
+   *  nothing left to say, and section 5 caps the whole transition under 400ms. */
+  exit: 0.14,
   move: 0.24,
   enter: 0.32,
   stage: 2.4,

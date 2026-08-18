@@ -13,8 +13,8 @@ route via `scripts/prerender.mjs`.
 
 **Non-negotiable:** `npm run build` must keep prerendering **every** registered
 route to static HTML with correct per-route meta. That is five routes through
-step 4, and thirteen once §5 adds the eight project detail pages. If a change
-would break that, stop and ask.
+step 4, and **fourteen** once §5 adds the nine project detail pages. If a
+change would break that, stop and ask.
 
 ---
 
@@ -383,16 +383,24 @@ number; a fabricated one is worse.
 
 - `type` — `full-stack | API | tooling`. "coursework" is dropped; nothing
   populates it.
-- `status` — `live | archived`, exactly two values. A project with no
-  `liveUrl` is `archived`.
+- `status` — `live | in-progress | archived`. "in-progress" was added because
+  "a project with no liveUrl is archived" would have labelled an unshipped
+  project as abandoned. The axis only renders once more than one value is
+  reachable.
 - `stack` — derived from the tags that actually exist.
 
 Remap `ProjectCategory` to the new `type` vocabulary: TriLearn, Expense Tracker
 and ArticleHub → `full-stack`; Weather, Movie, Nepal Patra → `API`; Typing Test,
 TaskFlow → `tooling`. Add an explicit `status` field to all eight.
 
-Filtering animates with a `layout` transition at `--duration-enter`, never a
-reflow jump. Empty-filter state is designed, not blank.
+Filtering is **plain conditional rendering** — no `AnimatePresence`, no
+`layout`, no `layoutId`. All three were tried and all three broke it:
+`layoutId` waits on a matching id that never appears so cards never unmount; a
+card that is both a variant child and an `AnimatePresence` child gets the
+parent's variant pushed back over its exit; and `popLayout` hands each child a
+ref that a plain function component silently drops, leaving every card at
+opacity 0. Cards appear and disappear without an exit animation. Empty-filter
+state is designed, not blank.
 
 **Page transitions.** `AnimatePresence mode="wait"`, exit `opacity → 0` +
 `y: -8` at 140ms, enter reverse at `--duration-enter`. Total under 400ms.
@@ -400,15 +408,26 @@ reflow jump. Empty-filter state is designed, not blank.
 **Project detail route.** New template with room for an architecture write-up —
 prose column, schema/diagram blocks, decision log.
 
-**Prerender all eight.** Register one `ROUTES` entry per project in
-`src/routes.ts`, each with its own title and description, so the pipeline bakes
-per-project meta exactly as it does for the original five. The route count goes
-from 5 to 13; "all five routes must keep prerendering" becomes "all thirteen".
+**Prerender all nine.** `PROJECT_ROUTES` in `src/routes.ts` is derived from
+`PROJECTS` rather than hand-listed, so adding a project with a `slug` adds its
+route, its meta and its static file in one edit. The route count goes from 5 to
+**14**; "all five routes must keep prerendering" becomes "all fourteen".
 
-Build the template against **TriLearn only**. The other seven get visible,
-obviously-unfilled placeholder slots that Arman will write himself. Do not
-invent architecture write-ups, schema descriptions, or decision-log entries for
-any project.
+Nine, not ten: the portfolio site itself has no `slug` and therefore no detail
+page, because a detail page about the page you are already on says nothing.
+
+Slugs are stored explicitly on each project, never derived at runtime — a slug
+is a URL, and it must not change silently because a title was reworded.
+
+`dist/sitemap.xml` is generated from the same route table during prerender. The
+old static file in `public/` listed four URLs while the build emitted fourteen,
+so every detail page was invisible to a crawler that trusted it.
+
+**The template renders only fields that exist in `PROJECTS` today** — title,
+long description, type, status, stack and links. The architecture write-up,
+schema blocks and decision log are deliberately absent rather than stubbed:
+scaffolding them would ship nine pages of visible placeholder. They arrive in a
+later pass with real copy.
 
 **Contact.** Formspree via `@formspree/react`. Designed empty, pending, success,
 and error states. `--color-reject` appears here and on 422 only.
@@ -457,34 +476,36 @@ Ask before inventing any value, metric, or design decision not specified here.
 
 ## Deferred: legacy motion call sites
 
-`RevealWrapper` and `ScrollReveal` predate the §2 directional variants. Home
-and About are fully migrated; these **23 call sites across 4 files** are not,
-and are deliberately left for a later pass:
-
-| File | Call sites |
-|---|---|
-| `src/pages/Contact.tsx` | 8 |
-| `src/components/sections/ContactForm.tsx` | 7 |
-| `src/pages/Projects.tsx` | 6 |
-| `src/pages/NotFound.tsx` | 2 |
+`RevealWrapper` and `ScrollReveal` predate the §2 directional variants. Home,
+About, Projects, Contact and ContactForm are all migrated. **Two call sites
+remain**, both in `src/pages/NotFound.tsx`.
 
 Find them with:
 
 ```sh
-grep -rn "RevealWrapper\|ScrollReveal" src/ --include=*.tsx | grep -v "components/ui/"
+grep -rn "RevealWrapper|ScrollReveal" src/ --include=*.tsx | grep -v "components/ui/"
 ```
 
 Migrating means: `revealHeading` (mask wipe) on every `h1`/`h2`, `revealRule` on
 section rules, `revealCard(index)` on cards, `revealBody` on everything else,
-with a `staggerContainer` on the section. `src/components/ui/RevealWrapper.tsx`
+with a `staggerContainer` on the section — except where the children are also
+`AnimatePresence` children, in which case they must drive their own
+`initial`/`whileInView` instead (see §5). `src/components/ui/RevealWrapper.tsx`
 and `ScrollReveal.tsx` can be deleted once the count reaches zero.
 
 ### Also deferred
 
-- **Site-wide `88px` section padding.** Used identically on Home, About,
-  Projects and Contact. It is the one raw pixel value left in the section
-  rhythm; every other value is on the `--spacing` scale. To be fixed globally
-  rather than per page.
-- **Remaining non-eyebrow amber**, all decorative rather than CTAs:
-  `Contact.tsx` contact-link icons and the Gmail link, `NotFound.tsx` compass
-  glyph and 404 label.
+- **Remaining non-eyebrow amber** in `NotFound.tsx`: the compass glyph and the
+  404 label. Decorative rather than CTAs.
+- **Page transition total.** §5 asks for a 140ms exit, `--duration-enter` in,
+  and a total under 400ms. With `mode="wait"` the phases are sequential, so
+  140 + 320 = 460ms. The exit is now 140ms as specified; hitting the 400ms cap
+  as well would mean dropping the entrance to `--duration-move` (240ms), which
+  contradicts the explicit token instruction. Flagged rather than chosen.
+
+### Cleared
+
+- Contact and ContactForm legacy motion — 15 sites, done.
+- Projects legacy motion — 6 sites, done.
+- Site-wide `88px` section padding — now `calc(var(--spacing) * 22)` in Skills,
+  FeaturedWork and ContactCta. No raw pixel remains in the section rhythm.
