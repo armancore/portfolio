@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 
 export type DeviceProfile = {
+  /** False until the first client effect has measured the environment. */
+  resolved: boolean;
   motionAllowed: boolean;
   reducedMotion: boolean;
   coarsePointer: boolean;
@@ -8,6 +10,7 @@ export type DeviceProfile = {
 };
 
 const INITIAL: DeviceProfile = {
+  resolved: false,
   motionAllowed: false,
   reducedMotion: false,
   coarsePointer: false,
@@ -44,6 +47,7 @@ const useDeviceProfile = (): DeviceProfile => {
       const shortLandscape = shortLandscapeQuery.matches;
 
       setProfile({
+        resolved: true,
         reducedMotion,
         coarsePointer: coarsePointerQuery.matches,
         shortLandscape,

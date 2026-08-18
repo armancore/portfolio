@@ -1258,6 +1258,11 @@ a:not([class]) { color: var(--color-signal); }
 }
 
 @media print {
+  
+  .xray-card {
+    --p: 50 !important;
+  }
+
   .xray-sweep,
   .xray-pause {
     display: none;
