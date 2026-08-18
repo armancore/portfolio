@@ -7,13 +7,6 @@ import { NOT_FOUND_COPY } from '../constants';
 import { STAGGER, revealBody, revealHeading, revealRule, staggerContainer } from '../lib/motion';
 import { eyebrow, primaryAction } from '../lib/styles';
 
-/**
- * 404.
- *
- * The compass glyph is gone, and the "404" label is muted rather than amber:
- * both were accents competing with the one CTA on the page. A decorative icon
- * in a box said nothing the heading did not already say.
- */
 const NotFound = () => (
   <div style={{ minHeight: '100svh' }}>
     <PageMeta path="/404" />

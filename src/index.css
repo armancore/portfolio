@@ -1,8 +1,5 @@
 @import "tailwindcss";
 
-/* Self-hosted, latin subset, copied into public/fonts by scripts/fonts.mjs.
-   Declared by hand rather than imported from @fontsource so the two
-   above-the-fold weights can be preloaded from index.html by a stable path. */
 @font-face {
   font-family: 'Archivo';
   font-style: normal;
@@ -44,23 +41,19 @@
   --font-body:    'Archivo', system-ui, sans-serif;
   --font-mono:    'IBM Plex Mono', ui-monospace, monospace;
 
-  /* base — true black, lifting only where surfaces must separate */
-  --color-void:    oklch(0 0 0);            /* page background, #000 */
-  --color-panel:   oklch(0.16 0.004 75);    /* cards, hero surface layer */
-  --color-panel-2: oklch(0.21 0.005 75);    /* hover, pressed, inputs */
-  --color-rule:    oklch(0.30 0.005 75);    /* hairlines, borders, table rules */
+  --color-void:    oklch(0 0 0);
+  --color-panel:   oklch(0.16 0.004 75);
+  --color-panel-2: oklch(0.21 0.005 75);
+  --color-rule:    oklch(0.30 0.005 75);
 
-  /* text */
-  --color-chalk:   oklch(0.96 0.006 85);    /* headings, primary */
-  --color-chalk-2: oklch(0.72 0.008 80);    /* body, secondary */
-  --color-chalk-3: oklch(0.55 0.008 78);    /* labels, captions, muted */
+  --color-chalk:   oklch(0.96 0.006 85);
+  --color-chalk-2: oklch(0.72 0.008 80);
+  --color-chalk-3: oklch(0.55 0.008 78);
 
-  /* three signals, one chroma band */
-  --color-signal:   oklch(0.78 0.145 66);   /* amber — structure, links, focus */
-  --color-verified: oklch(0.76 0.135 158);  /* phosphor — live, available, 2xx */
-  --color-reject:   oklch(0.63 0.170 28);   /* red — 4xx and form errors ONLY */
+  --color-signal:   oklch(0.78 0.145 66);
+  --color-verified: oklch(0.76 0.135 158);
+  --color-reject:   oklch(0.63 0.170 28);
 
-  /* type scale, 1.25 from 16 */
   --text-xs: 0.75rem;  --text-sm: 0.875rem; --text-base: 1rem;
   --text-lg: 1.25rem;  --text-xl: 1.563rem; --text-2xl: 1.953rem;
   --text-3xl: 2.441rem; --text-4xl: 3.052rem; --text-5xl: 3.815rem;
@@ -71,21 +64,18 @@
 
   --ease-signal: cubic-bezier(0.2, 0.85, 0.2, 1);
 
-  --duration-tap: 120ms;     /* state flips, focus rings */
-  --duration-move: 240ms;    /* hover reveals, card content, page transitions */
-  --duration-enter: 320ms;   /* section reveals */
-  --duration-stage: 2400ms;  /* hero sweep only */
+  --duration-tap: 120ms;
+  --duration-move: 240ms;
+  --duration-enter: 320ms;
+  --duration-stage: 2400ms;
 }
 
 * { box-sizing: border-box; }
 
 html {
   scroll-behavior: smooth;
-  /* The bar is sticky, so an anchor target would otherwise land underneath
-     it. One bar height of scroll padding puts the heading below the rule. */
   scroll-padding-top: calc(var(--spacing) * 16);
   scrollbar-gutter: stable;
-  /* Nothing may sit under the mobile browser's bottom UI. */
   padding-bottom: env(safe-area-inset-bottom);
 }
 
@@ -93,8 +83,6 @@ body {
   margin: 0;
   font-family: var(--font-body);
   font-weight: 400;
-  /* Flat. Depth comes from --color-panel surfaces and --color-rule hairlines,
-     never from glow, gradient, or noise. */
   background-color: var(--color-void);
   color: var(--color-chalk-2);
   -webkit-font-smoothing: antialiased;
@@ -112,12 +100,8 @@ h1, h2, h3, h4 {
 
 a { color: inherit; }
 
-/* Amber is the only accent, and it carries links. */
 a:not([class]) { color: var(--color-signal); }
 
-/* --- Focus -------------------------------------------------------------- */
-
-/* 2px offset so the ring reads against --color-void and --color-panel both. */
 :focus-visible {
   outline: 2px solid var(--color-signal);
   outline-offset: 2px;
@@ -125,9 +109,6 @@ a:not([class]) { color: var(--color-signal); }
 }
 
 .skip-link {
-  /* fixed, not absolute: with a sticky bar the reader can be anywhere in the
-     document when they tab, and an absolute link would be scrolled out of
-     view -- forcing the browser to jump the page to reveal it. */
   position: fixed;
   left: var(--spacing);
   top: var(--spacing);
@@ -140,15 +121,11 @@ a:not([class]) { color: var(--color-signal); }
   font-family: var(--font-mono);
   font-size: var(--text-sm);
   text-decoration: none;
-  /* Offscreen until focused, but never display:none -- it has to stay in the
-     tab order to be the first focusable element. */
   transform: translateY(-200%);
 }
 
 .skip-link:focus-visible { transform: translateY(0); }
 
-/* Visually hidden, still announced. Used where a decorative split of text into
-   fragments would otherwise be read out piecemeal. */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -161,8 +138,6 @@ a:not([class]) { color: var(--color-signal); }
   border: 0;
 }
 
-/* --- Surfaces ----------------------------------------------------------- */
-
 .panel {
   background: var(--color-panel);
   border: 1px solid var(--color-rule);
@@ -174,11 +149,6 @@ a:not([class]) { color: var(--color-signal); }
   border-top: 1px solid var(--color-rule);
 }
 
-/* --- Actions ------------------------------------------------------------ */
-
-/* A quiet action: panel surface, hairline border, chalk label, reaching for
-   amber only on hover and focus. Used where a button is important but is not
-   its viewport's one amber call to action. */
 .btn-quiet {
   transition:
     color var(--duration-tap) var(--ease-signal),
@@ -197,7 +167,6 @@ a:not([class]) { color: var(--color-signal); }
   border-color: var(--color-signal);
 }
 
-/* An inline text link that is not the page accent. */
 .link-quiet {
   color: var(--color-chalk-2);
   transition: color var(--duration-tap) var(--ease-signal);
@@ -213,10 +182,6 @@ a:not([class]) { color: var(--color-signal); }
   color: var(--color-signal);
 }
 
-/* --- Home --------------------------------------------------------------- */
-
-/* Four-across band. Hairlines divide the cells rather than boxing them, so the
-   section reads as a strip and not as another row of cards. */
 .home-band {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -247,7 +212,6 @@ a:not([class]) { color: var(--color-signal); }
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  /* With two per row, the right-hand cell of each pair ends the row. */
   .home-band__cell:nth-child(2n) {
     border-right: 0;
     padding-right: 0;
@@ -278,7 +242,6 @@ a:not([class]) { color: var(--color-signal); }
   }
 }
 
-/* Asymmetric featured pair: seven columns and five, not two equal halves. */
 .home-pair {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -286,8 +249,6 @@ a:not([class]) { color: var(--color-signal); }
   align-items: start;
 }
 
-/* Equal padding and equal type. The asymmetry is column width and how much
-   detail each card carries, not how loud it is. */
 .home-pair__lead,
 .home-pair__second {
   display: flex;
@@ -310,11 +271,6 @@ a:not([class]) { color: var(--color-signal); }
   }
 }
 
-/* --- Contact ------------------------------------------------------------ */
-
-/* The form is the page: seven columns to five, and first in source order so it
-   is also first on a phone. A 50/50 grid gave a list of profiles the same
-   weight as the thing the page exists to do. */
 .contact-split {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -336,8 +292,6 @@ a:not([class]) { color: var(--color-signal); }
   }
 }
 
-/* Hairline-separated rows rather than bordered panels -- the panels made each
-   profile look like a card of equal importance to the form. */
 .contact-row {
   padding: calc(var(--spacing) * 4) 0;
   border-top: 1px solid var(--color-rule);
@@ -347,10 +301,6 @@ a:not([class]) { color: var(--color-signal); }
   border-bottom: 1px solid var(--color-rule);
 }
 
-/* --- Projects ----------------------------------------------------------- */
-
-/* Secondary grid. Equal tracks and equal internal rhythm, so footers align on
-   a real baseline instead of wherever the description happened to end. */
 .pj-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
@@ -377,8 +327,6 @@ a:not([class]) { color: var(--color-signal); }
   }
 }
 
-/* The card is one big link, so the keyboard needs the same answer the mouse
-   gets. Without this the only feedback was the global focus ring. */
 .pj-card:focus-visible {
   border-color: var(--color-chalk-3);
 }
@@ -388,9 +336,6 @@ a:not([class]) { color: var(--color-signal); }
   transform: translateX(calc(var(--spacing) * 0.5));
 }
 
-/* The resting cue. Nothing on the card said it led anywhere -- the live-demo
-   and repo marks describe the project, not the card's own destination, and on
-   a touch screen the hover border never arrives at all. */
 .pj-card__go {
   display: inline-flex;
   color: var(--color-chalk-3);
@@ -399,8 +344,6 @@ a:not([class]) { color: var(--color-signal); }
     transform var(--duration-tap) var(--ease-signal);
 }
 
-/* Hard clamps. Without these the descriptions run 125-163 characters and the
-   tag rows run 3 to 7 chips, so no two cards in a row shared a baseline. */
 .pj-clamp-2,
 .pj-clamp-4 {
   display: -webkit-box;
@@ -418,7 +361,6 @@ a:not([class]) { color: var(--color-signal); }
   line-clamp: 4;
 }
 
-/* One row of chips, with the remainder counted rather than wrapped. */
 .pj-tags {
   display: flex;
   flex-wrap: nowrap;
@@ -429,8 +371,6 @@ a:not([class]) { color: var(--color-signal); }
 .pj-tags > * {
   flex-shrink: 0;
 }
-
-/* Filters ----------------------------------------------------------------- */
 
 .pj-filters {
   display: grid;
@@ -453,8 +393,6 @@ a:not([class]) { color: var(--color-signal); }
   min-width: 4.5rem;
 }
 
-/* Quiet toggles: the active one separates by surface, not by hue. Amber is
-   reserved for hover and focus, as everywhere else. */
 .pj-toggle {
   border: 1px solid var(--color-rule);
   border-radius: var(--radius-sm);
@@ -488,7 +426,6 @@ a:not([class]) { color: var(--color-signal); }
   border-color: var(--color-signal);
 }
 
-/* Designed empty state, at grid width. */
 .pj-empty {
   padding: calc(var(--spacing) * 14) calc(var(--spacing) * 6);
   text-align: center;
@@ -496,11 +433,6 @@ a:not([class]) { color: var(--color-signal); }
   border-radius: var(--radius-lg);
 }
 
-/* --- About -------------------------------------------------------------- */
-
-/* Section 1 -- asymmetric split. The heading takes a narrow column and the
-   prose a wide one, with their first lines sharing a baseline so the page does
-   not open on yet another centred stack. */
 .about-split {
   display: grid;
   grid-template-columns: 1fr;
@@ -523,8 +455,6 @@ a:not([class]) { color: var(--color-signal); }
   }
 }
 
-/* Section 2 -- the paragraph that breaks the column. Wider measure and a rule,
-   deliberately not a card or a callout box. */
 .about-breakout {
   display: grid;
   grid-template-columns: 1fr;
@@ -554,7 +484,6 @@ a:not([class]) { color: var(--color-signal); }
     gap: calc(var(--spacing) * 6);
   }
 
-  /* Rotated so it reads bottom-to-top up the left margin. */
   .about-breakout__marker {
     writing-mode: vertical-rl;
     transform: rotate(180deg);
@@ -563,8 +492,6 @@ a:not([class]) { color: var(--color-signal); }
   }
 }
 
-/* Section 3 -- a specification sheet. Fixed label column, values in the
-   remaining space, count right-aligned, hairline between every row. */
 .about-spec-row {
   display: grid;
   grid-template-columns: 14rem 1fr auto;
@@ -584,13 +511,11 @@ a:not([class]) { color: var(--color-signal); }
     gap: calc(var(--spacing) * 1) calc(var(--spacing) * 3);
   }
 
-  /* Label and count share the top line, values run full width beneath. */
   .about-spec-row__values {
     grid-column: 1 / -1;
   }
 }
 
-/* Section 4 -- a numbered list, not three equal boxes. */
 .about-numbered-row {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -611,9 +536,6 @@ a:not([class]) { color: var(--color-signal); }
   color: var(--color-chalk-3);
 }
 
-/* Section 6 -- an axis, not a row of floating fragments. A hairline runs the
-   width of the container and every stop hangs a tick off it, so the section
-   reads left to right as a progression. */
 .about-tape {
   display: grid;
   grid-auto-flow: column;
@@ -626,7 +548,6 @@ a:not([class]) { color: var(--color-signal); }
   padding: calc(var(--spacing) * 5) calc(var(--spacing) * 3) 0 0;
 }
 
-/* The tick. Hangs from the axis directly above the stop it marks. */
 .about-tape__stop::before {
   content: '';
   position: absolute;
@@ -637,7 +558,6 @@ a:not([class]) { color: var(--color-signal); }
   background: var(--color-rule);
 }
 
-/* The current stop reads as the end of the line: a longer, brighter tick. */
 .about-tape__stop--now::before {
   height: calc(var(--spacing) * 5);
   background: var(--color-chalk-3);
@@ -664,8 +584,6 @@ a:not([class]) { color: var(--color-signal); }
   margin-top: calc(var(--spacing) * 1);
 }
 
-/* Below the two-column breakpoint the axis turns vertical: the ticks become a
-   rail down the left and each stop sits beside its own. */
 @media (max-width: 767px) {
   .about-tape {
     grid-auto-flow: row;
@@ -694,21 +612,9 @@ a:not([class]) { color: var(--color-signal); }
   }
 }
 
-/* --- Navbar ------------------------------------------------------------- */
-
-/* Sticky, not fixed. The bar occupies flow space, so no page has to reserve
-   room for it with top padding, the skip link's target lands exactly where it
-   reads, and a :focus-visible ring can never be clipped -- nothing here sets
-   overflow.
-
-   Flat: no radius, no blur, no floating pill. The one thing that changes on
-   scroll is the bottom hairline, which is transparent while the page is at rest
-   and fades in past 80px. No height change, no shadow, no hide-on-scroll. */
 .nav-bar {
   position: sticky;
   top: 0;
-  /* Above the mobile sheet, so the wordmark and the close control stay
-     readable and clickable over it. */
   z-index: 70;
   background: var(--color-void);
   border-bottom: 1px solid transparent;
@@ -721,10 +627,6 @@ a:not([class]) { color: var(--color-signal); }
 }
 
 .nav-row {
-  /* The sheet is a descendant of .nav-bar, so raising the bar above it does
-     nothing -- they share the bar's stacking context, and the sheet's z-index
-     paints over a row that has none. The row has to outrank the sheet here,
-     or the close control disappears the moment the menu opens. */
   position: relative;
   z-index: 80;
   display: flex;
@@ -741,14 +643,10 @@ a:not([class]) { color: var(--color-signal); }
   letter-spacing: 0.1em;
   text-transform: uppercase;
   text-decoration: none;
-  /* color: inherit so the unclassed-anchor amber rule does not reach it. */
   color: var(--color-chalk);
   flex-shrink: 0;
 }
 
-/* Display switching lives here rather than on a Tailwind `md:hidden`: these
-   rules are unlayered and Tailwind's utilities sit in @layer utilities, so
-   unlayered CSS wins and a utility could never turn them off. */
 .nav-links {
   display: none;
   align-items: center;
@@ -768,10 +666,6 @@ a:not([class]) { color: var(--color-signal); }
   transition: color var(--duration-tap) var(--ease-signal);
 }
 
-/* The active state is a rule and a weight, never a filled box -- and never
-   colour alone, which WCAG 1.4.1 rules out. IBM Plex Mono is monospaced, so
-   400 and 500 share an advance width and the weight change costs no layout
-   shift. */
 .nav-link::after {
   content: '';
   position: absolute;
@@ -810,37 +704,26 @@ a:not([class]) { color: var(--color-signal); }
   font-weight: 500;
 }
 
-/* The single amber across the navbar and footer combined. It marks where the
-   reader is, which is wayfinding, not a second call to action -- the page's own
-   CTA keeps the accent's other meaning. */
 .nav-link[data-active]::after {
   background: var(--color-signal);
   transform: scaleX(1);
 }
 
-/* Quiet, deliberately. This bar is above the fold on every route, and Home,
-   About and 404 each spend their amber on a primaryAction CTA; an amber button
-   here would compete with three of them. */
 .nav-cta {
   display: none;
   position: relative;
   align-items: center;
-  /* The one gap that is not the link rhythm: it is what separates the routes
-     from the action now that no divider does. */
   margin-left: calc(var(--spacing) * 4);
   padding: calc(var(--spacing) * 2) 0;
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   font-weight: 500;
-  /* Wider than the 0.07em the routes carry. Without a border this is what
-     keeps it reading as an action rather than a fifth link. */
   letter-spacing: 0.14em;
   text-transform: uppercase;
   text-decoration: none;
   color: var(--color-chalk);
 }
 
-/* Same underline reveal as the routes, so the bar has one hover behaviour. */
 .nav-cta::after {
   content: '';
   position: absolute;
@@ -892,11 +775,6 @@ a:not([class]) { color: var(--color-signal); }
   }
 }
 
-/* Mobile sheet ------------------------------------------------------------ */
-
-/* Full height rather than a dropdown: at --text-xl the four routes need the
-   room, and a sheet that covers the page makes the scroll lock legible instead
-   of mysterious. */
 .nav-sheet {
   position: fixed;
   inset: 0;
@@ -927,9 +805,6 @@ a:not([class]) { color: var(--color-signal); }
   color: var(--color-chalk-2);
 }
 
-/* Same two signals as the bar: the rule takes the accent, the label takes the
-   weight. Only one of the two navigations is ever on screen, so this is the
-   same single amber and not a second one. */
 .nav-sheet__link[data-active] {
   color: var(--color-chalk);
   border-bottom-color: var(--color-signal);
@@ -959,16 +834,12 @@ a:not([class]) { color: var(--color-signal); }
   color: var(--color-chalk);
 }
 
-/* --- Footer ------------------------------------------------------------- */
-
 .footer {
   border-top: 1px solid var(--color-rule);
   background: var(--color-void);
   padding-block: calc(var(--spacing) * 16) calc(var(--spacing) * 8);
 }
 
-/* Asymmetric on purpose: identity wide on the left, links narrow on the right.
-   Three equal columns is the shape the rest of the site moved away from. */
 .footer-top {
   display: grid;
   grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
@@ -997,8 +868,6 @@ a:not([class]) { color: var(--color-signal); }
   color: var(--color-chalk-2);
 }
 
-/* Two stacks, no headings. "Navigation" and "Connect" over four items each was
-   scaffolding for a shape that already reads. */
 .footer-stacks {
   display: grid;
   grid-template-columns: minmax(0, 0.6fr) minmax(0, 1fr);
@@ -1043,8 +912,6 @@ a:not([class]) { color: var(--color-signal); }
   color: var(--color-chalk);
 }
 
-/* Spans both columns beneath them. The address is the only underlined thing in
-   the footer, which is how it signals itself without spending the accent. */
 .footer-contact {
   display: flex;
   flex-wrap: wrap;
@@ -1101,12 +968,6 @@ a:not([class]) { color: var(--color-signal); }
   }
 }
 
-/* --- Hero actions -------------------------------------------------------- */
-
-/* The last boxed surface on the site. Three bordered buttons and four bordered
-   icon squares sat under a hero whose whole argument is that structure shows
-   through without decoration. Nothing here is boxed now, and the two actions
-   differ by treatment rather than by label alone. */
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
@@ -1126,8 +987,6 @@ a:not([class]) { color: var(--color-signal); }
   transition: color var(--duration-tap) var(--ease-signal);
 }
 
-/* Primary. The rule is what carries the priority -- it is the only persistent
-   amber in this column. */
 .hero-action--primary {
   color: var(--color-chalk);
   font-weight: 600;
@@ -1143,8 +1002,6 @@ a:not([class]) { color: var(--color-signal); }
   background: var(--color-signal);
 }
 
-/* Secondary. No rule at all: the difference has to be visible before either
-   label is read. */
 .hero-action--secondary {
   color: var(--color-chalk-2);
   font-weight: 400;
@@ -1155,7 +1012,6 @@ a:not([class]) { color: var(--color-signal); }
 }
 
 @media (hover: hover) {
-  /* The primary already has the accent, so it moves rather than recolours. */
   .hero-action--primary:hover .hero-action__arrow {
     transform: translateX(calc(var(--spacing) * 0.5));
   }
@@ -1173,8 +1029,6 @@ a:not([class]) { color: var(--color-signal); }
   color: var(--color-signal);
 }
 
-/* --- Hero x-ray --------------------------------------------------------- */
-
 .xray-section {
   min-height: min(88svh, 780px);
   display: grid;
@@ -1183,7 +1037,6 @@ a:not([class]) { color: var(--color-signal); }
   padding-bottom: calc(var(--spacing) * 12 + env(safe-area-inset-bottom));
 }
 
-/* The image column is a real column, not a sidebar. */
 .xray-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) clamp(280px, 28vw, 420px);
@@ -1197,15 +1050,9 @@ a:not([class]) { color: var(--color-signal); }
   }
 }
 
-/* Two layers stacked in one grid cell, so the box sizes to whichever is taller
-   and the two can never disagree about their geometry. A fixed height would
-   clip the structure text the moment a value wrapped to another line. */
 .xray-card {
   display: grid;
   position: relative;
-  /* Container, so the structure layer's padding and rhythm scale with the box
-     rather than the viewport -- the same card is 280px on a phone and 420px on
-     a wide desktop. */
   container-type: inline-size;
   container-name: xray;
   width: clamp(280px, 28vw, 420px);
@@ -1223,16 +1070,10 @@ a:not([class]) { color: var(--color-signal); }
   min-width: 0;
 }
 
-/* The surface sets the floor for the shared grid row. It is a floor, not a
-   cap: if the structure text needs more height, the row grows and nothing is
-   truncated. */
 .xray-layer--surface {
   aspect-ratio: 4 / 5;
 }
 
-/* The full frame at its natural framing. The source is 3:4 and the box is 4:5,
-   so cover trims roughly 6% of the height and nothing more -- no zoom, no
-   scale. */
 .xray-photo {
   width: 100%;
   height: 100%;
@@ -1241,8 +1082,6 @@ a:not([class]) { color: var(--color-signal); }
   display: block;
 }
 
-/* Pure text on true black. No grid, no ruler, no tint -- the photo dissolving
-   into information is the whole effect. */
 .xray-layer--structure {
   background: var(--color-void);
   display: flex;
@@ -1252,8 +1091,6 @@ a:not([class]) { color: var(--color-signal); }
   padding: clamp(calc(var(--spacing) * 4), 4cqi, calc(var(--spacing) * 8));
 }
 
-/* The sweep travels left to right, so everything it has already passed --
-   everything to its left -- is the exposed structure layer. */
 .xray-layer--surface {
   clip-path: inset(0 0 0 calc(var(--p) * 1%));
 }
@@ -1273,7 +1110,6 @@ a:not([class]) { color: var(--color-signal); }
   pointer-events: none;
 }
 
-/* The plotter head. */
 .xray-sweep::before {
   content: '';
   position: absolute;
@@ -1284,9 +1120,6 @@ a:not([class]) { color: var(--color-signal); }
   background: var(--color-signal);
 }
 
-/* Pause control ----------------------------------------------------------- */
-
-/* Top-right of the image box. Under the photo it read as a caption. */
 .xray-pause {
   position: absolute;
   top: calc(var(--spacing) * 2);
@@ -1314,15 +1147,12 @@ a:not([class]) { color: var(--color-signal); }
   color: var(--color-signal);
 }
 
-/* Coarse pointers need a 44px target even though the icon stays 32px. */
 @media (pointer: coarse) {
   .xray-pause {
     width: 44px;
     height: 44px;
   }
 }
-
-/* Rows -------------------------------------------------------------------- */
 
 .xray-row {
   display: grid;
@@ -1331,15 +1161,6 @@ a:not([class]) { color: var(--color-signal); }
   align-items: baseline;
 }
 
-/* Each row resolves as the sweep passes its vertical position, so the list
-   cascades rather than arriving at once. --ry is that position; the 10 is the
-   width of the fade in sweep-percent.
-
-   Gated on the card actually animating. The rows are real content, so in the
-   static hold frame -- reduced motion, constrained device, print, and the
-   prerendered HTML -- every row must be present. Keying their opacity to --p
-   unconditionally would have silently dropped the lower rows for exactly the
-   users who cannot see the sweep restore them. */
 .xray-card[data-animating='true'] .xray-row {
   opacity: clamp(0, calc((var(--p) - var(--ry)) / 10), 1);
 }
@@ -1350,7 +1171,6 @@ a:not([class]) { color: var(--color-signal); }
   color: var(--color-chalk-3);
   letter-spacing: 0.1em;
   line-height: 1.4;
-  /* Fixed column, sized from the longest label so values align. */
   min-width: 6.5ch;
 }
 
@@ -1363,13 +1183,6 @@ a:not([class]) { color: var(--color-signal); }
   overflow-wrap: anywhere;
 }
 
-/* Every value is the same size. FOCUS used to be larger and amber; with the
-   colour gone the size bump alone just read as an inconsistency, so the rows
-   are now uniform and the line earns its weight from its position and its
-   wording. */
-
-/* The contact address is a real mailto link. It stays --color-chalk like every
-   other value and signals itself with an underline instead of colour. */
 .xray-row__link {
   color: inherit;
   text-decoration: underline;
@@ -1388,27 +1201,12 @@ a:not([class]) { color: var(--color-signal); }
   text-decoration-color: var(--color-chalk);
 }
 
-/* Below 768px the sweep runs vertically and the label stacks above its value
-   rather than sitting in a fixed-width column. Nothing is truncated to fit:
-   the gap tightens instead, and font sizes never drop below --text-sm. */
-/* Everything that is a property of the card's own box is a container query, so
-   the component holds up wherever it is placed and not only in the one slot the
-   hero grid gives it today. What is left on the viewport below is page
-   composition, not internal layout.
-
-   The row template and the sweep axis cannot join them, and the reason is that
-   the two regimes overlap in inline size: beside the copy the card is
-   clamp(280px, 28vw, 420px), and stacked above it the card is full-width, which
-   at 360-767px viewports is 328-735px. A 340px card is both regimes at once, so
-   no container threshold can tell them apart -- only the viewport can, because
-   the thing being asked is "is the card beside the text or above it". */
 @container xray (max-width: 360px) {
   .xray-layer--structure {
     gap: calc(var(--spacing) * 3);
     padding: calc(var(--spacing) * 4);
   }
 
-  /* One step down, never below --text-sm. */
   .xray-row__label {
     font-size: var(--text-xs);
   }
@@ -1418,8 +1216,6 @@ a:not([class]) { color: var(--color-signal); }
   }
 }
 
-/* A label column costs 6.5ch plus a gap. Below this the value has too little
-   left to hold a line, so the label moves above it. */
 @container xray (max-width: 300px) {
   .xray-row {
     grid-template-columns: 1fr;
@@ -1432,8 +1228,6 @@ a:not([class]) { color: var(--color-signal); }
     width: 100%;
   }
 
-  /* Stacked above the copy, the card is wide and short on travel across, so
-     the sweep runs down it and the rows resolve top to bottom. */
   .xray-row {
     grid-template-columns: 1fr;
     gap: calc(var(--spacing));
@@ -1457,7 +1251,6 @@ a:not([class]) { color: var(--color-signal); }
   }
 }
 
-/* Landscape phone: no full-height hero. */
 @media (orientation: landscape) and (max-height: 500px) {
   .xray-section {
     min-height: 0;
@@ -1471,8 +1264,6 @@ a:not([class]) { color: var(--color-signal); }
   }
 }
 
-/* --- Status ------------------------------------------------------------- */
-
 .status-dot {
   width: 6px;
   height: 6px;
@@ -1484,8 +1275,6 @@ a:not([class]) { color: var(--color-signal); }
 
 .status-dot--idle { background: var(--color-chalk-3); }
 
-/* --- Selection and scrollbar -------------------------------------------- */
-
 ::selection {
   background: var(--color-signal);
   color: var(--color-void);
@@ -1496,27 +1285,18 @@ a:not([class]) { color: var(--color-signal); }
 ::-webkit-scrollbar-thumb { background: var(--color-rule); border-radius: var(--radius-sm); }
 ::-webkit-scrollbar-thumb:hover { background: var(--color-signal); }
 
-/* --- Input and interaction ---------------------------------------------- */
-
-/* No :hover styling on coarse pointers -- it sticks after a tap, and any
-   content behind it would be unreachable by touch. Every hover reveal in the
-   codebase carries a :focus-within twin for exactly this reason. */
 @media (pointer: coarse) {
   a:hover, button:hover, [role="button"]:hover {
     background-color: inherit;
     color: inherit;
   }
 
-  /* Touch targets >= 44x44. */
   a, button, [role="button"], input, textarea, select {
     min-height: 44px;
   }
 
-  /* Inline links inside prose are not tap targets and must not be stretched. */
   p a, li a { min-height: 0; }
 }
-
-/* --- Capability and preference ------------------------------------------ */
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -1531,7 +1311,6 @@ a:not([class]) { color: var(--color-signal); }
   * { backdrop-filter: none !important; }
 }
 
-/* Raise the two lowest-contrast tokens to 7:1 against --color-void. */
 @media (prefers-contrast: more) {
   :root {
     --color-rule: oklch(0.52 0.005 75);
@@ -1546,7 +1325,6 @@ a:not([class]) { color: var(--color-signal); }
 }
 
 @media print {
-  /* Navigation and playback controls carry no meaning on paper. */
   nav, footer, .skip-link, [data-motion-control] { display: none !important; }
   body { background: #fff; color: #000; }
   .panel { border: 1px solid #000; }

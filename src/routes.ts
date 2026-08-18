@@ -1,26 +1,10 @@
-/**
- * The route table, and the single source of truth for per-route metadata.
- *
- * PageMeta writes these into the document from an effect, which covers
- * client-side navigation. That effect cannot run during prerendering, so
- * scripts/prerender.mjs reads the same table and bakes the values straight
- * into each route's static HTML. Both paths therefore agree by construction.
- */
-
 import { PROJECTS } from './constants';
 
 export type RouteMeta = {
   path: string;
-  /** The <title> tag, i.e. the browser tab. Keep these short. */
   title: string;
-  /**
-   * og:title and twitter:title. Link previews have room for context that a tab
-   * label does not, so this is allowed to be longer and more descriptive.
-   * Defaults to `title` when a route has nothing extra to add.
-   */
   shareTitle?: string;
   description: string;
-  /** Written to dist as <file>; Vercel's cleanUrls serves it at `path`. */
   file: string | null;
 };
 
@@ -64,13 +48,6 @@ const PAGE_ROUTES: RouteMeta[] = [
   },
 ];
 
-/**
- * One prerendered detail page per project that has a slug.
- *
- * Derived from PROJECTS rather than hand-listed, so adding a project with a
- * slug adds its route, its meta and its static file in one edit. The
- * portfolio site itself has no slug and therefore no detail page.
- */
 export const PROJECT_ROUTES: RouteMeta[] = PROJECTS.filter((p) => p.slug).map((p) => ({
   path: `/projects/${p.slug}`,
   title: `${p.title} | Arman Khan`,
@@ -79,7 +56,6 @@ export const PROJECT_ROUTES: RouteMeta[] = PROJECTS.filter((p) => p.slug).map((p
   file: `projects/${p.slug}.html`,
 }));
 
-/** Every route the prerenderer walks: the five pages plus the detail pages. */
 export const ROUTES: RouteMeta[] = [...PAGE_ROUTES, ...PROJECT_ROUTES];
 
 const BY_PATH = new Map(ROUTES.map((r) => [r.path, r]));
