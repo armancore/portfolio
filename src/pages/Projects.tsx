@@ -188,6 +188,31 @@ const Projects = () => {
     [types, stacks, statuses]
   );
 
+  // A chip's count is what you would get by selecting it, so it ignores its own
+  // axis and respects the others. Zero means the chip is a dead end.
+  const countFor = useMemo(() => {
+    const matches = (
+      p: Project,
+      t: Set<ProjectType>,
+      st: Set<string>,
+      s: Set<ProjectStatus>
+    ) => {
+      if (t.size && !t.has(p.type)) return false;
+      if (s.size && !s.has(p.status)) return false;
+      if (st.size && !p.tags.some((tag) => st.has(tag.label))) return false;
+      return true;
+    };
+
+    return {
+      type: (t: ProjectType) =>
+        PROJECTS.filter((p) => matches(p, new Set([t]), stacks, statuses)).length,
+      stack: (s: string) =>
+        PROJECTS.filter((p) => matches(p, types, new Set([s]), statuses)).length,
+      status: (s: ProjectStatus) =>
+        PROJECTS.filter((p) => matches(p, types, stacks, new Set([s]))).length,
+    };
+  }, [types, stacks, statuses]);
+
   const reset = () => {
     setTypes(new Set());
     setStacks(new Set());
@@ -258,48 +283,66 @@ const Projects = () => {
           <div className="pj-filters">
             <div className="pj-axis">
               <span className="pj-axis__label">{PROJECTS_PAGE.typeAxisLabel}</span>
-              {typeAxis.map((t) => (
-                <button
-                  key={t}
-                  type="button"
-                  className="pj-toggle"
-                  aria-pressed={types.has(t)}
-                  onClick={() => setTypes((prev) => toggle(prev, t))}
-                >
-                  {t}
-                </button>
-              ))}
+              {typeAxis.map((t) => {
+                const n = countFor.type(t);
+                const on = types.has(t);
+                return (
+                  <button
+                    key={t}
+                    type="button"
+                    className="pj-toggle"
+                    aria-pressed={on}
+                    disabled={!on && n === 0}
+                    title={!on && n === 0 ? PROJECTS_PAGE.noMatchHint : undefined}
+                    onClick={() => setTypes((prev) => toggle(prev, t))}
+                  >
+                    {t}
+                  </button>
+                );
+              })}
             </div>
 
             <div className="pj-axis">
               <span className="pj-axis__label">{PROJECTS_PAGE.stackAxisLabel}</span>
-              {stackAxis.map((s) => (
-                <button
-                  key={s}
-                  type="button"
-                  className="pj-toggle"
-                  aria-pressed={stacks.has(s)}
-                  onClick={() => setStacks((prev) => toggle(prev, s))}
-                >
-                  {s}
-                </button>
-              ))}
+              {stackAxis.map((s) => {
+                const n = countFor.stack(s);
+                const on = stacks.has(s);
+                return (
+                  <button
+                    key={s}
+                    type="button"
+                    className="pj-toggle"
+                    aria-pressed={on}
+                    disabled={!on && n === 0}
+                    title={!on && n === 0 ? PROJECTS_PAGE.noMatchHint : undefined}
+                    onClick={() => setStacks((prev) => toggle(prev, s))}
+                  >
+                    {s}
+                  </button>
+                );
+              })}
             </div>
 
             {statusAxis.length > 1 ? (
               <div className="pj-axis">
                 <span className="pj-axis__label">{PROJECTS_PAGE.statusAxisLabel}</span>
-                {statusAxis.map((s) => (
-                  <button
-                    key={s}
-                    type="button"
-                    className="pj-toggle"
-                    aria-pressed={statuses.has(s)}
-                    onClick={() => setStatuses((prev) => toggle(prev, s))}
-                  >
-                    {s}
-                  </button>
-                ))}
+                {statusAxis.map((s) => {
+                  const n = countFor.status(s);
+                  const on = statuses.has(s);
+                  return (
+                    <button
+                      key={s}
+                      type="button"
+                      className="pj-toggle"
+                      aria-pressed={on}
+                      disabled={!on && n === 0}
+                      title={!on && n === 0 ? PROJECTS_PAGE.noMatchHint : undefined}
+                      onClick={() => setStatuses((prev) => toggle(prev, s))}
+                    >
+                      {s}
+                    </button>
+                  );
+                })}
               </div>
             ) : null}
           </div>

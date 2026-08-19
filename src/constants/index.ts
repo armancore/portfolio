@@ -266,6 +266,7 @@ export const PROJECTS_PAGE = {
   statusAxisLabel: "Status",
   resetLabel: "Reset",
   countSuffix: "shown",
+  noMatchHint: "No projects match this with your current filters",
 
   emptyHeading: "No match",
   emptyBody: "Nothing matches every filter at once. Loosen one, or reset."
