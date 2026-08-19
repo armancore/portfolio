@@ -32,8 +32,8 @@ const Hero = () => (
               fontSize: 'var(--text-lg)',
               color: 'var(--color-chalk-2)',
               lineHeight: 1.7,
-              maxWidth: '46ch',
-              marginBottom: 'calc(var(--spacing) * 12)',
+              maxWidth: '48ch',
+              marginBottom: 'calc(var(--spacing) * 10)',
             }}
           >
             {PERSONAL_INFO.intro}
