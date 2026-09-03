@@ -26,7 +26,7 @@ const SITE_DESCRIPTION =
 const PAGE_ROUTES: RouteMeta[] = [
   {
     path: '/',
-    title: 'Arman Khan — Full-Stack Web Developer in Kathmandu',
+    title: 'Arman Khan — Full-Stack Web Developer',
     shareTitle: 'Arman Khan — Building Full-Stack Web Applications | React, Node.js, PostgreSQL',
     description: SITE_DESCRIPTION,
     file: 'index.html',
