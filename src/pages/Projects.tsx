@@ -188,8 +188,6 @@ const Projects = () => {
     [types, stacks, statuses]
   );
 
-  // A chip's count is what you would get by selecting it, so it ignores its own
-  // axis and respects the others. Zero means the chip is a dead end.
   const countFor = useMemo(() => {
     const matches = (
       p: Project,
