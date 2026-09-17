@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import { HOME_PAGE, PERSONAL_INFO } from '../../constants';
 import { STAGGER, revealBody, staggerContainer } from '../../lib/motion';
+import { eyebrow } from '../../lib/styles';
 import HeroXray from './HeroXray';
 
 const Hero = () => (
@@ -11,8 +12,13 @@ const Hero = () => (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full" style={{ position: 'relative', zIndex: 2 }}>
       <div className="xray-grid">
         <motion.div variants={staggerContainer(STAGGER.loose, 0.05)} initial={false} animate="show">
+          <motion.p variants={revealBody} style={eyebrow}>
+            {HOME_PAGE.heroEyebrow}
+          </motion.p>
+
           <motion.h1
             variants={revealBody}
+            className="hero-title"
             style={{
               fontFamily: 'var(--font-display)',
               fontWeight: 700,
@@ -23,7 +29,7 @@ const Hero = () => (
               margin: '0 0 calc(var(--spacing) * 8)',
             }}
           >
-            {PERSONAL_INFO.name}
+            {HOME_PAGE.heroGreeting} {PERSONAL_INFO.name.replace(' ', ' ')}
           </motion.h1>
 
           <motion.p
