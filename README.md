@@ -1,69 +1,35 @@
 # Arman Khan
 
-## Environment Variables
+Hi, I'm Arman. I build full-stack web applications: the interface people use and the systems behind it. This repo is my portfolio site, live at [armankhan.com.np](https://armankhan.com.np).
 
-Copy `.env.example` to `.env.local` and fill in the values before running locally.
+## About me
 
-| Variable | Required | Description |
-|---|---|---|
-| `VITE_FORMSPREE_FORM_ID` | Yes (for contact form) | Formspree form ID — sign up at formspree.io, create a form, and paste the ID here. Without it the contact form shows a "not configured" notice instead of crashing. |
+I'm from Damak, Jhapa, and I moved to Kathmandu in 2024 to study for a Bachelor of (Hons.) in Information Technology at Texas College of Management and IT. Before that I did +2 Science at Damak Multiple Campus.
 
-IT student from Nepal, currently learning frontend and backend development by building real-world projects and improving every day through hands-on practice.
+I started on the frontend with React, Vite and Tailwind and shipped my first project in 2025. That December I went full-stack with Node, Express, Prisma and PostgreSQL, and I learned it by building real projects instead of following tutorials. The biggest one is [TriLearn](https://github.com/armancore/TriLearn), a learning platform with separate admin, instructor and student roles. It sounded simple until I had to decide what each of those roles was allowed to do.
 
-## About Me
+The bug that taught me the most took a week to find. My password reset let anyone reset anyone's password, because the reset token wasn't tied to the account that asked for it. Nothing crashed and no test failed. The code did exactly what I wrote, and what I wrote was wrong. Since then, the part I care about most is the part nobody sees: logins, data, and APIs that still hold up when the input is wrong.
 
-I am a Bachelor of Information Technology student at Texas College of Management and IT in Kathmandu, originally from Damak, Jhapa. I am focused on growing as a developer through practical work, consistent learning, and building projects that sharpen both my technical and problem-solving skills.
+I'm looking for an internship or junior role where someone more experienced reviews my work. I've learned more from one broken thing than from any tutorial.
 
-Right now, I am mainly working with React, Vite, and Tailwind CSS on the frontend while also learning backend development with Node.js, Express, Prisma, and PostgreSQL. I enjoy turning ideas into clean, usable web experiences and understanding how systems work behind the scenes.
+## What I work with
 
-## What I’m Learning
+- **Frontend:** React, Vite, Tailwind CSS, JavaScript, TypeScript
+- **Backend:** Node.js, Express, Prisma, PostgreSQL, REST APIs, JWT auth
+- **Languages:** JavaScript, Java, C++, Python
+- **Tools:** Git, GitHub, GitHub Actions, ESLint
+- **From my degree:** networking (TCP/IP, DNS), Linux basics, cybersecurity
 
-- Frontend development with React and modern UI practices
-- Backend development with Node.js and Express
-- Database design with PostgreSQL and Prisma
-- API development and integration
-- Git, GitHub, and deployment workflows
-- Networking, cybersecurity, and core IT concepts
+## About this site
 
-## Goals
+I built it from scratch with React 19, Vite 7, Tailwind CSS v4, React Router v7 and Motion. Every route gets prerendered to static HTML through a custom SSR pass, so you can read each page before any JavaScript loads. The design is dark-only and runs on design tokens, and the whole site uses one motion curve. It's hosted on Vercel.
 
-- Keep building projects that solve practical problems
-- Grow into a strong full-stack developer
-- Contribute to real teams and real products
-- Find internship and junior developer opportunities
-- Improve both technical depth and communication skills
+## Get in touch
 
-## Tech I Work With
-
-- React
-- Vite
-- Tailwind CSS
-- JavaScript
-- Node.js
-- Express.js
-- Prisma
-- PostgreSQL
-- Java
-- C++
-- Python
-- Git and GitHub
-
-## A Few Things About Me
-
-- Based in Kathmandu, Nepal
-- Originally from Damak, Jhapa
-- Studying BIT
-- Interested in software engineering, backend systems, and modern web development
-- Open to learning, collaboration, and new opportunities
-
-## Connect With Me
-
-- Email: [arman.techiee@gmail.com](mailto:arman.techiee@gmail.com)
+- Email: [contact@armankhan.com.np](mailto:contact@armankhan.com.np)
 - GitHub: [armancore](https://github.com/armancore)
 - LinkedIn: [techiee-arman](https://www.linkedin.com/in/techiee-arman/)
 - Facebook: [techiee.arman](https://www.facebook.com/techiee.arman)
 - Instagram: [techiee.arman](https://www.instagram.com/techiee.arman)
 
-## Personal Note
-
-I am still early in my journey, but I care a lot about improving, building meaningful things, and becoming the kind of developer who creates real value. Every project is part of that growth.
+I usually reply within a day.
