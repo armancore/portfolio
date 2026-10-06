@@ -137,6 +137,8 @@ export const HERO_XRAY = {
 };
 
 export const HOME_PAGE = {
+  heroEyebrow: "Full-Stack Web Developer",
+  heroGreeting: "Hi, I'm",
   skillsEyebrow: "What I do",
   skillsHeading: "Skills and expertise",
   skillsCta: "Full skills breakdown",

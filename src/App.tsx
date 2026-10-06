@@ -97,14 +97,6 @@ const AppContent = ({ pages }: AppProps) => {
       <Route path="*" element={<pages.NotFound />} />
     </Routes>
   );
-  // The boundary is unconditional. It used to be omitted during prerendering,
-  // which made the server tree one element shallower than the client's and cost
-  // every page a hydration mismatch -- React discarded the prerendered markup
-  // and re-rendered it, which is exactly the work prerendering exists to avoid.
-  //
-  // Rendering it on the server is safe because entry-server passes eagerly
-  // imported pages: the boundary is present but never suspends, so nothing is
-  // streamed into a <template> and onAllReady still fires on the first pass.
   const routeTree = <Suspense fallback={<RouteFallback />}>{routes}</Suspense>;
   const prefersReducedMotion = useReducedMotion();
   const [isConstrainedDevice, setIsConstrainedDevice] = React.useState(false);

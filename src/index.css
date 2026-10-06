@@ -411,7 +411,6 @@ a:not([class]) { color: var(--color-signal); }
     background-color var(--duration-tap) var(--ease-signal);
 }
 
-/* Selected stays dark; it reads by the brighter label, outline and check. */
 .pj-toggle[aria-pressed='true'] {
   background: var(--color-panel-2);
   border-color: var(--color-chalk-2);
@@ -429,7 +428,6 @@ a:not([class]) { color: var(--color-signal); }
   flex-shrink: 0;
 }
 
-/* Hover is the quiet state: just enough lift to read as clickable. */
 @media (hover: hover) {
   .pj-toggle:not(:disabled):hover {
     background: color-mix(in oklab, var(--color-panel) 60%, var(--color-panel-2));
@@ -451,7 +449,6 @@ a:not([class]) { color: var(--color-signal); }
   border-color: var(--color-chalk);
 }
 
-/* No projects match this chip under the current filters. */
 .pj-toggle:disabled {
   background: var(--color-panel);
   border-color: var(--color-rule);
@@ -1034,8 +1031,6 @@ a:not([class]) { color: var(--color-signal); }
   gap: calc(var(--spacing) * 5);
 }
 
-/* Hero actions echo the x-ray card's sweep line: each label is led by a 1px
-   vertical rule, signal on the primary and muted until hover on the secondary. */
 .hero-action {
   position: relative;
   display: inline-flex;
@@ -1052,7 +1047,6 @@ a:not([class]) { color: var(--color-signal); }
   transition: color var(--duration-move) var(--ease-signal);
 }
 
-/* Leading edge: the 1px vertical rule, as on .xray-sweep. */
 .hero-action::before {
   content: '';
   position: absolute;
@@ -1064,7 +1058,6 @@ a:not([class]) { color: var(--color-signal); }
   transition: background-color var(--duration-move) var(--ease-signal);
 }
 
-/* Primary keeps the signal rule and a brighter label; secondary starts muted. */
 .hero-action--primary {
   color: var(--color-chalk);
   font-weight: 600;
@@ -1141,6 +1134,12 @@ a:not([class]) { color: var(--color-signal); }
 @media (max-width: 1023px) {
   .xray-grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-title {
+    white-space: nowrap;
   }
 }
 

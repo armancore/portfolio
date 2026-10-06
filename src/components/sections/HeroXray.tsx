@@ -3,7 +3,7 @@ import { useAnimationFrame } from 'motion/react';
 import { Pause, Play } from 'lucide-react';
 import { HERO_XRAY } from '../../constants';
 import useDeviceProfile from '../../hooks/useDeviceProfile';
-import { BEAT, HOLD_FRAME_SWEEP, sweepAt, sweepOpacityAt } from '../../lib/heroTimeline';
+import { BEAT, sweepAt, sweepOpacityAt } from '../../lib/heroTimeline';
 
 const PHOTO_WEBP = '/profile-960.webp';
 
@@ -28,6 +28,15 @@ const readStoredPause = (): boolean => {
   if (typeof window === 'undefined') return false;
   try {
     return window.sessionStorage.getItem(PAUSE_KEY) === 'true';
+  } catch {
+    return false;
+  }
+};
+
+const writeStoredPause = (paused: boolean): boolean => {
+  try {
+    window.sessionStorage.setItem(PAUSE_KEY, String(paused));
+    return true;
   } catch {
     return false;
   }
@@ -144,25 +153,18 @@ const HeroXray = () => {
   const togglePause = () => {
     setPaused((previous) => {
       const next = !previous;
-      try {
-        window.sessionStorage.setItem(PAUSE_KEY, String(next));
-      } catch {
-        // Preference does not persist; the control still works.
-      }
+      writeStoredPause(next);
       if (!next) startedAt.current = null;
       return next;
     });
   };
-
- 
-  const sweep = !profile.resolved || profile.motionAllowed ? 0 : HOLD_FRAME_SWEEP;
 
   return (
     <div
         ref={cardRef}
         className="xray-card"
         data-animating={ready ? 'true' : undefined}
-        style={{ '--p': sweep } as React.CSSProperties}
+        style={{ '--p': 0 } as React.CSSProperties}
       >
         <div className="xray-layer xray-layer--surface">
           <picture>

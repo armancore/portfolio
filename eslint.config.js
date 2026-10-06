@@ -76,9 +76,6 @@ export default [
     },
   },
   {
-    // Build-time code: the SSR entry and the prerender script run in Node, not
-    // the browser, and neither is part of the client component graph. Listed
-    // last so it overrides the browser-globals blocks above.
     files: ['scripts/**/*.mjs', 'src/entry-server.tsx'],
     languageOptions: {
       ecmaVersion: 'latest',

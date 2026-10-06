@@ -31,9 +31,6 @@ const applyMeta = (html, route, origin) => {
   out = setMeta(out, 'name', 'twitter:description', route.description);
 
   if (route.noindex) {
-    // An error page must not claim to be another URL. It previously
-    // canonicalised to the origin, which told crawlers the 404 was the
-    // homepage. The tag goes entirely, and noindex says what is actually true.
     out = out.replace(/\s*<link\s+rel="canonical"[^>]*>/i, '');
     out = out.replace(/<title>/i, '<meta name="robots" content="noindex, follow" />\n  <title>');
   } else {

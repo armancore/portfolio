@@ -57,5 +57,3 @@ export const sweepOpacityAt = (t: number): number => {
   if (t < BEAT.returnEnd + 0.3) return 1 - (t - BEAT.returnEnd) / 0.3;
   return 0;
 };
-
-export const HOLD_FRAME_SWEEP = 50;

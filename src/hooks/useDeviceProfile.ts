@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 
 export type DeviceProfile = {
-  /** False until the first client effect has measured the environment. */
   resolved: boolean;
   motionAllowed: boolean;
   reducedMotion: boolean;
