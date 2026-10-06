@@ -1,5 +1,3 @@
-export const PHOTO_MODE = "photo";
-
 export interface Tag {
   label: string;
 }
@@ -63,11 +61,6 @@ export interface ContactLink {
   iconName: ContactIconName;
 }
 
-export const ACCENT = {
-  bg: "var(--color-panel-2)",
-  border: "var(--color-rule)",
-  text: "var(--color-chalk-2)",
-};
 
 export const PERSONAL_INFO = {
   name: "Arman Khan",
