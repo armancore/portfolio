@@ -26,6 +26,7 @@ dist-ssr
 # Environment files
 .env
 .env.*
+!.env.example
 public/fonts/
 public/profile-*.avif
 public/profile-hero.*

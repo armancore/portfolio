@@ -135,22 +135,23 @@ const AppContent = ({ pages }: AppProps) => {
         <Navbar />
         <main id="main">
           <ErrorBoundary>
-            {performanceMode ? (
-              routeTree
-            ) : (
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={location.pathname}
-                  data-route-transition
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8, transition: { duration: DURATION.exit, ease: EASE } }}
-                  transition={{ duration: DURATION.move, ease: EASE }}
-                >
-                  {routeTree}
-                </motion.div>
-              </AnimatePresence>
-            )}
+            {/* Same wrapper on every device so hydration keeps the prerendered tree; performance mode only drops the animation. */}
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={location.pathname}
+                data-route-transition
+                initial={performanceMode ? false : { opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={
+                  performanceMode
+                    ? { opacity: 1, transition: { duration: 0 } }
+                    : { opacity: 0, y: -8, transition: { duration: DURATION.exit, ease: EASE } }
+                }
+                transition={performanceMode ? { duration: 0 } : { duration: DURATION.move, ease: EASE }}
+              >
+                {routeTree}
+              </motion.div>
+            </AnimatePresence>
           </ErrorBoundary>
         </main>
         <Footer />
