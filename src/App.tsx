@@ -112,7 +112,7 @@ const AppContent = ({ pages }: AppProps) => {
         navigator as Navigator & { connection?: { saveData?: boolean } }
       ).connection?.saveData;
       const mobileViewport = media?.matches ?? false;
-      setIsConstrainedDevice(Boolean(mobileViewport || saveData));
+      React.startTransition(() => setIsConstrainedDevice(Boolean(mobileViewport || saveData)));
     };
 
     computeConstrained();

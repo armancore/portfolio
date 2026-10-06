@@ -22,7 +22,7 @@ I'm looking for an internship or junior role where someone more experienced revi
 
 ## About this site
 
-I built it from scratch with React 19, Vite 7, Tailwind CSS v4, React Router v7 and Motion. Every route gets prerendered to static HTML through a custom SSR pass, so you can read each page before any JavaScript loads. The design is dark-only and runs on design tokens, and the whole site uses one motion curve. It's hosted on Vercel.
+It's built with React 19, Vite 7, Tailwind CSS v4, React Router v7 and Motion. Every route gets prerendered to static HTML through a custom SSR pass, so you can read each page before any JavaScript loads. The design is dark-only and runs on design tokens, and the whole site uses one motion curve. It's hosted on Vercel.
 
 ## Get in touch
 
