@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { ArrowRight, ExternalLink, Github } from 'lucide-react';
 import { HOME_PAGE, PROJECTS } from '../../constants';
 import { STAGGER, revealBody, revealCard, revealHeading, staggerContainer, viewport } from '../../lib/motion';
@@ -56,7 +56,7 @@ const FeaturedWork = () => {
   );
 
   return (
-    <motion.section
+    <m.section
       variants={staggerContainer(STAGGER.tight)}
       initial="hidden"
       whileInView="show"
@@ -75,16 +75,16 @@ const FeaturedWork = () => {
           }}
         >
           <div>
-            <motion.p variants={revealBody} style={eyebrow}>
+            <m.p variants={revealBody} style={eyebrow}>
               {HOME_PAGE.workEyebrow}
-            </motion.p>
+            </m.p>
             <h2 style={{ ...sectionHeading, overflow: 'hidden', margin: 0 }}>
-              <motion.span variants={revealHeading} style={{ display: 'block' }}>
+              <m.span variants={revealHeading} style={{ display: 'block' }}>
                 {HOME_PAGE.workHeading}
-              </motion.span>
+              </m.span>
             </h2>
           </div>
-          <motion.div variants={revealBody}>
+          <m.div variants={revealBody}>
             <Link
               to="/projects"
               className="link-quiet"
@@ -98,11 +98,11 @@ const FeaturedWork = () => {
             >
               {HOME_PAGE.workCta} <ArrowRight size={13} />
             </Link>
-          </motion.div>
+          </m.div>
         </div>
 
         <div className="home-pair">
-          <motion.article variants={revealCard(0)} className="home-pair__lead panel">
+          <m.article variants={revealCard(0)} className="home-pair__lead panel">
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: 'calc(var(--spacing) * 2)' }}>
               <span style={monoLabel}>{lead.num}</span>
               <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-end', gap: 'calc(var(--spacing) * 1.5)' }}>
@@ -144,9 +144,9 @@ const FeaturedWork = () => {
             </div>
 
             {renderLinks(lead)}
-          </motion.article>
+          </m.article>
 
-          <motion.article variants={revealCard(1)} className="home-pair__second panel">
+          <m.article variants={revealCard(1)} className="home-pair__second panel">
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: 'calc(var(--spacing) * 2)' }}>
               <span style={monoLabel}>{second.num}</span>
               <span style={chip}>{second.type}</span>
@@ -169,10 +169,10 @@ const FeaturedWork = () => {
             </p>
 
             {renderLinks(second)}
-          </motion.article>
+          </m.article>
         </div>
       </div>
-    </motion.section>
+    </m.section>
   );
 };
 

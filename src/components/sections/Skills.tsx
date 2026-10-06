@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import { BENTO_SKILLS, HOME_PAGE } from '../../constants';
 import { STAGGER, revealBody, revealCard, revealHeading, revealRule, staggerContainer, viewport } from '../../lib/motion';
 import { eyebrow, sectionHeading } from '../../lib/styles';
 
 const Skills = () => (
-  <motion.section
+  <m.section
     variants={staggerContainer(STAGGER.tight)}
     initial="hidden"
     whileInView="show"
@@ -15,16 +15,16 @@ const Skills = () => (
     style={{ padding: 'calc(var(--spacing) * 22) 0', borderTop: '1px solid var(--color-rule)' }}
   >
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <motion.p variants={revealBody} style={eyebrow}>
+      <m.p variants={revealBody} style={eyebrow}>
         {HOME_PAGE.skillsEyebrow}
-      </motion.p>
+      </m.p>
       <h2 style={{ ...sectionHeading, overflow: 'hidden', margin: 0 }}>
-        <motion.span variants={revealHeading} style={{ display: 'block' }}>
+        <m.span variants={revealHeading} style={{ display: 'block' }}>
           {HOME_PAGE.skillsHeading}
-        </motion.span>
+        </m.span>
       </h2>
 
-      <motion.div
+      <m.div
         aria-hidden="true"
         variants={revealRule}
         style={{
@@ -37,7 +37,7 @@ const Skills = () => (
 
       <div className="home-band">
         {BENTO_SKILLS.map((s, i) => (
-          <motion.div key={s.title} variants={revealCard(i)} className="home-band__cell">
+          <m.div key={s.title} variants={revealCard(i)} className="home-band__cell">
             <span className="home-band__index" aria-hidden="true">
               {String(i + 1).padStart(2, '0')}
             </span>
@@ -55,17 +55,17 @@ const Skills = () => (
             <p style={{ fontSize: 'var(--text-sm)', color: 'var(--color-chalk-2)', lineHeight: 1.65, margin: 0 }}>
               {s.desc}
             </p>
-          </motion.div>
+          </m.div>
         ))}
       </div>
 
-      <motion.div variants={revealBody} style={{ marginTop: 'calc(var(--spacing) * 8)' }}>
+      <m.div variants={revealBody} style={{ marginTop: 'calc(var(--spacing) * 8)' }}>
         <Link to="/about" className="link-quiet" style={{ display: 'inline-flex', alignItems: 'center', gap: 'calc(var(--spacing) * 2)', fontSize: 'var(--text-sm)', textDecoration: 'none' }}>
           {HOME_PAGE.skillsCta} <ArrowRight size={13} />
         </Link>
-      </motion.div>
+      </m.div>
     </div>
-  </motion.section>
+  </m.section>
 );
 
 export default Skills;

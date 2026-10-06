@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useForm } from '@formspree/react';
 import { AlertCircle, CheckCircle, Send } from 'lucide-react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { CONTACT_FORM_COPY, PERSONAL_INFO } from '../../constants';
 import { revealBody, viewport } from '../../lib/motion';
 
@@ -113,7 +113,7 @@ const ContactFormFields = ({ formId }: { formId: string }) => {
   const messageErrors = fieldErrors('message');
 
   return (
-    <motion.div variants={revealBody} initial="hidden" whileInView="show" viewport={viewport}>
+    <m.div variants={revealBody} initial="hidden" whileInView="show" viewport={viewport}>
       {showSuccess ? (
         <div className="panel p-6 mb-4" role="status">
           <p className="text-verified text-sm font-semibold flex items-center gap-2 mb-2">
@@ -193,19 +193,19 @@ const ContactFormFields = ({ formId }: { formId: string }) => {
           <p className="text-chalk-3 text-xs text-center mt-4">{CONTACT_FORM_COPY.responseNote}</p>
         </form>
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 
 const ContactForm = () => {
   if (!FORMSPREE_FORM_ID) {
     return (
-      <motion.div variants={revealBody} initial="hidden" whileInView="show" viewport={viewport}>
+      <m.div variants={revealBody} initial="hidden" whileInView="show" viewport={viewport}>
         <FormNotice
           heading={CONTACT_FORM_COPY.unconfiguredHeading}
           body={CONTACT_FORM_COPY.unconfiguredBody}
         />
-      </motion.div>
+      </m.div>
     );
   }
 
