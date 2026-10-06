@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import PageMeta from '../components/seo/PageMeta';
 import { NOT_FOUND_COPY } from '../constants';
 import { STAGGER, revealBody, revealHeading, revealRule, staggerContainer } from '../lib/motion';
@@ -11,7 +11,7 @@ const NotFound = () => (
   <div style={{ minHeight: '100svh' }}>
     <PageMeta path="/404" />
 
-    <motion.section
+    <m.section
       variants={staggerContainer(STAGGER.loose, 0.05)}
       initial="hidden"
       animate="show"
@@ -21,9 +21,9 @@ const NotFound = () => (
       }}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.p variants={revealBody} style={{ ...eyebrow, marginBottom: 'calc(var(--spacing) * 3)' }}>
+        <m.p variants={revealBody} style={{ ...eyebrow, marginBottom: 'calc(var(--spacing) * 3)' }}>
           {NOT_FOUND_COPY.label}
-        </motion.p>
+        </m.p>
 
         <h1
           style={{
@@ -37,12 +37,12 @@ const NotFound = () => (
             overflow: 'hidden',
           }}
         >
-          <motion.span variants={revealHeading} style={{ display: 'block' }}>
+          <m.span variants={revealHeading} style={{ display: 'block' }}>
             {NOT_FOUND_COPY.heading}
-          </motion.span>
+          </m.span>
         </h1>
 
-        <motion.p
+        <m.p
           variants={revealBody}
           style={{
             fontSize: 'var(--text-base)',
@@ -53,9 +53,9 @@ const NotFound = () => (
           }}
         >
           {NOT_FOUND_COPY.body}
-        </motion.p>
+        </m.p>
 
-        <motion.div
+        <m.div
           aria-hidden="true"
           variants={revealRule}
           style={{
@@ -66,14 +66,14 @@ const NotFound = () => (
           }}
         />
 
-        <motion.div variants={revealBody}>
+        <m.div variants={revealBody}>
           <Link to="/" style={primaryAction}>
             <ArrowLeft size={15} aria-hidden="true" />
             {NOT_FOUND_COPY.cta}
           </Link>
-        </motion.div>
+        </m.div>
       </div>
-    </motion.section>
+    </m.section>
   </div>
 );
 

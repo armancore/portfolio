@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import PageMeta from '../components/seo/PageMeta';
 import { ABOUT_PAGE, SKILLS } from '../constants';
@@ -21,14 +21,14 @@ const sectionInner = 'max-w-6xl mx-auto px-4 sm:px-6 lg:px-8';
 
 const Heading = ({ children }: { children: React.ReactNode }) => (
   <h2 style={{ ...sectionHeading, overflow: 'hidden', margin: 0 }}>
-    <motion.span variants={revealHeading} style={{ display: 'block' }}>
+    <m.span variants={revealHeading} style={{ display: 'block' }}>
       {children}
-    </motion.span>
+    </m.span>
   </h2>
 );
 
 const Rule = () => (
-  <motion.div
+  <m.div
     aria-hidden="true"
     variants={revealRule}
     style={{
@@ -49,7 +49,7 @@ const Section = ({
   pad: number;
   first?: boolean;
 }) => (
-  <motion.section
+  <m.section
     variants={staggerContainer(STAGGER.loose)}
     initial="hidden"
     {...(first ? { animate: 'show' } : { whileInView: 'show', viewport })}
@@ -60,7 +60,7 @@ const Section = ({
     }}
   >
     <div className={sectionInner}>{children}</div>
-  </motion.section>
+  </m.section>
 );
 
 const About = () => (
@@ -68,9 +68,9 @@ const About = () => (
     <PageMeta path="/about" />
 
     <Section first pad={18}>
-      <motion.p variants={revealBody} style={{ ...eyebrow, marginBottom: 'calc(var(--spacing) * 6)' }}>
+      <m.p variants={revealBody} style={{ ...eyebrow, marginBottom: 'calc(var(--spacing) * 6)' }}>
         {ABOUT_PAGE.eyebrow}
-      </motion.p>
+      </m.p>
       <div className="about-split">
         <h1
           className="about-split__heading"
@@ -85,11 +85,11 @@ const About = () => (
             overflow: 'hidden',
           }}
         >
-          <motion.span variants={revealHeading} style={{ display: 'block' }}>
+          <m.span variants={revealHeading} style={{ display: 'block' }}>
             {ABOUT_PAGE.heading}
-          </motion.span>
+          </m.span>
         </h1>
-        <motion.p
+        <m.p
           variants={revealBody}
           className="about-split__body"
           style={{
@@ -100,25 +100,25 @@ const About = () => (
           }}
         >
           {ABOUT_PAGE.intro}
-        </motion.p>
+        </m.p>
       </div>
     </Section>
 
     <Section pad={28}>
-      <motion.p variants={revealBody} style={eyebrow}>
+      <m.p variants={revealBody} style={eyebrow}>
         {ABOUT_PAGE.storyEyebrow}
-      </motion.p>
+      </m.p>
       <Heading>{ABOUT_PAGE.storyHeading}</Heading>
       <Rule />
 
       {ABOUT_PAGE.story.map((para, i) =>
         i === ABOUT_PAGE.storyEmphasisIndex ? (
-          <motion.div key={i} variants={revealBody} className="about-breakout">
+          <m.div key={i} variants={revealBody} className="about-breakout">
             <span className="about-breakout__marker">{ABOUT_PAGE.storyEmphasisMarker}</span>
             <p className="about-breakout__text">{para}</p>
-          </motion.div>
+          </m.div>
         ) : (
-          <motion.p
+          <m.p
             key={i}
             variants={revealBody}
             style={{
@@ -130,21 +130,21 @@ const About = () => (
             }}
           >
             {para}
-          </motion.p>
+          </m.p>
         )
       )}
     </Section>
 
     <Section pad={18}>
-      <motion.p variants={revealBody} style={eyebrow}>
+      <m.p variants={revealBody} style={eyebrow}>
         {ABOUT_PAGE.skillsEyebrow}
-      </motion.p>
+      </m.p>
       <Heading>{ABOUT_PAGE.skillsHeading}</Heading>
       <Rule />
 
       <dl style={{ margin: 0 }}>
         {SKILLS.map((skill, i) => (
-          <motion.div key={skill.id} variants={revealCard(i)} className="about-spec-row">
+          <m.div key={skill.id} variants={revealCard(i)} className="about-spec-row">
             <dt style={monoLabel}>{skill.title}</dt>
             <dd
               className="about-spec-row__values"
@@ -161,21 +161,21 @@ const About = () => (
             <span style={{ ...monoLabel, textAlign: 'right' }} aria-hidden="true">
               {String(skill.tags.length).padStart(2, '0')}
             </span>
-          </motion.div>
+          </m.div>
         ))}
       </dl>
     </Section>
 
     <Section pad={18}>
-      <motion.p variants={revealBody} style={eyebrow}>
+      <m.p variants={revealBody} style={eyebrow}>
         {ABOUT_PAGE.workEyebrow}
-      </motion.p>
+      </m.p>
       <Heading>{ABOUT_PAGE.workHeading}</Heading>
       <Rule />
 
       <div>
         {ABOUT_PAGE.values.map((v, i) => (
-          <motion.div key={v.title} variants={revealCard(i)} className="about-numbered-row">
+          <m.div key={v.title} variants={revealCard(i)} className="about-numbered-row">
             <span className="about-numbered-row__index" aria-hidden="true">
               {String(i + 1).padStart(2, '0')}
             </span>
@@ -195,22 +195,22 @@ const About = () => (
                 {v.desc}
               </p>
             </div>
-          </motion.div>
+          </m.div>
         ))}
       </div>
     </Section>
 
     <Section pad={32}>
       <div style={{ textAlign: 'center' }}>
-        <motion.p variants={revealBody} style={{ ...eyebrow, marginBottom: 'calc(var(--spacing) * 4)' }}>
+        <m.p variants={revealBody} style={{ ...eyebrow, marginBottom: 'calc(var(--spacing) * 4)' }}>
           {ABOUT_PAGE.aheadEyebrow}
-        </motion.p>
+        </m.p>
         <h2 style={{ ...sectionHeading, overflow: 'hidden', margin: '0 0 calc(var(--spacing) * 8)' }}>
-          <motion.span variants={revealHeading} style={{ display: 'block' }}>
+          <m.span variants={revealHeading} style={{ display: 'block' }}>
             {ABOUT_PAGE.aheadHeading}
-          </motion.span>
+          </m.span>
         </h2>
-        <motion.p
+        <m.p
           variants={revealBody}
           style={{
             maxWidth: '46ch',
@@ -221,15 +221,15 @@ const About = () => (
           }}
         >
           {ABOUT_PAGE.ahead}
-        </motion.p>
+        </m.p>
       </div>
     </Section>
 
     <Section pad={14}>
-      <motion.p variants={revealBody} style={{ ...eyebrow, marginBottom: 'calc(var(--spacing) * 4)' }}>
+      <m.p variants={revealBody} style={{ ...eyebrow, marginBottom: 'calc(var(--spacing) * 4)' }}>
         {ABOUT_PAGE.timelineLabel}
-      </motion.p>
-      <motion.ol variants={revealBody} className="about-tape" style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+      </m.p>
+      <m.ol variants={revealBody} className="about-tape" style={{ listStyle: 'none', margin: 0, padding: 0 }}>
         {ABOUT_PAGE.timeline.map((stop) => (
           <li
             key={stop.year}
@@ -239,16 +239,16 @@ const About = () => (
             <span className="about-tape__label">{stop.label}</span>
           </li>
         ))}
-      </motion.ol>
+      </m.ol>
     </Section>
 
     <Section pad={22}>
-      <motion.p variants={revealBody} style={eyebrow}>
+      <m.p variants={revealBody} style={eyebrow}>
         {ABOUT_PAGE.ctaEyebrow}
-      </motion.p>
+      </m.p>
       <Heading>{ABOUT_PAGE.ctaHeading}</Heading>
 
-      <motion.div
+      <m.div
         variants={revealBody}
         style={{
           marginTop: 'calc(var(--spacing) * 8)',
@@ -263,7 +263,7 @@ const About = () => (
         <Link to="/projects" style={secondaryAction}>
           {ABOUT_PAGE.ctaProjects} <ArrowRight size={14} />
         </Link>
-      </motion.div>
+      </m.div>
     </Section>
   </div>
 );
