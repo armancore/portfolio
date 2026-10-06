@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import { HOME_PAGE } from '../../constants';
 import { STAGGER, revealBody, revealHeading, revealRule, staggerContainer, viewport } from '../../lib/motion';
 import { eyebrow, primaryAction } from '../../lib/styles';
 
 const ContactCta = () => (
-  <motion.section
+  <m.section
     variants={staggerContainer(STAGGER.loose)}
     initial="hidden"
     whileInView="show"
@@ -15,9 +15,9 @@ const ContactCta = () => (
     style={{ padding: 'calc(var(--spacing) * 22) 0', borderTop: '1px solid var(--color-rule)' }}
   >
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" style={{ textAlign: 'center' }}>
-      <motion.p variants={revealBody} style={{ ...eyebrow, marginBottom: 'calc(var(--spacing) * 4)' }}>
+      <m.p variants={revealBody} style={{ ...eyebrow, marginBottom: 'calc(var(--spacing) * 4)' }}>
         {HOME_PAGE.ctaEyebrow}
-      </motion.p>
+      </m.p>
 
       <h2
         style={{
@@ -31,12 +31,12 @@ const ContactCta = () => (
           margin: 0,
         }}
       >
-        <motion.span variants={revealHeading} style={{ display: 'block' }}>
+        <m.span variants={revealHeading} style={{ display: 'block' }}>
           {HOME_PAGE.ctaHeading}
-        </motion.span>
+        </m.span>
       </h2>
 
-      <motion.p
+      <m.p
         variants={revealBody}
         style={{
           fontSize: 'var(--text-base)',
@@ -47,15 +47,15 @@ const ContactCta = () => (
         }}
       >
         {HOME_PAGE.ctaBody}
-      </motion.p>
+      </m.p>
 
-      <motion.div variants={revealBody}>
+      <m.div variants={revealBody}>
         <Link to="/contact" style={{ ...primaryAction, padding: 'calc(var(--spacing) * 3.5) calc(var(--spacing) * 7)' }}>
           {HOME_PAGE.ctaAction} <ArrowRight size={15} />
         </Link>
-      </motion.div>
+      </m.div>
 
-      <motion.div
+      <m.div
         aria-hidden="true"
         variants={revealRule}
         style={{
@@ -66,7 +66,7 @@ const ContactCta = () => (
         }}
       />
     </div>
-  </motion.section>
+  </m.section>
 );
 
 export default ContactCta;

@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { ArrowRight, ArrowUpRight, ExternalLink, Github } from 'lucide-react';
 import PageMeta from '../components/seo/PageMeta';
 import { PROJECTS, PROJECTS_PAGE } from '../constants';
@@ -17,7 +17,7 @@ import {
 } from '../lib/motion';
 import { chip, eyebrow, monoLabel } from '../lib/styles';
 
-const MotionLink = motion.create(Link);
+const MotionLink = m.create(Link);
 
 const STACK_AXIS_SIZE = 5;
 const VISIBLE_TAGS = 3;
@@ -162,11 +162,11 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
   }
 
   return externalHref ? (
-    <motion.a {...motionProps} href={externalHref} target="_blank" rel="noopener noreferrer">
+    <m.a {...motionProps} href={externalHref} target="_blank" rel="noopener noreferrer">
       {body}
-    </motion.a>
+    </m.a>
   ) : (
-    <motion.article {...motionProps}>{body}</motion.article>
+    <m.article {...motionProps}>{body}</m.article>
   );
 };
 
@@ -221,16 +221,16 @@ const Projects = () => {
     <div style={{ minHeight: '100svh' }}>
       <PageMeta path="/projects" />
 
-      <motion.section
+      <m.section
         variants={staggerContainer(STAGGER.loose, 0.05)}
         initial="hidden"
         animate="show"
         style={{ paddingTop: 'calc(var(--spacing) * 16)', paddingBottom: 'calc(var(--spacing) * 10)' }}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.p variants={revealBody} style={{ ...eyebrow, marginBottom: 'calc(var(--spacing) * 3)' }}>
+          <m.p variants={revealBody} style={{ ...eyebrow, marginBottom: 'calc(var(--spacing) * 3)' }}>
             {PROJECTS_PAGE.eyebrow}
-          </motion.p>
+          </m.p>
           <h1
             style={{
               fontFamily: 'var(--font-display)',
@@ -243,11 +243,11 @@ const Projects = () => {
               overflow: 'hidden',
             }}
           >
-            <motion.span variants={revealHeading} style={{ display: 'block' }}>
+            <m.span variants={revealHeading} style={{ display: 'block' }}>
               {PROJECTS_PAGE.heading}
-            </motion.span>
+            </m.span>
           </h1>
-          <motion.p
+          <m.p
             variants={revealBody}
             style={{
               fontSize: 'clamp(var(--text-sm), 3.6vw, var(--text-base))',
@@ -258,13 +258,13 @@ const Projects = () => {
             }}
           >
             {PROJECTS_PAGE.intro}
-          </motion.p>
+          </m.p>
         </div>
-      </motion.section>
+      </m.section>
 
       <section style={{ paddingBottom: 'calc(var(--spacing) * 25)' }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
+          <m.div
             aria-hidden="true"
             variants={revealRule}
             initial="hidden"

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import { HOME_PAGE, PERSONAL_INFO } from '../../constants';
 import { STAGGER, revealBody, staggerContainer } from '../../lib/motion';
@@ -11,12 +11,12 @@ const Hero = () => (
   <section className="xray-section" style={{ position: 'relative' }}>
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full" style={{ position: 'relative', zIndex: 2 }}>
       <div className="xray-grid">
-        <motion.div variants={staggerContainer(STAGGER.loose, 0.05)} initial={false} animate="show">
-          <motion.p variants={revealBody} style={eyebrow}>
+        <m.div variants={staggerContainer(STAGGER.loose, 0.05)} initial={false} animate="show">
+          <m.p variants={revealBody} style={eyebrow}>
             {HOME_PAGE.heroEyebrow}
-          </motion.p>
+          </m.p>
 
-          <motion.h1
+          <m.h1
             variants={revealBody}
             className="hero-title"
             style={{
@@ -30,9 +30,9 @@ const Hero = () => (
             }}
           >
             {HOME_PAGE.heroGreeting} {PERSONAL_INFO.name.replace(' ', ' ')}
-          </motion.h1>
+          </m.h1>
 
-          <motion.p
+          <m.p
             variants={revealBody}
             style={{
               fontSize: 'var(--text-lg)',
@@ -43,9 +43,9 @@ const Hero = () => (
             }}
           >
             {PERSONAL_INFO.intro}
-          </motion.p>
+          </m.p>
 
-          <motion.div variants={revealBody} className="hero-actions">
+          <m.div variants={revealBody} className="hero-actions">
             <Link to="/projects" className="hero-action hero-action--primary">
               {HOME_PAGE.viewProjects}
               <ArrowRight className="hero-action__arrow" size={15} aria-hidden="true" />
@@ -54,8 +54,8 @@ const Hero = () => (
             <Link to="/contact" className="hero-action hero-action--secondary">
               {HOME_PAGE.contactMe}
             </Link>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
 
         <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
           <HeroXray />

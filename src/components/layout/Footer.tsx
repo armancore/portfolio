@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Github, Linkedin, Facebook, Instagram } from 'lucide-react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { NAV_LINKS, SOCIAL_LINKS, PERSONAL_INFO, FOOTER_COPY } from '../../constants';
 import { STAGGER, revealBody, staggerContainer, viewport } from '../../lib/motion';
 
@@ -17,7 +17,7 @@ const Footer = () => {
 
   return (
     <footer className="footer">
-      <motion.div
+      <m.div
         className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"
         variants={staggerContainer(STAGGER.tight)}
         initial="hidden"
@@ -25,7 +25,7 @@ const Footer = () => {
         viewport={viewport}
       >
         <div className="footer-top">
-          <motion.div variants={revealBody} className="footer-identity">
+          <m.div variants={revealBody} className="footer-identity">
             <Link to="/" className="footer-wordmark">
               {PERSONAL_INFO.name}
 
@@ -33,9 +33,9 @@ const Footer = () => {
             </Link>
 
             <p className="footer-blurb">{FOOTER_COPY.blurb}</p>
-          </motion.div>
+          </m.div>
 
-          <motion.div variants={revealBody} className="footer-stacks">
+          <m.div variants={revealBody} className="footer-stacks">
             <nav className="footer-stack" aria-label={FOOTER_COPY.navLabel}>
               {NAV_LINKS.map((link) => (
                 <Link key={link.path} to={link.path} className="footer-link">
@@ -69,10 +69,10 @@ const Footer = () => {
                 );
               })}
             </nav>
-          </motion.div>
+          </m.div>
         </div>
 
-        <motion.p variants={revealBody} className="footer-contact">
+        <m.p variants={revealBody} className="footer-contact">
           <a href={`mailto:${PERSONAL_INFO.email}`} className="footer-email">
             {PERSONAL_INFO.email}
           </a>
@@ -80,14 +80,14 @@ const Footer = () => {
             ·
           </span>
           <span>{PERSONAL_INFO.location}</span>
-        </motion.p>
+        </m.p>
 
-        <motion.div variants={revealBody} className="footer-baseline">
+        <m.div variants={revealBody} className="footer-baseline">
           <p>
             © {year} {PERSONAL_INFO.name}
           </p>
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </footer>
   );
 };

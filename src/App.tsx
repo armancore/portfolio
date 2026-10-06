@@ -1,9 +1,10 @@
 import React, { Suspense, lazy, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import { AnimatePresence, LazyMotion, domAnimation, m } from 'motion/react';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import { DURATION, EASE } from './lib/motion';
+import useDeviceProfile from './hooks/useDeviceProfile';
 
 class ErrorBoundary extends React.Component<
   { children: React.ReactNode },
@@ -98,65 +99,44 @@ const AppContent = ({ pages }: AppProps) => {
     </Routes>
   );
   const routeTree = <Suspense fallback={<RouteFallback />}>{routes}</Suspense>;
-  const prefersReducedMotion = useReducedMotion();
-  const [isConstrainedDevice, setIsConstrainedDevice] = React.useState(false);
-
-  useEffect(() => {
-    const media =
-      typeof window !== 'undefined'
-        ? window.matchMedia('(max-width: 767px), (pointer: coarse)')
-        : null;
-
-    const computeConstrained = () => {
-      const saveData = (
-        navigator as Navigator & { connection?: { saveData?: boolean } }
-      ).connection?.saveData;
-      const mobileViewport = media?.matches ?? false;
-      React.startTransition(() => setIsConstrainedDevice(Boolean(mobileViewport || saveData)));
-    };
-
-    computeConstrained();
-    media?.addEventListener('change', computeConstrained);
-
-    return () => {
-      media?.removeEventListener('change', computeConstrained);
-    };
-  }, []);
-
-  const performanceMode = prefersReducedMotion || isConstrainedDevice;
+  const device = useDeviceProfile();
+  const performanceMode =
+    device.reducedMotion || device.narrowViewport || device.coarsePointer || device.saveData;
 
   return (
-    <div className="min-h-svh bg-void text-chalk-2 relative">
-      <ScrollToTop />
-      <a className="skip-link" href="#main">
-        Skip to content
-      </a>
-      <div style={{ position: 'relative', zIndex: 2 }}>
-        <Navbar />
-        <main id="main">
-          <ErrorBoundary>
-            {/* Same wrapper on every device so hydration keeps the prerendered tree; performance mode only drops the animation. */}
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={location.pathname}
-                data-route-transition
-                initial={performanceMode ? false : { opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={
-                  performanceMode
-                    ? { opacity: 1, transition: { duration: 0 } }
-                    : { opacity: 0, y: -8, transition: { duration: DURATION.exit, ease: EASE } }
-                }
-                transition={performanceMode ? { duration: 0 } : { duration: DURATION.move, ease: EASE }}
-              >
-                {routeTree}
-              </motion.div>
-            </AnimatePresence>
-          </ErrorBoundary>
-        </main>
-        <Footer />
+    <LazyMotion features={domAnimation} strict>
+      <div className="min-h-svh bg-void text-chalk-2 relative">
+        <ScrollToTop />
+        <a className="skip-link" href="#main">
+          Skip to content
+        </a>
+        <div style={{ position: 'relative', zIndex: 2 }}>
+          <Navbar />
+          <main id="main">
+            <ErrorBoundary>
+              {/* Same wrapper on every device so hydration keeps the prerendered tree; performance mode only drops the animation. */}
+              <AnimatePresence mode="wait" initial={false}>
+                <m.div
+                  key={location.pathname}
+                  data-route-transition
+                  initial={performanceMode ? false : { opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={
+                    performanceMode
+                      ? { opacity: 1, transition: { duration: 0 } }
+                      : { opacity: 0, y: -8, transition: { duration: DURATION.exit, ease: EASE } }
+                  }
+                  transition={performanceMode ? { duration: 0 } : { duration: DURATION.move, ease: EASE }}
+                >
+                  {routeTree}
+                </m.div>
+              </AnimatePresence>
+            </ErrorBoundary>
+          </main>
+          <Footer />
+        </div>
       </div>
-    </div>
+    </LazyMotion>
   );
 };
 

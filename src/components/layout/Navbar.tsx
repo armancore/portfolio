@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, m } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import useScrolled from '../../hooks/useScrolled';
 import { NAV_LINKS, NAV_COPY } from '../../constants';
@@ -127,7 +127,7 @@ const Navbar = () => {
 
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.div
+          <m.div
             id={SHEET_ID}
             className="nav-sheet"
             initial={{ opacity: 0 }}
@@ -156,7 +156,7 @@ const Navbar = () => {
             <Link to="/contact" className="nav-sheet__cta" onClick={() => setIsMenuOpen(false)}>
               {NAV_COPY.cta}
             </Link>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </header>

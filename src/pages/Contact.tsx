@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import PageMeta from '../components/seo/PageMeta';
 import ContactForm from '../components/sections/ContactForm';
 import { CONTACT_LINKS, CONTACT_PAGE, CONTACT_SECONDARY } from '../constants';
@@ -18,7 +18,7 @@ const Contact = () => (
   <div style={{ minHeight: '100svh' }}>
     <PageMeta path="/contact" />
 
-    <motion.section
+    <m.section
       variants={staggerContainer(STAGGER.loose, 0.05)}
       initial="hidden"
       animate="show"
@@ -28,9 +28,9 @@ const Contact = () => (
       }}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.p variants={revealBody} style={{ ...eyebrow, marginBottom: 'calc(var(--spacing) * 3)' }}>
+        <m.p variants={revealBody} style={{ ...eyebrow, marginBottom: 'calc(var(--spacing) * 3)' }}>
           {CONTACT_PAGE.eyebrow}
-        </motion.p>
+        </m.p>
         <h1
           style={{
             fontFamily: 'var(--font-display)',
@@ -43,11 +43,11 @@ const Contact = () => (
             overflow: 'hidden',
           }}
         >
-          <motion.span variants={revealHeading} style={{ display: 'block' }}>
+          <m.span variants={revealHeading} style={{ display: 'block' }}>
             {CONTACT_PAGE.heading}
-          </motion.span>
+          </m.span>
         </h1>
-        <motion.p
+        <m.p
           variants={revealBody}
           style={{
             fontSize: 'clamp(var(--text-sm), 3.6vw, var(--text-base))',
@@ -58,13 +58,13 @@ const Contact = () => (
           }}
         >
           {CONTACT_PAGE.intro}
-        </motion.p>
+        </m.p>
       </div>
-    </motion.section>
+    </m.section>
 
     <section style={{ paddingBottom: 'calc(var(--spacing) * 25)' }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
+        <m.div
           aria-hidden="true"
           variants={revealRule}
           initial="hidden"
@@ -84,7 +84,7 @@ const Contact = () => (
           </div>
 
           <aside className="contact-split__direct">
-            <motion.p
+            <m.p
               variants={revealBody}
               initial="hidden"
               whileInView="show"
@@ -92,11 +92,11 @@ const Contact = () => (
               style={{ ...eyebrow, marginBottom: 'calc(var(--spacing) * 5)' }}
             >
               {CONTACT_PAGE.directHeading}
-            </motion.p>
+            </m.p>
 
             <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
               {CONTACT_LINKS.map((link, i) => (
-                <motion.li
+                <m.li
                   key={link.label}
                   variants={revealCard(i)}
                   initial="hidden"
@@ -126,11 +126,11 @@ const Contact = () => (
                       {link.sublabel}
                     </span>
                   </a>
-                </motion.li>
+                </m.li>
               ))}
             </ul>
 
-            <motion.p
+            <m.p
               variants={revealBody}
               initial="hidden"
               whileInView="show"
@@ -146,7 +146,7 @@ const Contact = () => (
                   </a>
                 </React.Fragment>
               ))}
-            </motion.p>
+            </m.p>
           </aside>
         </div>
       </div>

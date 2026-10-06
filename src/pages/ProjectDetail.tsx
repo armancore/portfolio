@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { ArrowLeft, ExternalLink, Github } from 'lucide-react';
 import PageMeta from '../components/seo/PageMeta';
 import NotFound from './NotFound';
@@ -27,7 +27,7 @@ const ProjectDetail = () => {
     <div style={{ minHeight: '100svh' }}>
       <PageMeta path={`/projects/${project.slug}`} />
 
-      <motion.section
+      <m.section
         variants={staggerContainer(STAGGER.loose, 0.05)}
         initial="hidden"
         animate="show"
@@ -37,7 +37,7 @@ const ProjectDetail = () => {
         }}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div variants={revealBody} style={{ marginBottom: 'calc(var(--spacing) * 8)' }}>
+          <m.div variants={revealBody} style={{ marginBottom: 'calc(var(--spacing) * 8)' }}>
             <Link
               to="/projects"
               className="link-quiet"
@@ -52,11 +52,11 @@ const ProjectDetail = () => {
               <ArrowLeft size={13} aria-hidden="true" />
               {PROJECT_DETAIL.back}
             </Link>
-          </motion.div>
+          </m.div>
 
-          <motion.p variants={revealBody} style={{ ...eyebrow, marginBottom: 'calc(var(--spacing) * 3)' }}>
+          <m.p variants={revealBody} style={{ ...eyebrow, marginBottom: 'calc(var(--spacing) * 3)' }}>
             {project.num}
-          </motion.p>
+          </m.p>
 
           <h1
             style={{
@@ -70,12 +70,12 @@ const ProjectDetail = () => {
               overflow: 'hidden',
             }}
           >
-            <motion.span variants={revealHeading} style={{ display: 'block' }}>
+            <m.span variants={revealHeading} style={{ display: 'block' }}>
               {project.title}
-            </motion.span>
+            </m.span>
           </h1>
 
-          <motion.p
+          <m.p
             variants={revealBody}
             style={{
               fontSize: 'var(--text-lg)',
@@ -86,9 +86,9 @@ const ProjectDetail = () => {
             }}
           >
             {project.longDescription}
-          </motion.p>
+          </m.p>
 
-          <motion.div
+          <m.div
             aria-hidden="true"
             variants={revealRule}
             style={{
@@ -99,7 +99,7 @@ const ProjectDetail = () => {
             }}
           />
 
-          <motion.dl variants={revealBody} style={{ margin: 0, maxWidth: '62ch' }}>
+          <m.dl variants={revealBody} style={{ margin: 0, maxWidth: '62ch' }}>
             {rows.map((row) => (
               <div key={row.label} className="about-spec-row">
                 <dt style={monoLabel}>{row.label}</dt>
@@ -118,17 +118,17 @@ const ProjectDetail = () => {
                 <span aria-hidden="true" />
               </div>
             ))}
-          </motion.dl>
+          </m.dl>
 
           {project.badge ? (
-            <motion.div variants={revealBody} style={{ marginTop: 'calc(var(--spacing) * 6)' }}>
+            <m.div variants={revealBody} style={{ marginTop: 'calc(var(--spacing) * 6)' }}>
               <span style={{ ...chip, color: 'var(--color-signal)', borderColor: 'var(--color-signal)' }}>
                 {project.badge}
               </span>
-            </motion.div>
+            </m.div>
           ) : null}
 
-          <motion.div
+          <m.div
             variants={revealBody}
             style={{
               display: 'flex',
@@ -161,9 +161,9 @@ const ProjectDetail = () => {
                 <Github size={14} aria-hidden="true" /> {PROJECT_DETAIL.viewSource}
               </a>
             ) : null}
-          </motion.div>
+          </m.div>
         </div>
-      </motion.section>
+      </m.section>
     </div>
   );
 };
