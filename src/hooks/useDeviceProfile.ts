@@ -44,9 +44,10 @@ const useDeviceProfile = (): DeviceProfile => {
 
       const saveData = nav.connection?.saveData === true;
       const memory = nav.deviceMemory;
-      const lowMemory = typeof memory === 'number' && memory <= 4;
+     
+      const lowMemory = typeof memory === 'number' && memory < 2;
       const cores = navigator.hardwareConcurrency;
-      const lowCores = typeof cores === 'number' && cores <= 4;
+      const lowCores = typeof cores === 'number' && cores <= 2;
 
       const reducedMotion = reducedMotionQuery.matches;
       const shortLandscape = shortLandscapeQuery.matches;
