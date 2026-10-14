@@ -571,7 +571,8 @@ export const PROJECTS: Project[] = [
       "A bus ticketing system, currently in development. Django on the backend, React on the frontend. Not yet deployed.",
     tags: [{ label: "Django" }, { label: "React" }, { label: "Python" }],
     type: "full-stack",
-    status: "in-progress",
+    status: "live",
+    liveUrl: "https://sajilo-bus-neon.vercel.app/",
     githubUrl: "https://github.com/armancore/bus_ticket",
     featured: false
   }
