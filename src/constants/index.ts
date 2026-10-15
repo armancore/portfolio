@@ -78,7 +78,7 @@ export const PERSONAL_INFO = {
     "I build full-stack web applications — the interface people use and the systems behind it. The interesting part is making both hold up when someone uses them in a way you didn't plan for.",
   bio: [
     "I'm a Bachelor of Information Technology student at Texas College of Management and IT in Kathmandu, originally from Damak, Jhapa — a move that traded a small-town pace for a city with a lot more going on.",
-    "I currently focus on frontend web development with React, Vite, and Tailwind CSS while actively learning backend development with Node.js, Express, Prisma, and PostgreSQL by building real projects from scratch. My technical foundation also includes Java, C++, Python, and a strong curiosity for how systems work under the hood.",
+    "I currently focus on frontend web development with React, Next.js, TypeScript, Vite, and Tailwind CSS while actively learning backend development with Node.js, Express, Prisma, and PostgreSQL by building real projects from scratch. My technical foundation also includes Java, C++, Python, and a strong curiosity for how systems work under the hood.",
     "Beyond code, I study networking, cybersecurity fundamentals, and IT infrastructure as part of my degree. I am actively looking for internship and junior developer opportunities where I can contribute real value from day one and keep growing through real-world collaboration."
   ]
 };
@@ -138,9 +138,9 @@ export const HOME_PAGE = {
   workEyebrow: "Featured work",
   workHeading: "Things I have built",
   workCta: "All projects",
-  ctaEyebrow: "Let us work together",
+  ctaEyebrow: "Let's work together",
   ctaHeading: "Have a project in mind?",
-  ctaBody: "Open to internship and junior developer roles. Let us build something great together.",
+  ctaBody: "Open to internship and junior developer roles. Let's build something great together.",
   ctaAction: "Get in touch",
   viewProjects: "View Projects",
   contactMe: "Contact Me"
@@ -148,6 +148,8 @@ export const HOME_PAGE = {
 
 export const TECH_STACK: { icon: string; label: string }[] = [
   { icon: "Atom", label: "React" },
+  { icon: "Layers", label: "Next.js" },
+  { icon: "FileCode", label: "TypeScript" },
   { icon: "Hexagon", label: "Node.js" },
   { icon: "Database", label: "PostgreSQL" },
   { icon: "Triangle", label: "Prisma" },
@@ -156,10 +158,10 @@ export const TECH_STACK: { icon: string; label: string }[] = [
 ];
 
 export const BENTO_SKILLS: { icon: string; title: string; desc: string }[] = [
-  { icon: "Layers", title: "Frontend", desc: "React, Tailwind, Vite pixel-perfect UIs" },
-  { icon: "Cpu", title: "Backend", desc: "Node.js, Express, Prisma, PostgreSQL" },
-  { icon: "Globe", title: "Networking", desc: "TCP/IP, DNS, Linux, Cybersecurity" },
-  { icon: "Code2", title: "Languages", desc: "C++, Java, Python, JavaScript" }
+  { icon: "Layers", title: "Frontend", desc: "React, Next.js and Tailwind CSS — responsive, pixel-perfect interfaces." },
+  { icon: "Cpu", title: "Backend", desc: "Node.js, Express, PostgreSQL and Prisma — REST APIs with JWT auth." },
+  { icon: "Globe", title: "Networking", desc: "TCP/IP, DNS, Linux and cybersecurity fundamentals." },
+  { icon: "Code2", title: "Languages", desc: "JavaScript, TypeScript, Python, Java and C++." }
 ];
 
 export const CONTACT_PAGE = {
@@ -202,15 +204,15 @@ export const ABOUT_PAGE = {
   eyebrow: "Who I am",
   heading: "About",
   intro:
-    "I'm Arman Khan, from Damak and now building software in Kathmandu. Full-stack web applications — React, Node.js, PostgreSQL. The interface people use, and the systems behind it.",
+    "I'm Arman Khan, from Damak and now building software in Kathmandu. Full-stack web applications — React, Next.js, Node.js, PostgreSQL. The interface people use, and the systems behind it.",
 
   storyEyebrow: "How I got here",
   storyHeading: "From +2 Science to the invisible half",
   storyEmphasisIndex: 2,
   storyEmphasisMarker: "01 — the week that changed how I build",
   story: [
-    "I finished +2 Science at Damak Multiple Campus, then moved to Kathmandu in 2024 for a Bachelor of (Hons.) in Information Technology at Texas College of Management and IT. My degree covers software engineering, networking, cybersecurity, databases and research methodology, and I've kept the networking and security side alongside the web work rather than dropping it.",
-    "I started on the frontend with React, Vite and Tailwind, shipped my first project in 2025, and went full-stack that December — Node, Express, Prisma, PostgreSQL — by building real projects rather than following tutorials. Eight are live now. The largest is TriLearn, a student learning platform with separate admin, instructor and student roles, which sounded simple until I had to decide what each of them was allowed to do.",
+    "I finished +2 Science at Damak Multiple Campus, then moved to Kathmandu in 2024 for a Bachelor of Information Technology (Hons.) at Texas College of Management and IT. My degree covers software engineering, networking, cybersecurity, databases and research methodology, and I've kept the networking and security side alongside the web work rather than dropping it.",
+    "I started on the frontend with React, Vite and Tailwind, shipped my first project in 2025, and went full-stack that December — Node, Express, Prisma, PostgreSQL — by building real projects rather than following tutorials. In 2026 I added Next.js the same way. Eleven are live now. The largest is TriLearn, a student learning platform with separate admin, instructor and student roles, which sounded simple until I had to decide what each of them was allowed to do.",
     "One bug there took me a week to find. My password reset let anyone reset anyone's password, because the reset token wasn't tied to the account that requested it. Nothing crashed and no test failed. It worked exactly as written, and what was written was wrong. Deployment taught me the same lesson from the other side: code that runs on my machine is not the same as code that runs.",
     "That's why I care about the invisible half — authentication, data modelling, APIs that hold up when the input is wrong. The interface is what people see; the reasons it doesn't break are what interest me."
   ],
@@ -222,9 +224,9 @@ export const ABOUT_PAGE = {
   workEyebrow: "How I work",
   workHeading: "Three things I hold to",
   values: [
-    { title: "Goal-oriented", desc: "I ship products, not just code." },
-    { title: "Fundamentals first", desc: "CS fundamentals meet modern stacks." },
-    { title: "Team player", desc: "Communication is a core skill." }
+    { title: "Learn by building", desc: "I pick up new tools by making something real with them, not by watching tutorials." },
+    { title: "Fundamentals first", desc: "I learn how the layer underneath works before trusting the one on top." },
+    { title: "Test the edges", desc: "I check what happens when the input is wrong, not just when it's right." }
   ],
 
   aheadEyebrow: "Where I'm going",
@@ -237,8 +239,9 @@ export const ABOUT_PAGE = {
     { year: "2022", label: "+2 Science, Damak" },
     { year: "2024", label: "BIT, Kathmandu" },
     { year: "2025", label: "First shipped project" },
-    { year: "Dec 2025", label: "Full Stack Started" },
-    { year: "2026", label: "Backend systems", now: true }
+    { year: "Dec 2025", label: "Went full-stack" },
+    { year: "2026", label: "Backend systems" },
+    { year: "Jul 2026", label: "Full-stack with Next.js", now: true }
   ],
 
   ctaEyebrow: "Next",
@@ -306,11 +309,10 @@ export const SKILLS: Skill[] = [
     description: "Building responsive, performant user interfaces with modern frameworks.",
     tags: [
       { label: "React 19" },
-      { label: "Vite" },
+      { label: "Next.js" },
       { label: "Tailwind CSS v4" },
-      { label: "JavaScript ES2024" },
-      { label: "HTML5/CSS3" },
-      { label: "Responsive Design" }
+      { label: "HTML5 & CSS3" },
+      { label: "Responsive design" }
     ]
   },
   {
@@ -321,10 +323,10 @@ export const SKILLS: Skill[] = [
     tags: [
       { label: "Node.js" },
       { label: "Express.js" },
-      { label: "Prisma 7" },
       { label: "PostgreSQL" },
+      { label: "Prisma 7" },
       { label: "REST APIs" },
-      { label: "JWT Auth" }
+      { label: "JWT auth" }
     ]
   },
   {
@@ -333,10 +335,11 @@ export const SKILLS: Skill[] = [
     icon: "Code2",
     description: "Multi-paradigm development across systems and application languages.",
     tags: [
-      { label: "C++ (OOP)" },
-      { label: "Java (OOP)" },
+      { label: "JavaScript" },
+      { label: "TypeScript" },
       { label: "Python" },
-      { label: "JavaScript" }
+      { label: "Java (OOP)" },
+      { label: "C++ (OOP)" }
     ]
   },
   {
@@ -360,10 +363,10 @@ export const SKILLS: Skill[] = [
     description: "IT infrastructure fundamentals, networking protocols, and security.",
     tags: [
       { label: "TCP/IP" },
-      { label: "DNS/DHCP" },
+      { label: "DNS & DHCP" },
       { label: "Linux basics" },
       { label: "Cybersecurity" },
-      { label: "Cloud intro" }
+      { label: "Cloud fundamentals" }
     ]
   },
   {
@@ -394,7 +397,7 @@ export const PROJECTS: Project[] = [
       { label: "Express" },
       { label: "PostgreSQL" },
       { label: "Prisma" },
-      { label: "JWT Auth" },
+      { label: "JWT auth" },
       { label: "EdTech" }
     ],
     type: "full-stack",
@@ -407,6 +410,42 @@ export const PROJECTS: Project[] = [
   {
     id: 2,
     num: "02",
+    slug: "sajilo-bus-ticketing",
+    title: "Sajilo Bus Ticketing System",
+    description:
+      "A bus ticketing system with a Django backend and a React frontend, deployed and live.",
+    longDescription:
+      "Sajilo Bus is a bus ticketing system with Django and Python on the backend and React on the frontend. It is deployed and live.",
+    tags: [{ label: "Django" }, { label: "React" }, { label: "Python" }],
+    type: "full-stack",
+    status: "live",
+    liveUrl: "https://sajilo-bus-neon.vercel.app/",
+    githubUrl: "https://github.com/armancore/bus_ticket",
+    featured: false
+  },
+  {
+    id: 3,
+    num: "03",
+    slug: "kiteen",
+    title: "Kiteen",
+    description:
+      "A website for a local shop in Damak, built with Next.js and PostgreSQL and live on its own .com.np domain.",
+    longDescription:
+      "Kiteen is a website for a shop in Damak, Jhapa, built as part of learning full-stack development with Next.js. It runs on Next.js and React, with PostgreSQL as the database behind it, and is deployed at kiteen.com.np.",
+    tags: [
+      { label: "Next.js" },
+      { label: "React" },
+      { label: "PostgreSQL" }
+    ],
+    type: "full-stack",
+    status: "live",
+    liveUrl: "https://kiteen.com.np",
+    githubUrl: "https://github.com/armancore/kiteen",
+    featured: false
+  },
+  {
+    id: 4,
+    num: "04",
     slug: "weather-intelligence-platform",
     title: "Weather Intelligence Platform",
     description: "Real-time weather with temperature, humidity, UV index and air quality, plus search history and forecasts across multiple saved locations.",
@@ -424,8 +463,8 @@ export const PROJECTS: Project[] = [
     featured: false
   },
   {
-    id: 3,
-    num: "03",
+    id: 5,
+    num: "05",
     slug: "movie-rating-discovery-app",
     title: "Movie Rating & Discovery App",
     description: "TMDB-powered movie discovery with a personal 5-star rating system, watchlist management, favorites collection, and advanced search filtering.",
@@ -442,10 +481,10 @@ export const PROJECTS: Project[] = [
     featured: false
   },
   {
-    id: 4,
-    num: "04",
+    id: 6,
+    num: "06",
     slug: "typing-test",
-    title: "Professional Typing Test",
+    title: "Typing Test",
     description: "WPM and accuracy tracking tool with configurable test durations from 30 seconds to 5 minutes, performance analytics, and history tracking.",
     longDescription: "A polished typing speed assessment tool built entirely with React Hooks. Features configurable test durations, real-time WPM calculation, accuracy tracking, and a performance history dashboard. No external dependencies — pure React state management for a snappy, responsive experience.",
     tags: [
@@ -460,8 +499,8 @@ export const PROJECTS: Project[] = [
     featured: false
   },
   {
-    id: 5,
-    num: "05",
+    id: 7,
+    num: "07",
     slug: "nepal-patra",
     title: "Nepal Patra",
     description: "A Nepal-first news reader, built because general aggregators surface almost nothing from Nepal unless you go looking for it by name.",
@@ -479,26 +518,26 @@ export const PROJECTS: Project[] = [
     featured: false
   },
   {
-    id: 6,
-    num: "06",
+    id: 8,
+    num: "08",
     slug: "expense-tracker",
-    title: "Professional Expense Tracker",
-    description: "Full-stack expense tracking application for recording transactions, organizing spending, and monitoring personal finances with a clean professional workflow.",
-    longDescription: "A professional expense tracker built with React and Node.js for managing day-to-day finances in one place. It focuses on practical expense logging, category-based organization, and a streamlined dashboard experience that makes it easier to understand spending patterns over time.",
+    title: "Expense Tracker",
+    description: "Full-stack expense tracking application for recording transactions, organizing spending, and keeping an eye on personal finances.",
+    longDescription: "An expense tracker built with React and Node.js for managing day-to-day finances in one place. It focuses on practical expense logging, category-based organization, and a streamlined dashboard experience that makes it easier to understand spending patterns over time.",
     tags: [
       { label: "React" },
       { label: "Node.js" },
       { label: "Vite" },
     ],
-    type: "tooling",
+    type: "full-stack",
     status: "live",
     liveUrl: "https://expense-tracker-arman.vercel.app/",
     githubUrl: "https://github.com/armancore/expense-tracker",
     featured: false
   },
   {
-    id: 7,
-    num: "07",
+    id: 9,
+    num: "09",
     slug: "articlehub",
     title: "ArticleHub",
     description: "A blog and article platform built with Flask and Jinja, for publishing, editing and browsing written content through a clean web interface.",
@@ -506,7 +545,7 @@ export const PROJECTS: Project[] = [
     tags: [
       { label: "Flask" },
       { label: "Jinja" },
-      { label: "HTML/CSS" },
+      { label: "HTML & CSS" },
       { label: "JavaScript" },
       { label: "Python" }
     ],
@@ -517,8 +556,8 @@ export const PROJECTS: Project[] = [
     featured: false
   },
   {
-    id: 8,
-    num: "08",
+    id: 10,
+    num: "10",
     slug: "taskflow-kanban-manager",
     title: "TaskFlow Kanban Manager",
     description: "A simple Kanban-style task management app with drag-and-drop task movement across columns and priority-based organization for a smooth planning workflow.",
@@ -535,11 +574,10 @@ export const PROJECTS: Project[] = [
     liveUrl: "https://taskflow-arman.vercel.app/",
     githubUrl: "https://github.com/armancore/task-manager.git",
     featured: false
-  }
-,
+  },
   {
-    id: 9,
-    num: "09",
+    id: 11,
+    num: "11",
     slug: "portfolio",
     title: "This Portfolio Website",
     description:
@@ -548,6 +586,7 @@ export const PROJECTS: Project[] = [
       "Built from scratch with React 19, Vite 7 and Tailwind CSS v4. Every route is prerendered to static HTML through a custom SSR pass, so the content is present at first paint rather than after hydration. Dark-only design system driven entirely by design tokens, with a single motion curve across the site.",
     tags: [
       { label: "React 19" },
+      { label: "TypeScript" },
       { label: "Vite 7" },
       { label: "Tailwind CSS v4" },
       { label: "React Router v7" },
@@ -559,26 +598,21 @@ export const PROJECTS: Project[] = [
     githubUrl: "https://github.com/armancore/portfolio",
     featured: false
   }
-,
-  {
-    id: 10,
-    num: "10",
-    slug: "sajilo-bus-ticketing",
-    title: "Sajilo Bus Ticketing System",
-    description:
-      "A bus ticketing system with a Django backend and a React frontend. Currently in development.",
-    longDescription:
-      "A bus ticketing system, currently in development. Django on the backend, React on the frontend. Not yet deployed.",
-    tags: [{ label: "Django" }, { label: "React" }, { label: "Python" }],
-    type: "full-stack",
-    status: "live",
-    liveUrl: "https://sajilo-bus-neon.vercel.app/",
-    githubUrl: "https://github.com/armancore/bus_ticket",
-    featured: false
-  }
 ];
 
 export const TIMELINE: TimelineEntry[] = [
+  {
+    id: 6,
+    year: "Jul 2026–Present",
+    title: "Full-Stack with Next.js",
+    org: "Self-Study / Personal Projects",
+    description: "Learning full-stack development with Next.js by building real websites. The first is Kiteen, a website for a shop in Damak built with Next.js, React and PostgreSQL and live at kiteen.com.np.",
+    tags: [
+      { label: "Next.js" },
+      { label: "React" },
+      { label: "PostgreSQL" }
+    ]
+  },
   {
     id: 1,
     year: "2026–Present",
