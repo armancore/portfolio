@@ -43,15 +43,19 @@ const FeaturedWork = () => {
       ) : (
         <span style={chip}>{p.status || 'In Progress'}</span>
       )}
-      <a
-        href={p.githubUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="link-quiet"
-        style={{ ...monoLabel, display: 'inline-flex', alignItems: 'center', gap: 'calc(var(--spacing))', textDecoration: 'none' }}
-      >
-        <Github size={12} /> GitHub
-      </a>
+      {p.githubUrl ? (
+        <a
+          href={p.githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="link-quiet"
+          style={{ ...monoLabel, display: 'inline-flex', alignItems: 'center', gap: 'calc(var(--spacing))', textDecoration: 'none' }}
+        >
+          <Github size={12} /> GitHub
+        </a>
+      ) : (
+        <span style={monoLabel}>Private client code</span>
+      )}
     </div>
   );
 

@@ -277,7 +277,8 @@ export const PROJECT_DETAIL = {
   stackLabel: "Stack",
   viewLive: "Live demo",
   viewSource: "Source",
-  notDeployed: "Not deployed yet"
+  notDeployed: "Not deployed yet",
+  privateSource: "Private client code"
 };
 
 export const NOT_FOUND_COPY = {
@@ -427,21 +428,25 @@ export const PROJECTS: Project[] = [
     id: 3,
     num: "03",
     slug: "kiteen",
-    title: "Kiteen",
+    title: "Kiteen Nepal",
     description:
-      "A website for a local shop in Damak, built with Next.js and PostgreSQL and live on its own .com.np domain.",
+      "E-commerce store and admin panel for a kids' shop in Damak, live on kiteen.com.np.",
     longDescription:
-      "Kiteen is a website for a shop in Damak, Jhapa, built as part of learning full-stack development with Next.js. It runs on Next.js and React, with PostgreSQL as the database behind it, and is deployed at kiteen.com.np.",
+      "A custom online store for a kids' shop in Damak, Jhapa, with Cash on Delivery, Google sign-in and an admin panel to manage products, orders and categories. Includes festival themes, dark mode and SEO scoring 100 on Lighthouse.",
     tags: [
       { label: "Next.js" },
-      { label: "React" },
-      { label: "PostgreSQL" }
+      { label: "TypeScript" },
+      { label: "PostgreSQL" },
+      { label: "Prisma" },
+      { label: "Tailwind CSS" },
+      { label: "Clerk" }
     ],
     type: "full-stack",
     status: "live",
+    badge: "Client Project",
     liveUrl: "https://kiteen.com.np",
-    githubUrl: "https://github.com/armancore/kiteen",
-    featured: false
+    // No githubUrl: the code belongs to the client and the repository is private
+    featured: true
   },
   {
     id: 4,
