@@ -443,7 +443,6 @@ export const PROJECTS: Project[] = [
     ],
     type: "full-stack",
     status: "live",
-    badge: "Client Project",
     liveUrl: "https://kiteen.com.np",
     // No githubUrl: the code belongs to the client and the repository is private
     featured: true
