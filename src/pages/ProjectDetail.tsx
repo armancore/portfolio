@@ -160,7 +160,9 @@ const ProjectDetail = () => {
               >
                 <Github size={14} aria-hidden="true" /> {PROJECT_DETAIL.viewSource}
               </a>
-            ) : null}
+            ) : (
+              <span style={{ ...monoLabel, alignSelf: 'center' }}>{PROJECT_DETAIL.privateSource}</span>
+            )}
           </m.div>
         </div>
       </m.section>
