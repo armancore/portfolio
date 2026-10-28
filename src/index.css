@@ -1015,6 +1015,22 @@ a:not([class]) { color: var(--color-signal); }
   color: var(--color-chalk-3);
 }
 
+/* Phones switch theme from the sheet; the navbar keeps only the menu button. */
+/* Phones show the theme toggle only beside the close button while the menu is open. */
+.theme-toggle.nav-actions__theme {
+  display: none;
+}
+
+.nav-bar[data-menu-open] .theme-toggle.nav-actions__theme {
+  display: grid;
+}
+
+@media (min-width: 768px) {
+  .theme-toggle.nav-actions__theme {
+    display: grid;
+  }
+}
+
 .nav-sheet__cta {
   display: flex;
   align-items: center;

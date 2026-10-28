@@ -88,7 +88,12 @@ const Navbar = () => {
     path === '/' ? location.pathname === '/' : location.pathname.startsWith(path);
 
   return (
-    <header ref={headerRef} className="nav-bar" data-scrolled={scrolled || undefined}>
+    <header
+      ref={headerRef}
+      className="nav-bar"
+      data-scrolled={scrolled || undefined}
+      data-menu-open={isMenuOpen || undefined}
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="nav-row">
           <Link to="/" className="nav-wordmark">
@@ -114,7 +119,7 @@ const Navbar = () => {
           </nav>
 
           <div className="nav-actions">
-            <ThemeToggle />
+            <ThemeToggle className="nav-actions__theme" />
 
             <button
               ref={toggleRef}

@@ -3,10 +3,10 @@ import { Moon, Sun } from 'lucide-react';
 import { applyTheme, currentTheme } from '../../lib/theme';
 import { NAV_COPY } from '../../constants';
 
-const ThemeToggle = () => (
+const ThemeToggle = ({ className }: { className?: string }) => (
   <button
     type="button"
-    className="theme-toggle"
+    className={className ? `theme-toggle ${className}` : 'theme-toggle'}
     onClick={() => applyTheme(currentTheme() === 'light' ? 'dark' : 'light')}
     aria-label={NAV_COPY.toggleTheme}
     title={NAV_COPY.toggleTheme}
