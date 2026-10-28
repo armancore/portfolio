@@ -53,6 +53,9 @@
   --color-signal:   oklch(0.78 0.145 66);
   --color-verified: oklch(0.76 0.135 158);
   --color-reject:   oklch(0.63 0.170 28);
+  --color-on-signal: oklch(0 0 0);
+  --color-action:    oklch(0.78 0.145 66);
+  --color-on-action: oklch(0 0 0);
 
   --text-xs: 0.75rem;  --text-sm: 0.875rem; --text-base: 1rem;
   --text-lg: 1.25rem;  --text-xl: 1.563rem; --text-2xl: 1.953rem;
@@ -68,6 +71,46 @@
   --duration-move: 240ms;
   --duration-enter: 320ms;
   --duration-stage: 2400ms;
+}
+
+/* Light palette: same token names, so every utility and component follows the switch. */
+:root { color-scheme: dark; }
+
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --color-void:    oklch(0.985 0.006 85);
+  --color-panel:   oklch(0.965 0.007 83);
+  --color-panel-2: oklch(0.935 0.008 80);
+  --color-rule:    oklch(0.86 0.008 78);
+
+  --color-chalk:   oklch(0.20 0.006 75);
+  --color-chalk-2: oklch(0.40 0.008 78);
+  --color-chalk-3: oklch(0.52 0.008 78);
+
+  --color-signal:    oklch(0.55 0.140 60);
+  --color-verified:  oklch(0.52 0.120 158);
+  --color-reject:    oklch(0.52 0.170 28);
+  --color-on-signal: oklch(1 0 0);
+
+  /* Filled buttons go charcoal on cream; amber stays for links, underlines and focus. */
+  --color-action:    oklch(0.20 0.006 75);
+  --color-on-action: oklch(0.985 0.006 85);
+}
+
+:root[data-theme='light'] .panel,
+:root[data-theme='light'] .xray-card {
+  box-shadow:
+    0 1px 2px oklch(0.2 0.01 75 / 0.05),
+    0 4px 16px -6px oklch(0.2 0.01 75 / 0.08);
+}
+
+/* Applied for one frame while switching themes so colors swap instead of animating through grey. */
+.theme-switching,
+.theme-switching *,
+.theme-switching *::before,
+.theme-switching *::after {
+  transition: none !important;
 }
 
 * { box-sizing: border-box; }
@@ -1364,6 +1407,40 @@ a:not([class]) { color: var(--color-signal); }
   }
 }
 
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: calc(var(--spacing) * 11);
+  height: calc(var(--spacing) * 11);
+  flex-shrink: 0;
+  color: var(--color-chalk-2);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: color var(--duration-tap) var(--ease-signal);
+}
+
+@media (hover: hover) {
+  .theme-toggle:hover {
+    color: var(--color-signal);
+  }
+}
+
+.theme-toggle:focus-visible {
+  color: var(--color-signal);
+}
+
+/* Both icons are rendered; CSS picks one so prerendered markup matches any stored theme. */
+.theme-toggle__light { display: none; }
+:root[data-theme='light'] .theme-toggle__light { display: block; }
+:root[data-theme='light'] .theme-toggle__dark { display: none; }
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 1);
+}
+
 .status-dot {
   width: 6px;
   height: 6px;
@@ -1377,7 +1454,7 @@ a:not([class]) { color: var(--color-signal); }
 
 ::selection {
   background: var(--color-signal);
-  color: var(--color-void);
+  color: var(--color-on-signal);
 }
 
 ::-webkit-scrollbar { width: 5px; }
@@ -1415,6 +1492,11 @@ a:not([class]) { color: var(--color-signal); }
   :root {
     --color-rule: oklch(0.52 0.005 75);
     --color-chalk-3: oklch(0.78 0.008 78);
+  }
+
+  :root[data-theme='light'] {
+    --color-rule: oklch(0.62 0.008 78);
+    --color-chalk-3: oklch(0.40 0.008 78);
   }
 }
 

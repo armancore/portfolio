@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { AnimatePresence, m } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import useScrolled from '../../hooks/useScrolled';
+import ThemeToggle from './ThemeToggle';
 import { NAV_LINKS, NAV_COPY } from '../../constants';
 import { DURATION, EASE } from '../../lib/motion';
 
@@ -111,17 +112,21 @@ const Navbar = () => {
             </Link>
           </nav>
 
-          <button
-            ref={toggleRef}
-            type="button"
-            className="nav-toggle"
-            onClick={() => setIsMenuOpen((open) => !open)}
-            aria-label={isMenuOpen ? NAV_COPY.closeMenu : NAV_COPY.openMenu}
-            aria-expanded={isMenuOpen}
-            aria-controls={SHEET_ID}
-          >
-            {isMenuOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
-          </button>
+          <div className="nav-actions">
+            <ThemeToggle />
+
+            <button
+              ref={toggleRef}
+              type="button"
+              className="nav-toggle"
+              onClick={() => setIsMenuOpen((open) => !open)}
+              aria-label={isMenuOpen ? NAV_COPY.closeMenu : NAV_COPY.openMenu}
+              aria-expanded={isMenuOpen}
+              aria-controls={SHEET_ID}
+            >
+              {isMenuOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
+            </button>
+          </div>
         </div>
       </div>
 

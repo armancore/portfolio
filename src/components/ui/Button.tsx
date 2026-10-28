@@ -27,7 +27,7 @@ const Button = ({
   };
 
   const variants = {
-    primary: 'bg-signal text-void hover:bg-signal/90',
+    primary: 'bg-action text-on-action hover:bg-action/90',
     outline: 'border border-rule text-chalk hover:border-signal hover:text-signal',
     ghost: 'text-chalk-2 hover:text-chalk bg-transparent',
     secondary: 'bg-panel border border-rule text-chalk hover:bg-panel-2',

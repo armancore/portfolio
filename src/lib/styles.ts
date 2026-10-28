@@ -48,12 +48,12 @@ export const primaryAction: React.CSSProperties = {
   justifyContent: 'center',
   gap: '8px',
   borderRadius: 'var(--radius-sm)',
-  background: 'var(--color-signal)',
+  background: 'var(--color-action)',
   padding: '13px 24px',
   minHeight: '44px',
   fontSize: 'var(--text-sm)',
   fontWeight: 600,
-  color: 'var(--color-void)',
+  color: 'var(--color-on-action)',
   textDecoration: 'none',
 };
 

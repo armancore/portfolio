@@ -175,11 +175,11 @@ const ContactFormFields = ({ formId }: { formId: string }) => {
           <button
             type="submit"
             disabled={state.submitting}
-            className="w-full flex items-center justify-center gap-2 py-3.5 bg-signal text-void rounded-md font-semibold text-sm transition-colors duration-tap ease-signal hover:bg-signal/90 disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-full flex items-center justify-center gap-2 py-3.5 bg-action text-on-action rounded-md font-semibold text-sm transition-colors duration-tap ease-signal hover:bg-action/90 disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {state.submitting ? (
               <>
-                <span className="w-4 h-4 border-2 border-void/30 border-t-void rounded-full animate-spin" />
+                <span className="w-4 h-4 border-2 border-on-action/30 border-t-on-action rounded-full animate-spin" />
                 {CONTACT_FORM_COPY.submitting}
               </>
             ) : (

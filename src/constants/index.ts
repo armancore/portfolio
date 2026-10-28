@@ -96,7 +96,8 @@ export const NAV_COPY = {
   primaryLabel: "Primary",
   mobileLabel: "Site",
   openMenu: "Open menu",
-  closeMenu: "Close menu"
+  closeMenu: "Close menu",
+  toggleTheme: "Toggle light and dark theme"
 };
 
 export interface HeroRow {
