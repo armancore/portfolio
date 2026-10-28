@@ -100,6 +100,17 @@ export const NAV_COPY = {
   toggleTheme: "Toggle light and dark theme"
 };
 
+// public/resume.pdf is generated from this file's data by `npm run resume`.
+export const RESUME = {
+  label: "Resume",
+  file: "/resume.pdf",
+  downloadName: "Arman-Khan-Resume.pdf",
+  download: "Download resume",
+  contactLabel: "Resume (PDF)",
+  contactSublabel: "One page · download",
+  view: "View in browser"
+};
+
 export interface HeroRow {
   id: string;
   label: string;

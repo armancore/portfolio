@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { m } from 'motion/react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Download } from 'lucide-react';
 import PageMeta from '../components/seo/PageMeta';
-import { ABOUT_PAGE, SKILLS } from '../constants';
+import { ABOUT_PAGE, RESUME, SKILLS } from '../constants';
 import {
   STAGGER,
   revealBody,
@@ -263,6 +263,9 @@ const About = () => (
         <Link to="/projects" style={secondaryAction}>
           {ABOUT_PAGE.ctaProjects} <ArrowRight size={14} />
         </Link>
+        <a href={RESUME.file} download={RESUME.downloadName} style={secondaryAction}>
+          {RESUME.download} <Download size={14} />
+        </a>
       </m.div>
     </Section>
   </div>

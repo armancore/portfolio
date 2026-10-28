@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Github, Linkedin, Facebook, Instagram } from 'lucide-react';
 import { m } from 'motion/react';
-import { NAV_LINKS, SOCIAL_LINKS, PERSONAL_INFO, FOOTER_COPY } from '../../constants';
+import { NAV_LINKS, SOCIAL_LINKS, PERSONAL_INFO, FOOTER_COPY, RESUME } from '../../constants';
 import { STAGGER, revealBody, staggerContainer, viewport } from '../../lib/motion';
 
 const iconMap = {
@@ -42,6 +42,9 @@ const Footer = () => {
                   {link.label}
                 </Link>
               ))}
+              <a href={RESUME.file} download={RESUME.downloadName} className="footer-link">
+                {RESUME.download}
+              </a>
             </nav>
 
             <nav className="footer-stack" aria-label={FOOTER_COPY.socialLabel}>

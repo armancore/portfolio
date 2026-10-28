@@ -2,7 +2,7 @@ import React from 'react';
 import { m } from 'motion/react';
 import PageMeta from '../components/seo/PageMeta';
 import ContactForm from '../components/sections/ContactForm';
-import { CONTACT_LINKS, CONTACT_PAGE, CONTACT_SECONDARY } from '../constants';
+import { CONTACT_LINKS, CONTACT_PAGE, CONTACT_SECONDARY, RESUME } from '../constants';
 import {
   STAGGER,
   revealBody,
@@ -128,6 +128,43 @@ const Contact = () => (
                   </a>
                 </m.li>
               ))}
+              <m.li
+                variants={revealCard(CONTACT_LINKS.length)}
+                initial="hidden"
+                whileInView="show"
+                viewport={viewport}
+                className="contact-row"
+              >
+                <a
+                  href={RESUME.file}
+                  download={RESUME.downloadName}
+                  className="link-quiet"
+                  style={{ textDecoration: 'none', display: 'block' }}
+                >
+                  <span
+                    style={{
+                      display: 'block',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: 'var(--text-sm)',
+                      color: 'var(--color-chalk)',
+                    }}
+                  >
+                    {RESUME.contactLabel}
+                  </span>
+                  <span style={{ ...monoLabel, display: 'block', marginTop: 'calc(var(--spacing))' }}>
+                    {RESUME.contactSublabel}
+                  </span>
+                </a>
+                <a
+                  href={RESUME.file}
+                  target="_blank"
+                  rel="noopener"
+                  className="link-quiet"
+                  style={{ ...monoLabel, display: 'inline-block', marginTop: 'calc(var(--spacing) * 2)' }}
+                >
+                  {RESUME.view} ↗
+                </a>
+              </m.li>
             </ul>
 
             <m.p
