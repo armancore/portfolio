@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, LazyMotion, domAnimation, m } from 'motion/react';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
+import NetworkBackground from './components/layout/NetworkBackground';
 import { DURATION, EASE } from './lib/motion';
 import useDeviceProfile from './hooks/useDeviceProfile';
 
@@ -107,6 +108,7 @@ const AppContent = ({ pages }: AppProps) => {
     <LazyMotion features={domAnimation} strict>
       <div className="min-h-svh bg-void text-chalk-2 relative">
         <ScrollToTop />
+        <NetworkBackground />
         <a className="skip-link" href="#main">
           Skip to content
         </a>

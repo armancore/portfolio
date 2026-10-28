@@ -55,6 +55,9 @@
   --color-reject:   oklch(0.63 0.170 28);
   --color-on-signal: oklch(0 0 0);
   --color-signal-mark: oklch(0.78 0.145 66);
+  --color-network:   oklch(0.60 0.008 78);
+  --network-strength: 1;
+  --network-vignette: 70%;
   --color-action:    oklch(0.78 0.145 66);
   --color-on-action: oklch(0 0 0);
 
@@ -89,12 +92,17 @@
   --color-chalk-2: oklch(0.40 0.008 78);
   --color-chalk-3: oklch(0.52 0.008 78);
 
-  --color-signal:    oklch(0.55 0.140 60);
+  --color-signal:    oklch(0.52 0.140 60);
   --color-verified:  oklch(0.52 0.120 158);
   --color-reject:    oklch(0.52 0.170 28);
   --color-on-signal: oklch(1 0 0);
   /* Small glyphs need more chroma than body links or the amber reads as brown on cream. */
   --color-signal-mark: oklch(0.64 0.18 48);
+  /* Muted grey washes out on cream; a deeper warm tone keeps the network legible but quiet. */
+  --color-network:   oklch(0.40 0.05 55);
+  /* Thin lines on cream need roughly twice the opacity to read like they do on black. */
+  --network-strength: 1.7;
+  --network-vignette: 35%;
 
   /* Filled buttons go charcoal on cream; amber stays for links, underlines and focus. */
   --color-action:    oklch(0.20 0.006 75);
@@ -689,11 +697,38 @@ a:not([class]) { color: var(--color-signal); }
   }
 }
 
+/* Sits between the app's void background and the content layer (z-index 2 in App.tsx). */
+.network-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.network-bg__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.network-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 35%,
+    color-mix(in oklab, var(--color-void) var(--network-vignette), transparent) 75%,
+    var(--color-void) 100%
+  );
+}
+
 .nav-bar {
   position: sticky;
   top: 0;
   z-index: 70;
-  background: var(--color-void);
+  /* Translucent even at the top so the network background runs under it instead of stopping at a hard edge. */
+  background: color-mix(in oklab, var(--color-void) 78%, transparent);
   border-bottom: 1px solid transparent;
   transition:
     border-color var(--duration-move) var(--ease-signal),
