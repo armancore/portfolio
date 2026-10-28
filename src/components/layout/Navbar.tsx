@@ -4,6 +4,7 @@ import { AnimatePresence, m } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import useScrolled from '../../hooks/useScrolled';
 import ThemeToggle from './ThemeToggle';
+import ArmanLogo from './ArmanLogo';
 import { NAV_LINKS, NAV_COPY } from '../../constants';
 import { DURATION, EASE } from '../../lib/motion';
 
@@ -91,7 +92,7 @@ const Navbar = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="nav-row">
           <Link to="/" className="nav-wordmark">
-            {NAV_COPY.wordmark}
+            <ArmanLogo name={NAV_COPY.wordmark} />
           </Link>
 
           <nav className="nav-links" aria-label={NAV_COPY.primaryLabel}>

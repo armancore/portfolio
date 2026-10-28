@@ -54,6 +54,7 @@
   --color-verified: oklch(0.76 0.135 158);
   --color-reject:   oklch(0.63 0.170 28);
   --color-on-signal: oklch(0 0 0);
+  --color-signal-mark: oklch(0.78 0.145 66);
   --color-action:    oklch(0.78 0.145 66);
   --color-on-action: oklch(0 0 0);
 
@@ -92,6 +93,8 @@
   --color-verified:  oklch(0.52 0.120 158);
   --color-reject:    oklch(0.52 0.170 28);
   --color-on-signal: oklch(1 0 0);
+  /* Small glyphs need more chroma than body links or the amber reads as brown on cream. */
+  --color-signal-mark: oklch(0.64 0.18 48);
 
   /* Filled buttons go charcoal on cream; amber stays for links, underlines and focus. */
   --color-action:    oklch(0.20 0.006 75);
@@ -726,12 +729,71 @@ a:not([class]) { color: var(--color-signal); }
   font-family: var(--font-display);
   font-size: var(--text-lg);
   font-weight: 700;
-  letter-spacing: 0.1em;
   line-height: 1;
   text-transform: uppercase;
   text-decoration: none;
   color: var(--color-chalk);
   flex-shrink: 0;
+}
+
+.arman-logo {
+  --logo-ease: cubic-bezier(0.65, 0, 0.25, 1);
+  --logo-duration: 550ms;
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
+  letter-spacing: 0.14em;
+}
+
+.arman-logo__part {
+  display: block;
+  overflow: hidden;
+  /* Room for the mono slash's descender so the clip box never cuts it. */
+  padding-block: 0.12em;
+  margin-block: -0.12em;
+}
+
+.arman-logo__rest {
+  opacity: 1;
+}
+
+.arman-logo__code {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--logo-accent);
+  opacity: 0;
+}
+
+.arman-logo__initial {
+  letter-spacing: 0.14em;
+}
+
+.arman-logo[data-collapsed] .arman-logo__rest { opacity: 0; }
+.arman-logo[data-collapsed] .arman-logo__code { opacity: 1; }
+.arman-logo[data-collapsed] .arman-logo__initial { letter-spacing: 0; }
+/* The mono slash carries wide side bearings; pull it in so "<A/>" reads as one mark. */
+.arman-logo[data-collapsed] .arman-logo__code:last-child { margin-left: -0.08em; }
+
+/* Transitions start only after measuring, so a mid-page reload settles without animating. */
+.arman-logo[data-ready] .arman-logo__part,
+.arman-logo[data-ready] .arman-logo__initial {
+  transition:
+    max-width var(--logo-duration) var(--logo-ease),
+    opacity calc(var(--logo-duration) * 0.6) var(--logo-ease),
+    letter-spacing var(--logo-duration) var(--logo-ease),
+    margin-left var(--logo-duration) var(--logo-ease);
+}
+
+.arman-logo[data-ready][data-collapsed] .arman-logo__code {
+  transition-delay: 0ms, 120ms, 0ms, 0ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arman-logo[data-ready] .arman-logo__part,
+  .arman-logo[data-ready] .arman-logo__initial {
+    transition: none;
+  }
 }
 
 .nav-links {
