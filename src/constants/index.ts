@@ -434,7 +434,7 @@ export const PROJECTS: Project[] = [
     status: "live",
     liveUrl: "https://sajilo-bus-neon.vercel.app/",
     githubUrl: "https://github.com/armancore/bus_ticket",
-    featured: false
+    featured: true
   },
   {
     id: 3,
@@ -457,7 +457,7 @@ export const PROJECTS: Project[] = [
     status: "live",
     liveUrl: "https://kiteen.com.np",
     // No githubUrl: the code belongs to the client and the repository is private
-    featured: true
+    featured: false
   },
   {
     id: 4,
