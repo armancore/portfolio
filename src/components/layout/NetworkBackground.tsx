@@ -5,6 +5,8 @@ type NetworkNode = { x: number; y: number; vx: number; vy: number };
 
 const LINK_DISTANCE = 130;
 const POINTER_DISTANCE = 180;
+const REVEAL_DISTANCE = 280; // node-to-node links strengthen inside this radius of the pointer
+const IDLE_WEB = 0.22; // share of full link strength drawn everywhere, so the web never fully disappears
 const LINK_ALPHA = 0.28;
 const NODE_RADIUS = 1.6;
 const MAX_SPEED = 7; // px per second
@@ -102,13 +104,19 @@ const NetworkBackground = () => {
       ctx.clearRect(0, 0, width, height);
       ctx.lineWidth = 1;
 
+      // Away from the pointer the web is barely there; it strengthens around it.
       for (let i = 0; i < nodes.length; i += 1) {
         const a = nodes[i];
         for (let j = i + 1; j < nodes.length; j += 1) {
           const b = nodes[j];
           const distance = Math.hypot(a.x - b.x, a.y - b.y);
           if (distance >= LINK_DISTANCE) continue;
-          ctx.strokeStyle = rgba(muted, Math.min(1, (1 - distance / LINK_DISTANCE) * LINK_ALPHA * strength));
+          const near = pointer
+            ? 1 - Math.hypot((a.x + b.x) / 2 - pointer.x, (a.y + b.y) / 2 - pointer.y) / REVEAL_DISTANCE
+            : 0;
+          const reveal = Math.max(IDLE_WEB, near);
+          const alpha = (1 - distance / LINK_DISTANCE) * LINK_ALPHA * strength * reveal;
+          ctx.strokeStyle = rgba(muted, Math.min(1, alpha));
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
           ctx.lineTo(b.x, b.y);
