@@ -55,7 +55,46 @@ const applyMeta = (html, route, origin) => {
   return out;
 };
 
+// Lazy page per route, so its chunks can be preloaded instead of found only after the entry runs.
+const PAGE_SOURCES = {
+  '/': 'src/pages/Home.tsx',
+  '/about': 'src/pages/About.tsx',
+  '/projects': 'src/pages/Projects.tsx',
+  '/contact': 'src/pages/Contact.tsx',
+  '/404': 'src/pages/NotFound.tsx',
+};
+
+const pageSource = (path) =>
+  PAGE_SOURCES[path] ?? (path.startsWith('/projects/') ? 'src/pages/ProjectDetail.tsx' : null);
+
+// The page chunk plus every chunk it statically imports, minus what the entry already loads.
+const collectChunks = (manifest, source, entryFiles) => {
+  // A page that other pages also import (NotFound) is keyed by its chunk name, not its source path.
+  const name = source.split('/').pop().replace(/\.tsx$/, '');
+  const key = manifest[source]
+    ? source
+    : Object.keys(manifest).find((k) => manifest[k].name === name && manifest[k].isDynamicEntry);
+  const files = new Set();
+  const visit = (id) => {
+    const chunk = manifest[id];
+    if (!chunk || files.has(chunk.file)) return;
+    files.add(chunk.file);
+    for (const dep of chunk.imports ?? []) visit(dep);
+  };
+  if (key) visit(key);
+  return [...files].filter((file) => !entryFiles.has(file));
+};
+
+const preloadTags = (files) =>
+  files.map((file) => `<link rel="modulepreload" crossorigin href="/${file}">`).join('\n  ');
+
 const main = async () => {
+  const manifestPath = join(dist, '.vite', 'manifest.json');
+  const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
+  const entry = Object.values(manifest).find((chunk) => chunk.isEntry);
+  if (!entry) throw new Error('No entry chunk in the Vite manifest');
+  const entryFiles = new Set([entry.file, ...(entry.imports ?? []).map((key) => manifest[key].file)]);
+
   const { render, ROUTES, SITE_ORIGIN } = await import(
     pathToFileURL(join(ssrDist, 'entry-server.js')).href
   );
@@ -69,10 +108,13 @@ const main = async () => {
     if (!route.file) continue;
 
     const markup = await render(route.path);
-    const html = applyMeta(template, route, SITE_ORIGIN).replace(
-      '<div id="root"></div>',
-      `<div id="root">${markup}</div>`
-    );
+    const source = pageSource(route.path);
+    const chunks = source ? collectChunks(manifest, source, entryFiles) : [];
+    if (source && chunks.length === 0) throw new Error(`No chunks found for ${source}`);
+
+    const html = applyMeta(template, route, SITE_ORIGIN)
+      .replace('</head>', `  ${preloadTags(chunks)}\n</head>`)
+      .replace('<div id="root"></div>', `<div id="root">${markup}</div>`);
 
     const target = join(dist, route.file);
     await mkdir(dirname(target), { recursive: true });
@@ -94,6 +136,8 @@ const main = async () => {
   console.log(`  sitemap    -> dist/sitemap.xml (${indexable.length} urls)`);
 
   await rm(ssrDist, { recursive: true, force: true });
+  // Build metadata only; keep it out of the deployed site.
+  await rm(join(dist, '.vite'), { recursive: true, force: true });
 };
 
 main().catch((error) => {

@@ -60,6 +60,7 @@ const NetworkBackground = () => {
     let pointer: { x: number; y: number } | null = null;
     let frameId: number | null = null;
     let lastTime = 0;
+    let booted = false;
 
     const readColors = () => {
       muted = readToken(probe, '--color-network');
@@ -165,6 +166,7 @@ const NetworkBackground = () => {
 
     // Reduced motion and hidden tabs get a still frame; everything else runs the loop.
     const sync = () => {
+      if (!booted) return;
       if (motionQuery.matches || document.hidden) {
         stop();
         draw();
@@ -198,9 +200,17 @@ const NetworkBackground = () => {
       if (frameId === null) draw();
     });
 
-    readColors();
-    resize();
-    sync();
+    // Wait for an idle moment so the canvas never competes with first paint or hydration.
+    const boot = () => {
+      booted = true;
+      readColors();
+      resize();
+      sync();
+    };
+    const hasIdleCallback = typeof window.requestIdleCallback === 'function';
+    const bootId = hasIdleCallback
+      ? window.requestIdleCallback(boot, { timeout: 2000 })
+      : window.setTimeout(boot, 600);
 
     const root = document.documentElement;
     themeObserver.observe(root, { attributes: true, attributeFilter: ['data-theme'] });
@@ -213,6 +223,8 @@ const NetworkBackground = () => {
     motionQuery.addEventListener('change', sync);
 
     return () => {
+      if (hasIdleCallback) window.cancelIdleCallback(bootId);
+      else window.clearTimeout(bootId);
       stop();
       themeObserver.disconnect();
       window.removeEventListener('resize', handleResize);
