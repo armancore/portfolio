@@ -15,7 +15,7 @@
       try { theme = localStorage.getItem('theme'); } catch (e) {}
       if (theme !== 'light') theme = 'dark';
       document.documentElement.dataset.theme = theme;
-      document.querySelector('meta[name="theme-color"]').content = theme === 'light' ? '#fcfaf6' : '#000000';
+      document.querySelector('meta[name="theme-color"]').content = theme === 'light' ? '#f4eee3' : '#000000';
     })();
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />

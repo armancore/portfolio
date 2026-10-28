@@ -83,37 +83,38 @@
 :root[data-theme='light'] {
   color-scheme: light;
 
-  --color-void:    oklch(0.985 0.006 85);
-  --color-panel:   oklch(0.965 0.007 83);
-  --color-panel-2: oklch(0.935 0.008 80);
-  --color-rule:    oklch(0.86 0.008 78);
+  /* Linen: a sand page with lighter cards so panels lift off it. */
+  --color-void:    oklch(0.95 0.016 80);
+  --color-panel:   oklch(0.98 0.008 82);
+  --color-panel-2: oklch(0.92 0.02 78);
+  --color-rule:    oklch(0.83 0.022 75);
 
-  --color-chalk:   oklch(0.20 0.006 75);
-  --color-chalk-2: oklch(0.40 0.008 78);
-  --color-chalk-3: oklch(0.52 0.008 78);
+  --color-chalk:   oklch(0.20 0.01 70);
+  --color-chalk-2: oklch(0.38 0.012 70);
+  --color-chalk-3: oklch(0.47 0.012 70);
 
-  --color-signal:    oklch(0.52 0.140 60);
-  --color-verified:  oklch(0.52 0.120 158);
-  --color-reject:    oklch(0.52 0.170 28);
+  --color-signal:    oklch(0.50 0.15 48);
+  --color-verified:  oklch(0.46 0.11 158);
+  --color-reject:    oklch(0.48 0.17 28);
   --color-on-signal: oklch(1 0 0);
-  /* Small glyphs need more chroma than body links or the amber reads as brown on cream. */
+  /* Small glyphs need more chroma than body links or the amber reads as brown. */
   --color-signal-mark: oklch(0.64 0.18 48);
-  /* Muted grey washes out on cream; a deeper warm tone keeps the network legible but quiet. */
-  --color-network:   oklch(0.40 0.05 55);
-  /* Thin lines on cream need roughly twice the opacity to read like they do on black. */
-  --network-strength: 1.7;
+  /* Muted grey washes out on sand; a deeper warm tone keeps the network legible but quiet. */
+  --color-network:   oklch(0.55 0.035 62);
+  /* Thin lines on a light page need a little more opacity than on black, but not enough to compete with text. */
+  --network-strength: 1.25;
   --network-vignette: 35%;
 
-  /* Filled buttons go charcoal on cream; amber stays for links, underlines and focus. */
-  --color-action:    oklch(0.20 0.006 75);
-  --color-on-action: oklch(0.985 0.006 85);
+  /* Filled buttons go charcoal on sand; amber stays for links, underlines and focus. */
+  --color-action:    oklch(0.20 0.01 70);
+  --color-on-action: oklch(0.98 0.008 82);
 }
 
 :root[data-theme='light'] .panel,
 :root[data-theme='light'] .xray-card {
   box-shadow:
-    0 1px 2px oklch(0.2 0.01 75 / 0.05),
-    0 4px 16px -6px oklch(0.2 0.01 75 / 0.08);
+    0 1px 2px oklch(0.25 0.02 60 / 0.06),
+    0 4px 16px -6px oklch(0.25 0.02 60 / 0.10);
 }
 
 /* Applied for one frame while switching themes so colors swap instead of animating through grey. */
@@ -1592,8 +1593,8 @@ a:not([class]) { color: var(--color-signal); }
   }
 
   :root[data-theme='light'] {
-    --color-rule: oklch(0.62 0.008 78);
-    --color-chalk-3: oklch(0.40 0.008 78);
+    --color-rule: oklch(0.58 0.02 75);
+    --color-chalk-3: oklch(0.38 0.012 70);
   }
 }
 

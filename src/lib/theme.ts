@@ -1,7 +1,7 @@
 export type Theme = 'light' | 'dark';
 
 const STORAGE_KEY = 'theme';
-const THEME_COLOR: Record<Theme, string> = { light: '#fcfaf6', dark: '#000000' };
+const THEME_COLOR: Record<Theme, string> = { light: '#f4eee3', dark: '#000000' };
 
 // index.html sets data-theme before first paint (dark unless light was chosen); this reads it back.
 export const currentTheme = (): Theme =>
