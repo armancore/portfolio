@@ -1165,6 +1165,8 @@ a:not([class]) { color: var(--color-signal); }
 
 .xray-layer--surface {
   aspect-ratio: 4 / 5;
+  /* Fill the whole card when the structure layer is taller than the 4:5 photo. */
+  height: 100%;
 }
 
 .xray-photo {
