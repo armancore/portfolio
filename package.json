@@ -13,7 +13,8 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "preview": "vite preview",
-    "favicon": "node scripts/favicon.mjs"
+    "favicon": "node scripts/favicon.mjs",
+    "resume": "node scripts/resume.mjs"
   },
   "dependencies": {
     "@fontsource/archivo": "^5.3.0",
