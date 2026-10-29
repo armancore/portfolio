@@ -7,6 +7,8 @@ const LINK_DISTANCE = 130;
 const POINTER_DISTANCE = 180;
 const REVEAL_DISTANCE = 280; // node-to-node links strengthen inside this radius of the pointer
 const IDLE_WEB = 0.22; // share of full link strength drawn everywhere, so the web never fully disappears
+const NEAR_BOOST = 1.8; // links right under the pointer draw this much brighter than a normal link
+const POINTER_LINK_ALPHA = 0.85;
 const LINK_ALPHA = 0.28;
 const NODE_RADIUS = 1.6;
 const MAX_SPEED = 7; // px per second
@@ -115,7 +117,7 @@ const NetworkBackground = () => {
           const near = pointer
             ? 1 - Math.hypot((a.x + b.x) / 2 - pointer.x, (a.y + b.y) / 2 - pointer.y) / REVEAL_DISTANCE
             : 0;
-          const reveal = Math.max(IDLE_WEB, near);
+          const reveal = Math.max(IDLE_WEB, near * NEAR_BOOST);
           const alpha = (1 - distance / LINK_DISTANCE) * LINK_ALPHA * strength * reveal;
           ctx.strokeStyle = rgba(muted, Math.min(1, alpha));
           ctx.beginPath();
@@ -131,7 +133,7 @@ const NetworkBackground = () => {
           : 0;
 
         if (pointer && reach > 0) {
-          ctx.strokeStyle = rgba(accent, Math.min(1, reach * 0.6 * strength));
+          ctx.strokeStyle = rgba(accent, Math.min(1, reach * POINTER_LINK_ALPHA * strength));
           ctx.beginPath();
           ctx.moveTo(node.x, node.y);
           ctx.lineTo(pointer.x, pointer.y);
