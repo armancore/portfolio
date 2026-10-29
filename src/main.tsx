@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App'
 import DeferredVercelTelemetry from './components/analytics/DeferredVercelTelemetry'
+import DeferredGoogleAnalytics from './components/analytics/DeferredGoogleAnalytics'
 
 const rootElement = document.getElementById('root')
 if (!rootElement) throw new Error('Root element #root is missing from index.html')
@@ -14,6 +15,7 @@ const tree = (
       <App />
     </BrowserRouter>
     <DeferredVercelTelemetry />
+    <DeferredGoogleAnalytics />
   </StrictMode>
 )
 
