@@ -28,6 +28,11 @@
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.1.0"
   },
+  "overrides": {
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "^11.0.1"
+    }
+  },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
     "@tailwindcss/vite": "^4.1.0",
